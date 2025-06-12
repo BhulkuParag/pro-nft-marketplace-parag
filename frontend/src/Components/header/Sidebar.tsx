@@ -17,6 +17,8 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import StarIcon from "@mui/icons-material/Star";
+import HomeIcon from "@mui/icons-material/Home";
 
 const drawerWidth = 240;
 const collapsedWidth = 60;
@@ -33,7 +35,7 @@ const ResponsiveDrawer: React.FC = () => {
         <Typography variant="h6" noWrap sx={{ paddingLeft: "60px" }}>
           PolyCruz
         </Typography>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+        {["Home", "Compare"].map((text, index) => (
           <ListItem key={text} disablePadding sx={{ display: "block" }}>
             <ListItemButton
               sx={{
@@ -49,7 +51,7 @@ const ResponsiveDrawer: React.FC = () => {
                   justifyContent: "center",
                 }}
               >
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {index % 2 === 0 ? <HomeIcon /> : <StarIcon />}
               </ListItemIcon>
               <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
