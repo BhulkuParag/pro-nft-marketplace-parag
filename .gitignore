@@ -26,3 +26,5 @@ logs/
 Thumbs.db
 .history
 */.history/
+package-lock.json
+*/package-lock.json
