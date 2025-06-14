@@ -19,6 +19,7 @@ export default function ColorTabs(): JSX.Element {
       <Tabs
         value={value}
         onChange={handleChange}
+        className='border-b border-gray-500'
         textColor="secondary"
         indicatorColor="secondary"
         aria-label="secondary tabs example"

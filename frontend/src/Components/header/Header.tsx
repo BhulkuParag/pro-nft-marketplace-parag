@@ -242,7 +242,7 @@ export default function Header(): JSX.Element {
               />
             </Search>
           </Box>
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ display: { xs: 'none', md: 'flex' },gap: 1 }}>
             <IconButton
               size="large"
               aria-label="toggle theme"
