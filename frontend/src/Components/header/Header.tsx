@@ -170,7 +170,7 @@ export default function Header(): JSX.Element {
   );
 
   return (
-    <Box sx={{ flexGrow: 1, backgroundColor: '#141416' }}>
+    <Box sx={{ flexGrow: 1 }}>
       <AppBar
         position="static"
         sx={{
@@ -178,8 +178,8 @@ export default function Header(): JSX.Element {
           borderBottom: '1px solid #6a7282',
           color: 'text.primary',
           paddingLeft: '55px',
-          width: `calc(100% - ${drawerWidth}px)`,
-          ml: `${drawerWidth}px`,
+          // width: `calc(100% - ${drawerWidth}px)`,
+          // ml: `${drawerWidth}px`,
         }}
       >
         <Toolbar

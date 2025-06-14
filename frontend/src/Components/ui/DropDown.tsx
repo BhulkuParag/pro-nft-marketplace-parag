@@ -62,6 +62,7 @@ import Ethereum from '../Icon/crypto-icon/Ethereum';
 import Polygon from '../Icon/crypto-icon/Polygon';
 import BNBChain from '../Icon/crypto-icon/BNB_chain';
 import Avalanche from '../Icon/crypto-icon/Avalanche';
+import { Padding } from '@mui/icons-material';
 
 // Add the rest of your icons
 
@@ -306,33 +307,34 @@ interface Props {
   onChange?: (event: SelectChangeEvent) => void;
 }
 
-const CustomChainDropdown: React.FC<Props> = ({
-  value = 'Ethereum',
-  onChange,
-}) => {
+const CustomChainDropdown: React.FC<Props> = ({ value, onChange }) => {
   return (
     <FormControl
       fullWidth
       variant="outlined"
       sx={{
-        minWidth: 100,
+        width: '100%',
+        // minWidth: 141,
         '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
       }}
     >
-      {/* <InputLabel id="chain-select-label">Chain</InputLabel> */}
       <Select
-        // label="Chain"
         labelId="chain-select-label"
         value={value}
         size="small"
         name="chain"
         IconComponent={ExpandMoreIcon}
-        defaultValue="Ethereum"
         onChange={onChange}
-        className="border border-gray-500"
         sx={{
+          width: '100%',
           color: 'white',
           backgroundColor: '#141416',
+          border: '1px solid #6a7282',
+        }}
+        SelectDisplayProps={{
+          style: {
+            paddingLeft: 5,
+          },
         }}
         MenuProps={{
           PaperProps: {
@@ -362,14 +364,7 @@ const CustomChainDropdown: React.FC<Props> = ({
           >
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <span>{icon}</span>
-              <Typography
-                sx={{
-                  color: 'white',
-                  fontSize: 14,
-                }}
-              >
-                {label}
-              </Typography>
+              <span className="text-white text-sm">{label}</span>
             </Box>
           </MenuItem>
         ))}
