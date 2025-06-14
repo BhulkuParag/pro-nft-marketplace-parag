@@ -1,8 +1,9 @@
 import { Box } from '@mui/material';
 import Header from '../Components/header/Header';
 import Sidebar from '../Components/header/Sidebar';
-import SlideCard from '../Components/ui/SlideCard';
+import SliedCard from '../Components/ui/SliedCard';
 import ColorTabs from '../Components/ui/Tab';
+import { MyGrid } from '../Components/ui/Table';
 
 // type Props = {};
 // const sidebarWidth = 240;
@@ -47,13 +48,10 @@ const Home = () => {
           }}
         >
           <Box>
-            <SlideCard />
-            <ColorTabs />
-          </Box>
-          {/* <Box>
             <SliedCard />
             <ColorTabs />
-          </Box> */}
+          </Box>
+          <MyGrid />
         </Box>
       </Box>
     </Box>
