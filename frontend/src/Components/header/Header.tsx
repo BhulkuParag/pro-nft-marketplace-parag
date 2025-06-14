@@ -63,6 +63,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+const drawerWidth = 61;
+
 // const ShortcutKey = styled('div')(({ theme }) => ({
 //   backgroundColor: alpha('#ffffff', 0.1),
 //   padding: '2px 8px',
@@ -175,6 +177,8 @@ export default function Header(): JSX.Element {
           border: '1px solid #353945',
           color: 'text.primary',
           paddingLeft: '45px',
+          width: `calc(100% - ${drawerWidth}px)`,
+          ml: `${drawerWidth}px`,
         }}
       >
         <Toolbar>

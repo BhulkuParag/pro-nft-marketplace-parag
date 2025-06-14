@@ -3,6 +3,7 @@ import Header from '../Components/header/Header';
 import Sidebar from '../Components/header/Sidebar';
 import SliedCard from '../Components/ui/SlideCard';
 import ColorTabs from '../Components/ui/Tab';
+import { MyGrid } from '../Components/ui/Table';
 
 // type Props = {};
 // const sidebarWidth = 240;
@@ -50,10 +51,7 @@ const Home = () => {
             <SliedCard />
             <ColorTabs />
           </Box>
-          {/* <Box>
-            <SliedCard />
-            <ColorTabs />
-          </Box> */}
+          <MyGrid />
         </Box>
       </Box>
     </Box>
