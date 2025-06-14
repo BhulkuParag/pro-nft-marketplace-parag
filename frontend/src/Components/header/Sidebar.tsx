@@ -26,7 +26,7 @@ const sideBar: React.FC = () => {
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          
+
           gap: '10px',
           marginTop: 2,
         }}
@@ -40,10 +40,12 @@ const sideBar: React.FC = () => {
         </div>
 
         {['Home', 'Compare'].map((text, index) => (
-          <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+          <ListItem key={text} disablePadding sx={{}}>
             <ListItemButton
               sx={{
                 minHeight: 48,
+                display: 'flex',
+                gap: '10px',
                 justifyContent: open ? 'initial' : 'center',
                 px: 2.5,
                 '&:hover': {
@@ -56,6 +58,8 @@ const sideBar: React.FC = () => {
                 sx={{
                   minWidth: 0,
                   // mr: open ? 3 : 'auto',
+                  display: 'flex',
+                  flexDirection: 'column',
                   justifyContent: 'center',
                 }}
               >
