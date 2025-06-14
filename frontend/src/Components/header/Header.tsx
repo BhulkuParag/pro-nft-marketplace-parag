@@ -23,6 +23,7 @@ import Select, { type SelectChangeEvent } from '@mui/material/Select';
 import { useThemeMode } from '../../utils/MuiTheme';
 
 import { FormControl, InputLabel } from '@mui/material';
+import CustomDropdown from '../ui/DropDown';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -179,7 +180,8 @@ export default function Header(): JSX.Element {
       >
         <Toolbar>
           <Box sx={{ minWidth: 130 }}>
-            <FormControl fullWidth>
+            <CustomDropdown />
+            {/* <FormControl fullWidth>
               <InputLabel
                 id="demo-simple-select-label"
                 sx={
@@ -215,7 +217,7 @@ export default function Header(): JSX.Element {
                 <MenuItem value={20}>Twenty</MenuItem>
                 <MenuItem value={30}>Thirty</MenuItem>
               </Select>
-            </FormControl>
+            </FormControl> */}
           </Box>
           <Box
             sx={{
