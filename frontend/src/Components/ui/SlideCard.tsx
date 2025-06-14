@@ -56,9 +56,9 @@ export default function SliedCard() {
           delay: 2500,
           disableOnInteraction: false,
         }}
-        pagination={{
-          clickable: true,
-        }}
+        // pagination={{
+        //   clickable: true,
+        // }}
         modules={[Autoplay, Pagination]}
       >
         {carouselItems.map((item, idx) => (
