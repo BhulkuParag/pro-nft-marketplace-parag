@@ -3,6 +3,8 @@ import './App.css';
 // import ResponsiveDrawer from "./Components/ui/Sidebar";
 import { Routes, Route } from 'react-router-dom';
 import Home from './Page/Home';
+import { Box } from '@mui/material';
+import MuiTheme from './utils/MuiTheme';
 
 const routes = [{ path: '/', component: <Home /> }];
 
@@ -11,13 +13,17 @@ const App = () => {
     <>
       {/* <ResponsiveDrawer />
       <PrimarySearchAppBar /> */}
-      <div className="w-screen h-screen max-h-screen">
-        <Routes>
-          {routes.map((route, i) => (
-            <Route key={i} path={route.path} element={route.component} />
-          ))}
-        </Routes>
-      </div>
+      <Box sx={{ backgroundColor: 'background.default' }}>
+        <div className="w-screen h-screen max-h-screen">
+          <MuiTheme>
+            <Routes>
+              {routes.map((route, i) => (
+                <Route key={i} path={route.path} element={route.component} />
+              ))}
+            </Routes>
+          </MuiTheme>
+        </div>
+      </Box>
     </>
   );
 };

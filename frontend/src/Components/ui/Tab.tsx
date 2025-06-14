@@ -15,7 +15,7 @@ export default function ColorTabs(): JSX.Element {
   };
 
   return (
-    <Box sx={{ width: '100%', marginLeft: '75px' }}>
+    <Box sx={{ width: '100%' }}>
       <Tabs
         value={value}
         onChange={handleChange}

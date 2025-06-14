@@ -4,12 +4,10 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
@@ -17,8 +15,14 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import type { JSX } from '@emotion/react/jsx-runtime';
 import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 import Button from '@mui/material/Button';
+// import DropDown from '../ui/DropDown';
+import Select, { type SelectChangeEvent } from '@mui/material/Select';
+import { useThemeMode } from '../../utils/MuiTheme';
+
+import { FormControl, InputLabel } from '@mui/material';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -70,7 +74,10 @@ const drawerWidth = 61;
 //   marginLeft: theme.spacing(1),
 // }));
 
-export default function PrimarySearchAppBar(): JSX.Element {
+export default function Header(): JSX.Element {
+  const [age, setAge] = React.useState('');
+  const { mode, toggleTheme } = useThemeMode();
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
@@ -93,6 +100,10 @@ export default function PrimarySearchAppBar(): JSX.Element {
 
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setAge(event.target.value as string);
   };
 
   const menuId = 'primary-search-account-menu';
@@ -158,32 +169,55 @@ export default function PrimarySearchAppBar(): JSX.Element {
   );
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ flexGrow: 1 }}>
       <AppBar
-        position="fixed"
-        sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
+        position="static"
+        sx={{
+          backgroundColor: 'secondary.main',
+          border: '1px solid #353945',
+          color: 'text.primary',
+          paddingLeft: '45px',
+        }}
       >
         <Toolbar>
-          {/* <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton> */}
-          <Box sx={{ paddingLeft: '50px' }}>
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{
-                display: { xs: 'none', sm: 'block' },
-              }}
-            >
-              MUI
-            </Typography>
+          <Box sx={{ minWidth: 130 }}>
+            <FormControl fullWidth>
+              <InputLabel
+                id="demo-simple-select-label"
+                sx={
+                  {
+                    // color: '#fff',
+                  }
+                }
+              >
+                Age
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={age}
+                // label="Age"
+                IconComponent={() => null}
+                onChange={handleChange}
+                sx={{
+                  color: 'text.primary',
+                  border: '1px solid #353945 ',
+                  '& .MuiOutlinedInput-notchedOutline': {
+                    borderColor: '#353945',
+                  },
+                  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                    borderColor: '#353945', // Prevent border color change on focus
+                  },
+                  '&.Mui-focused': {
+                    backgroundColor: 'inherit', // Prevent background color change on focus
+                  },
+                }}
+              >
+                <MenuItem value={10}>Ten</MenuItem>
+                <MenuItem value={20}>Twenty</MenuItem>
+                <MenuItem value={30}>Thirty</MenuItem>
+              </Select>
+            </FormControl>
           </Box>
           <Box
             sx={{
@@ -207,11 +241,12 @@ export default function PrimarySearchAppBar(): JSX.Element {
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton
               size="large"
-              aria-label="show 4 new mails"
+              aria-label="toggle theme"
               color="inherit"
+              onClick={toggleTheme}
             >
               <Badge color="error">
-                <LightModeIcon />
+                {mode === 'dark' ? <DarkModeIcon /> : <LightModeIcon />}
               </Badge>
             </IconButton>
             <IconButton
@@ -223,9 +258,17 @@ export default function PrimarySearchAppBar(): JSX.Element {
                 <NotificationsIcon />
               </Badge>
             </IconButton>
-            <Box sx={{ padding: '2px 1px 2px 1px' }}>
-              <Button variant="contained"> Connect </Button>
-            </Box>
+
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: '#fff',
+                color: '#000',
+              }}
+            >
+              Connect
+            </Button>
+
             <IconButton
               size="large"
               edge="end"

@@ -1,35 +1,59 @@
-import { Margin, Padding } from '@mui/icons-material';
+import { Box } from '@mui/material';
 import Header from '../Components/header/Header';
 import Sidebar from '../Components/header/Sidebar';
-import SliedCard from '../Components/SliedCard';
-import Tab from '../Components/ui/Tab';
-import Box from '@mui/material/Box';
-import { MyGrid } from '../Components/ui/Table';
+import SliedCard from '../Components/ui/SliedCard';
+import ColorTabs from '../Components/ui/Tab';
 
-type Props = {};
-
-const Home = (props: Props) => {
+// type Props = {};
+// const sidebarWidth = 240;
+const Home = () => {
   return (
     <Box
       sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        height: '100vh',
-        width: '100%',
+        width: '100vw',
+        minHeight: '100vh',
+        backgroundColor: 'background.default',
         position: 'relative',
       }}
     >
-      <Box sx={{ position: 'absolute', width: '100%', zIndex: 1200 }}>
+      {/* Sidebar at the top, fixed */}
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          zIndex: 1200,
+        }}
+      >
         <Sidebar />
       </Box>
-      <Box>
+
+      <Box
+        sx={{
+          width: '100%',
+        }}
+      >
         <Header />
-        <Box sx={{ paddingLeft: '70px', paddingTop: '10px' }}>
-          <SliedCard />
-        </Box>
-        <Box style={{ paddingleft: '50px' }}>
-          <h1>AG Grid Demo</h1>
-          <MyGrid />
+        <Box
+          sx={{
+            paddingLeft: '80px',
+            width: '100%',
+            display: 'grid',
+            alignItems: 'center',
+            gridtemplatecolumns: 'repeat(2, minmax(0, 1fr))',
+            gap: '15px',
+            paddingTop: '10px',
+          }}
+        >
+          <Box>
+            <SliedCard />
+            <ColorTabs />
+          </Box>
+          {/* <Box>
+            <SliedCard />
+            <ColorTabs />
+          </Box> */}
         </Box>
       </Box>
     </Box>
