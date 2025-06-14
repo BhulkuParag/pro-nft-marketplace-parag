@@ -176,7 +176,7 @@ export default function Header(): JSX.Element {
           backgroundColor: 'secondary.main',
           border: '1px solid #353945',
           color: 'text.primary',
-          paddingLeft: '45px',
+          // paddingLeft: '45px',
           width: `calc(100% - ${drawerWidth}px)`,
           ml: `${drawerWidth}px`,
         }}
