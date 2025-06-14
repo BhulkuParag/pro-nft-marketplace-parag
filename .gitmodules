@@ -1,0 +1,9 @@
+[submodule "frontend/@ui-component"]
+	path = frontend/@ui-component
+	url = git@github.com:Polycruz/ui-component.git
+[submodule "backend/@be-utils"]
+	path = backend/@be-utils
+	url = git@github.com:Polycruz/be-utils.git
+[submodule "backend/@vendor"]
+	path = backend/@vendor
+	url = git@github.com:Polycruz/be-vendors.git
