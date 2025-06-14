@@ -1,11 +1,11 @@
-import * as React from "react";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Box from "@mui/material/Box";
-import type { JSX } from "@emotion/react/jsx-runtime";
+import * as React from 'react';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+import type { JSX } from '@emotion/react/jsx-runtime';
 
 export default function ColorTabs(): JSX.Element {
-  const [value, setValue] = React.useState<string>("one");
+  const [value, setValue] = React.useState<string>('one');
 
   const handleChange = (
     event: React.SyntheticEvent,
@@ -15,7 +15,7 @@ export default function ColorTabs(): JSX.Element {
   };
 
   return (
-    <Box sx={{ width: "100%", marginLeft: "75px" }}>
+    <Box sx={{ width: '100%' }}>
       <Tabs
         value={value}
         onChange={handleChange}
