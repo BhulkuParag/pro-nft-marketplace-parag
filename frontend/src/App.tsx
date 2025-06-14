@@ -5,8 +5,12 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './Page/Home';
 import { Box } from '@mui/material';
 import MuiTheme from './utils/MuiTheme';
+import CollectionOverview from './Components/CollectionOverview/CollectionOverview';
 
-const routes = [{ path: '/', component: <Home /> }];
+const routes = [
+  { path: '/', component: <Home /> },
+  { path: '/overview', component: <CollectionOverview /> },
+];
 
 const App = () => {
   return (
