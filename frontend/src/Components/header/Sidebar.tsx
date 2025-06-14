@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 import {
   AppBar,
   Box,
@@ -13,12 +13,10 @@ import {
   ListItemText,
   Toolbar,
   Typography,
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
-import StarIcon from "@mui/icons-material/Star";
-import HomeIcon from "@mui/icons-material/Home";
+} from '@mui/material';
+
+import StarIcon from '@mui/icons-material/Star';
+import HomeIcon from '@mui/icons-material/Home';
 
 const drawerWidth = 240;
 const collapsedWidth = 60;
@@ -32,23 +30,23 @@ const ResponsiveDrawer: React.FC = () => {
   const drawer = (
     <div>
       <List>
-        <Typography variant="h6" noWrap sx={{ paddingLeft: "60px" }}>
+        <Typography variant="h6" noWrap sx={{ paddingLeft: '60px' }}>
           PolyCruz
         </Typography>
-        {["Home", "Compare"].map((text, index) => (
-          <ListItem key={text} disablePadding sx={{ display: "block" }}>
+        {['Home', 'Compare'].map((text, index) => (
+          <ListItem key={text} disablePadding sx={{ display: 'block' }}>
             <ListItemButton
               sx={{
                 minHeight: 48,
-                justifyContent: open ? "initial" : "center",
+                justifyContent: open ? 'initial' : 'center',
                 px: 2.5,
               }}
             >
               <ListItemIcon
                 sx={{
                   minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
                 }}
               >
                 {index % 2 === 0 ? <HomeIcon /> : <StarIcon />}
@@ -62,25 +60,17 @@ const ResponsiveDrawer: React.FC = () => {
   );
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar
+
+      {/* <AppBar
         position="fixed"
-        sx={{
-          zIndex: (theme) => theme.zIndex.drawer + 1,
-        }}
+        sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
       >
-        {/* <IconButton
-            color="inherit"
-            edge="start"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton> */}
-        {/* <Typography variant="h6" noWrap>
-            PolyCruz
-          </Typography> */}
-      </AppBar>
+
+
+        
+      </AppBar> */}
 
       <Drawer
         variant="permanent"
@@ -89,12 +79,12 @@ const ResponsiveDrawer: React.FC = () => {
         sx={{
           width: open ? drawerWidth : collapsedWidth,
           flexShrink: 0,
-          whiteSpace: "nowrap",
-          boxSizing: "border-box",
-          "& .MuiDrawer-paper": {
+          whiteSpace: 'nowrap',
+          boxSizing: 'border-box',
+          '& .MuiDrawer-paper': {
             width: open ? drawerWidth : collapsedWidth,
-            transition: "width 0.3s",
-            overflowX: "hidden",
+            transition: 'width 0.3s',
+            overflowX: 'hidden',
           },
         }}
         open={open}
@@ -102,15 +92,7 @@ const ResponsiveDrawer: React.FC = () => {
         {drawer}
       </Drawer>
 
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          p: 3,
-          marginLeft: open ? `${drawerWidth}px` : `${collapsedWidth}px`,
-          transition: "margin 0.3s",
-        }}
-      ></Box>
+      
     </Box>
   );
 };

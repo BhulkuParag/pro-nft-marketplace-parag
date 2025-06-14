@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
-import Slider, { Settings } from "react-slick";
+import Slider, { Settings } from 'react-slick';
 
-import { Box, Typography } from "@mui/material";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { Box, Typography } from '@mui/material';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 interface CarouselItem {
   title: string;
@@ -14,19 +14,19 @@ interface CarouselItem {
 
 const carouselItems: CarouselItem[] = [
   {
-    title: "Get Ready for the NFT Launch!",
-    subtitle: "Prepare for the groundbreaking NFT Launch experience!",
-    background: "linear-gradient(to right, #002fff, #00072d)",
+    title: 'Get Ready for the NFT Launch!',
+    subtitle: 'Prepare for the groundbreaking NFT Launch experience!',
+    background: 'linear-gradient(to right, #002fff, #00072d)',
   },
   {
-    title: "Explore the Marketplace",
-    subtitle: "Discover, collect and sell extraordinary NFTs",
-    background: "linear-gradient(to right, #020024, #00d4ff)",
+    title: 'Explore the Marketplace',
+    subtitle: 'Discover, collect and sell extraordinary NFTs',
+    background: 'linear-gradient(to right, #020024, #00d4ff)',
   },
   {
-    title: "Join the Community",
-    subtitle: "Be a part of the next big thing in digital assets",
-    background: "linear-gradient(to right, #000046, #1cb5e0)",
+    title: 'Join the Community',
+    subtitle: 'Be a part of the next big thing in digital assets',
+    background: 'linear-gradient(to right, #000046, #1cb5e0)',
   },
 ];
 
@@ -42,15 +42,16 @@ const HeroCarousel: React.FC = () => {
   };
 
   return (
-    <Box sx={{}}>
+    <Box sx={{ position: 'fixed' }}>
       <Box
         sx={{
-          width: "90%",
+          width: '100%',
           maxWidth: 1400,
           borderRadius: 4,
-          overflow: "hidden",
-          marginLeft: "100px",
-          marginTop: "25px",
+          overflow: 'hidden',
+
+          marginLeft: '0px',
+          marginTop: '60px',
         }}
       >
         <Slider {...settings}>
@@ -58,13 +59,13 @@ const HeroCarousel: React.FC = () => {
             <Box
               key={index}
               sx={{
-                height: 250,
-                display: "flex",
-                alignItems: "center",
+                height: 200,
+                display: 'flex',
+                alignItems: 'center',
                 pl: 5,
                 pt: 5,
                 background: item.background,
-                color: "#fff",
+                color: '#fff',
                 borderRadius: 4,
               }}
             >

@@ -9,7 +9,7 @@ import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
+
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
@@ -58,6 +58,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
+
+const drawerWidth = 61;
 
 // const ShortcutKey = styled('div')(({ theme }) => ({
 //   backgroundColor: alpha('#ffffff', 0.1),
@@ -156,10 +158,13 @@ export default function PrimarySearchAppBar(): JSX.Element {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed">
+    <Box sx={{ display: 'flex' }}>
+      <AppBar
+        position="fixed"
+        sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
+      >
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             size="large"
             edge="start"
             color="inherit"
@@ -167,14 +172,14 @@ export default function PrimarySearchAppBar(): JSX.Element {
             sx={{ mr: 2 }}
           >
             <MenuIcon />
-          </IconButton>
-          <Box sx={{ paddingLeft: '30px' }}>
+          </IconButton> */}
+          <Box sx={{ paddingLeft: '50px' }}>
             <Typography
               variant="h6"
               noWrap
               component="div"
               sx={{
-                display: { xs: 'none', sm: 'block', paddingRight: '50px' },
+                display: { xs: 'none', sm: 'block' },
               }}
             >
               MUI
