@@ -101,9 +101,9 @@ export default function Header(): JSX.Element {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value as string);
-  };
+  // const handleChange = (event:  React.ChangeEvent<HTMLSelectElement>) => {
+  //   setAge(event.target.value as string);
+  // };
 
   const menuId = 'primary-search-account-menu';
   const renderMenu: JSX.Element = (
@@ -168,17 +168,21 @@ export default function Header(): JSX.Element {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1, backgroundColor: '#141416' }}>
       <AppBar
         position="static"
         sx={{
-          backgroundColor: 'secondary.main',
-          border: '1px solid #353945',
+          backgroundColor: '#141416',
+          borderBottom: '1px solid #6a7282',
           color: 'text.primary',
-          paddingLeft: '45px',
+          paddingLeft: '55px',
         }}
       >
-        <Toolbar>
+        <Toolbar
+          sx={{
+            backgroundColor: '#141416',
+          }}
+        >
           <Box sx={{ minWidth: 130 }}>
             <CustomDropdown />
             {/* <FormControl fullWidth>
