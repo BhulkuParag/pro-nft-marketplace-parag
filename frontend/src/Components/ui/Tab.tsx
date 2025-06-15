@@ -79,19 +79,19 @@ export default function ColorTabs(): JSX.Element {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={'trending'}>
-        <h1 style={{ padding: '5px' }}>Top Trending Collections</h1>
+        <h1>Top Trending Collections</h1>
         <MyGrid />
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={'NFT sales'}>
-        <h1 style={{ padding: '5px' }}>Current NFT Sales</h1>
+      <CustomTabPanel value={value} index={'nft_sales'}>
+        <h1>Current NFT Sales</h1>
         <MyGrid />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={'Top sales'}>
-        <h1 style={{ padding: '5px' }}>Top Sales</h1>
+        <h1>Top Sales</h1>
         <MyGrid />
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={'Top mint Ranking'}>
-        <h1 style={{ padding: '5px' }}>Top Mint Ranking</h1>
+      <CustomTabPanel value={value} index={'top_mint_ranking'}>
+        <h1>Top Mint Ranking</h1>
         <MyGrid />
       </CustomTabPanel>
     </Box>
