@@ -19,7 +19,8 @@ declare module '@mui/material/styles' {
     lightTableHeading: string;
     tableHeading: string;
     whiteLight: string;
-    black01: string;
+    borderblack01: string;
+    // borderlight01: string;
     black02: string;
     grey01: string;
     blackLight: string;
@@ -40,6 +41,7 @@ declare module '@mui/material/styles' {
     coral: string;
     oxblood: string;
     yellow: string;
+    fill: string;
   }
 
   interface Palette {
@@ -108,13 +110,12 @@ const lightTheme = createTheme({
       white: '#ffff',
       lightBlue: '#1C1C1C',
       lightTableHeading: '#e2e2e2',
-      // borderLight: '#E6E8EC',
       whiteLight: '#303030',
-      black01: '#E6E8EC',
+      borderblack01: '#E6E8EC',
       black02: '#1D1B20',
       grey01: '#79747E',
       blackLight: '#F2F2F2',
-      primaryLight: '#6B5FE8',
+      primaryLight: '#777E90',
       primaryLight100: '#D2CDFF',
       primaryContainer: '#21005D',
       lightContainer: '#E6E0E9',
@@ -127,6 +128,7 @@ const lightTheme = createTheme({
       coral: '#F2B8B5',
       oxblood: '#601410',
       yellow: '#FFC155',
+      fill: '#777E90',
     },
 
     text: {
@@ -170,7 +172,7 @@ const darkTheme = createTheme({
       // borderBlack: '#353945',
       grey01: '#CAC4D0',
       greyDark: '#36343B',
-      black01: '#353945',
+      borderblack01: '#353945',
       black02: '#49454F',
       blackLight: '#141416',
       secondaryDark: '#1C1C1C',
@@ -186,6 +188,7 @@ const darkTheme = createTheme({
       coral: '#F2B8B5',
       oxblood: '#601410',
       yellow: '#FFC155',
+      fill: '#A49BFF',
     },
 
     text: {
@@ -251,7 +254,7 @@ const MuiTheme: React.FC<Props> = ({ children }) => {
   return (
     <ThemeContext.Provider value={{ mode, toggleTheme }}>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
+        {/* <CssBaseline /> */}
         {children}
       </ThemeProvider>
     </ThemeContext.Provider>

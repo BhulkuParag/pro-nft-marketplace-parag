@@ -172,7 +172,7 @@ export default function Header(): JSX.Element {
         position="static"
         sx={{
           backgroundColor: 'secondary.main',
-          border: '1px solid #353945',
+          border: '1px solid custom.borderblack01 ',
           color: 'text.primary',
           paddingLeft: '45px',
         }}
@@ -199,12 +199,13 @@ export default function Header(): JSX.Element {
                 onChange={handleChange}
                 sx={{
                   color: 'text.primary',
-                  border: '1px solid #353945 ',
+
+                  border: '1px solid custom.borderblack01 ',
                   '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: '#353945',
+                    borderColor: 'custom.borderblack01',
                   },
                   '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                    borderColor: '#353945', // Prevent border color change on focus
+                    borderColor: 'custom.borderblack01', // Prevent border color change on focus
                   },
                   '&.Mui-focused': {
                     backgroundColor: 'inherit', // Prevent background color change on focus

@@ -26,7 +26,6 @@ const sideBar: React.FC = () => {
         sx={{
           display: 'flex',
           flexDirection: 'column',
-
           gap: '10px',
           marginTop: 2,
         }}
@@ -49,8 +48,8 @@ const sideBar: React.FC = () => {
                 justifyContent: open ? 'initial' : 'center',
                 px: 2.5,
                 '&:hover': {
-                  fill: '#777E90',
-                  backgroundColor: '#A49BFF',
+                  fill: 'custom.primaryLight',
+                  // backgroundColor: '',
                 },
               }}
             >
@@ -96,7 +95,7 @@ const sideBar: React.FC = () => {
             backgroundColor: 'secondary.main',
             overflowX: 'hidden',
             color: 'text.primary',
-            border: '1px solid #353945',
+            border: '1px solid custom.borderblack01',
           },
         }}
         open={open}
