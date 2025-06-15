@@ -12,6 +12,7 @@ import Sidebar from '../header/Sidebar';
 import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
+import CollectionHero from './CollectionHero';
 
 const StyledCard = styled(Card)(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
@@ -130,7 +131,14 @@ const CollectionOverview = () => {
                     >
                         Collection Overview
                     </Typography>
-
+                    <CollectionHero
+                        image="https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fz9JRSpLYGu7%252BCZoKWtAuAA79K674Y2b4%252F48FTC1v%252BJ4rEwpjEK3D0qjUdzqyInvnSJFH5IaIgEk7pF0NEn6WqgSgbCdGL27rkoWAYjQhV2aH%252F8nBd9uVO2ymg2znWvbXJa379tKUzlm4lW4%252BFvX3Lkybz6boYKjCsVC4GCdwAv31e%252BCSMdhCyyVeL2Un9dcLOA78C2fikkVa0IrHu8NT7ZLNEHOGf3f%252F6Glrmk5hPMQCESBDZgtca2GNwcP7lvjzDJXMS9jKgLqNBZFUSYsb2g%253D%253D%3Fwidth%3D250&w=640&q=75"
+                        title="Bored Ape Yacht Club"
+                        subtitle="BAYC"
+                        description="The Bored Ape Yacht Club is a collection of 10,000 unique Bored Ape NFTs— unique digital collectibles living on the Ethereum blockchain. Your Bored Ape doubles as your Yacht Club membership card, and grants acces, a collection of 10,000 unique Bored Ape NFTs— unique digital collectibles living on the Ethereum blockchain. Your Bored Ape doubles as your Yacht Club membership card, and grants acces."
+                        onReadMore={() => window.open('https://boredapeyachtclub.com/', '_blank')}
+                        onViewAll={() => alert('View All Collections clicked!')}
+                    />
                     <Box
                         sx={{
                             display: 'grid',
