@@ -6,8 +6,7 @@ import { MyGrid } from '../Components/ui/Table';
 import SlideCard from '../Components/ui/SlideCard';
 import Footer from '../Components/header/Footer';
 
-// type Props = {};
-// const sidebarWidth = 240;
+
 const Home = () => {
   return (
     <Box

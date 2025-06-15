@@ -9,6 +9,72 @@ import React, {
 } from 'react';
 import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 import { type Theme } from '@mui/material';
+import '@mui/material/styles';
+
+declare module '@mui/material/styles' {
+  interface CustomPalette {
+    lightPurple: string;
+    white: string;
+    lightBlue: string;
+    lightTableHeading: string;
+    tableHeading: string;
+    whiteLight: string;
+    borderblack01: string;
+    // borderlight01: string;
+    black02: string;
+    grey01: string;
+    blackLight: string;
+    primaryLight: string;
+    primaryLight100: string;
+    primaryContainer: string;
+    lightContainer: string;
+    red: string;
+    green: string;
+    greyDark: string;
+    secondaryDark: string;
+    primaryDark: string;
+    primaryDark01: string;
+    whiteLightO1: string;
+    primary: string;
+    lightGrey: string;
+    purple01: string;
+    coral: string;
+    oxblood: string;
+    yellow: string;
+    fill: string;
+  }
+
+  interface Palette {
+    custom: CustomPalette;
+  }
+
+  interface PaletteOptions {
+    custom?: Partial<CustomPalette>;
+  }
+
+  interface Theme {
+    radius: {
+      sm: number;
+      md: number;
+      lg: number;
+      xl: number;
+    };
+
+    fontSize: {
+      sm: string;
+      md: string;
+      lg: string;
+      xl: string;
+      '2xl': string;
+    };
+  }
+
+  interface ThemeOptions {
+    radius?: Theme['radius'];
+    // shadows?: Theme['shadows'];
+    fontSize?: Theme['fontSize'];
+  }
+}
 
 type Mode = 'light' | 'dark';
 
@@ -34,15 +100,55 @@ interface Props {
 const lightTheme = createTheme({
   palette: {
     mode: 'light',
-    primary: { main: '#red' },
+    primary: { main: '#dfdfdf' },
     secondary: { main: '#fff' },
     background: {
-      default: '#fff',
+      default: '#f2f2f2',
     },
+    custom: {
+      lightPurple: '#7367f0',
+      white: '#ffff',
+      lightBlue: '#1C1C1C',
+      lightTableHeading: '#e2e2e2',
+      whiteLight: '#303030',
+      borderblack01: '#E6E8EC',
+      black02: '#1D1B20',
+      grey01: '#79747E',
+      blackLight: '#F2F2F2',
+      primaryLight: '#777E90',
+      primaryLight100: '#D2CDFF',
+      primaryContainer: '#21005D',
+      lightContainer: '#E6E0E9',
+      red: '#E30051',
+      green: '#0A9068',
+      whiteLightO1: '#E7E0EC',
+      primary: '#4836FF',
+      lightGrey: '#9DA1AF',
+      purple01: '#50008E',
+      coral: '#F2B8B5',
+      oxblood: '#601410',
+      yellow: '#FFC155',
+      fill: '#777E90',
+    },
+
     text: {
       primary: '#141416',
       secondary: '#777E90',
     },
+  },
+
+  radius: {
+    sm: 4,
+    md: 8,
+    lg: 16,
+    xl: 24,
+  },
+  fontSize: {
+    sm: '0.875rem', // 14px
+    md: '1rem', // 16px
+    lg: '1.125rem', // 18px
+    xl: '1.25rem', // 20px
+    '2xl': '1.5rem', // 24px
   },
   typography: {
     fontFamily: 'Inter, sans-serif',
@@ -61,10 +167,47 @@ const darkTheme = createTheme({
     background: {
       default: '#141416',
     },
+    custom: {
+      tableHeading: '#343d55',
+      // borderBlack: '#353945',
+      grey01: '#CAC4D0',
+      greyDark: '#36343B',
+      borderblack01: '#353945',
+      black02: '#49454F',
+      blackLight: '#141416',
+      secondaryDark: '#1C1C1C',
+      primaryLight: '#A49BFF',
+      primaryDark: '#4130EA',
+      primaryDark01: '#A49BFF33',
+      red: '#FE749B',
+      green: '#10DAB6',
+      whiteLightO1: '#E7E0EC',
+      primary: '#4836FF',
+      lightGrey: '#9DA1AF',
+      purple01: '#50008E',
+      coral: '#F2B8B5',
+      oxblood: '#601410',
+      yellow: '#FFC155',
+      fill: '#A49BFF',
+    },
+
     text: {
       primary: '#fff',
       secondary: '#A49BFF',
     },
+  },
+  radius: {
+    sm: 4,
+    md: 8,
+    lg: 16,
+    xl: 24,
+  },
+  fontSize: {
+    sm: '0.875rem', // 14px
+    md: '1rem', // 16px
+    lg: '1.125rem', // 18px
+    xl: '1.25rem', // 20px
+    '2xl': '1.5rem', // 24px
   },
   typography: {
     fontFamily: 'Inter, sans-serif',
@@ -111,7 +254,7 @@ const MuiTheme: React.FC<Props> = ({ children }) => {
   return (
     <ThemeContext.Provider value={{ mode, toggleTheme }}>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
+        {/* <CssBaseline /> */}
         {children}
       </ThemeProvider>
     </ThemeContext.Provider>

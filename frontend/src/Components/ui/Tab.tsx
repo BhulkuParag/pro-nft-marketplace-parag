@@ -57,7 +57,7 @@ export default function ColorTabs(): JSX.Element {
             fontStyle: 'unset',
             paddingInline: 2,
             '& .MuiTabs-indicator': {
-              backgroundColor: 'text.secondary',
+              backgroundColor: 'background.default',
             },
             // '& .MuiTab-root': {
             //   color: 'text.secondary',

@@ -7,7 +7,7 @@ import {
   type ICellRendererParams,
 } from 'ag-grid-community';
 import '@ag-grid-community/styles/ag-theme-quartz.css';
-import { useTheme } from '@mui/material';
+import { Box, useTheme } from '@mui/material';
 import '../../App.css';
 import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
@@ -29,7 +29,7 @@ interface RowData {
 }
 const StarRenderer = (params: ICellRendererParams<RowData>) => (
   <div className="flex items-center">
-    <StarBorderRoundedIcon className='text-gray-500'/>
+    <StarBorderRoundedIcon className="text-gray-500" />
     {/* <span className="text-yellow-500">⭐</span> */}
     <span className="ml-2">{params.value}</span>
   </div>
@@ -325,16 +325,16 @@ export const MyGrid: React.FC = () => {
   };
 
   return (
-    <div
+    <Box
       className={themeClass}
-      style={{
+      sx={{
         height: '600px',
         width: '100%',
         padding: '12px',
         borderRadius: 12,
         // backgroundColor: isDark ? '#1a1a1a' : '#ffffff',
-        backgroundColor: 'transparent',
-        color: isDark ? '#ffffff' : '#000000',
+        backgroundColor: 'background.default',
+        // color: isDark ? '#ffffff' : '#000000',
         transition: 'background-color 0.3s ease',
       }}
     >
@@ -347,6 +347,6 @@ export const MyGrid: React.FC = () => {
         rowHeight={50}
         suppressScrollOnNewData
       />
-    </div>
+    </Box>
   );
 };
