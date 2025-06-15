@@ -21,6 +21,10 @@ import Button from '@mui/material/Button';
 // import DropDown from '../ui/DropDown';
 import Select, { type SelectChangeEvent } from '@mui/material/Select';
 import { useThemeMode } from '../../utils/MuiTheme';
+import Ethereum from '../Icon/crypto-icon/Ethereum';
+import Polygon from '../Icon/crypto-icon/Polygon';
+import BNBChain from '../Icon/crypto-icon/BNB_chain';
+import Avalanche from '../Icon/crypto-icon/Avalanche';
 
 import { FormControl, InputLabel } from '@mui/material';
 import CustomDropdown from '../ui/DropDown';
@@ -64,8 +68,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const drawerWidth = 61;
-
 // const ShortcutKey = styled('div')(({ theme }) => ({
 //   backgroundColor: alpha('#ffffff', 0.1),
 //   padding: '2px 8px',
@@ -76,8 +78,237 @@ const drawerWidth = 61;
 // }));
 
 export default function Header(): JSX.Element {
-  const [age, setAge] = React.useState('');
+  const [selected, setSelected] = React.useState('');
   const { mode, toggleTheme } = useThemeMode();
+
+const options = [
+  {
+    label: 'Ethereum',
+    chainId: 1,
+    icon: (
+      <Ethereum
+        backgroundClass="dark:fill-dark-black-light fill-light-black-light"
+        iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+        className="w-7 h-7"
+      />
+    ),
+    value: 'eth',
+  },
+  {
+    label: 'Polygon',
+    chainId: 137,
+    icon: (
+      <Polygon
+        backgroundClass="dark:bg-dark-black-light bg-light-black-light w-7 h-7"
+        iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+      />
+    ),
+    value: 'matic',
+  },
+  {
+    label: 'Polygon zkEVM',
+    chainId: 1101,
+    icon: (
+      <Polygon
+        backgroundClass="dark:bg-dark-black-light bg-light-black-light w-7 h-7"
+        iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+      />
+    ),
+    value: 'zkevm',
+  },
+  {
+    label: 'Base',
+    chainId: 8453,
+    icon: (
+      <Ethereum
+        backgroundClass="dark:fill-dark-black-light fill-light-black-light"
+        iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+        className="w-7 h-7"
+      />
+    ),
+    value: 'base',
+  },
+  {
+    label: 'Avalanche',
+    chainId: 43114,
+    icon: (
+      <Avalanche
+        backgroundClass="dark:fill-dark-black-light fill-light-black-light"
+        iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+        className="w-7 h-7"
+      />
+    ),
+    value: 'avax',
+  },
+  {
+    label: 'BNB Smart Chain',
+    chainId: 56,
+    icon: (
+      <BNBChain
+        backgroundClass="dark:fill-dark-black-light fill-light-black-light"
+        iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+        className="w-7 h-7"
+      />
+    ),
+    value: 'bnb',
+  },
+  {
+    label: 'Arbitrum',
+    chainId: 42161,
+    icon: (
+      <Ethereum
+        backgroundClass="dark:fill-dark-black-light fill-light-black-light"
+        iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+        className="w-7 h-7"
+      />
+    ),
+    value: 'arb',
+  },
+  {
+    label: 'Arbitrum Nova',
+    chainId: 42170,
+    icon: (
+      <Ethereum
+        backgroundClass="dark:fill-dark-black-light fill-light-black-light"
+        iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+        className="w-7 h-7"
+      />
+    ),
+    value: 'arbnova',
+  },
+  {
+    label: 'Linea',
+    chainId: 59144,
+    icon: (
+      <Ethereum
+        backgroundClass="dark:fill-dark-black-light fill-light-black-light"
+        iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+        className="w-7 h-7"
+      />
+    ),
+    value: 'linea',
+  },
+  {
+    label: 'Optimism',
+    chainId: 10,
+    icon: (
+      <Ethereum
+        backgroundClass="dark:fill-dark-black-light fill-light-black-light"
+        iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+        className="w-7 h-7"
+      />
+    ),
+    value: 'op',
+  },
+  {
+    label: 'ApeChain',
+    chainId: 16350,
+    icon: (
+      <Ethereum
+        backgroundClass="dark:fill-dark-black-light fill-light-black-light"
+        iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+        className="w-7 h-7"
+      />
+    ),
+    value: 'ape',
+  },
+  {
+    label: 'Astar Network',
+    chainId: 592,
+    icon: (
+      <Ethereum
+        backgroundClass="dark:fill-dark-black-light fill-light-black-light"
+        iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+        className="w-7 h-7"
+      />
+    ),
+    value: 'astar',
+  },
+  {
+    label: 'Blast',
+    chainId: 81457,
+    icon: (
+      <Ethereum
+        backgroundClass="dark:fill-dark-black-light fill-light-black-light"
+        iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+        className="w-7 h-7"
+      />
+    ),
+    value: 'blast',
+  },
+  {
+    label: 'Flow',
+    chainId: 1,
+    icon: (
+      <Ethereum
+        backgroundClass="dark:fill-dark-black-light fill-light-black-light"
+        iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+        className="w-7 h-7"
+      />
+    ),
+    value: 'flow',
+  },
+  {
+    label: 'Sei Network',
+    chainId: 713715,
+    icon: (
+      <Ethereum
+        backgroundClass="dark:fill-dark-black-light fill-light-black-light"
+        iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+        className="w-7 h-7"
+      />
+    ),
+    value: 'sei',
+  },
+  {
+    label: 'Zora Network',
+    chainId: 7777777,
+    icon: (
+      <Ethereum
+        backgroundClass="dark:fill-dark-black-light fill-light-black-light"
+        iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+        className="w-7 h-7"
+      />
+    ),
+    value: 'zora',
+  },
+  {
+    label: 'zkSync',
+    chainId: 324,
+    icon: (
+      <Ethereum
+        backgroundClass="dark:fill-dark-black-light fill-light-black-light"
+        iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+        className="w-7 h-7"
+      />
+    ),
+    value: 'zksync',
+  },
+  {
+    label: 'NCN Testnet',
+    chainId: 303,
+    icon: (
+      <Ethereum
+        backgroundClass="dark:fill-dark-black-light fill-light-black-light"
+        iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+        className="w-7 h-7"
+      />
+    ),
+    value: 'ncn_testnet',
+  },
+  {
+    label: 'NCN Mainnet',
+    chainId: 313,
+    icon: (
+      <Ethereum
+        backgroundClass="dark:fill-dark-black-light fill-light-black-light"
+        iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+        className="w-7 h-7"
+      />
+    ),
+    value: 'ncn_mainnet',
+  },
+];
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
@@ -188,7 +419,12 @@ export default function Header(): JSX.Element {
           }}
         >
           <Box sx={{ minWidth: 130 }}>
-            <CustomDropdown />
+            <CustomDropdown
+              options={options}
+              value={selected}
+              onChange={setSelected}
+              placeholder="Choose action"
+            />
             {/* <FormControl fullWidth>
               <InputLabel
                 id="demo-simple-select-label"
@@ -246,7 +482,7 @@ export default function Header(): JSX.Element {
               />
             </Search>
           </Box>
-          <Box sx={{ display: { xs: 'none', md: 'flex' },gap: 1 }}>
+          <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1 }}>
             <IconButton
               size="large"
               aria-label="toggle theme"
