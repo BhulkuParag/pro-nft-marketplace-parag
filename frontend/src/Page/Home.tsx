@@ -4,8 +4,7 @@ import Sidebar from '../Components/header/Sidebar';
 import SliedCard from '../Components/ui/SlideCard';
 import ColorTabs from '../Components/ui/Tab';
 
-// type Props = {};
-// const sidebarWidth = 240;
+
 const Home = () => {
   return (
     <Box
@@ -50,10 +49,6 @@ const Home = () => {
             <SliedCard />
             <ColorTabs />
           </Box>
-          {/* <Box>
-            <SliedCard />
-            <ColorTabs />
-          </Box> */}
         </Box>
       </Box>
     </Box>
