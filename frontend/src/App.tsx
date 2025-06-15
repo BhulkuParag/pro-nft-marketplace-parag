@@ -7,11 +7,13 @@ import { Box } from '@mui/material';
 import MuiTheme from './utils/MuiTheme';
 import CollectionOverview from './Components/CollectionOverview/CollectionOverview';
 import CollectionItems from './Components/CollectionItems/CollectionItems';
+import CollectionStandout from './Components/CollectionStandout/CollectionStandout';
 
 const routes = [
   { path: '/', component: <Home /> },
   { path: '/overview', component: <CollectionOverview /> },
-  { path: '/items', component: <CollectionItems /> }
+  { path: '/items', component: <CollectionItems /> },
+  { path: '/standout', component: <CollectionStandout /> }
 ];
 
 const App = () => {
