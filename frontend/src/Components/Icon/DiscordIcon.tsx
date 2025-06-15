@@ -1,4 +1,4 @@
-import React, { FC, SVGProps } from "react";
+import { type FC, type SVGProps } from "react";
 
 const DiscordIcon: FC<SVGProps<SVGSVGElement>> = (props) => (
     <svg

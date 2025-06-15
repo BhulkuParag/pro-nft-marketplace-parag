@@ -48,8 +48,8 @@ export default function ColorTabs(): JSX.Element {
   }, []);
 
   return (
-    <Box sx={{ width: '100%', backgroundColor: '#1C1C1C', mt: 2 }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+    <Box sx={{ width: '100%', backgroundColor: 'background.default', mt: 2 }}>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider', backgroundColor: '#1C1C1C' }}>
         <Tabs
           value={value}
           onChange={handleChange}

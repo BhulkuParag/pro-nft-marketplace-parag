@@ -249,7 +249,7 @@ export const MyGrid: React.FC = () => {
       {
         field: 'id',
         headerName: '',
-        width: 60,
+        width: 70,
         cellRenderer: StarRenderer,
       },
       {
