@@ -51,7 +51,6 @@ const Home = () => {
             <SlideCard />
             <ColorTabs />
           </Box>
-          <MyGrid />
         </Box>
       </Box>
     </Box>
