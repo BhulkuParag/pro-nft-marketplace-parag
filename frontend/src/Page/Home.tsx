@@ -1,8 +1,9 @@
 import { Box } from '@mui/material';
 import Header from '../Components/header/Header';
 import Sidebar from '../Components/header/Sidebar';
-import SliedCard from '../Components/ui/SlideCard';
 import ColorTabs from '../Components/ui/Tab';
+import { MyGrid } from '../Components/ui/Table';
+import SlideCard from '../Components/ui/SlideCard';
 
 
 const Home = () => {
@@ -36,7 +37,7 @@ const Home = () => {
         <Header />
         <Box
           sx={{
-            paddingLeft: '80px',
+            pl: '60px',
             width: '100%',
             display: 'grid',
             alignItems: 'center',
@@ -46,7 +47,7 @@ const Home = () => {
           }}
         >
           <Box>
-            <SliedCard />
+            <SlideCard />
             <ColorTabs />
           </Box>
         </Box>

@@ -85,6 +85,7 @@ const sideBar: React.FC = () => {
         sx={{
           width: open ? drawerWidth : collapsedWidth,
           flexShrink: 0,
+          backgroundColor: '#1C1C1C',
           whiteSpace: 'nowrap',
           boxSizing: 'border-box',
           // position: 'fixed',
