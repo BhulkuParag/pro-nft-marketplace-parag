@@ -423,7 +423,6 @@ const options = [
               options={options}
               value={selected}
               onChange={setSelected}
-              placeholder="Choose action"
             />
             {/* <FormControl fullWidth>
               <InputLabel
