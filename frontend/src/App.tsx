@@ -6,10 +6,12 @@ import Home from './Page/Home';
 import { Box } from '@mui/material';
 import MuiTheme from './utils/MuiTheme';
 import CollectionOverview from './Components/CollectionOverview/CollectionOverview';
+import CollectionItems from './Components/CollectionItems/CollectionItems';
 
 const routes = [
   { path: '/', component: <Home /> },
   { path: '/overview', component: <CollectionOverview /> },
+  { path: '/items', component: <CollectionItems /> }
 ];
 
 const App = () => {

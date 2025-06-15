@@ -12,7 +12,7 @@ import Sidebar from '../header/Sidebar';
 import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import CollectionHero from './CollectionHero';
+import CollectionHero from '../CollectionHero/CollectionHero';
 
 const StyledCard = styled(Card)(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
