@@ -1,3 +1,5 @@
+import type React from "react";
+
 export function SwitchIcon(props: React.SVGAttributes<{}>) {
   return (
     <svg

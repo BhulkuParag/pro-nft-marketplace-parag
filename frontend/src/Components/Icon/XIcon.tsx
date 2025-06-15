@@ -1,10 +1,10 @@
-import React, { FC, SVGProps } from "react";
+import React from "react";
 
-interface XIconProps extends SVGProps<SVGSVGElement> {
+interface XIconProps extends React.SVGProps<SVGSVGElement> {
     className?: string;
 }
 
-const XIcon: FC<XIconProps> = ({ className, ...props }) => (
+const XIcon: React.FC<XIconProps> = ({ className, ...props }) => (
     <svg
         className={className}
         xmlns="http://www.w3.org/2000/svg"

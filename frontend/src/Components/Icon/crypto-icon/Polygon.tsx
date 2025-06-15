@@ -1,4 +1,4 @@
-import React, { FC, HTMLAttributes } from "react";
+import { type FC, type HTMLAttributes } from "react";
 
 interface PolygonProps extends HTMLAttributes<HTMLDivElement> {
     backgroundClass: string;

@@ -408,8 +408,6 @@ export default function Header(): JSX.Element {
           border: '1px solid custom.borderblack01 ',
           color: 'text.primary',
           paddingLeft: '55px',
-          // width: `calc(100% - ${drawerWidth}px)`,
-          // ml: `${drawerWidth}px`,
         }}
       >
         <Toolbar

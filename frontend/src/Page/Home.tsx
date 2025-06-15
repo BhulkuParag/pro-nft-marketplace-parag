@@ -6,7 +6,6 @@ import { MyGrid } from '../Components/ui/Table';
 import SlideCard from '../Components/ui/SlideCard';
 import Footer from '../Components/header/Footer';
 
-
 const Home = () => {
   return (
     <Box
@@ -33,6 +32,7 @@ const Home = () => {
       <Box
         sx={{
           width: '100%',
+          height: '100vh',
         }}
       >
         <Header />
@@ -47,12 +47,16 @@ const Home = () => {
             paddingTop: '10px',
           }}
         >
-          <Box>
+          <Box
+            sx={{
+              width: '100%',
+            }}
+          >
             <SlideCard />
             <ColorTabs />
           </Box>
         </Box>
-        <Footer/>
+        <Footer />
       </Box>
     </Box>
   );

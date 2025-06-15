@@ -130,7 +130,6 @@ const lightTheme = createTheme({
       yellow: '#FFC155',
       fill: '#777E90',
     },
-
     text: {
       primary: '#141416',
       secondary: '#777E90',

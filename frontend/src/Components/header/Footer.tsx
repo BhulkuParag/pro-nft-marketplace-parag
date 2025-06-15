@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import liveData from '../../assets/images/gif/live.gif';
 
 import EthIcon from '../../assets/icons/others/EthIcon';
+import { Box } from '@mui/material';
 // import axios from "axios";
 // import { toFixedValue } from "lib/numbers";
 
@@ -46,7 +47,20 @@ const Footer: FC<FooterProps> = () => {
   // console.log(ethData, gasData)
 
   return (
-    <footer className="z-40 bottom-0  left-navbar right-0 text-grey bg-light-black-light dark:bg-dark-black-light border-t dark:border-dark-black-01 border-gray-600 hidden lg:block sticky">
+    <Box
+      component={'footer'}
+      sx={{
+        backgroundColor: 'background.default',
+        color: 'text.grey01',
+        position: 'sticky',
+        bottom: 0,
+        // left: 0,
+        // right: 0,
+        borderTop: '1px solid text.grey01',
+        zIndex: 1000,
+      }}
+      className="z-40 bottom-0 left-navbar right-0 border-t border-gray-600 hidden lg:block sticky"
+    >
       <nav className="mx-auto px-4">
         <div className="w-full flex items-center justify-between">
           <ul className="text-xs font-normal flex items-center gap-3 p-3">
@@ -162,7 +176,7 @@ const Footer: FC<FooterProps> = () => {
           </ul>
         </div>
       </nav>
-    </footer>
+    </Box>
   );
 };
 

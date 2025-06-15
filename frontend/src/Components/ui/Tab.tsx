@@ -4,6 +4,7 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import type { JSX } from '@emotion/react/jsx-runtime';
 import { MyGrid } from './Table';
+import { Typography } from '@mui/material';
 
 export default function ColorTabs(): JSX.Element {
   const [value, setValue] = React.useState<string>('trending');
@@ -49,22 +50,27 @@ export default function ColorTabs(): JSX.Element {
 
   return (
     <Box sx={{ width: '100%', backgroundColor: 'background.default', mt: 2 }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider', backgroundColor: '#1C1C1C' }}>
+      <Box
+        sx={{
+          borderBottom: 1,
+          borderColor: 'divider',
+          backgroundColor: '#1C1C1C',
+        }}
+      >
         <Tabs
           value={value}
           onChange={handleChange}
           sx={{
-            fontStyle: 'unset',
+            fontStyle: 'initial',
             paddingInline: 2,
             '& .MuiTabs-indicator': {
-              backgroundColor: 'background.default',
+              backgroundColor: 'text.primary',
             },
             // '& .MuiTab-root': {
             //   color: 'text.secondary',
             // },
           }}
-          textColor="inherit"
-          // textColor="secondary"
+          textColor="secondary"
           // indicatorColor="secondary"
           aria-label="secondary tabs example"
         >
@@ -79,19 +85,19 @@ export default function ColorTabs(): JSX.Element {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={'trending'}>
-        <h1>Top Trending Collections</h1>
+        <Typography fontSize={26}>Top Trending Collections</Typography>
         <MyGrid />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={'nft_sales'}>
-        <h1>Current NFT Sales</h1>
+        <Typography fontSize={26}>Current NFT Sales</Typography>
         <MyGrid />
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={'Top sales'}>
-        <h1>Top Sales</h1>
+      <CustomTabPanel value={value} index={'top_sales'}>
+        <Typography fontSize={26}>Top Sales</Typography>
         <MyGrid />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={'top_mint_ranking'}>
-        <h1>Top Mint Ranking</h1>
+        <Typography fontSize={26}>Top Mint Ranking</Typography>
         <MyGrid />
       </CustomTabPanel>
     </Box>

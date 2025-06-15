@@ -1,4 +1,4 @@
-import React, { FC, SVGProps } from "react";
+import { type FC, type SVGProps } from 'react';
 
 interface RactangleProps extends SVGProps<SVGSVGElement> {
   className?: string;

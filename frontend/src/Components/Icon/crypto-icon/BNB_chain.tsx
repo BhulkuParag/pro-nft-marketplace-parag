@@ -1,4 +1,4 @@
-import React, { FC, SVGProps } from "react";
+import { type FC, type SVGProps } from "react";
 
 interface BNBChainProps extends SVGProps<SVGSVGElement> {
     backgroundClass?: string;
