@@ -38,7 +38,7 @@ const Home = () => {
         <Header />
         <Box
           sx={{
-            paddingLeft: '80px',
+            pl: '60px',
             width: '100%',
             display: 'grid',
             alignItems: 'center',

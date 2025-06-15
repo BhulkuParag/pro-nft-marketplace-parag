@@ -3,16 +3,15 @@ import { AgGridReact } from 'ag-grid-react';
 import {
   ModuleRegistry,
   AllCommunityModule,
-  colorSchemeDarkBlue,
-  themeQuartz,
   type ColDef,
   type ICellRendererParams,
 } from 'ag-grid-community';
-
-// Remove legacy CSS imports and only use themeQuartz
 import '@ag-grid-community/styles/ag-theme-quartz.css';
+import { useTheme } from '@mui/material';
+import '../../App.css';
+import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
+import StarRoundedIcon from '@mui/icons-material/StarRounded';
 
-// Register AG Grid Modules
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 interface RowData {
@@ -27,12 +26,11 @@ interface RowData {
   'Collection Volume (7 day)': number;
   Owners: number;
   Supply: number;
-  actions?: string; // Optional for action column
 }
-
 const StarRenderer = (params: ICellRendererParams<RowData>) => (
   <div className="flex items-center">
-    <span className="text-yellow-500">⭐</span>
+    <StarBorderRoundedIcon className='text-gray-500'/>
+    {/* <span className="text-yellow-500">⭐</span> */}
     <span className="ml-2">{params.value}</span>
   </div>
 );
@@ -60,17 +58,16 @@ const PriceRenderer = (params: ICellRendererParams<RowData>) => (
 );
 
 const VolumeRenderer = (params: ICellRendererParams<RowData>) => (
-  <div className="flex items-center text-green-500">
+  <div className="flex items-center text-[#10CA7D]">
     <span>{params.value}</span>
     <span className="ml-1">%</span>
   </div>
 );
 
 export const MyGrid: React.FC = () => {
-  const gridTheme = useMemo(
-    () => themeQuartz.withPart(colorSchemeDarkBlue),
-    []
-  );
+  const muiTheme = useTheme();
+  const isDark = muiTheme.palette.mode === 'dark';
+  const themeClass = isDark ? 'ag-theme-quartz-dark' : 'ag-theme-quartz';
 
   const rowData: RowData[] = useMemo(
     () => [
@@ -251,46 +248,62 @@ export const MyGrid: React.FC = () => {
     () => [
       {
         field: 'id',
-        width: 70,
+        headerName: '',
+        width: 60,
         cellRenderer: StarRenderer,
       },
       {
         field: 'Collection',
+        headerName: 'Collection',
         cellRenderer: CollectionRenderer,
         flex: 2,
       },
       {
         field: 'Floor Price(24H)',
+        headerName: 'Floor Price(24H)',
         cellRenderer: PriceRenderer,
         flex: 1,
       },
       {
         field: 'Volume(24H)',
+        headerName: 'Volume(24H)',
         cellRenderer: VolumeRenderer,
         flex: 1,
       },
       {
         field: 'Volume (1 Day)',
+        headerName: 'Volume (1 Day)',
         cellRenderer: VolumeRenderer,
         flex: 1,
       },
       {
         field: 'Volume (7 Day)',
+        headerName: 'Volume (7 Day)',
         cellRenderer: VolumeRenderer,
         flex: 1,
       },
       {
         field: 'Collection Volume (1 day)',
+        headerName: 'Collection Volume (1 day)',
         cellRenderer: VolumeRenderer,
         flex: 1,
       },
       {
         field: 'Collection Volume (7 day)',
+        headerName: 'Collection Volume (7 day)',
         cellRenderer: VolumeRenderer,
         flex: 1,
       },
-      { field: 'Owners' },
-      { field: 'Supply' },
+      {
+        field: 'Owners',
+        headerName: 'Owners',
+        width: 130,
+      },
+      {
+        field: 'Supply',
+        headerName: 'Supply',
+        width: 130,
+      },
       // {
       //   field: 'actions',
       //   cellRenderer: (params: ICellRendererParams<RowData>) => {
@@ -305,38 +318,34 @@ export const MyGrid: React.FC = () => {
     []
   );
 
-  const defaultColDef = useMemo<ColDef<RowData>>(
-    () => ({
-      sortable: true,
-      filter: false, // Removed filter
-      resizable: true,
-    }),
-    []
-  );
+  const defaultColDef: ColDef<RowData> = {
+    sortable: true,
+    resizable: true,
+    filter: false,
+  };
 
   return (
     <div
-      className="ag-theme-quartz-dark"
-      style={
-        {
-          height: '600px', // Fixed height
-          width: '100%',
-          padding: '10px',
-          backgroundColor: '#1a1a1a',
-          overflow: 'hidden', // Prevent outer scrolling
-          display: 'flex',
-          flexDirection: 'column',
-        } as React.CSSProperties
-      }
+      className={themeClass}
+      style={{
+        height: '600px',
+        width: '100%',
+        padding: '12px',
+        borderRadius: 12,
+        // backgroundColor: isDark ? '#1a1a1a' : '#ffffff',
+        backgroundColor: 'transparent',
+        color: isDark ? '#ffffff' : '#000000',
+        transition: 'background-color 0.3s ease',
+      }}
     >
       <AgGridReact<RowData>
         rowData={rowData}
         columnDefs={columnDefs}
         defaultColDef={defaultColDef}
-        pagination={true}
-        paginationPageSize={20}
-        suppressScrollOnNewData={true}
-        domLayout="normal" // Change to normal for scrollable layout
+        pagination={false}
+        paginationPageSize={10}
+        rowHeight={50}
+        suppressScrollOnNewData
       />
     </div>
   );

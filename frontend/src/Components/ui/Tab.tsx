@@ -30,7 +30,8 @@ export default function ColorTabs(): JSX.Element {
         value={value}
         onChange={handleChange}
         sx={{
-          fontStyle: 'initial',
+          fontStyle: 'unset',
+          paddingInline: 2,
           '& .MuiTabs-indicator': {
             backgroundColor: 'text.secondary',
           },
@@ -41,9 +42,9 @@ export default function ColorTabs(): JSX.Element {
         textColor="inherit"
         aria-label="secondary tabs example"
       >
-        {tabs?.map((tab, index) => (
+        {tabs?.map((tab) => (
           <Tab
-            key={index}
+            key={tab?.value}
             disableTouchRipple
             value={tab?.value}
             label={tab?.label}
