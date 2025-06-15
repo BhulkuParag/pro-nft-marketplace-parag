@@ -1,19 +1,77 @@
 import React, { useMemo } from 'react';
 import { AgGridReact } from 'ag-grid-react';
-import type { ColDef } from 'ag-grid-community';
-import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
+import {
+  ModuleRegistry,
+  AllCommunityModule,
+  colorSchemeDarkBlue,
+  themeQuartz,
+  type ColDef,
+  type ICellRendererParams,
+} from 'ag-grid-community';
+
+// Remove legacy CSS imports and only use themeQuartz
+import '@ag-grid-community/styles/ag-theme-quartz.css';
+
+// Register AG Grid Modules
 ModuleRegistry.registerModules([AllCommunityModule]);
-import 'ag-grid-community/styles/ag-grid.css';
-import 'ag-grid-community/styles/ag-theme-alpine.css';
 
 interface RowData {
   id: number;
   Collection: string;
-  floorPrice: number;
+  'Floor Price(24H)': number;
+  'Top Bid(24H)': number;
+  'Volume(24H)': number;
+  'Volume (1 Day)': number;
+  'Volume (7 Day)': number;
+  'Collection Volume (1 day)': number;
+  'Collection Volume (7 day)': number;
+  Owners: number;
+  Supply: number;
   actions?: string; // Optional for action column
 }
 
+const StarRenderer = (params: ICellRendererParams<RowData>) => (
+  <div className="flex items-center">
+    <span className="text-yellow-500">⭐</span>
+    <span className="ml-2">{params.value}</span>
+  </div>
+);
+
+const CollectionRenderer = (params: ICellRendererParams<RowData>) => (
+  <div className="flex items-center gap-2">
+    <img src="placeholder-logo.png" alt="" className="w-8 h-8 rounded-full" />
+    <span>{params.value}</span>
+    {/* Verified checkmark */}
+    <svg
+      className="w-4 h-4 text-blue-500"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+    >
+      <path d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
+    </svg>
+  </div>
+);
+
+const PriceRenderer = (params: ICellRendererParams<RowData>) => (
+  <div className="flex items-center">
+    <span className="text-gray-400">Ξ</span>
+    <span className="ml-1">{params.value}</span>
+  </div>
+);
+
+const VolumeRenderer = (params: ICellRendererParams<RowData>) => (
+  <div className="flex items-center text-green-500">
+    <span>{params.value}</span>
+    <span className="ml-1">%</span>
+  </div>
+);
+
 export const MyGrid: React.FC = () => {
+  const gridTheme = useMemo(
+    () => themeQuartz.withPart(colorSchemeDarkBlue),
+    []
+  );
+
   const rowData: RowData[] = useMemo(
     () => [
       {
@@ -189,51 +247,96 @@ export const MyGrid: React.FC = () => {
     []
   );
 
-  const columnDefs: ColDef<RowData, any>[] = useMemo(
+  const columnDefs: ColDef<RowData, unknown>[] = useMemo(
     () => [
-      { field: 'id' },
-      { field: 'Collection' },
-      { field: 'Floor Price(24H)' },
-      { field: 'Top Bid(24H)' },
-      { field: 'Volume(24H)' },
-      { field: 'Volume (1 Day)' },
-      { field: 'Volume (7 Day)' },
-      { field: 'Collection Volume (1 day)' },
-      { field: 'Collection Volume (7 day)' },
+      {
+        field: 'id',
+        width: 70,
+        cellRenderer: StarRenderer,
+      },
+      {
+        field: 'Collection',
+        cellRenderer: CollectionRenderer,
+        flex: 2,
+      },
+      {
+        field: 'Floor Price(24H)',
+        cellRenderer: PriceRenderer,
+        flex: 1,
+      },
+      {
+        field: 'Volume(24H)',
+        cellRenderer: VolumeRenderer,
+        flex: 1,
+      },
+      {
+        field: 'Volume (1 Day)',
+        cellRenderer: VolumeRenderer,
+        flex: 1,
+      },
+      {
+        field: 'Volume (7 Day)',
+        cellRenderer: VolumeRenderer,
+        flex: 1,
+      },
+      {
+        field: 'Collection Volume (1 day)',
+        cellRenderer: VolumeRenderer,
+        flex: 1,
+      },
+      {
+        field: 'Collection Volume (7 day)',
+        cellRenderer: VolumeRenderer,
+        flex: 1,
+      },
       { field: 'Owners' },
       { field: 'Supply' },
-      {
-        field: 'actions',
-        cellRenderer: (params: any) => {
-          const data = params.data as RowData;
-          return (
-            <button onClick={() => alert(`Delete ${data.Collection}`)}>
-              ❌
-            </button>
-          );
-        },
-      },
+      // {
+      //   field: 'actions',
+      //   cellRenderer: (params: ICellRendererParams<RowData>) => {
+      //     return (
+      //       <button onClick={() => alert(`Delete ${params.data?.Collection}`)}>
+      //         ❌
+      //       </button>
+      //     );
+      //   },
+      // },
     ],
     []
   );
 
   const defaultColDef = useMemo<ColDef<RowData>>(
     () => ({
-      resizable: true,
       sortable: true,
-      filter: true,
+      filter: false, // Removed filter
+      resizable: true,
     }),
     []
   );
 
   return (
-    <div className="" style={{ height: 400, width: '100%', padding: '10px' }}>
+    <div
+      className="ag-theme-quartz-dark"
+      style={
+        {
+          height: '600px', // Fixed height
+          width: '100%',
+          padding: '10px',
+          backgroundColor: '#1a1a1a',
+          overflow: 'hidden', // Prevent outer scrolling
+          display: 'flex',
+          flexDirection: 'column',
+        } as React.CSSProperties
+      }
+    >
       <AgGridReact<RowData>
         rowData={rowData}
         columnDefs={columnDefs}
         defaultColDef={defaultColDef}
         pagination={true}
-        paginationPageSize={5}
+        paginationPageSize={20}
+        suppressScrollOnNewData={true}
+        domLayout="normal" // Change to normal for scrollable layout
       />
     </div>
   );

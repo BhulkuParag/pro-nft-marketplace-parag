@@ -7,7 +7,7 @@ import banner1 from '../../assets/images/banner1.svg';
 import banner2 from '../../assets/images/banner2.svg';
 import banner3 from '../../assets/images/banner3.svg';
 
-export default function SliedCard() {
+export default function SlideCard() {
   interface CarouselItem {
     title: string;
     subtitle: string;
@@ -56,9 +56,9 @@ export default function SliedCard() {
           delay: 2500,
           disableOnInteraction: false,
         }}
-        pagination={{
-          clickable: true,
-        }}
+        // pagination={{
+        //   clickable: true,
+        // }}
         modules={[Autoplay, Pagination]}
       >
         {carouselItems.map((item, idx) => (
