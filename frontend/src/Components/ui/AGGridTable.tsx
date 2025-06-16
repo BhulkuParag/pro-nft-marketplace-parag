@@ -7,10 +7,10 @@ import {
   type ICellRendererParams,
 } from 'ag-grid-community';
 import '@ag-grid-community/styles/ag-theme-quartz.css';
-import { Box, useTheme } from '@mui/material';
+import { Box, Tooltip, useTheme } from '@mui/material';
 import '../../App.css';
 import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
-import StarRoundedIcon from '@mui/icons-material/StarRounded';
+// import StarRoundedIcon from '@mui/icons-material/StarRounded';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -28,9 +28,10 @@ interface RowData {
   Supply: number;
 }
 const StarRenderer = (params: ICellRendererParams<RowData>) => (
-  <div className="flex items-center">
-    <StarBorderRoundedIcon className="text-gray-500" />
-    {/* <span className="text-yellow-500">⭐</span> */}
+  <div className="flex items-center cursor-pointer">
+    <Tooltip title="Add to Compare" placement="top" arrow={true}>
+      <StarBorderRoundedIcon className="text-gray-500" />
+    </Tooltip>
     <span className="ml-2">{params.value}</span>
   </div>
 );
@@ -55,9 +56,11 @@ const CollectionRenderer = (params: ICellRendererParams<RowData>) => (
 );
 
 const PriceRenderer = (params: ICellRendererParams<RowData>) => (
-  <div className="flex items-center">
+  <div className="flex items-center cursor-pointer">
     <span className="text-gray-400">Ξ</span>
-    <span className="ml-1">{params.value}</span>
+    <Tooltip title={'$ 1100.0'} placement="top" arrow={true}>
+      <span className="ml-1">{params.value}</span>
+    </Tooltip>
   </div>
 );
 
@@ -253,7 +256,7 @@ export const AGGridTable: React.FC = () => {
       {
         field: 'id',
         headerName: '',
-        width: 60,
+        width: 70,
         cellRenderer: StarRenderer,
       },
       {
@@ -324,7 +327,7 @@ export const AGGridTable: React.FC = () => {
 
   const defaultColDef: ColDef<RowData> = {
     sortable: true,
-    resizable: true,
+    resizable: false,
     filter: false,
   };
 
@@ -340,7 +343,6 @@ export const AGGridTable: React.FC = () => {
         // backgroundColor: isDark ? '#1a1a1a' : '#ffffff',
         backgroundColor: 'background.default',
         // color: isDark ? '#ffffff' : '#000000',
-        transition: 'background-color 0.3s ease',
       }}
     >
       <AgGridReact<RowData>

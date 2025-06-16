@@ -3,6 +3,7 @@ import Header from '../Components/header/Header';
 import Sidebar from '../Components/header/Sidebar';
 import ColorTabs from '../Components/ui/Tab';
 import SlideCard from '../Components/ui/SlideCard';
+import Footer from '../Components/header/Footer';
 
 const Home = () => {
   return (
@@ -30,6 +31,7 @@ const Home = () => {
       <Box
         sx={{
           width: '100%',
+          height: '100vh',
         }}
       >
         <Header />
@@ -44,11 +46,16 @@ const Home = () => {
             paddingTop: '10px',
           }}
         >
-          <Box>
+          <Box
+            sx={{
+              width: '100%',
+            }}
+          >
             <SlideCard />
             <ColorTabs />
           </Box>
         </Box>
+        <Footer />
       </Box>
     </Box>
   );

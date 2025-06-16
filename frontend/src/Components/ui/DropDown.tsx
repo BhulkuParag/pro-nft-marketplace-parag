@@ -57,9 +57,10 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
           px: 2,
           py: 1,
           minWidth: 180,
-          color: 'white',
+          color: 'inherit',
           fontSize: 14,
-          border: '1px solid #6a7282',
+          border: '1px solid',
+          borderColor: 'divider',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -72,16 +73,31 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        PaperProps={{
-          sx: {
-            borderRadius: 2,
-            minWidth: 200,
-            maxHeight: 400,
-            boxShadow: 3,
-            border: '1px solid #6a7282',
-            backgroundColor: '#141416',
-            mt: 0.5,
-            scrollbarWidth: 'none',
+        slotProps={{
+          paper: {
+            sx: {
+              borderRadius: 2,
+              minWidth: 200,
+              maxHeight: 400,
+              boxShadow: 3,
+              border: '1px solid',
+              borderColor: 'divider',
+              mt: 0.5,
+              scrollbarWidth: 'none',
+              '& .MuiList-root': {
+                backgroundColor: 'background.default',
+              },
+              '& .Mui-selected': {
+                backgroundColor: '#75757527',
+                color: 'inherit',
+                borderRadius: 2,
+                '&: hover': {
+                  backgroundColor: '#75757527',
+                  color: 'inherit',
+                  borderRadius: 2,
+                },
+              },
+            },
           },
         }}
         anchorOrigin={{
@@ -98,12 +114,15 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
             selected={option.value === value}
             onClick={() => handleSelect(option.value)}
             sx={{
-              backgroundColor: '#141416',
+              backgroundColor: 'background.default',
               fontSize: 14,
-              // '&:hover ': {
-              //   backgroundColor: '#353945',
-              //   borderRadius: 2
-              // },
+              mx: 1,
+              pl: 1,
+              '&:hover ': {
+                backgroundColor: '#75757527',
+                borderRadius: 2,
+                color: 'inherit',
+              },
             }}
           >
             {option.icon && <ListItemIcon>{option.icon}</ListItemIcon>}
