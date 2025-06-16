@@ -414,7 +414,7 @@ export default function Header(): JSX.Element {
       >
         <Toolbar
           sx={{
-            gap: 2,
+            gap: 1.5,
             backgroundColor: 'background.default',
           }}
         >

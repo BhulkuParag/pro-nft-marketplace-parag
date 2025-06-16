@@ -159,7 +159,6 @@ const lightTheme = createTheme({
           color: '#777E90',
           backgroundColor: '#FFFFFF',
           minHeight: '48px',
-          paddingInline: 1,
           '&.Mui-selected': {
             color: '#141416',
             // backgroundColor: '#F2F2F2',
@@ -253,7 +252,6 @@ const darkTheme = createTheme({
           color: '#9DA1AF',
           backgroundColor: '#1C1C1C',
           minHeight: '48px',
-          paddingInline: 1,
           // padding: '12px 24px',
           '&.Mui-selected': {
             color: '#FFFFFF',
