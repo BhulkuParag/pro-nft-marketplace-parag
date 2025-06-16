@@ -7,25 +7,22 @@
   ::-webkit-scrollbar {
     display: none;
   }
-  /* box-shadow: none !important; */
 }
-
-/* .ag-theme-quartz .ag-header-cell,
-.ag-theme-quartz-dark .ag-header-cell,
-.ag-theme-quartz .ag-cell,
-.ag-theme-quartz-dark .ag-cell {
-  border: none !important;
-  box-shadow: none !important;
-} */
 
 .ag-theme-quartz .ag-row,
 .ag-theme-quartz-dark .ag-row {
-  /* border-bottom: none !important; */
   background-color: transparent;
 }
 
 .ag-theme-quartz .ag-header,
 .ag-theme-quartz-dark .ag-header {
-  /* border-bottom: none !important; */
   background-color: transparent;
+}
+
+.ag-row:hover {
+  background-color: #5f5f5f13 !important;
+}
+
+.ag-row {
+  font-family: 'Inter', sans-serif !important;
 }
