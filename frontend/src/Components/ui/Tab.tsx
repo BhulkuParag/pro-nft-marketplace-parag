@@ -3,7 +3,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import type { JSX } from '@emotion/react/jsx-runtime';
-import { MyGrid } from './Table';
+import { AGGridTable } from './AGGridTable';
 import { Typography } from '@mui/material';
 
 export default function ColorTabs(): JSX.Element {
@@ -19,15 +19,25 @@ export default function ColorTabs(): JSX.Element {
     const { children, value, index, ...other } = props;
 
     return (
-      <div
+      <Box
+        component="div"
         role="tabpanel"
         hidden={value !== index}
         id={`simple-tabpanel-${index}`}
         aria-labelledby={`simple-tab-${index}`}
         {...other}
+        sx={{
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px',
+          // alignItems: 'center',
+
+          backgroundColor: 'background.default',
+        }}
       >
         {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
-      </div>
+      </Box>
     );
   }
 
@@ -53,25 +63,13 @@ export default function ColorTabs(): JSX.Element {
       <Box
         sx={{
           borderBottom: 1,
+          borderBottomColor: 'custom.borderblack01',
           borderColor: 'divider',
-          backgroundColor: 'custom.secondaryDark',
         }}
       >
         <Tabs
           value={value}
           onChange={handleChange}
-          sx={{
-            fontStyle: 'initial',
-            paddingInline: 2,
-            '& .MuiTabs-indicator': {
-              backgroundColor: 'text.primary',
-            },
-            // '& .MuiTab-root': {
-            //   color: 'text.secondary',
-            // },
-          }}
-          // textColor="primary"
-          // indicatorColor="primary"
           aria-label="secondary tabs example"
         >
           {tabs?.map((tab) => (
@@ -85,20 +83,37 @@ export default function ColorTabs(): JSX.Element {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={'trending'}>
-        <Typography fontSize={26}>Top Trending Collections</Typography>
-        <MyGrid />
+        <Box
+          sx={{
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            // justifyContent: 'space-between',
+            alignItems: 'start',
+            gap: 5,
+          }}
+        >
+          <Typography
+            variant="h4"
+            sx={{ color: 'text.primary', fontWeight: 500 }}
+          >
+            Top Trending Collections
+          </Typography>
+          <AGGridTable />
+        </Box>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={'nft_sales'}>
-        <Typography fontSize={26}>Current NFT Sales</Typography>
-        <MyGrid />
+        <h1>Current NFT Sales</h1>
+        <AGGridTable />
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={'top_sales'}>
-        <Typography fontSize={26}>Top Sales</Typography>
-        <MyGrid />
+      <CustomTabPanel value={value} index={'Top sales'}>
+        <h1>Top Sales</h1>
+        <AGGridTable />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={'top_mint_ranking'}>
-        <Typography fontSize={26}>Top Mint Ranking</Typography>
-        <MyGrid />
+        <h1>Top Mint Ranking</h1>
+        <AGGridTable />
       </CustomTabPanel>
     </Box>
   );

@@ -2,9 +2,11 @@ import { Box } from '@mui/material';
 import Header from '../Components/header/Header';
 import Sidebar from '../Components/header/Sidebar';
 import ColorTabs from '../Components/ui/Tab';
-import { MyGrid } from '../Components/ui/Table';
 import SlideCard from '../Components/ui/SlideCard';
+<<<<<<< HEAD
 import Footer from '../Components/header/Footer';
+=======
+>>>>>>> 59f72abcc1e3bd13677b127441d869632063622a
 
 const Home = () => {
   return (

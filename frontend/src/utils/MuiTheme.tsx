@@ -152,6 +152,41 @@ const lightTheme = createTheme({
   typography: {
     fontFamily: 'Inter, sans-serif',
   },
+  components: {
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          color: '#777E90',
+          backgroundColor: '#FFFFFF',
+          minHeight: '48px',
+          paddingInline: 1,
+          '&.Mui-selected': {
+            color: '#141416',
+            // backgroundColor: '#F2F2F2',
+          },
+          '&:hover': {
+            color: '#141416',
+            // backgroundColor: '#E6E8EC',
+          },
+        },
+      },
+    },
+    MuiTabs: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#FFFFFF',
+          minHeight: '48px',
+          '& .MuiTabs-indicator': {
+            backgroundColor: '#A49BFF',
+          },
+          '& .MuiTabs-flexContainer': {
+            backgroundColor: '#FFFFFF',
+            height: '100%',
+          },
+        },
+      },
+    },
+  },
 });
 
 const darkTheme = createTheme({
@@ -210,6 +245,42 @@ const darkTheme = createTheme({
   },
   typography: {
     fontFamily: 'Inter, sans-serif',
+  },
+  components: {
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          color: '#9DA1AF',
+          backgroundColor: '#1C1C1C',
+          minHeight: '48px',
+          paddingInline: 1,
+          // padding: '12px 24px',
+          '&.Mui-selected': {
+            color: '#FFFFFF',
+            // backgroundColor: '#353945',
+          },
+          '&:hover': {
+            color: '#A49BFF',
+            // backgroundColor: '#353945',
+          },
+        },
+      },
+    },
+    MuiTabs: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#1C1C1C',
+          minHeight: '48px',
+          '& .MuiTabs-indicator': {
+            backgroundColor: '#A49BFF',
+          },
+          '& .MuiTabs-flexContainer': {
+            backgroundColor: '#1C1C1C',
+            height: '100%',
+          },
+        },
+      },
+    },
   },
 });
 
