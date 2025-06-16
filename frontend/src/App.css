@@ -1,9 +1,4 @@
-body,
-html,
-#root {
-  margin: 0;
-  padding: 0;
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 .ag-theme-quartz .ag-root-wrapper,
 .ag-theme-quartz-dark .ag-root-wrapper {

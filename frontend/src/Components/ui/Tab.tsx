@@ -3,7 +3,8 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import type { JSX } from '@emotion/react/jsx-runtime';
-import { MyGrid } from './Table';
+import { AGGridTable } from './AGGridTable';
+import { Typography } from '@mui/material';
 
 export default function ColorTabs(): JSX.Element {
   const [value, setValue] = React.useState<string>('trending');
@@ -18,15 +19,25 @@ export default function ColorTabs(): JSX.Element {
     const { children, value, index, ...other } = props;
 
     return (
-      <div
+      <Box
+        component="div"
         role="tabpanel"
         hidden={value !== index}
         id={`simple-tabpanel-${index}`}
         aria-labelledby={`simple-tab-${index}`}
         {...other}
+        sx={{
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px',
+          // alignItems: 'center',
+
+          backgroundColor: 'background.default',
+        }}
       >
         {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
-      </div>
+      </Box>
     );
   }
 
@@ -48,24 +59,17 @@ export default function ColorTabs(): JSX.Element {
   }, []);
 
   return (
-    <Box sx={{ width: '100%', backgroundColor: '#1C1C1C', mt: 2 }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+    <Box sx={{ width: '100%', backgroundColor: 'background.default', mt: 2 }}>
+      <Box
+        sx={{
+          borderBottom: 1,
+          borderBottomColor: 'custom.borderblack01',
+          borderColor: 'divider',
+        }}
+      >
         <Tabs
           value={value}
           onChange={handleChange}
-          sx={{
-            fontStyle: 'unset',
-            paddingInline: 2,
-            '& .MuiTabs-indicator': {
-              backgroundColor: 'background.default',
-            },
-            // '& .MuiTab-root': {
-            //   color: 'text.secondary',
-            // },
-          }}
-          textColor="inherit"
-          // textColor="secondary"
-          // indicatorColor="secondary"
           aria-label="secondary tabs example"
         >
           {tabs?.map((tab) => (
@@ -79,20 +83,37 @@ export default function ColorTabs(): JSX.Element {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={'trending'}>
-        <h1>Top Trending Collections</h1>
-        <MyGrid />
+        <Box
+          sx={{
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            // justifyContent: 'space-between',
+            alignItems: 'start',
+            gap: 5,
+          }}
+        >
+          <Typography
+            variant="h4"
+            sx={{ color: 'text.primary', fontWeight: 500 }}
+          >
+            Top Trending Collections
+          </Typography>
+          <AGGridTable />
+        </Box>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={'nft_sales'}>
         <h1>Current NFT Sales</h1>
-        <MyGrid />
+        <AGGridTable />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={'Top sales'}>
         <h1>Top Sales</h1>
-        <MyGrid />
+        <AGGridTable />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={'top_mint_ranking'}>
         <h1>Top Mint Ranking</h1>
-        <MyGrid />
+        <AGGridTable />
       </CustomTabPanel>
     </Box>
   );

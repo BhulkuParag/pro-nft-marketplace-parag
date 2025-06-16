@@ -37,7 +37,11 @@ const StarRenderer = (params: ICellRendererParams<RowData>) => (
 
 const CollectionRenderer = (params: ICellRendererParams<RowData>) => (
   <div className="flex items-center gap-2">
-    <img src="placeholder-logo.png" alt="" className="w-8 h-8 rounded-full" />
+    <img
+      src="http://img.reservoir.tools/images/v2/mainnet/z9JRSpLYGu7%2BCZoKWtAuABZyrcC5KO5c%2Fpl9qoTyb1GXYbn1ksY1D9Vxjv7nkqqX5v3Kxd1M%2FV%2BIriyWSPgAmIlbJ5Zn3oFYI87ssNtSpi3kbyV5bfxjgqq45I7OyWHm1BmVO6ZZ9ARDi3eP%2F7bs%2BG%2By5msQ4%2FpiwMMsk4M9yWpe7GUMs0Td8rs%2BQKil68ir3OhSL%2FqRrJmm22hPPct6Tg%3D%3D?width=250"
+      alt=""
+      className="w-8 h-8 rounded-full"
+    />
     <span>{params.value}</span>
     {/* Verified checkmark */}
     <svg
@@ -64,7 +68,7 @@ const VolumeRenderer = (params: ICellRendererParams<RowData>) => (
   </div>
 );
 
-export const MyGrid: React.FC = () => {
+export const AGGridTable: React.FC = () => {
   const muiTheme = useTheme();
   const isDark = muiTheme.palette.mode === 'dark';
   const themeClass = isDark ? 'ag-theme-quartz-dark' : 'ag-theme-quartz';
@@ -326,12 +330,13 @@ export const MyGrid: React.FC = () => {
 
   return (
     <Box
+      component="div"
       className={themeClass}
       sx={{
-        height: '600px',
+        height: '50vh',
         width: '100%',
-        padding: '12px',
-        borderRadius: 12,
+        // padding: '12px',
+        // borderRadius: 12,
         // backgroundColor: isDark ? '#1a1a1a' : '#ffffff',
         backgroundColor: 'background.default',
         // color: isDark ? '#ffffff' : '#000000',
