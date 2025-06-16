@@ -3,11 +3,10 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import type { JSX } from '@emotion/react/jsx-runtime';
-import { AGGridTable, CollectionRenderer, PriceRenderer, StarRenderer, VolumeRenderer } from './AGGridTable';
+import { AGGridTable, CollectionRenderer, CustomHeader, InfoIcon, PriceRenderer, StarRenderer, VolumeRenderer } from './AGGridTable';
 import { Typography } from '@mui/material';
 import type { RowData } from '../../types/table';
 import type { ColDef } from 'ag-grid-community';
-import { PiCaretUpDown } from 'react-icons/pi';
 
 export default function ColorTabs(): JSX.Element {
   const [value, setValue] = React.useState<string>('trending');
@@ -79,12 +78,14 @@ export default function ColorTabs(): JSX.Element {
         field: 'Floor Price(24H)',
         headerName: 'Floor Price(24H)',
         cellRenderer: PriceRenderer,
+        headerComponent: InfoIcon,
         flex: 1,
       },
       {
         field: 'Volume(24H)',
         headerName: 'Volume(24H)',
         cellRenderer: VolumeRenderer,
+        headerComponent: CustomHeader,
         flex: 1,
       },
       {
@@ -114,11 +115,13 @@ export default function ColorTabs(): JSX.Element {
       {
         field: 'Owners',
         headerName: 'Owners',
+        headerComponent: CustomHeader,
         width: 130,
       },
       {
         field: 'Supply',
         headerName: 'Supply',
+        headerComponent: CustomHeader,
         width: 130,
       },
       // {
@@ -350,11 +353,14 @@ export default function ColorTabs(): JSX.Element {
             // justifyContent: 'space-between',
             alignItems: 'start',
             gap: 5,
+            padding: '20px'
           }}
         >
           <Typography
             variant="h4"
-            sx={{ color: 'text.primary', fontWeight: 500 }}
+            fontWeight={600}
+            color='#D0D2D6'
+            fontSize={26}
           >
             Top Trending Collections
           </Typography>
