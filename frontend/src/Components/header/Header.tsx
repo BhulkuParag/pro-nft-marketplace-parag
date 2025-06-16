@@ -28,6 +28,7 @@ import Avalanche from '../Icon/crypto-icon/Avalanche';
 
 import { FormControl, InputLabel } from '@mui/material';
 import CustomDropdown from '../ui/DropDown';
+import CustomSearch from '../ui/CustomSearch';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -405,15 +406,16 @@ export default function Header(): JSX.Element {
       <AppBar
         position="static"
         sx={{
-          border: '1px solid custom.borderblack01 ',
+          borderBottom: '1px solid',
+          borderColor: 'divider',
           color: 'text.primary',
           paddingLeft: '55px',
         }}
       >
         <Toolbar
           sx={{
+            gap: 2,
             backgroundColor: 'background.default',
-            
           }}
         >
           <Box sx={{ minWidth: 130 }}>
@@ -422,44 +424,6 @@ export default function Header(): JSX.Element {
               value={selected}
               onChange={setSelected}
             />
-            {/* <FormControl fullWidth>
-              <InputLabel
-                id="demo-simple-select-label"
-                sx={
-                  {
-                    // color: '#fff',
-                  }
-                }
-              >
-                Age
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={age}
-                // label="Age"
-                IconComponent={() => null}
-                onChange={handleChange}
-                sx={{
-                  color: 'text.primary',
-
-                  border: '1px solid custom.borderblack01 ',
-                  '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: 'custom.borderblack01',
-                  },
-                  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                    borderColor: 'custom.borderblack01', // Prevent border color change on focus
-                  },
-                  '&.Mui-focused': {
-                    backgroundColor: 'inherit', // Prevent background color change on focus
-                  },
-                }}
-              >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select>
-            </FormControl> */}
           </Box>
           <Box
             sx={{
@@ -469,16 +433,7 @@ export default function Header(): JSX.Element {
               justifyContent: 'flex-end',
             }}
           >
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-
-              <StyledInputBase
-                placeholder="Search by collection , NFT, and User"
-                inputProps={{ 'aria-label': 'search' }}
-              />
-            </Search>
+            <CustomSearch/>
           </Box>
           <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1 }}>
             <IconButton
@@ -504,8 +459,11 @@ export default function Header(): JSX.Element {
             <Button
               variant="contained"
               sx={{
-                backgroundColor: '#fff',
-                color: '#000',
+                fontSize: 16,
+                width: '165px',
+                backgroundColor: 'custom.whiteLightO1',
+                color: 'custom.black02',
+                borderRadius: '10px',
               }}
             >
               Connect

@@ -54,7 +54,7 @@ export default function ColorTabs(): JSX.Element {
         sx={{
           borderBottom: 1,
           borderColor: 'divider',
-          backgroundColor: '#1C1C1C',
+          backgroundColor: 'custom.secondaryDark',
         }}
       >
         <Tabs
@@ -70,8 +70,8 @@ export default function ColorTabs(): JSX.Element {
             //   color: 'text.secondary',
             // },
           }}
-          textColor="secondary"
-          // indicatorColor="secondary"
+          // textColor="primary"
+          // indicatorColor="primary"
           aria-label="secondary tabs example"
         >
           {tabs?.map((tab) => (

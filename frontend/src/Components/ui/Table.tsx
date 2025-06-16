@@ -54,7 +54,7 @@ const CollectionRenderer = (params: ICellRendererParams<RowData>) => (
 const PriceRenderer = (params: ICellRendererParams<RowData>) => (
   <div className="flex items-center cursor-pointer">
     <span className="text-gray-400">Ξ</span>
-    <Tooltip title={"$ 500.0"} placement="top" arrow={true}>
+    <Tooltip title={'$ 1100.0'} placement="top" arrow={true}>
       <span className="ml-1">{params.value}</span>
     </Tooltip>
   </div>
@@ -334,11 +334,8 @@ export const MyGrid: React.FC = () => {
         height: '500px',
         width: '100%',
         px: 1,
-        // borderRadius: 12,
-        // backgroundColor: isDark ? '#1a1a1a' : '#ffffff',
         backgroundColor: 'background.default',
         // color: isDark ? '#ffffff' : '#000000',
-        transition: 'background-color 0.3s ease',
       }}
     >
       <AgGridReact<RowData>

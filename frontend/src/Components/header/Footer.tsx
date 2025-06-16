@@ -51,15 +51,16 @@ const Footer: FC<FooterProps> = () => {
       component={'footer'}
       sx={{
         backgroundColor: 'background.default',
-        color: 'text.grey01',
+        color: 'inherit',
         position: 'sticky',
         bottom: 0,
         // left: 0,
-        // right: 0,
-        borderTop: '1px solid text.grey01',
+        right: 0,
+        borderTop: '1px solid',
+        borderColor: 'divider',
         zIndex: 1000,
       }}
-      className="z-40 bottom-0 left-navbar right-0 border-t border-gray-600 hidden lg:block sticky"
+      className="hidden lg:block"
     >
       <nav className="mx-auto px-4">
         <div className="w-full flex items-center justify-between">
@@ -109,64 +110,6 @@ const Footer: FC<FooterProps> = () => {
               {gasData} GWEI
             </div>
           </ul>
-          {/* <div className="flex items-center gap-3">
-            <div className="flex gap-3 items-center justify-center">
-              <div className="flex gap-3 items-center text-xs">
-                <div className="flex gap-1 items-center font-medium">
-                  <GasFeeIcon />
-                  10 Gwei
-                </div>
-                <Select
-                  defaultValue={selectedValue}
-                  onValueChange={setSelectedValue}
-                >
-                  <SelectTrigger className="w-32 h-auto">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      {dropdownOptions?.map((option, index) => (
-                        <SelectItem value={option?.label} key={index}>
-                          {option?.label}
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-                <div className="border-r w-1 h-4 border-light-black-01 dark:border-dark-black-01 "></div>
-              </div>
-              <Tabs defaultValue="discover" className="mt-1">
-                <TabsList className="flex justify-start flex-wrap bg-transparent border border-[#353945]">
-                  {footerTabs.map((item, index) => (
-                    <span key={index}>
-                      <TabsTrigger
-
-                        className="cursor-pointer text-grey data-[state=active]:bg-[#A49BFF] data-[state=active]:text-[#1C1C1C] data-[state=active]:h-full"
-                        value={item
-                          .toLowerCase()
-                          .replace(/&/g, "")
-                          .replace(/ /g, "-")}
-                      >
-                        {item}
-                      </TabsTrigger>
-                    </span>
-                  ))}
-                </TabsList>
-
-                {footerTabs.map((item, index) => (
-                  <span key={index}>
-                    <TabsContent
-                      className="h-full"
-                      value={item
-                        .toLowerCase()
-                        .replace(/&/g, "")
-                        .replace(/ /g, "-")}
-                    ></TabsContent>
-                  </span>
-                ))}
-              </Tabs>
-            </div>
-          </div> */}
           <ul className="flex items-center gap-4">
             {links?.map((link) => (
               <li key={link.url} className="inline-block">
