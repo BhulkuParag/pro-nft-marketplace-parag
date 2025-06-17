@@ -24,7 +24,7 @@ const Home = () => {
           zIndex: 1200,
         }}
       >
-        {/* <Sidebar /> */}
+        <Sidebar />
       </Box>
 
       <Box
@@ -45,8 +45,8 @@ const Home = () => {
           }}
         >
           <Box>
-            {/* <SlideCard /> */}
-            {/* <ColorTabs /> */}
+            <SlideCard />
+            <ColorTabs />
           </Box>
         </Box>
       </Box>

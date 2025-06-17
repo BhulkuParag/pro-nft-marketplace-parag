@@ -41,7 +41,7 @@ declare module '@mui/material/styles' {
     coral: string;
     oxblood: string;
     yellow: string;
-    fill: string;
+    Boarder02: string;
   }
 
   interface Palette {
@@ -128,7 +128,7 @@ const lightTheme = createTheme({
       coral: '#F2B8B5',
       oxblood: '#601410',
       yellow: '#FFC155',
-      fill: '#777E90',
+      Boarder02: '#777E90',
     },
 
     text: {
@@ -223,7 +223,7 @@ const darkTheme = createTheme({
       coral: '#F2B8B5',
       oxblood: '#601410',
       yellow: '#FFC155',
-      fill: '#A49BFF',
+      Boarder02: '#e6e8ec',
     },
 
     text: {

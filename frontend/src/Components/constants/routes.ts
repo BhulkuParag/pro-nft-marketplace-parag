@@ -1,5 +1,6 @@
 import { type ComponentType } from 'react';
 import Home from '../../Page/Home';
+import Screen from '../../Page/Screen';
 
 interface RouteConfig {
   path: string;
@@ -9,6 +10,10 @@ interface RouteConfig {
 export const routes: RouteConfig[] = [
   {
     path: '/',
-    component: Home,
+    component: Home,    
+  },
+  {
+    path: '/TreandingCollection/Assets/Buy',
+    component: Screen,    
   },
 ];
