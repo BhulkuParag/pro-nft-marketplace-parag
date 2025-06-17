@@ -1,7 +1,31 @@
-body,
-html,
-#root {
-  margin: 0;
-  padding: 0;
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+.ag-theme-quartz .ag-root-wrapper,
+.ag-theme-quartz-dark .ag-root-wrapper {
+  border: none !important;
+  background-color: transparent;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  /* box-shadow: none !important; */
 }
 
+/* .ag-theme-quartz .ag-header-cell,
+.ag-theme-quartz-dark .ag-header-cell,
+.ag-theme-quartz .ag-cell,
+.ag-theme-quartz-dark .ag-cell {
+  border: none !important;
+  box-shadow: none !important;
+} */
+
+.ag-theme-quartz .ag-row,
+.ag-theme-quartz-dark .ag-row {
+  /* border-bottom: none !important; */
+  background-color: transparent;
+}
+
+.ag-theme-quartz .ag-header,
+.ag-theme-quartz-dark .ag-header {
+  /* border-bottom: none !important; */
+  background-color: transparent;
+}

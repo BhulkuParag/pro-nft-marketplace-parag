@@ -3,7 +3,8 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import type { JSX } from '@emotion/react/jsx-runtime';
-import { MyGrid } from './Table';
+import { AGGridTable } from './AGGridTable';
+import { Typography } from '@mui/material';
 
 export default function ColorTabs(): JSX.Element {
   const [value, setValue] = React.useState<string>('trending');
@@ -18,15 +19,25 @@ export default function ColorTabs(): JSX.Element {
     const { children, value, index, ...other } = props;
 
     return (
-      <div
+      <Box
+        component="div"
         role="tabpanel"
         hidden={value !== index}
         id={`simple-tabpanel-${index}`}
         aria-labelledby={`simple-tab-${index}`}
         {...other}
+        sx={{
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px',
+          // alignItems: 'center',
+
+          backgroundColor: 'background.default',
+        }}
       >
         {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
-      </div>
+      </Box>
     );
   }
 
@@ -38,37 +49,71 @@ export default function ColorTabs(): JSX.Element {
     setValue(newValue);
   };
 
+  const tabs = React.useMemo(() => {
+    return [
+      { label: 'Trending', value: 'trending' },
+      { label: 'NFT Sales', value: 'nft_sales' },
+      { label: 'Top Sales', value: 'top_sales' },
+      { label: 'Top Mint Ranking', value: 'top_mint_ranking' },
+    ];
+  }, []);
+
   return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+    <Box sx={{ width: '100%', backgroundColor: 'background.default', mt: 2 }}>
+      <Box
+        sx={{
+          borderBottom: 1,
+          borderBottomColor: 'custom.borderblack01',
+          borderColor: 'divider',
+        }}
+      >
         <Tabs
           value={value}
           onChange={handleChange}
-          textColor="secondary"
-          indicatorColor="secondary"
           aria-label="secondary tabs example"
         >
-          <Tab value="trending" label="Trending" />
-          <Tab value="NFT sales" label="NFT Sales" />
-          <Tab value="Top sales" label="Top Sales" />
-          <Tab value="Top mint Ranking" label="Top Mint Ranking" />
+          {tabs?.map((tab) => (
+            <Tab
+              key={tab?.value}
+              disableTouchRipple
+              value={tab?.value}
+              label={tab?.label}
+            />
+          ))}
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={'trending'}>
-        <h1 style={{ padding: '5px' }}>Top Trending Collections</h1>
-        <MyGrid />
+        <Box
+          sx={{
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            // justifyContent: 'space-between',
+            alignItems: 'start',
+            gap: 5,
+          }}
+        >
+          <Typography
+            variant="h4"
+            sx={{ color: 'text.primary', fontWeight: 500 }}
+          >
+            Top Trending Collections
+          </Typography>
+          <AGGridTable />
+        </Box>
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={'NFT sales'}>
-        <h1 style={{ padding: '5px' }}>Current NFT Sales</h1>
-        <MyGrid />
+      <CustomTabPanel value={value} index={'nft_sales'}>
+        <h1>Current NFT Sales</h1>
+        <AGGridTable />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={'Top sales'}>
-        <h1 style={{ padding: '5px' }}>Top Sales</h1>
-        <MyGrid />
+        <h1>Top Sales</h1>
+        <AGGridTable />
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={'Top mint Ranking'}>
-        <h1 style={{ padding: '5px' }}>Top Mint Ranking</h1>
-        <MyGrid />
+      <CustomTabPanel value={value} index={'top_mint_ranking'}>
+        <h1>Top Mint Ranking</h1>
+        <AGGridTable />
       </CustomTabPanel>
     </Box>
   );

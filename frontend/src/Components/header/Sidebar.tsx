@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import { menuItems } from '../constants/menuItem';
 
 const drawerWidth = 240;
 const collapsedWidth = 60;
@@ -26,7 +27,6 @@ const sideBar: React.FC = () => {
         sx={{
           display: 'flex',
           flexDirection: 'column',
-
           gap: '10px',
           marginTop: 2,
         }}
@@ -39,18 +39,19 @@ const sideBar: React.FC = () => {
           <span>Polycruz</span>
         </div>
 
-        {['Home', 'Compare'].map((text, index) => (
-          <ListItem key={text} disablePadding sx={{}}>
+        {menuItems.map((item, index) => (
+          <ListItem key={item.path} disablePadding>
             <ListItemButton
               sx={{
                 minHeight: 48,
                 display: 'flex',
+                alignItems: 'center',
                 gap: '10px',
                 justifyContent: open ? 'initial' : 'center',
                 px: 2.5,
                 '&:hover': {
-                  fill: '#777E90',
-                  backgroundColor: '#A49BFF',
+                  fill: 'custom.primaryLight',
+                  // backgroundColor: '',
                 },
               }}
             >
@@ -60,16 +61,23 @@ const sideBar: React.FC = () => {
                   // mr: open ? 3 : 'auto',
                   display: 'flex',
                   flexDirection: 'column',
+                  alignItems: 'center',
                   justifyContent: 'center',
+                  color: 'text.primary',
                 }}
               >
-                {index % 2 === 0 ? (
-                  <InboxIcon color="inherit" />
-                ) : (
-                  <MailIcon color="inherit" />
-                )}
+                {<item.icon />}
               </ListItemIcon>
-              <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+              <ListItemText
+                primary={item.lable}
+                sx={{
+                  opacity: open ? 1 : 0,
+                  '& .MuiTypography-root': {
+                    fontSize: '14px',
+                    fontWeight: 500,
+                  },
+                }}
+              />
             </ListItemButton>
           </ListItem>
         ))}
@@ -86,6 +94,7 @@ const sideBar: React.FC = () => {
         sx={{
           width: open ? drawerWidth : collapsedWidth,
           flexShrink: 0,
+          // backgroundColor: '#1C1C1C',
           whiteSpace: 'nowrap',
           boxSizing: 'border-box',
           // position: 'fixed',
@@ -96,7 +105,7 @@ const sideBar: React.FC = () => {
             backgroundColor: 'secondary.main',
             overflowX: 'hidden',
             color: 'text.primary',
-            border: '1px solid #353945',
+            border: '1px solid custom.borderblack01',
           },
         }}
         open={open}

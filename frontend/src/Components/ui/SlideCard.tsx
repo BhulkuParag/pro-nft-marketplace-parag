@@ -7,7 +7,7 @@ import banner1 from '../../assets/images/banner1.svg';
 import banner2 from '../../assets/images/banner2.svg';
 import banner3 from '../../assets/images/banner3.svg';
 
-export default function SliedCard() {
+export default function SlideCard() {
   interface CarouselItem {
     title: string;
     subtitle: string;

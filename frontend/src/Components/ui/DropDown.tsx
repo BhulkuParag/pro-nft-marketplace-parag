@@ -1,46 +1,118 @@
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { type SelectChangeEvent } from '@mui/material/Select';
+import React, { useState } from 'react';
+import {
+  Menu,
+  MenuItem,
+  Button,
+  ListItemIcon,
+  ListItemText,
+} from '@mui/material';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import type { ReactNode } from 'react';
 
-type DropDownProps = {
+export interface DropdownOption {
   label: string;
-  value?: string;
-  option?: string[];
-  onChange?: (value: string) => void; // Add this for controlled usage
-};
+  value: string;
+  icon?: ReactNode;
+}
 
-const DropDown = ({
-  label = '',
-  value = '',
-  option = [],
+export interface CustomDropdownProps {
+  options: DropdownOption[];
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+}
+
+const CustomDropdown: React.FC<CustomDropdownProps> = ({
+  options,
+  value,
   onChange,
-}: DropDownProps) => {
-  const handleChange = (event: SelectChangeEvent) => {
-    onChange?.(event.target.value as string);
+  placeholder = 'Select an option',
+}) => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+
+  const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
   };
 
+  const handleClose = () => setAnchorEl(null);
+
+  const handleSelect = (val: string) => {
+    onChange(val);
+    handleClose();
+  };
+
+  const selectedOption = options.find((opt) => opt.value === value);
+
   return (
-    <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
-        <InputLabel id="dropdown-label">{label}</InputLabel>
-        <Select
-          labelId="dropdown-label"
-          id="dropdown"
-          value={value}
-          label={label}
-          onChange={handleChange}
-        >
-          {(Array.isArray(option) ? option : []).map((item, index) => (
-            <MenuItem key={index} value={item}>
-              {item}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-    </Box>
+    <>
+      <Button
+        variant="outlined"
+        onClick={handleOpen}
+        disableTouchRipple
+        endIcon={<KeyboardArrowDownIcon />}
+        sx={{
+          textTransform: 'none',
+          borderRadius: 2,
+          px: 2,
+          py: 1,
+          minWidth: 180,
+          color: 'white',
+          fontSize: 14,
+          border: '1px solid #6a7282',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
+        {selectedOption ? selectedOption.label : placeholder}
+      </Button>
+
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        PaperProps={{
+          sx: {
+            borderRadius: 2,
+            minWidth: 200,
+            maxHeight: 400,
+            boxShadow: 3,
+            border: '1px solid #6a7282',
+            backgroundColor: '#141416',
+            mt: 0.5,
+            scrollbarWidth: 'none',
+          },
+        }}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+      >
+        {options.map((option) => (
+          <MenuItem
+            disableTouchRipple
+            disableRipple
+            disableGutters
+            key={option.value}
+            selected={option.value === value}
+            onClick={() => handleSelect(option.value)}
+            sx={{
+              backgroundColor: '#141416',
+              fontSize: 14,
+              // '&:hover ': {
+              //   backgroundColor: '#353945',
+              //   borderRadius: 2
+              // },
+            }}
+          >
+            {option.icon && <ListItemIcon>{option.icon}</ListItemIcon>}
+            <ListItemText primary={option.label} />
+          </MenuItem>
+        ))}
+      </Menu>
+    </>
   );
 };
 
-export default DropDown;
+export default CustomDropdown;
