@@ -9,7 +9,6 @@ import Menu from '@mui/material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import MoreIcon from '@mui/icons-material/MoreVert';
 import type { JSX } from '@emotion/react/jsx-runtime';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
@@ -20,7 +19,7 @@ import Ethereum from '../Icon/crypto-icon/Ethereum';
 import Polygon from '../Icon/crypto-icon/Polygon';
 import BNBChain from '../Icon/crypto-icon/BNB_chain';
 import Avalanche from '../Icon/crypto-icon/Avalanche';
-import CustomDropdown from '../../../@ui-component/Comman/DropDown';
+import CustomDropdown from '../../../@ui-component/Common/DropDown';
 import CustomSearch from '../ui/CustomSearch';
 
 export default function Header(): JSX.Element {
@@ -366,8 +365,10 @@ export default function Header(): JSX.Element {
           <Box
             component="div"
             sx={{
-              width: '15%',
-              height: '15%',
+              width: '50%',
+              // height: '100px',
+              mr: 1,
+              display: { xs: 'block', lg: 'none' },
             }}
           >
             <img
@@ -375,13 +376,13 @@ export default function Header(): JSX.Element {
               alt=""
             />
           </Box>
-          {/* <Box sx={{ width: '100%' }}>
+          <Box sx={{ width: '100%' }}>
             <CustomDropdown
               options={options}
               value={selected}
               onChange={setSelected}
             />
-          </Box> */}
+          </Box>
           <Box
             sx={{
               flexGrow: 1,
@@ -401,7 +402,7 @@ export default function Header(): JSX.Element {
               sx={{ padding: '5px' }}
             >
               <Badge color="error">
-                {mode === 'dark' ? <DarkModeIcon /> : <LightModeIcon />}
+                {mode === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
               </Badge>
             </IconButton>
             <IconButton
@@ -441,12 +442,8 @@ export default function Header(): JSX.Element {
               <LocalGroceryStoreIcon />
             </IconButton>
           </Box>
-
-          {/* Connect button only shows on desktop */}
         </Toolbar>
       </AppBar>
-      {/* {renderMobileMenu} */}
-      {/* {renderMenu} */}
     </Box>
   );
 }

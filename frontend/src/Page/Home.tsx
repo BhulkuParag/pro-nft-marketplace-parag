@@ -9,41 +9,45 @@ const Home = () => {
   return (
     <Box
       sx={{
-        width: '100vw',
-        minHeight: '100vh',
+        width: '100%',
+        height: '100vh',
         backgroundColor: 'background.default',
         position: 'relative',
       }}
     >
-      {/* Sidebar at the top, fixed */}
       <Box
         sx={{
+          width: '100%',
           position: 'absolute',
           top: 0,
           left: 0,
-          width: '100%',
           zIndex: 1200,
         }}
       >
-        {/* <Sidebar /> */}
+        <Sidebar />
       </Box>
 
       <Box
         sx={{
           width: '100%',
-          pl: '60px'
         }}
       >
-        <Header />
         <Box
           sx={{
-            pl: { md: '60px', sm: 0 },
+            width: '100%',
+          }}
+        >
+          <Header />
+        </Box>
+        <Box
+          sx={{
             width: '100%',
             display: 'grid',
             alignItems: 'center',
             gridtemplatecolumns: 'repeat(2, minmax(0, 1fr))',
             gap: '15px',
             paddingTop: '10px',
+            paddingLeft: { xs: '0px', lg: '60px' },
           }}
         >
           <Box
@@ -55,7 +59,7 @@ const Home = () => {
             <TabsContainer />
           </Box>
         </Box>
-        {/* <Footer /> */}
+        <Footer />
       </Box>
     </Box>
   );
