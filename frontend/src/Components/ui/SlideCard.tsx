@@ -10,24 +10,24 @@ import banner3 from '../../assets/images/banner3.svg';
 export default function SlideCard() {
   interface CarouselItem {
     title: string;
-    subtitle: string;
+    // subtitle: string;
     image: string;
   }
 
   const carouselItems: CarouselItem[] = [
     {
       title: 'Get Ready for the NFT Launch!',
-      subtitle: 'Prepare for the groundbreaking NFT Launch experience!',
+      // subtitle: 'Prepare for the groundbreaking NFT Launch experience!',
       image: banner1,
     },
     {
       title: 'Explore the Marketplace',
-      subtitle: 'Discover, collect and sell extraordinary NFTs',
+      // subtitle: 'Discover, collect and sell extraordinary NFTs',
       image: banner2,
     },
     {
       title: 'Join the Community',
-      subtitle: 'Be a part of the next big thing in digital assets',
+      // subtitle: 'Be a part of the next big thing in digital assets',
       image: banner3,
     },
   ];
@@ -38,11 +38,11 @@ export default function SlideCard() {
         width: '100%',
         maxWidth: '100vw',
         minHeight: 200,
-        fontSize: 14,
-        color: '#fff',
-        margin: 0,
-        padding: 0,
-        boxSizing: 'border-box',
+        // fontSize: 14,
+        // color: '#fff',
+        // margin: 0,
+        // padding: 0,
+        // boxSizing: 'border-box',
       }}
     >
       <Swiper
@@ -65,29 +65,24 @@ export default function SlideCard() {
           <SwiperSlide
             key={idx}
             style={{
-              textAlign: 'center',
-              fontSize: 18,
+              // textAlign: 'center',
+              // fontSize: 18,
               borderRadius: '10px',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'start',
+              // display: 'flex',
+              // flexDirection: 'column',
+              // justifyContent: 'center',
+              // alignItems: 'start',
             }}
           >
-            <div className="pl-2.5 text-start">
+            <div className="relative flex items-center justify-center h-full z-10 ">
               <img
                 src={item.image}
                 alt={item.title}
-                style={{
-                  width: '100%',
-                  // maxHeight: '120px',
-                  objectFit: 'cover',
-                  // marginBottom: 16,
-                }}
+                className="w-full h-[200px] sm:h-[300px] md:h-[400px] object-cover rounded-lg"
               />
-              {/* <h1>{item.title}</h1>
-              <p>{item.subtitle}</p> */}
             </div>
+            {/* <h1>{item.title}</h1>
+              <p>{item.subtitle}</p> */}
           </SwiperSlide>
         ))}
       </Swiper>

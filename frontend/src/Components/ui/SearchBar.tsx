@@ -28,8 +28,8 @@ const SearchBar: FC<SearchBarProps> = ({
   return (
     <Box
       sx={{
-        height: '40px',
-        padding: '8px',
+        height: { xs: '36px', sm: '40px' },
+        padding: { xs: '6px', sm: '8px' },
         position: 'relative',
         display: 'flex',
         alignItems: 'center',
@@ -38,6 +38,7 @@ const SearchBar: FC<SearchBarProps> = ({
         border: '1px solid',
         borderColor: 'divider',
         backgroundColor: 'custom.secondaryDark',
+        width: '100%', // Make sure the box takes full width
       }}
     >
       <div className="relative flex justify-between items-center">
@@ -45,13 +46,12 @@ const SearchBar: FC<SearchBarProps> = ({
           alt="search"
           width="18"
           height="18"
-          className="mr-3"
+          className="mr-2 sm:mr-3"
           src={Search}
         />
       </div>
       <input
-        // ref={inputRef}
-        className="flex-1 bg-transparent focus:outline-none text-sm text-grey border-0 focus:border-0 focus:bg-transparent focus:ring-0"
+        className="w-full flex-1 bg-transparent focus:outline-none text-sm text-grey border-0 focus:border-0 focus:bg-transparent focus:ring-0"
         type="search"
         placeholder={placeholder}
         value={search}
@@ -67,14 +67,14 @@ const SearchBar: FC<SearchBarProps> = ({
             position: 'absolute',
             right: 0,
             borderRadius: '8px',
-            fontSize: '12px',
-            marginRight: '8px',
-            width: '30px',
-            height: '30px',
+            fontSize: { xs: '11px', sm: '12px' },
+            marginRight: { xs: '6px', sm: '8px' },
+            width: { xs: '24px', sm: '30px' },
+            height: { xs: '24px', sm: '30px' },
             color: 'custom.lightGrey',
             backgroundColor: 'background.default',
+            display: { xs: 'none', sm: 'flex' }, // Hide on mobile, show on desktop
           }}
-          className="hidden md:flex"
         >
           /
         </Box>

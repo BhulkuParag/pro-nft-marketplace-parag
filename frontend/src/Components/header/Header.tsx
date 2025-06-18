@@ -409,22 +409,36 @@ export default function Header(): JSX.Element {
           borderBottom: '1px solid',
           borderColor: 'divider',
           color: 'text.primary',
-          paddingLeft: '55px',
+          paddingLeft: { md: '55px', xs: 0 },
         }}
       >
         <Toolbar
           sx={{
-            gap: 2,
+            display: 'flex',
+            justifyContent: 'space-between',
+            gap: { md: 2, xs: '5px' },
             backgroundColor: 'background.default',
           }}
         >
-          <Box sx={{ minWidth: 130 }}>
+          <Box
+            component="div"
+            sx={{
+              width: '15%',
+              height: '15%',
+            }}
+          >
+            <img
+              src="https://analytic.polycruz.io/_next/static/media/logo.32e9a1fc.svg"
+              alt=""
+            />
+          </Box>
+          {/* <Box sx={{ minWidth: 130 }}>
             <CustomDropdown
               options={options}
               value={selected}
               onChange={setSelected}
             />
-          </Box>
+          </Box> */}
           <Box
             sx={{
               flexGrow: 1,
@@ -433,14 +447,15 @@ export default function Header(): JSX.Element {
               justifyContent: 'flex-end',
             }}
           >
-            <CustomSearch/>
+            <CustomSearch />
           </Box>
-          <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1 }}>
+          <Box sx={{ display: 'flex', gap: 1 }}>
             <IconButton
               size="large"
               aria-label="toggle theme"
               color="inherit"
               onClick={toggleTheme}
+              sx={{ padding: '5px' }}
             >
               <Badge color="error">
                 {mode === 'dark' ? <DarkModeIcon /> : <LightModeIcon />}
@@ -448,55 +463,47 @@ export default function Header(): JSX.Element {
             </IconButton>
             <IconButton
               size="large"
-              aria-label="show 17 new notifications"
+              aria-label="show notifications"
               color="inherit"
+              sx={{ padding: '5px' }}
             >
               <Badge color="error">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
-
-            <Button
-              variant="contained"
-              sx={{
-                fontSize: 16,
-                width: '165px',
-                backgroundColor: 'custom.whiteLightO1',
-                color: 'custom.black02',
-                borderRadius: '10px',
-              }}
-            >
-              Connect
-            </Button>
-
+            <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+              <Button
+                variant="contained"
+                sx={{
+                  fontSize: 16,
+                  width: '165px',
+                  backgroundColor: 'custom.whiteLightO1',
+                  color: 'custom.black02',
+                  borderRadius: '10px',
+                }}
+              >
+                Connect
+              </Button>
+            </Box>
             <IconButton
               size="large"
               edge="end"
-              aria-label="account of current user"
+              aria-label="shopping cart"
               aria-controls={menuId}
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
               color="inherit"
+              sx={{ padding: '5px' }}
             >
               <LocalGroceryStoreIcon />
             </IconButton>
           </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </Box>
+
+          {/* Connect button only shows on desktop */}
         </Toolbar>
       </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
+      {/* {renderMobileMenu} */}
+      {/* {renderMenu} */}
     </Box>
   );
 }

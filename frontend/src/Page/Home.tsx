@@ -37,7 +37,7 @@ const Home = () => {
         <Header />
         <Box
           sx={{
-            pl: '60px',
+            pl: { md: '60px', sm: 0 },
             width: '100%',
             display: 'grid',
             alignItems: 'center',
@@ -52,10 +52,10 @@ const Home = () => {
             }}
           >
             <SlideCard />
-            <ColorTabs />
+            {/* <ColorTabs /> */}
           </Box>
         </Box>
-        <Footer />
+        {/* <Footer /> */}
       </Box>
     </Box>
   );
