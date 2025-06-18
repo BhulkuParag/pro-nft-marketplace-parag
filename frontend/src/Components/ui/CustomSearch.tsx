@@ -55,6 +55,7 @@ const CustomSearch: React.FC = () => {
             color: 'white',
             width: 400,
             height: '15vh',
+            maxHeight: '20vh',
             display: 'flex',
             flexDirection: 'column',
               justifyContent: 'space-between',

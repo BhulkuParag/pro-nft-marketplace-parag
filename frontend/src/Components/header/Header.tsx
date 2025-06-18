@@ -20,11 +20,11 @@ import Ethereum from '../Icon/crypto-icon/Ethereum';
 import Polygon from '../Icon/crypto-icon/Polygon';
 import BNBChain from '../Icon/crypto-icon/BNB_chain';
 import Avalanche from '../Icon/crypto-icon/Avalanche';
-import CustomDropdown from '../ui/DropDown';
+import CustomDropdown from '../../../@ui-component/Comman/DropDown';
 import CustomSearch from '../ui/CustomSearch';
 
 export default function Header(): JSX.Element {
-  const [selected, setSelected] = React.useState('Ethereum');
+  const [selected, setSelected] = React.useState('eth');
   const { mode, toggleTheme } = useThemeMode();
 
   const options = [
@@ -347,7 +347,8 @@ export default function Header(): JSX.Element {
       <AppBar
         position="static"
         sx={{
-          boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px',
+          boxShadow:
+            'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px',
           borderBottom: '1px solid',
           borderColor: 'divider',
           color: 'text.primary',
@@ -399,12 +400,17 @@ export default function Header(): JSX.Element {
 
             <Button
               variant="contained"
+              disableElevation
+              disableTouchRipple
               sx={{
                 fontSize: 16,
                 width: '165px',
                 // backgroundColor: 'custom.whiteLightO1',
                 // color: 'custom.secondary',
                 borderRadius: '10px',
+                transition: 'none',
+                boxShadow: 'none',
+                textTransform: 'none',
               }}
             >
               Connect

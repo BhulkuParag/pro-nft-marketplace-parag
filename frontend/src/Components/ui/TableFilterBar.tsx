@@ -198,7 +198,7 @@ const TableFilterBar = () => {
               disableTouchRipple
               sx={{
                 transition: 'none',
-                backgroundColor: '#A49BFF', // light purple
+                backgroundColor: '#7367f0', // light purple
                 color: 'custom.blackLight',
                 textTransform: 'none',
                 borderRadius: 2,
@@ -206,7 +206,8 @@ const TableFilterBar = () => {
                 py: 1.1,
                 fontWeight: 500,
                 '&:hover': {
-                  backgroundColor: '#A49BFF',
+                  backgroundColor: '#a49bff',
+                  color: 'white'
                 },
               }}
             >
@@ -257,6 +258,7 @@ const TableFilterBar = () => {
               textTransform: 'none',
               fontSize: 16,
               fontWeight: '400',
+              paddingBlock: '4px'
             }}
           >
             volume
@@ -268,6 +270,7 @@ const TableFilterBar = () => {
               textTransform: 'none',
               fontSize: 16,
               fontWeight: '400',
+              paddingBlock: '4px'
             }}
           >
             sales
@@ -280,7 +283,7 @@ const TableFilterBar = () => {
           sx={{ height: '36px', mt: 1, mr: -1.5, borderColor: 'divider' }}
         />
 
-        <Box display="flex" gap={1}>
+        <Box display="flex">
           {timeOptions.map((time) => (
             <Button
               key={time}

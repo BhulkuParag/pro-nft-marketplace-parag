@@ -116,6 +116,7 @@ const lightTheme = createTheme({
       black02: '#1D1B20',
       grey01: '#79747E',
       blackLight: '#F2F2F2',
+      secondaryDark: '#FFFFFF',
       primaryLight: '#777E90',
       primaryLight100: '#D2CDFF',
       primaryContainer: '#21005D',

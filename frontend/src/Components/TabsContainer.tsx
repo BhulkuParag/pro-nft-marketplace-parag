@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material';
-import CustomTab, { type TabItem } from './ui/Tab';
+import CustomTab, { type TabItem } from '../../@ui-component/Comman/Tab';
 import TableFilterBar from './ui/TableFilterBar';
-import { AGGridTable } from './ui/AGGridTable';
+import { AGGridTable } from '../../@ui-component/Comman/AGGridTable';
 import { useMemo } from 'react';
 import type { RowData } from '../types/table';
 import type { ColDef } from 'ag-grid-community';
@@ -12,7 +12,7 @@ import {
   PriceRenderer,
   StarRenderer,
   VolumeRenderer,
-} from '../Components/ui/AGGridTable';
+} from '../../@ui-component/Comman/AGGridTable';
 
 const TabsContainer = () => {
   const columnForTrending: ColDef<RowData, unknown>[] = useMemo(
@@ -71,24 +71,14 @@ const TabsContainer = () => {
         field: 'Owners',
         headerName: 'Owners',
         headerComponent: AddSortIcon,
-        width: 130,
+        // width: 130,
       },
       {
         field: 'Supply',
         headerName: 'Supply',
         headerComponent: AddSortIcon,
-        width: 130,
+        // width: 130,
       },
-      // {
-      //   field: 'actions',
-      //   cellRenderer: (params: ICellRendererParams<RowData>) => {
-      //     return (
-      //       <button onClick={() => alert(`Delete ${params.data?.Collection}`)}>
-      //         ❌
-      //       </button>
-      //     );
-      //   },
-      // },
     ],
     []
   );
@@ -758,13 +748,16 @@ const TabsContainer = () => {
           <Typography
             variant="h4"
             fontWeight={600}
-            color="#D0D2D6"
+            color="custom.whiteLightO1"
             fontSize={26}
           >
             Top Trending Collections
           </Typography>
           <TableFilterBar />
-          <AGGridTable columnDefs={columnForTrending} rowData={rowDataForTrending} />
+          <AGGridTable
+            columnDefs={columnForTrending}
+            rowData={rowDataForTrending}
+          />
         </>
       ),
     },
@@ -776,12 +769,15 @@ const TabsContainer = () => {
           <Typography
             variant="h4"
             fontWeight={600}
-            color="#D0D2D6"
+            color="custom.whiteLightO1"
             fontSize={26}
           >
             Current NFT Sales
           </Typography>
-          <AGGridTable columnDefs={[]} rowData={[]} />
+          <AGGridTable
+            columnDefs={columnForTrending}
+            rowData={rowDataForTrending}
+          />
         </>
       ),
     },
@@ -793,12 +789,15 @@ const TabsContainer = () => {
           <Typography
             variant="h4"
             fontWeight={600}
-            color="#D0D2D6"
+            color="custom.whiteLightO1"
             fontSize={26}
           >
             Top Sales
           </Typography>
-          <AGGridTable columnDefs={[]} rowData={[]} />
+          <AGGridTable
+            columnDefs={columnForTrending}
+            rowData={rowDataForTrending}
+          />
         </>
       ),
     },
@@ -810,7 +809,7 @@ const TabsContainer = () => {
           <Typography
             variant="h4"
             fontWeight={600}
-            color="#D0D2D6"
+            color="custom.whiteLightO1"
             fontSize={26}
           >
             Top Mint Ranking
@@ -820,6 +819,7 @@ const TabsContainer = () => {
       ),
     },
   ];
+
   return <CustomTab tabs={tabs} />;
 };
 

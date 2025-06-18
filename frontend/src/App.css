@@ -21,15 +21,29 @@
   background-color: transparent;
 }
 
+.ag-theme-quartz .ag-row:hover,
+.ag-theme-quartz-dark .ag-row:hover {
+  --bg-hover: #5f5f5f13;
+  background-color: var(--bg-hover) !important;
+}
+
 .ag-theme-quartz .ag-header,
 .ag-theme-quartz-dark .ag-header {
   background-color: transparent;
 }
 
-.ag-row:hover {
-  background-color: #5f5f5f13 !important;
-}
-
 .ag-row {
   font-family: 'Inter', sans-serif !important;
+}
+
+.ag-theme-quartz-dark .ag-row {
+  border-bottom: 1px solid #35394560 !important;
+}
+
+.ag-theme-quartz .ag-row {
+  border-bottom: 1px solid #3539450e !important;
+}
+
+.ag-row:hover {
+  background-color: #5f5f5f13 !important;
 }

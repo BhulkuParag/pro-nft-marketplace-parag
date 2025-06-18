@@ -15,7 +15,6 @@ type SearchBarProps = {
 const SearchBar: FC<SearchBarProps> = ({
   placeholder,
   hasSplash,
-  className,
   search,
   setSearch,
   handleFocus,
@@ -38,6 +37,7 @@ const SearchBar: FC<SearchBarProps> = ({
         border: '1px solid',
         borderColor: 'divider',
         backgroundColor: 'custom.secondaryDark',
+        transition: 'none',
       }}
     >
       <div className="relative flex justify-between items-center">
