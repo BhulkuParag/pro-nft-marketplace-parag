@@ -20,6 +20,7 @@ export interface CustomDropdownProps {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
+  defaultValue?: string;
 }
 
 const CustomDropdown: React.FC<CustomDropdownProps> = ({
@@ -45,28 +46,38 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
   const selectedOption = options.find((opt) => opt.value === value);
 
   return (
-    <>
+    <div className="w-auto">
       <Button
         variant="outlined"
         onClick={handleOpen}
         disableTouchRipple
-        endIcon={<KeyboardArrowDownIcon />}
+        endIcon={
+          <KeyboardArrowDownIcon
+            sx={{
+              ml: -1.2,
+              color: 'custom.grey01',
+            }}
+          />
+        }
         sx={{
           textTransform: 'none',
           borderRadius: 2,
-          px: 2,
-          py: 1,
-          minWidth: 180,
+          padding: '6px 10px',
+          height: '40px',
+          width: 'fit-contant',
           color: 'inherit',
           fontSize: 14,
+          fontWeight: 300,
           border: '1px solid',
           borderColor: 'divider',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
+          gap: 1,
         }}
       >
-        {selectedOption ? selectedOption.label : placeholder}
+        {selectedOption ? selectedOption.icon : ''}
+        {selectedOption ? selectedOption.label : 'Ethereum'}
       </Button>
 
       <Menu
@@ -80,6 +91,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
               minWidth: 200,
               maxHeight: 400,
               boxShadow: 3,
+              fontWeight: 300,
               border: '1px solid',
               borderColor: 'divider',
               mt: 0.5,
@@ -91,11 +103,11 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
                 backgroundColor: '#75757527',
                 color: 'inherit',
                 borderRadius: 2,
-                '&: hover': {
-                  backgroundColor: '#75757527',
-                  color: 'inherit',
-                  borderRadius: 2,
-                },
+              },
+              '&: .Mui-selected :hover': {
+                backgroundColor: '#75757527',
+                color: 'inherit',
+                borderRadius: 2,
               },
             },
           },
@@ -116,6 +128,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
             sx={{
               backgroundColor: 'background.default',
               fontSize: 14,
+              fontWeight: 300,
               mx: 1,
               pl: 1,
               '&:hover ': {
@@ -130,7 +143,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
           </MenuItem>
         ))}
       </Menu>
-    </>
+    </div>
   );
 };
 

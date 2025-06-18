@@ -21,6 +21,7 @@ declare module '@mui/material/styles' {
     whiteLight: string;
     borderblack01: string;
     // borderlight01: string;
+    filterBthBg: string,
     black02: string;
     grey01: string;
     blackLight: string;
@@ -119,9 +120,10 @@ const lightTheme = createTheme({
       primaryLight100: '#D2CDFF',
       primaryContainer: '#21005D',
       lightContainer: '#E6E0E9',
+      filterBthBg: '#E0DFF3',
       red: '#E30051',
       green: '#0A9068',
-      whiteLightO1: '#E7E0EC',
+      whiteLightO1: '#141416',
       primary: '#4836FF',
       lightGrey: '#9DA1AF',
       purple01: '#50008E',
@@ -211,6 +213,7 @@ const darkTheme = createTheme({
       secondaryDark: '#1C1C1C',
       primaryLight: '#A49BFF',
       primaryDark: '#4130EA',
+      filterBthBg: '#19182E',
       primaryDark01: '#A49BFF33',
       red: '#FE749B',
       green: '#10DAB6',

@@ -1,9 +1,9 @@
 import { Box } from '@mui/material';
 import Header from '../Components/header/Header';
 import Sidebar from '../Components/header/Sidebar';
-import ColorTabs from '../Components/ui/Tab';
 import SlideCard from '../Components/ui/SlideCard';
 import Footer from '../Components/header/Footer';
+import TabsContainer from '../Components/TabsContainer';
 
 const Home = () => {
   return (
@@ -31,13 +31,12 @@ const Home = () => {
       <Box
         sx={{
           width: '100%',
-          height: '100vh',
+          pl: '60px'
         }}
       >
         <Header />
         <Box
           sx={{
-            pl: '60px',
             width: '100%',
             display: 'grid',
             alignItems: 'center',
@@ -52,7 +51,7 @@ const Home = () => {
             }}
           >
             <SlideCard />
-            <ColorTabs />
+            <TabsContainer />
           </Box>
         </Box>
         <Footer />

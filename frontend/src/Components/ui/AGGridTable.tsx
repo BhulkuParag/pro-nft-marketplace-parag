@@ -25,50 +25,30 @@ interface AGGridTableProps {
   rowData: RowData[];
 }
 
-export const CustomHeader: React.FC<IHeaderParams> = (props) => {
-  const sort = props.column?.getSort(); // 'asc' | 'desc' | null
-
-  const isSortedAsc = sort === 'asc';
-  const isSortedDesc = sort === 'desc';
-
-  const handleSort = () => {
-    props.progressSort(); // cycles asc → desc → none
-  };
-
-  return (
-    <div
-      onClick={handleSort}
-      className="flex items-center justify-between cursor-pointer w-full px-2 py-1"
-    >
-      <span className="text-sm font-medium">{props.displayName}</span>
-      <span className="ml-2 text-gray-400 text-base flex items-center">
-        {isSortedAsc && <PiCaretUpDown />}
-        {isSortedDesc && <PiCaretUpDown />}
-        {!isSortedAsc && !isSortedDesc && (
-          <PiCaretUpDown style={{ opacity: 0.2 }} />
-        )}
-      </span>
-    </div>
-  );
-};
-
-export const InfoIcon: React.FC<IHeaderParams> = (props) => {
-  const sort = props.column?.getSort();
-  const isSortedAsc = sort === 'asc';
-  const isSortedDesc = sort === 'desc';
-
+export const AddSortIcon: React.FC<IHeaderParams> = (props) => {
   const handleSort = () => {
     props.progressSort();
   };
 
   return (
-    <div
+    <Box
       onClick={handleSort}
       className="flex items-center justify-between cursor-pointer w-full px-2 py-1"
     >
       <div className="flex items-center gap-2">
         <span className="text-sm font-medium">{props.displayName}</span>
-        <Tooltip 
+        <PiCaretUpDown className="text-gray-700" />
+      </div>
+    </Box>
+  );
+};
+
+export const InfoIcon: React.FC<IHeaderParams> = (props) => {
+  return (
+    <Box className="flex items-center justify-between cursor-pointer w-full px-2 py-1">
+      <div className="flex items-center gap-2">
+        <span className="text-sm font-medium">{props.displayName}</span>
+        <Tooltip
           title="Market capitalization is calculated as the sum of each NFT valued at the greater of its last traded price and the floor price of the collection. Suspected wash trades are filtered."
           arrow
           placement="top"
@@ -76,14 +56,7 @@ export const InfoIcon: React.FC<IHeaderParams> = (props) => {
           <InfoIconMui sx={{ fontSize: 16, opacity: 0.7 }} />
         </Tooltip>
       </div>
-      {/* <span className="ml-2 text-gray-400 text-base flex items-center">
-        {isSortedAsc && <PiCaretUpDown />}
-        {isSortedDesc && <PiCaretUpDown />}
-        {!isSortedAsc && !isSortedDesc && (
-          <PiCaretUpDown style={{ opacity: 0.2 }} />
-        )}
-      </span> */}
-    </div>
+    </Box>
   );
 };
 
@@ -157,8 +130,8 @@ export const AGGridTable: React.FC<AGGridTableProps> = ({
       component="div"
       className={themeClass}
       sx={{
-        height: '50vh',
         width: '100%',
+        marginTop: '18px',
         backgroundColor: 'background.default',
       }}
     >
@@ -168,8 +141,9 @@ export const AGGridTable: React.FC<AGGridTableProps> = ({
         defaultColDef={defaultColDef}
         icons={icons}
         pagination={false}
-        paginationPageSize={10}
+        paginationPageSize={50}
         suppressScrollOnNewData
+        domLayout="autoHeight"
       />
     </Box>
   );
