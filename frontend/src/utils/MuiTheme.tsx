@@ -21,6 +21,7 @@ declare module '@mui/material/styles' {
     whiteLight: string;
     borderblack01: string;
     // borderlight01: string;
+    filterBthBg: string,
     black02: string;
     grey01: string;
     blackLight: string;
@@ -115,13 +116,15 @@ const lightTheme = createTheme({
       black02: '#1D1B20',
       grey01: '#79747E',
       blackLight: '#F2F2F2',
+      secondaryDark: '#FFFFFF',
       primaryLight: '#777E90',
       primaryLight100: '#D2CDFF',
       primaryContainer: '#21005D',
       lightContainer: '#E6E0E9',
+      filterBthBg: '#E0DFF3',
       red: '#E30051',
       green: '#0A9068',
-      whiteLightO1: '#E7E0EC',
+      whiteLightO1: '#141416',
       primary: '#4836FF',
       lightGrey: '#9DA1AF',
       purple01: '#50008E',
@@ -159,7 +162,6 @@ const lightTheme = createTheme({
           color: '#777E90',
           backgroundColor: '#FFFFFF',
           minHeight: '48px',
-          paddingInline: 1,
           '&.Mui-selected': {
             color: '#141416',
             // backgroundColor: '#F2F2F2',
@@ -212,6 +214,7 @@ const darkTheme = createTheme({
       secondaryDark: '#1C1C1C',
       primaryLight: '#A49BFF',
       primaryDark: '#4130EA',
+      filterBthBg: '#19182E',
       primaryDark01: '#A49BFF33',
       red: '#FE749B',
       green: '#10DAB6',
@@ -253,7 +256,6 @@ const darkTheme = createTheme({
           color: '#9DA1AF',
           backgroundColor: '#1C1C1C',
           minHeight: '48px',
-          paddingInline: 1,
           // padding: '12px 24px',
           '&.Mui-selected': {
             color: '#FFFFFF',

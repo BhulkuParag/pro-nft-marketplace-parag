@@ -23,5 +23,10 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src"]
+  "include": [
+    "src",
+    "@ui-component/Comman/AGGridTable.tsx",
+    "@ui-component/Comman/Tab.tsx",
+    "@ui-component/Comman/DropDown.tsx"
+  ]
 }
