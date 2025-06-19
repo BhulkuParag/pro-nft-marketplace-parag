@@ -36,7 +36,7 @@ export default function SlideCard() {
     <Box
       sx={{
         width: '100%',
-        maxWidth: '100vw',
+        maxWidth: '100%',
         minHeight: 200,
         // fontSize: 14,
         // color: '#fff',

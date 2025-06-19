@@ -6,10 +6,7 @@ import { routes } from './Components/constants/routes';
 
 const App = () => {
   return (
-    <>
-      {/* <ResponsiveDrawer />
-      <PrimarySearchAppBar /> */}
-      <Box sx={{ backgroundColor: 'background.default' }}>
+      <Box sx={{width: '100%', height: '100vh', backgroundColor: 'background.default' }}>
         <div className="w-screen h-screen max-h-screen">
           <MuiTheme>
             <Routes>
@@ -24,7 +21,6 @@ const App = () => {
           </MuiTheme>
         </div>
       </Box>
-    </>
   );
 };
 

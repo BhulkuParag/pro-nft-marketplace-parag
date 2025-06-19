@@ -97,6 +97,7 @@ const sideBar: React.FC = () => {
           // backgroundColor: '#1C1C1C',
           whiteSpace: 'nowrap',
           boxSizing: 'border-box',
+          display: { xs: 'none', lg: 'block' },
           // position: 'fixed',
           // height: '100vh',
           '& .MuiDrawer-paper': {

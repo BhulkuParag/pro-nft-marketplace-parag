@@ -9,7 +9,6 @@ import Menu from '@mui/material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import MoreIcon from '@mui/icons-material/MoreVert';
 import type { JSX } from '@emotion/react/jsx-runtime';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
@@ -366,9 +365,10 @@ export default function Header(): JSX.Element {
           <Box
             component="div"
             sx={{
-              width: '15%',
-              height: '15%',
-              display: { md: 'none', xs: 'block' },
+              width: '50%',
+              // height: '100px',
+              mr: 1,
+              display: { xs: 'block', lg: 'none' },
             }}
           >
             <img
@@ -402,7 +402,7 @@ export default function Header(): JSX.Element {
               sx={{ padding: '5px' }}
             >
               <Badge color="error">
-                {mode === 'dark' ? <DarkModeIcon /> : <LightModeIcon />}
+                {mode === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
               </Badge>
             </IconButton>
             <IconButton
@@ -442,12 +442,8 @@ export default function Header(): JSX.Element {
               <LocalGroceryStoreIcon />
             </IconButton>
           </Box>
-
-          {/* Connect button only shows on desktop */}
         </Toolbar>
       </AppBar>
-      {/* {renderMobileMenu} */}
-      {/* {renderMenu} */}
     </Box>
   );
 }
