@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   Box,
-  Paper,
+IconButton,
   Typography,
   Button,
   Accordion,
@@ -14,7 +14,6 @@ import {
 } from '@mui/material';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { IconButton } from '@mui/material';
 
 const Screen: React.FC = () => {
   const theme = useTheme();
