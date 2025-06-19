@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import liveData from '../../assets/images/gif/live.gif';
 
 import EthIcon from '../../assets/icons/others/EthIcon';
-import { Box } from '@mui/material';
+import { Box, Divider, Typography } from '@mui/material';
 // import axios from "axios";
 // import { toFixedValue } from "lib/numbers";
 
@@ -60,7 +60,7 @@ const Footer: FC<FooterProps> = () => {
         borderColor: 'divider',
         zIndex: 1000,
       }}
-      className="hidden lg:block"
+      // className="hidden lg:block"
     >
       <nav className="mx-auto px-4">
         <div className="w-full flex items-center justify-between">
@@ -91,26 +91,48 @@ const Footer: FC<FooterProps> = () => {
             <div className="border-r w-1 h-4 border-light-black-01 dark:border-dark-black-01"></div>
             <div className="justify-center items-center gap-1 inline-flex">
               <img className="w-5 h-5" alt="Live-data" src={liveData} />
-              <div className="flex-col justify-center items-start inline-flex">
-                <div className="font-medium leading-none">LIVE DATA</div>
+              <div className="flex-col shrink-0 justify-center items-start inline-flex">
+                <Typography
+                  sx={{
+                    fontSize: 12,
+                    color: 'custom.whiteLightO1',
+                  }}
+                >
+                  LIVE DATA
+                </Typography>
               </div>
             </div>
             <div className="border-r w-1 h-4 border-light-black-01 dark:border-dark-black-01"></div>
             <div className="justify-center items-center gap-1 inline-flex">
               <EthIcon className="fill-grey w-5 h-5" />
               <div className="flex-col justify-center items-start inline-flex">
-                <div className="font-medium leading-none">
+                <Typography
+                  sx={{
+                    fontSize: 12,
+                    color: 'custom.whiteLightO1',
+                  }}
+                >
                   ${Number(ethData)?.toFixed(3)}
-                </div>
+                </Typography>
               </div>
             </div>
             <div className="border-r w-1 h-4 border-light-black-01 dark:border-dark-black-01"></div>
-            <div className="justify-center items-center gap-1 inline-flex">
+            <Box
+              component={'div'}
+              sx={{
+                display: 'inline-flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: 1,
+                fontSize: 12,
+                color: 'custom.whiteLightO1',
+              }}
+            >
               <GasFeeIcon />
               {gasData} GWEI
-            </div>
+            </Box>
           </ul>
-          <ul className="flex items-center gap-4">
+          <ul className="flex items-center gap-4 hidden lg:block">
             {links?.map((link) => (
               <li key={link.url} className="inline-block">
                 <Link to={link.url}>{link.text}</Link>

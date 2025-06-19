@@ -1,5 +1,7 @@
-import { type ComponentType } from 'react';
-import Home from '../../Page/Home';
+import React, { type ComponentType } from 'react';
+
+const Home = React.lazy(() => import('../../Page/Home'));
+const Screen = React.lazy(() => import('../../Page/Screen'));
 
 interface RouteConfig {
   path: string;
@@ -10,5 +12,9 @@ export const routes: RouteConfig[] = [
   {
     path: '/',
     component: Home,
+  },
+  {
+    path: '/TreandingCollection/Assets/Buy',
+    component: Screen,
   },
 ];

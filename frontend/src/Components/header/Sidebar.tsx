@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {
   Box,
   Drawer,
@@ -12,7 +12,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { menuItems } from '../constants/menuItem';
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 const collapsedWidth = 60;
 
 const sideBar: React.FC = () => {
@@ -97,6 +97,7 @@ const sideBar: React.FC = () => {
           // backgroundColor: '#1C1C1C',
           whiteSpace: 'nowrap',
           boxSizing: 'border-box',
+          display: { xs: 'none', lg: 'block' },
           // position: 'fixed',
           // height: '100vh',
           '& .MuiDrawer-paper': {

@@ -1,85 +1,29 @@
 import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import MoreIcon from '@mui/icons-material/MoreVert';
 import type { JSX } from '@emotion/react/jsx-runtime';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 import Button from '@mui/material/Button';
-// import DropDown from '../ui/DropDown';
-import Select, { type SelectChangeEvent } from '@mui/material/Select';
 import { useThemeMode } from '../../utils/MuiTheme';
 import Ethereum from '../Icon/crypto-icon/Ethereum';
 import Polygon from '../Icon/crypto-icon/Polygon';
 import BNBChain from '../Icon/crypto-icon/BNB_chain';
 import Avalanche from '../Icon/crypto-icon/Avalanche';
-
-import { FormControl, InputLabel } from '@mui/material';
-import CustomDropdown from '../ui/DropDown';
+import CustomDropdown from '../../../@ui-component/Common/DropDown';
 import CustomSearch from '../ui/CustomSearch';
 
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: 'auto',
-  },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '35ch',
-    },
-  },
-}));
-
-// const ShortcutKey = styled('div')(({ theme }) => ({
-//   backgroundColor: alpha('#ffffff', 0.1),
-//   padding: '2px 8px',
-//   borderRadius: 6,
-//   color: alpha('#ffffff', 0.6),
-//   fontSize: '0.8rem',
-//   marginLeft: theme.spacing(1),
-// }));
-
 export default function Header(): JSX.Element {
-  const [selected, setSelected] = React.useState('');
+  const [selected, setSelected] = React.useState('eth');
   const { mode, toggleTheme } = useThemeMode();
 
   const options = [
@@ -335,10 +279,6 @@ export default function Header(): JSX.Element {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
-  // const handleChange = (event:  React.ChangeEvent<HTMLSelectElement>) => {
-  //   setAge(event.target.value as string);
-  // };
-
   const menuId = 'primary-search-account-menu';
   const renderMenu: JSX.Element = (
     <Menu
@@ -406,19 +346,37 @@ export default function Header(): JSX.Element {
       <AppBar
         position="static"
         sx={{
+          boxShadow:
+            'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px',
           borderBottom: '1px solid',
           borderColor: 'divider',
           color: 'text.primary',
-          paddingLeft: '55px',
+          // paddingLeft: { md: '55px', xs: 0 },
         }}
       >
         <Toolbar
           sx={{
-            gap: 1.5,
+            display: 'flex',
+            justifyContent: 'space-between',
+            gap: { md: 1.5, xs: '5px' },
             backgroundColor: 'background.default',
           }}
         >
-          <Box sx={{ minWidth: 130 }}>
+          <Box
+            component="div"
+            sx={{
+              width: '50%',
+              // height: '100px',
+              mr: 1,
+              display: { xs: 'block', lg: 'none' },
+            }}
+          >
+            <img
+              src="https://analytic.polycruz.io/_next/static/media/logo.32e9a1fc.svg"
+              alt=""
+            />
+          </Box>
+          <Box sx={{ width: '100%' }}>
             <CustomDropdown
               options={options}
               value={selected}
@@ -433,70 +391,59 @@ export default function Header(): JSX.Element {
               justifyContent: 'flex-end',
             }}
           >
-            <CustomSearch/>
+            <CustomSearch />
           </Box>
-          <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1 }}>
+          <Box sx={{ display: 'flex', gap: 1 }}>
             <IconButton
               size="large"
               aria-label="toggle theme"
               color="inherit"
               onClick={toggleTheme}
+              sx={{ padding: '5px' }}
             >
               <Badge color="error">
-                {mode === 'dark' ? <DarkModeIcon /> : <LightModeIcon />}
+                {mode === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
               </Badge>
             </IconButton>
             <IconButton
               size="large"
-              aria-label="show 17 new notifications"
+              aria-label="show notifications"
               color="inherit"
+              sx={{ padding: '5px' }}
             >
               <Badge color="error">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
-
-            <Button
-              variant="contained"
-              sx={{
-                fontSize: 16,
-                width: '165px',
-                backgroundColor: 'custom.whiteLightO1',
-                color: 'custom.black02',
-                borderRadius: '10px',
-              }}
-            >
-              Connect
-            </Button>
-
+            <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+              <Button
+                variant="contained"
+                sx={{
+                  fontSize: 16,
+                  width: '165px',
+                  backgroundColor: 'custom.whiteLightO1',
+                  color: 'custom.black02',
+                  borderRadius: '10px',
+                }}
+              >
+                Connect
+              </Button>
+            </Box>
             <IconButton
               size="large"
               edge="end"
-              aria-label="account of current user"
+              aria-label="shopping cart"
               aria-controls={menuId}
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
               color="inherit"
+              sx={{ padding: '5px' }}
             >
               <LocalGroceryStoreIcon />
             </IconButton>
           </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </Box>
         </Toolbar>
       </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
     </Box>
   );
 }

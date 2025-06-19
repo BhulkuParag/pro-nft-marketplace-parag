@@ -11,6 +11,10 @@ import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 import { type Theme } from '@mui/material';
 import '@mui/material/styles';
 
+
+
+
+
 declare module '@mui/material/styles' {
   interface CustomPalette {
     lightPurple: string;
@@ -21,6 +25,7 @@ declare module '@mui/material/styles' {
     whiteLight: string;
     borderblack01: string;
     // borderlight01: string;
+    filterBthBg: string,
     black02: string;
     grey01: string;
     blackLight: string;
@@ -35,13 +40,14 @@ declare module '@mui/material/styles' {
     primaryDark: string;
     primaryDark01: string;
     whiteLightO1: string;
-    primary: string;
+    ButtonPrimary: string;
     lightGrey: string;
     purple01: string;
     coral: string;
     oxblood: string;
     yellow: string;
-    fill: string;
+    Boarder02: string;
+    ButtonHover: string;
   }
 
   interface Palette {
@@ -115,20 +121,25 @@ const lightTheme = createTheme({
       black02: '#1D1B20',
       grey01: '#79747E',
       blackLight: '#F2F2F2',
+      secondaryDark: '#FFFFFF',
       primaryLight: '#777E90',
       primaryLight100: '#D2CDFF',
       primaryContainer: '#21005D',
       lightContainer: '#E6E0E9',
+      filterBthBg: '#E0DFF3',
       red: '#E30051',
       green: '#0A9068',
-      whiteLightO1: '#E7E0EC',
-      primary: '#4836FF',
+      whiteLightO1: '#141416',
+      // primary: '#4836FF',
+      // whiteLightO1: '#E7E0EC',
+      ButtonPrimary: '#4836FF',
       lightGrey: '#9DA1AF',
       purple01: '#50008E',
       coral: '#F2B8B5',
       oxblood: '#601410',
       yellow: '#FFC155',
-      fill: '#777E90',
+      Boarder02: '#777E90',
+      ButtonHover: '#ffff',
     },
     text: {
       primary: '#141416',
@@ -211,17 +222,20 @@ const darkTheme = createTheme({
       secondaryDark: '#1C1C1C',
       primaryLight: '#A49BFF',
       primaryDark: '#4130EA',
-      primaryDark01: '#A49BFF33',
+      filterBthBg: '#19182E',
+      // primaryDark01: '#A49BFF33',
+      primaryDark01: '#A49BFF',
       red: '#FE749B',
       green: '#10DAB6',
       whiteLightO1: '#E7E0EC',
-      primary: '#4836FF',
+      ButtonPrimary: '#4836FF',
       lightGrey: '#9DA1AF',
       purple01: '#50008E',
       coral: '#F2B8B5',
       oxblood: '#601410',
       yellow: '#FFC155',
-      fill: '#A49BFF',
+      Boarder02: '#e6e8ec',
+      ButtonHover: '#ffff',
     },
 
     text: {
