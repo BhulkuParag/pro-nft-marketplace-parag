@@ -42,9 +42,12 @@ const Home = () => {
         <Box
           sx={{
             width: '100%',
-            display: 'grid',
+            // width: 'calc(100% - 60px)',
+
+            display: 'flex',
+            justifyContent: 'center',
             alignItems: 'center',
-            gridtemplatecolumns: 'repeat(2, minmax(0, 1fr))',
+            flexDirection: 'column',
             gap: '15px',
             paddingTop: '10px',
             paddingLeft: { xs: '0px', lg: '60px' },
