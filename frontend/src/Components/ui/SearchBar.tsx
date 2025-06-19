@@ -8,8 +8,8 @@ type SearchBarProps = {
   className?: string;
   search?: any;
   setSearch?: any;
-  handleFocus: FocusEventHandler<HTMLInputElement>;
-  handleBlur: FocusEventHandler<HTMLInputElement>;
+  handleFocus?: FocusEventHandler<HTMLInputElement>;
+  handleBlur?: FocusEventHandler<HTMLInputElement>;
 };
 
 const SearchBar: FC<SearchBarProps> = ({
@@ -28,7 +28,7 @@ const SearchBar: FC<SearchBarProps> = ({
     <Box
       sx={{
         height: { xs: '36px', sm: '40px' },
-        padding: { xs: '6px', sm: '8px' },
+        padding: { xs: '6px', sm: '9px' },
         position: 'relative',
         display: 'flex',
         alignItems: 'center',
