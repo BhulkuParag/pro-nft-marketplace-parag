@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material';
-import CustomTab, { type TabItem } from '../../@ui-component/Comman/Tab';
+import CustomTab, { type TabItem } from '../../@ui-component/Common/Tab';
 import TableFilterBar from './ui/TableFilterBar';
-import { AGGridTable } from '../../@ui-component/Comman/AGGridTable';
+import { AGGridTable } from '../../@ui-component/Common/AGGridTable';
 import { useMemo } from 'react';
 import type { RowData } from '../types/table';
 import type { ColDef } from 'ag-grid-community';
@@ -12,7 +12,7 @@ import {
   PriceRenderer,
   StarRenderer,
   VolumeRenderer,
-} from '../../@ui-component/Comman/AGGridTable';
+} from '../../@ui-component/Common/AGGridTable';
 
 const TabsContainer = () => {
   const columnForTrending: ColDef<RowData, unknown>[] = useMemo(

@@ -11,6 +11,10 @@ import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 import { type Theme } from '@mui/material';
 import '@mui/material/styles';
 
+
+
+
+
 declare module '@mui/material/styles' {
   interface CustomPalette {
     lightPurple: string;

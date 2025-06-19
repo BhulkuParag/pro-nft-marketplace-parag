@@ -20,7 +20,7 @@ import Ethereum from '../Icon/crypto-icon/Ethereum';
 import Polygon from '../Icon/crypto-icon/Polygon';
 import BNBChain from '../Icon/crypto-icon/BNB_chain';
 import Avalanche from '../Icon/crypto-icon/Avalanche';
-import CustomDropdown from '../../../@ui-component/Comman/DropDown';
+import CustomDropdown from '../../../@ui-component/Common/DropDown';
 import CustomSearch from '../ui/CustomSearch';
 
 export default function Header(): JSX.Element {
@@ -352,7 +352,7 @@ export default function Header(): JSX.Element {
           borderBottom: '1px solid',
           borderColor: 'divider',
           color: 'text.primary',
-          paddingLeft: { md: '55px', xs: 0 },
+          // paddingLeft: { md: '55px', xs: 0 },
         }}
       >
         <Toolbar
@@ -368,6 +368,7 @@ export default function Header(): JSX.Element {
             sx={{
               width: '15%',
               height: '15%',
+              display: { md: 'none', xs: 'block' },
             }}
           >
             <img
@@ -375,13 +376,13 @@ export default function Header(): JSX.Element {
               alt=""
             />
           </Box>
-          {/* <Box sx={{ width: '100%' }}>
+          <Box sx={{ width: '100%' }}>
             <CustomDropdown
               options={options}
               value={selected}
               onChange={setSelected}
             />
-          </Box> */}
+          </Box>
           <Box
             sx={{
               flexGrow: 1,

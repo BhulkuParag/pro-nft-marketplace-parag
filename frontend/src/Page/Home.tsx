@@ -31,29 +31,26 @@ const Home = () => {
       <Box
         sx={{
           width: '100%',
-          pl: '60px'
         }}
       >
         <Header />
         <Box
           sx={{
-            pl: { md: '60px', sm: 0 },
+            // pl: { md: '60px', sm: 0 },
             width: '100%',
-            display: 'grid',
+            // width: 'calc(100% - 60px)',
+
+            display: 'flex',
+            justifyContent: 'center',
             alignItems: 'center',
-            gridtemplatecolumns: 'repeat(2, minmax(0, 1fr))',
+            flexDirection: 'column',
             gap: '15px',
             paddingTop: '10px',
+            // backgroundColor: 'red',
           }}
         >
-          <Box
-            sx={{
-              width: '100%',
-            }}
-          >
-            <SlideCard />
-            <TabsContainer />
-          </Box>
+          <SlideCard />
+          <TabsContainer />
         </Box>
         {/* <Footer /> */}
       </Box>
