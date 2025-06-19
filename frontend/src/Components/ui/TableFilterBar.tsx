@@ -73,6 +73,7 @@ const TableFilterBar = () => {
           backgroundColor: 'custom.secondary',
           padding: '6px 10px',
           borderRadius: 2,
+          fontFamily: 'Inter, sans-serif',
           color: 'custom.lightGrey',
         }}
       >
@@ -125,6 +126,7 @@ const TableFilterBar = () => {
             sx: {
               padding: 0,
               margin: 0,
+              fontFamily: 'Inter, sans-serif',
               backgroundColor: 'background.default',
             },
           },
@@ -277,6 +279,7 @@ const TableFilterBar = () => {
                   sx: {
                     padding: 0,
                     margin: 0,
+                    fontFamily: 'Inter, sans-serif',
                     backgroundColor: 'background.default',
                     color: 'custom.lightGrey',
                     '& .MuiListItem-root-selected': {
@@ -313,6 +316,7 @@ const TableFilterBar = () => {
                 border: 0,
                 borderRadius: 2,
                 color: 'custom.lightGrey',
+                fontFamily: 'Inter, sans-serif',
                 '&:hover': {
                   backgroundColor: 'transparent',
                   color: 'text.secondary',
@@ -372,6 +376,7 @@ const TableFilterBar = () => {
             <Button
               onClick={(e) => setAnchorElTime(e.currentTarget)}
               endIcon={<KeyboardArrowDownIcon />}
+              disableTouchRipple
               sx={{
                 border: '1px solid',
                 borderColor: 'divider',
@@ -407,6 +412,7 @@ const TableFilterBar = () => {
                   sx: {
                     padding: 0,
                     margin: 0,
+                    fontFamily: 'Inter, sans-serif',
                     backgroundColor: 'background.default',
                     color: 'custom.lightGrey',
                     '& .MuiListItem-root-selected': {
@@ -451,13 +457,20 @@ const TableFilterBar = () => {
                       : 'custom.lightGrey',
                   textTransform: 'none',
                   fontSize: 16,
-                  fontWeight: 300,
+                  fontWeight: 400,
                   borderRadius: 2,
                   transition: 'none',
                   backgroundColor:
                     selectedTime === time
                       ? 'custom.filterBthBg'
                       : 'transparent',
+                  '&:hover': {
+                    backgroundColor:
+                      selectedTime === time
+                        ? 'custom.filterBthBg'
+                        : 'transparent',
+                    color: 'text.secondary',
+                  },
                 }}
               >
                 {time}

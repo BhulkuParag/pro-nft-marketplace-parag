@@ -40,13 +40,14 @@ declare module '@mui/material/styles' {
     primaryDark: string;
     primaryDark01: string;
     whiteLightO1: string;
-    primary: string;
+    ButtonPrimary: string;
     lightGrey: string;
     purple01: string;
     coral: string;
     oxblood: string;
     yellow: string;
-    fill: string;
+    Boarder02: string;
+    ButtonHover: string;
   }
 
   interface Palette {
@@ -129,13 +130,16 @@ const lightTheme = createTheme({
       red: '#E30051',
       green: '#0A9068',
       whiteLightO1: '#141416',
-      primary: '#4836FF',
+      // primary: '#4836FF',
+      // whiteLightO1: '#E7E0EC',
+      ButtonPrimary: '#4836FF',
       lightGrey: '#9DA1AF',
       purple01: '#50008E',
       coral: '#F2B8B5',
       oxblood: '#601410',
       yellow: '#FFC155',
-      fill: '#777E90',
+      Boarder02: '#777E90',
+      ButtonHover: '#ffff',
     },
     text: {
       primary: '#141416',
@@ -219,17 +223,19 @@ const darkTheme = createTheme({
       primaryLight: '#A49BFF',
       primaryDark: '#4130EA',
       filterBthBg: '#19182E',
-      primaryDark01: '#A49BFF33',
+      // primaryDark01: '#A49BFF33',
+      primaryDark01: '#A49BFF',
       red: '#FE749B',
       green: '#10DAB6',
       whiteLightO1: '#E7E0EC',
-      primary: '#4836FF',
+      ButtonPrimary: '#4836FF',
       lightGrey: '#9DA1AF',
       purple01: '#50008E',
       coral: '#F2B8B5',
       oxblood: '#601410',
       yellow: '#FFC155',
-      fill: '#A49BFF',
+      Boarder02: '#e6e8ec',
+      ButtonHover: '#ffff',
     },
 
     text: {

@@ -9,21 +9,98 @@ import {
   useTheme,
   useMediaQuery,
   IconButton,
+  Fade,
 } from '@mui/material';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
 import CloseIcon from '@mui/icons-material/Close';
 import SearchBar from './SearchBar';
 import Search from '../../assets/icons/search.svg';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
-
 const mockSuggestions = ['Axie Infinity', 'Azuki', 'Cool Cats', 'CryptoPunks'];
+
+const SearchContent = () => (
+  <Box sx={{ width: '100%', height: '100%' }}>
+    <Box
+      sx={{
+        display: 'flex',
+        gap: 1,
+        alignItems: 'center',
+        overflowX: 'auto',
+        scrollbarWidth: 'none',
+        scrollBehavior: 'smooth',
+      }}
+    >
+      {mockSuggestions.map((label) => (
+        <Chip
+          key={label}
+          label={label}
+          size="small"
+          variant="outlined"
+          sx={{
+            color: 'custom.whiteLight',
+            borderColor: 'divider',
+            backgroundColor: 'background.default',
+            fontSize: 13,
+            alignItems: 'center',
+            cursor: 'pointer',
+            px: 0.5,
+            py: 2,
+            borderRadius: 2,
+            '& .MuiChip-label': { px: 1 },
+          }}
+          icon={
+            <ArrowOutwardIcon
+              sx={{
+                width: '20px',
+                height: '20px',
+                color: 'custom.lightGrey',
+              }}
+            />
+          }
+        />
+      ))}
+    </Box>
+
+    <Box
+      sx={{
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'space-between',
+        borderTop: '1px solid',
+        borderColor: 'divider',
+        p: 1,
+        pb: 0,
+        mt: 1.5,
+        fontSize: 13,
+        color: 'custom.lightGrey',
+        // position: 'absolute',
+        // bottom: 0,
+        // left: 0,
+      }}
+    >
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+        <WhatshotIcon sx={{ fontSize: 16, color: '#FF6B00' }} />
+        <Typography fontSize={13}>Trending Search</Typography>
+      </Box>
+      <Typography fontSize={13}>Floor</Typography>
+    </Box>
+  </Box>
+);
 
 const CustomSearch: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [search, setSearch] = useState('');
+  const [isFocused, setIsFocused] = useState(false);
 
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+  };
   const handleOpenDialog = () => {
     setIsDialogOpen(true);
   };
@@ -31,79 +108,6 @@ const CustomSearch: React.FC = () => {
   const handleCloseDialog = () => {
     setIsDialogOpen(false);
   };
-
-  const SearchContent = () => (
-    <Box sx={{ width: '100%' }}>
-      <Box
-        sx={{
-          display: 'flex',
-          gap: 1,
-          alignItems: 'center',
-          overflowX: 'auto',
-          scrollbarWidth: 'none',
-          scrollBehavior: 'smooth',
-        }}
-      >
-        {mockSuggestions.map((label) => (
-          <Chip
-            key={label}
-            label={label}
-            size="small"
-            variant="outlined"
-            sx={{
-              color: 'custom.whiteLight',
-              borderColor: 'divider',
-              backgroundColor: 'custom.secondaryDark',
-              fontSize: 13,
-              cursor: 'pointer',
-              px: 0.5,
-              py: 2,
-              borderRadius: 2,
-              '& .MuiChip-label': { px: 1 },
-            }}
-            icon={
-              <Box
-                component="span"
-                sx={{
-                  color: '#8E8E93',
-                  display: 'flex',
-                  alignItems: 'center',
-                }}
-              >
-                <ArrowOutwardIcon
-                  sx={{
-                    width: '23px',
-                    height: '23px',
-                    color: 'custom.lightGrey',
-                  }}
-                />
-              </Box>
-            }
-          />
-        ))}
-      </Box>
-
-      <Box
-        sx={{
-          width: '100%',
-          display: 'flex',
-          justifyContent: 'space-between',
-          borderTop: '1px solid',
-          borderColor: 'divider',
-          pt: 1,
-          mt: 1,
-          fontSize: 13,
-          color: 'custom.lightGrey',
-        }}
-      >
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-          <WhatshotIcon sx={{ fontSize: 16, color: '#FF6B00' }} />
-          <Typography fontSize={13}>Trending Search</Typography>
-        </Box>
-        <Typography fontSize={13}>Floor</Typography>
-      </Box>
-    </Box>
-  );
 
   return (
     <Box
@@ -131,10 +135,12 @@ const CustomSearch: React.FC = () => {
             fullScreen
             open={isDialogOpen}
             onClose={handleCloseDialog}
-            PaperProps={{
-              sx: {
-                backgroundColor: 'background.default',
-                backgroundImage: 'none',
+            slotProps={{
+              paper: {
+                sx: {
+                  backgroundColor: 'background.default',
+                  backgroundImage: 'none',
+                },
               },
             }}
           >
@@ -158,7 +164,7 @@ const CustomSearch: React.FC = () => {
                 handleBlur={() => {}}
               />
             </Box>
-            <DialogContent sx={{ pt: 2 }}>
+            <DialogContent sx={{ pt: 2, pl: 2 }}>
               <SearchContent />
             </DialogContent>
           </Dialog>
@@ -170,22 +176,24 @@ const CustomSearch: React.FC = () => {
             hasSplash
             search={search}
             setSearch={setSearch}
-            handleFocus={() => {}}
-            handleBlur={() => {}}
+            handleFocus={handleFocus}
+            handleBlur={handleBlur}
           />
-          {search && (
+          <Fade in={isFocused} timeout={300}>
             <Paper
               sx={{
+                width: 400,
                 position: 'absolute',
                 top: '100%',
                 left: 0,
                 right: 0,
-                mt: 1,
+                mt: 0.5,
                 borderRadius: 2,
-                backgroundColor: 'background.default',
+                backgroundColor: 'background.secondaryDark',
                 color: 'white',
-                minHeight: '15vh',
+                height: 'auto',
                 p: 2,
+                px: 1.5,
                 border: '1px solid',
                 borderColor: 'divider',
                 zIndex: 1000,
@@ -193,7 +201,7 @@ const CustomSearch: React.FC = () => {
             >
               <SearchContent />
             </Paper>
-          )}
+          </Fade>
         </Box>
       )}
     </Box>
