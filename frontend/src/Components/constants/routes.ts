@@ -1,5 +1,6 @@
-import { type ComponentType } from 'react';
-import Home from '../../Page/Home';
+import React, { type ComponentType } from 'react';
+
+const Home = React.lazy(() => import('../../Page/Home'));
 
 interface RouteConfig {
   path: string;
