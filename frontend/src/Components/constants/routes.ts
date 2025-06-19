@@ -10,10 +10,10 @@ interface RouteConfig {
 export const routes: RouteConfig[] = [
   {
     path: '/',
-    component: Home,    
+    component: Home,
   },
   {
     path: '/TreandingCollection/Assets/Buy',
-    component: Screen,    
+    component: Screen,
   },
 ];
