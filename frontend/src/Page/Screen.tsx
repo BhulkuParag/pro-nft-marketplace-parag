@@ -91,12 +91,63 @@ const Screen: React.FC = () => {
             }}
           >
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography component="span">Accordion 1</Typography>
+              <Typography component="span">Collection info </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
+              <Box
+                sx={{
+                  display: 'grid',
+                  gridTemplateColumns: { xs: '1fr 1fr', sm: '1fr 1fr' },
+                  gap: 3,
+                  width: '100%',
+                }}
+              >
+                {/* Volume */}
+                <Box>
+                  <Typography color="text.primary" fontWeight={500}>
+                    Volume
+                  </Typography>
+                  <Box display="flex" alignItems="center" gap={0.5}>
+                    <Box />
+                    <Typography fontWeight={600} color="text.primary">
+                      56.16
+                    </Typography>
+                  </Box>
+                </Box>
+
+                {/* Floor Price */}
+                <Box>
+                  <Typography color="text.primary" fontWeight={500}>
+                    Floor Price
+                  </Typography>
+                  <Box display="flex" alignItems="center" gap={0.5}>
+                    <Box />
+                    <Typography fontWeight={600} color="text.primary">
+                      1.82
+                    </Typography>
+                  </Box>
+                </Box>
+
+                {/* Rank */}
+                <Box>
+                  <Typography color="text.primary" fontWeight={500}>
+                    Rank
+                  </Typography>
+                  <Typography fontWeight={600} color="text.primary">
+                    5
+                  </Typography>
+                </Box>
+
+                {/* Floor Sale */}
+                <Box>
+                  <Typography color="text.primary" fontWeight={500}>
+                    Floor Sale
+                  </Typography>
+                  <Typography fontWeight={600} color="text.primary">
+                    1.79
+                  </Typography>
+                </Box>
+              </Box>
             </AccordionDetails>
           </Accordion>
           <Accordion
@@ -109,12 +160,35 @@ const Screen: React.FC = () => {
             }}
           >
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography component="span">Accordion 2</Typography>
+              <Typography component="span">Details</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
+              <Box
+                sx={{
+                  width: {
+                    lg: '66.666667%',
+                    md: '66.666667%',
+                    sm: '100%',
+                    xs: '100%',
+                  },
+                  display: 'flex',
+                  // flexDirection: 'column',
+                  gap: 1,
+                  justifyContent: 'space-between',
+                }}
+              >
+                <Box sx={{ color: 'text.primary' }}>
+                  <Typography>Name</Typography>
+                  <Typography>Token ID</Typography>
+                  <Typography>Contract Address</Typography>
+                </Box>
+                {/* Right side: Values */}
+                <Box sx={{ color: 'custom.lightGrey' }}>
+                  <Typography fontWeight={600}>CRYPTOPUNKS</Typography>
+                  <Typography fontWeight={600}>6193</Typography>
+                  <Typography fontWeight={600}>0xb4...3bbb</Typography>
+                </Box>
+              </Box>
             </AccordionDetails>
           </Accordion>
           <Accordion
@@ -127,12 +201,228 @@ const Screen: React.FC = () => {
             }}
           >
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography component="span">Accordion 3</Typography>
+              <Typography component="span">Traits</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
+              <Box
+                sx={{
+                  display: 'grid',
+                  gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
+                  gap: 2,
+                  width: '100%',
+                }}
+              >
+                {/* Trait 1 */}
+                <Box>
+                  <Typography
+                    color="custom.lightGrey"
+                    fontWeight={500}
+                    fontSize={14}
+                  >
+                    Trait Count
+                  </Typography>
+                  <Typography
+                    fontWeight={700}
+                    fontSize={18}
+                    color="text.primary"
+                  >
+                    7
+                  </Typography>
+                  <Typography color="custom.lightGrey" fontSize={15}>
+                    3783 Have this
+                  </Typography>
+                </Box>
+
+                {/* Trait 2 */}
+                <Box>
+                  <Typography
+                    color="custom.lightGrey"
+                    fontWeight={500}
+                    fontSize={14}
+                  >
+                    Serum Type
+                  </Typography>
+                  <Typography
+                    fontWeight={700}
+                    fontSize={18}
+                    color="text.primary"
+                  >
+                    M1
+                  </Typography>
+                  <Typography color="custom.lightGrey" fontSize={15}>
+                    14734 Have this
+                  </Typography>
+                </Box>
+
+                {/* Trait 3 */}
+                <Box>
+                  <Typography
+                    color="custom.lightGrey"
+                    fontWeight={500}
+                    fontSize={14}
+                  >
+                    Mouth
+                  </Typography>
+                  <Typography
+                    fontWeight={700}
+                    fontSize={18}
+                    color="text.primary"
+                  >
+                    M1 Bored
+                  </Typography>
+                  <Typography color="custom.lightGrey" fontSize={15}>
+                    3327 Have this
+                  </Typography>
+                </Box>
+
+                {/* Trait 4 */}
+                <Box>
+                  <Typography
+                    color="custom.lightGrey"
+                    fontWeight={500}
+                    fontSize={14}
+                  >
+                    Hat
+                  </Typography>
+                  <Typography
+                    fontWeight={700}
+                    fontSize={18}
+                    color="text.primary"
+                  >
+                    M1 Army Hat
+                  </Typography>
+                  <Typography color="custom.lightGrey" fontSize={15}>
+                    434 Have this
+                  </Typography>
+                </Box>
+
+                {/* Trait 5 */}
+                <Box>
+                  <Typography
+                    color="custom.lightGrey"
+                    fontWeight={500}
+                    fontSize={14}
+                  >
+                    Fur
+                  </Typography>
+                  <Typography
+                    fontWeight={700}
+                    fontSize={18}
+                    color="text.primary"
+                  >
+                    M1 Black
+                  </Typography>
+                  <Typography color="custom.lightGrey" fontSize={15}>
+                    1800 Have this
+                  </Typography>
+                </Box>
+
+                {/* Trait 6 */}
+                <Box>
+                  <Typography
+                    color="custom.lightGrey"
+                    fontWeight={500}
+                    fontSize={14}
+                  >
+                    Eyes
+                  </Typography>
+                  <Typography
+                    fontWeight={700}
+                    fontSize={18}
+                    color="text.primary"
+                  >
+                    M1 Closed
+                  </Typography>
+                  <Typography color="custom.lightGrey" fontSize={15}>
+                    1040 Have this
+                  </Typography>
+                </Box>
+
+                {/* Trait 7 */}
+                <Box>
+                  <Typography
+                    color="custom.lightGrey"
+                    fontWeight={500}
+                    fontSize={14}
+                  >
+                    Earring
+                  </Typography>
+                  <Typography
+                    fontWeight={700}
+                    fontSize={18}
+                    color="text.primary"
+                  >
+                    M1 Gold Hoop
+                  </Typography>
+                  <Typography color="custom.lightGrey" fontSize={15}>
+                    669 Have this
+                  </Typography>
+                </Box>
+                {/* Trait 8 */}
+                <Box>
+                  <Typography
+                    color="custom.lightGrey"
+                    fontWeight={500}
+                    fontSize={14}
+                  >
+                    Clothes
+                  </Typography>
+                  <Typography
+                    fontWeight={700}
+                    fontSize={18}
+                    color="text.primary"
+                  >
+                    M1 Sleeveless T
+                  </Typography>
+                  <Typography color="custom.lightGrey" fontSize={15}>
+                    384 Have this
+                  </Typography>
+                </Box>
+
+                {/* Trait 9 */}
+                <Box>
+                  <Typography
+                    color="custom.lightGrey"
+                    fontWeight={500}
+                    fontSize={14}
+                  >
+                    Background
+                  </Typography>
+                  <Typography
+                    fontWeight={700}
+                    fontSize={18}
+                    color="text.primary"
+                  >
+                    M1 Blue
+                  </Typography>
+                  <Typography color="custom.lightGrey" fontSize={15}>
+                    1813 Have this
+                  </Typography>
+                </Box>
+
+                {/* Trait 10 */}
+                <Box>
+                  <Typography
+                    color="custom.lightGrey"
+                    fontWeight={500}
+                    fontSize={14}
+                  >
+                    ApeCoin Staked
+                  </Typography>
+                  <Typography
+                    fontWeight={700}
+                    fontSize={18}
+                    color="text.primary"
+                  >
+                    0 - 1 ApeCoin
+                  </Typography>
+                  <Typography color="custom.lightGrey" fontSize={15}>
+                    13661 Have this
+                  </Typography>
+                </Box>
+
+                {/* Add more traits as needed, following the same pattern */}
+              </Box>
             </AccordionDetails>
           </Accordion>
         </Box>
