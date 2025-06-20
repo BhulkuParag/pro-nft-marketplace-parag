@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   Box,
-IconButton,
+  IconButton,
   Typography,
   Button,
   Accordion,
@@ -12,6 +12,7 @@ IconButton,
   Tab,
   Slider,
   useTheme,
+  Paper,
 } from '@mui/material';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
