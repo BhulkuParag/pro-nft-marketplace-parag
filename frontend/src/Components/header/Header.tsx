@@ -1,19 +1,9 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import type { JSX } from '@emotion/react/jsx-runtime';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
-import Button from '@mui/material/Button';
 import { useThemeMode } from '../../utils/MuiTheme';
 import Ethereum from '../Icon/crypto-icon/Ethereum';
 import Polygon from '../Icon/crypto-icon/Polygon';
@@ -21,10 +11,34 @@ import BNBChain from '../Icon/crypto-icon/BNB_chain';
 import Avalanche from '../Icon/crypto-icon/Avalanche';
 import CustomDropdown from '../../../@ui-component/Common/DropDown';
 import CustomSearch from '../ui/CustomSearch';
+import MenuIcon from '@mui/icons-material/Menu';
+import {
+  Box,
+  Toolbar,
+  Badge,
+  AppBar,
+  Button,
+  useTheme,
+  useMediaQuery,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemButton,
+  ListItemIcon,
+} from '@mui/material';
+import { menuItems } from '../constants/menuItem';
 
 export default function Header(): JSX.Element {
   const [selected, setSelected] = React.useState('eth');
   const { mode, toggleTheme } = useThemeMode();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
+
+  const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
 
   const options = [
     {
@@ -278,68 +292,69 @@ export default function Header(): JSX.Element {
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+  const drawerContent = (
+    <div>
+      <List
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px',
+          marginTop: 2,
+        }}
+      >
+        <div className="px-3 flex items-center gap-x-3 text-xl font-bold">
+          <img
+            src="https://analytic.polycruz.io/_next/static/media/logo.32e9a1fc.svg"
+            alt=""
+          />
+          <span>Polycruz</span>
+        </div>
+
+        {menuItems.map((item) => (
+          <ListItem key={item.path} disablePadding>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+                '&:hover': {
+                  fill: 'custom.primaryLight',
+                },
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'text.primary',
+                }}
+              >
+                {<item.icon />}
+              </ListItemIcon>
+              <ListItemText
+                primary={item.lable}
+                sx={{
+                  // opacity: open ? 1 : 0,
+                  '& .MuiTypography-root': {
+                    fontSize: '14px',
+                    fontWeight: 500,
+                  },
+                }}
+              />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </div>
+  );
 
   const menuId = 'primary-search-account-menu';
-  const renderMenu: JSX.Element = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-    </Menu>
-  );
-
-  const mobileMenuId = 'primary-search-account-menu-mobile';
-  const renderMobileMenu: JSX.Element = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-    </Menu>
-  );
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -362,86 +377,205 @@ export default function Header(): JSX.Element {
             backgroundColor: 'background.default',
           }}
         >
-          <Box
-            component="div"
-            sx={{
-              width: '50%',
-              // height: '100px',
-              mr: 1,
-              display: { xs: 'block', lg: 'none' },
-            }}
-          >
-            <img
-              src="https://analytic.polycruz.io/_next/static/media/logo.32e9a1fc.svg"
-              alt=""
-            />
-          </Box>
-          <Box sx={{ width: '100%' }}>
-            <CustomDropdown
-              options={options}
-              value={selected}
-              onChange={setSelected}
-            />
-          </Box>
-          <Box
-            sx={{
-              flexGrow: 1,
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'flex-end',
-            }}
-          >
-            <CustomSearch />
-          </Box>
-          <Box sx={{ display: 'flex', gap: 1 }}>
-            <IconButton
-              size="large"
-              aria-label="toggle theme"
-              color="inherit"
-              onClick={toggleTheme}
-              sx={{ padding: '5px' }}
+          {isMobile && (
+            <Box
+              sx={{
+                display: { xs: 'flex', md: 'flex', lg: 'none' },
+                alignItems: 'center',
+                width: '100%',
+                gap: 1,
+              }}
             >
-              <Badge color="error">
-                {mode === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show notifications"
-              color="inherit"
-              sx={{ padding: '5px' }}
-            >
-              <Badge color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <Box sx={{ display: { xs: 'none', md: 'block' } }}>
-              <Button
-                variant="contained"
+              {/* Hamburger Menu */}
+              <IconButton
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                sx={{ mr: 1, display: { xs: 'flex', lg: 'none' } }}
+                onClick={handleDrawerToggle}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Drawer
+                variant="temporary"
+                open={mobileOpen}
+                onClose={handleDrawerToggle}
+                ModalProps={{
+                  keepMounted: true,
+                }}
                 sx={{
-                  fontSize: 16,
-                  width: '165px',
-                  backgroundColor: 'custom.whiteLightO1',
-                  color: 'custom.black02',
-                  borderRadius: '10px',
+                  display: { xs: 'block', lg: 'none' },
+                  '& .MuiDrawer-paper': {
+                    width: 200,
+                    backgroundColor: 'secondary.main',
+                    color: 'text.primary',
+                    border: '1px solid custom.borderblack01',
+                  },
                 }}
               >
-                Connect
-              </Button>
+                {drawerContent}
+              </Drawer>
+              {/* Logo */}
+              <Box
+                component="div"
+                sx={{
+                  width: 40,
+                  minWidth: 40,
+                  mr: 1,
+                  display: { xs: 'block', lg: 'none' },
+                }}
+              >
+                <img
+                  src="https://analytic.polycruz.io/_next/static/media/logo.32e9a1fc.svg"
+                  alt=""
+                  style={{ height: 32 }}
+                />
+              </Box>
+              {/* Dropdown */}
+              <Box sx={{ width: '100%' }}>
+                <CustomDropdown
+                  options={options}
+                  value={selected}
+                  onChange={setSelected}
+                />
+              </Box>
+              {/* Search */}
+              <Box
+                sx={{
+                  flexGrow: 1,
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                }}
+              >
+                <CustomSearch />
+              </Box>
+              {/* Icons */}
+              <Box sx={{ display: 'flex', gap: 1 }}>
+                <IconButton
+                  size="large"
+                  aria-label="toggle theme"
+                  color="inherit"
+                  onClick={toggleTheme}
+                  sx={{ padding: '5px' }}
+                >
+                  <Badge color="error">
+                    {mode === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
+                  </Badge>
+                </IconButton>
+                <IconButton
+                  size="large"
+                  aria-label="show notifications"
+                  color="inherit"
+                  sx={{ padding: '5px' }}
+                >
+                  <Badge color="error">
+                    <NotificationsIcon />
+                  </Badge>
+                </IconButton>
+                <IconButton
+                  size="large"
+                  edge="end"
+                  aria-label="shopping cart"
+                  aria-controls={menuId}
+                  aria-haspopup="true"
+                  onClick={handleProfileMenuOpen}
+                  color="inherit"
+                  sx={{ padding: '5px' }}
+                >
+                  <LocalGroceryStoreIcon />
+                </IconButton>
+              </Box>
             </Box>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="shopping cart"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-              sx={{ padding: '5px' }}
+          )}
+
+          {/* DESKTOP VIEW ONLY */}
+          {!isMobile && (
+            <Box
+              sx={{
+                display: { xs: 'none', lg: 'flex' },
+                alignItems: 'center',
+                width: '100%',
+                gap: 2,
+              }}
             >
-              <LocalGroceryStoreIcon />
-            </IconButton>
-          </Box>
+              {/* Add your desktop header layout here */}
+              {/* Example: Logo, Dropdown, Search, Icons, Connect Button */}
+              <Box
+                component="div"
+                sx={{
+                  width: 40,
+                  minWidth: 40,
+                  mr: 2,
+                }}
+              >
+                <img
+                  src="https://analytic.polycruz.io/_next/static/media/logo.32e9a1fc.svg"
+                  alt=""
+                  style={{ height: 32 }}
+                />
+              </Box>
+              <Box sx={{ width: 200 }}>
+                <CustomDropdown
+                  options={options}
+                  value={selected}
+                  onChange={setSelected}
+                />
+              </Box>
+              <Box
+                sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}
+              >
+                <CustomSearch />
+              </Box>
+              <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+                <IconButton
+                  size="large"
+                  aria-label="toggle theme"
+                  color="inherit"
+                  onClick={toggleTheme}
+                  sx={{ padding: '5px' }}
+                >
+                  <Badge color="error">
+                    {mode === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
+                  </Badge>
+                </IconButton>
+                <IconButton
+                  size="large"
+                  aria-label="show notifications"
+                  color="inherit"
+                  sx={{ padding: '5px' }}
+                >
+                  <Badge color="error">
+                    <NotificationsIcon />
+                  </Badge>
+                </IconButton>
+                <Button
+                  variant="contained"
+                  sx={{
+                    fontSize: 16,
+                    width: '165px',
+                    backgroundColor: 'custom.whiteLightO1',
+                    color: 'custom.black02',
+                    borderRadius: '10px',
+                  }}
+                >
+                  Connect
+                </Button>
+                <IconButton
+                  size="large"
+                  edge="end"
+                  aria-label="shopping cart"
+                  aria-controls={menuId}
+                  aria-haspopup="true"
+                  onClick={handleProfileMenuOpen}
+                  color="inherit"
+                  sx={{ padding: '5px' }}
+                >
+                  <LocalGroceryStoreIcon />
+                </IconButton>
+              </Box>
+            </Box>
+          )}
         </Toolbar>
       </AppBar>
     </Box>
