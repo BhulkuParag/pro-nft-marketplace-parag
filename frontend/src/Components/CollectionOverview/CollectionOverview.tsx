@@ -20,6 +20,7 @@ import RotateLeftIcon from '@mui/icons-material/RotateLeft';
 import CheckIcon from '@mui/icons-material/Check';
 import Tooltip from '@mui/material/Tooltip';
 import CollectionHero from '../CollectionHero/CollectionHero';
+import CollectionFooter from '../CollectionFooter/CollectionFooter';
 import "./CollectionOverview.css";
 
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -160,6 +161,7 @@ const CollectionOverview = () => {
                 minHeight: '100vh',
                 backgroundColor: 'background.default',
                 position: 'relative',
+                paddingBottom: "100px"
             }}
         >
             {/* Sidebar at the top, fixed */}
@@ -544,6 +546,8 @@ const CollectionOverview = () => {
                         ))}
                     </Box>
                 </Box>
+                {/* Fixed Footer Section */}
+                <CollectionFooter />
             </Box>
         </Box >
     );
