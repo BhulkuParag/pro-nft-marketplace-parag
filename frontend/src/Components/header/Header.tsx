@@ -381,6 +381,9 @@ export default function Header(): JSX.Element {
               options={options}
               value={selected}
               onChange={setSelected}
+              disableMenuItemTouchRipple
+              disableTouchRipple
+              maxHeight={'40vh'}
             />
           </Box>
           <Box

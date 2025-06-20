@@ -16,14 +16,24 @@ import CloseIcon from '@mui/icons-material/Close';
 import SearchBar from './SearchBar';
 import Search from '../../assets/icons/search.svg';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
+import SearchListCard from './SearchListCard';
 const mockSuggestions = ['Axie Infinity', 'Azuki', 'Cool Cats', 'CryptoPunks'];
 
 const SearchContent = () => (
-  <Box sx={{ width: '100%', height: '100%' }}>
+  <Box
+    sx={{
+      width: '100%',
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 2,
+    }}
+  >
     <Box
       sx={{
         display: 'flex',
         gap: 1,
+        px: 1.5,
         alignItems: 'center',
         overflowX: 'auto',
         scrollbarWidth: 'none',
@@ -60,7 +70,6 @@ const SearchContent = () => (
         />
       ))}
     </Box>
-
     <Box
       sx={{
         width: '100%',
@@ -69,8 +78,8 @@ const SearchContent = () => (
         borderTop: '1px solid',
         borderColor: 'divider',
         p: 1,
+        px: 1.5,
         pb: 0,
-        mt: 1.5,
         fontSize: 13,
         color: 'custom.lightGrey',
         // position: 'absolute',
@@ -83,6 +92,12 @@ const SearchContent = () => (
         <Typography fontSize={13}>Trending Search</Typography>
       </Box>
       <Typography fontSize={13}>Floor</Typography>
+    </Box>
+    <Box component={'div'} display={'flex'} flexDirection={'column'} gap={0}>
+      <SearchListCard />
+      <SearchListCard />
+      <SearchListCard />
+      <SearchListCard />
     </Box>
   </Box>
 );
@@ -176,9 +191,46 @@ const CustomSearch: React.FC = () => {
             hasSplash
             search={search}
             setSearch={setSearch}
+            // handleOnClick={handleOpenDialog}
             handleFocus={handleFocus}
             handleBlur={handleBlur}
           />
+          {/* <Dialog
+            open={isDialogOpen}
+            onClose={handleCloseDialog}
+            slotProps={{
+              paper: {
+                sx: {
+                  width: '100%',
+                  borderRadius: 2,
+                  backgroundColor: 'background.default',
+                  backgroundImage: 'none',
+                },
+              },
+            }}
+          >
+            <Box sx={{ p: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
+              <SearchBar
+                placeholder="Search by collection, NFT, and user"
+                search={search}
+                setSearch={setSearch}
+                handleFocus={() => {}}
+                handleBlur={() => {}}
+              />
+              <IconButton
+                onClick={handleCloseDialog}
+                sx={{
+                  mr: -1,
+                  color: 'custom.whiteLight',
+                }}
+              >
+                <CloseIcon />
+              </IconButton>
+            </Box>
+            <DialogContent sx={{ pt: 2, pl: 2 }}>
+              <SearchContent />
+            </DialogContent>
+          </Dialog> */}
           <Fade in={isFocused} timeout={300}>
             <Paper
               sx={{
@@ -192,8 +244,7 @@ const CustomSearch: React.FC = () => {
                 backgroundColor: 'background.secondaryDark',
                 color: 'white',
                 height: 'auto',
-                p: 2,
-                px: 1.5,
+                py: 2,
                 border: '1px solid',
                 borderColor: 'divider',
                 zIndex: 1000,
