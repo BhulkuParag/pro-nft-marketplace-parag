@@ -377,6 +377,89 @@ export default function Header(): JSX.Element {
             backgroundColor: 'background.default',
           }}
         >
+          <Box
+            component="div"
+            sx={{
+              width: '50%',
+              // height: '100px',
+              mr: 1,
+              display: { xs: 'block', lg: 'none' },
+            }}
+          >
+            <img
+              src="https://analytic.polycruz.io/_next/static/media/logo.32e9a1fc.svg"
+              alt=""
+            />
+          </Box>
+          <Box sx={{ width: '100%' }}>
+            <CustomDropdown
+              options={options}
+              value={selected}
+              onChange={setSelected}
+              disableMenuItemTouchRipple
+              disableTouchRipple
+              maxHeight={'40vh'}
+            />
+          </Box>
+          <Box
+            sx={{
+              flexGrow: 1,
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'flex-end',
+            }}
+          >
+            <CustomSearch />
+          </Box>
+          <Box sx={{ display: 'flex', gap: 1 }}>
+            <IconButton
+              size="large"
+              aria-label="toggle theme"
+              color="inherit"
+              onClick={toggleTheme}
+              sx={{ padding: '5px' }}
+            >
+              <Badge color="error">
+                {mode === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
+              </Badge>
+            </IconButton>
+            <IconButton
+              size="large"
+              aria-label="show notifications"
+              color="inherit"
+              sx={{ padding: '5px' }}
+            >
+              <Badge color="error">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+            <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+              <Button
+                variant="contained"
+                sx={{
+                  fontSize: 16,
+                  width: '165px',
+                  backgroundColor: 'custom.whiteLightO1',
+                  color: 'custom.black02',
+                  borderRadius: '10px',
+                }}
+              >
+                Connect
+              </Button>
+            </Box>
+            <IconButton
+              size="large"
+              edge="end"
+              aria-label="shopping cart"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
+              color="inherit"
+              sx={{ padding: '5px' }}
+            >
+              <LocalGroceryStoreIcon />
+            </IconButton>
+          </Box>
           {isMobile && (
             <Box
               sx={{
