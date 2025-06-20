@@ -12,7 +12,8 @@ import {
   Fade,
 } from '@mui/material';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
-import CloseIcon from '@mui/icons-material/Close';
+// import CloseIcon from '@mui/icons-material/Close';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import SearchBar from './SearchBar';
 import Search from '../../assets/icons/search.svg';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
@@ -159,25 +160,33 @@ const CustomSearch: React.FC = () => {
               },
             }}
           >
-            <Box sx={{ p: 2, position: 'relative' }}>
+            <Box
+              sx={{
+                p: 2,
+                position: 'relative',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1,
+              }}
+            >
               <IconButton
                 onClick={handleCloseDialog}
                 sx={{
-                  position: 'absolute',
-                  right: 8,
-                  top: 8,
                   color: 'custom.whiteLight',
+                  mr: 1,
                 }}
               >
-                <CloseIcon />
+                <ArrowBackIcon />
               </IconButton>
-              <SearchBar
-                placeholder="Search by collection, NFT, and user"
-                search={search}
-                setSearch={setSearch}
-                handleFocus={() => {}}
-                handleBlur={() => {}}
-              />
+              <Box sx={{ flex: 1 }}>
+                <SearchBar
+                  placeholder="Search by collection, NFT, and user"
+                  search={search}
+                  setSearch={setSearch}
+                  handleFocus={() => {}}
+                  handleBlur={() => {}}
+                />
+              </Box>
             </Box>
             <DialogContent sx={{ pt: 2, pl: 2 }}>
               <SearchContent />

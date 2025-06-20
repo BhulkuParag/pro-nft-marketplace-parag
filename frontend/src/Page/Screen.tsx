@@ -10,6 +10,7 @@ IconButton,
   Avatar,
   Tabs,
   Tab,
+  Slider,
   useTheme,
 } from '@mui/material';
 
@@ -17,7 +18,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const Screen: React.FC = () => {
   const theme = useTheme();
-
   const [tab, setTab] = useState(0);
 
   // Info items for the info row
@@ -39,12 +39,7 @@ const Screen: React.FC = () => {
       // gap={4}
       sx={{
         display: 'grid',
-        gridTemplateColumns: {
-          lg: '25% 1fr',
-          md: '25% 1fr',
-          sm: '1fr',
-          xs: '1fr',
-        },
+        gridTemplateColumns: '25% 1fr',
         // gridTemplateRows: 'auto',
         gap: 1,
         alignItems: 'start',
@@ -61,7 +56,6 @@ const Screen: React.FC = () => {
           p: 2,
           width: '100%',
           display: 'flex',
-
           gap: 2,
           flexDirection: 'column',
           alignItems: 'center',
@@ -437,7 +431,6 @@ const Screen: React.FC = () => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'flex-start',
-
           gap: 2,
           height: '100%',
           p: 2,
@@ -521,28 +514,19 @@ const Screen: React.FC = () => {
         {/* Info Row */}
         <Box
           sx={{
-            // display: 'flex',
-            // flexWrap: 'wrap',
-            // gap: 4,
-            display: 'grid',
-            gridTemplateColumns: {
-              lg: 'repeat(auto-fit, minmax(150px, 1fr))',
-              md: 'repeat(auto-fit, minmax(150px, 1fr))',
-              sm: 'repeat(auto-fit, minmax(150px, 1fr))',
-              xs: 'repeat(2,2fr) ',
-            },
-            gap: 2,
+            display: 'flex',
+            flexWrap: 'wrap',
+            flexDirection: 'row',
+            gap: 4,
             color: 'text.primary',
             fontSize: 'xl',
             fontWeight: 500,
-            width: { xs: '100%', lg: '100%', md: '100%' },
+            width: '100%',
           }}
         >
           {infoItems.map((item) => (
-            <Box key={item.label}>
-              <Typography
-                sx={{ color: 'custom.lightGrey', fontSize: 'fontSize.sm' }}
-              >
+            <Box key={item.label} flex={1}>
+              <Typography color="custom.lightGrey" fontSize={'sm'} mb={0.5}>
                 {item.label}
               </Typography>
               <Typography fontWeight={600}>{item.value}</Typography>
@@ -550,129 +534,118 @@ const Screen: React.FC = () => {
           ))}
         </Box>
         {/* Card with Price and Actions */}
-        <Box
-          sx={{
-            width: '100%',
-            bgcolor: 'background.default',
-            boxShadow: 'none',
-            borderRadius: 3,
-            p: 3,
-            border: '1px solid',
-            borderColor: 'custom.Boarder02',
-          }}
-        >
-          <Box
+        <Box sx={{ width: '100%' }}>
+          <Paper
             sx={{
-              color: 'text.primary',
-              fontSize: 'fontSize.sm',
-              pb: 2,
-              display: 'flex',
-              justifyContent: {
-                xs: 'center',
-                sm: 'center',
-                md: 'start',
-                lg: 'start',
-              },
-              gap: 1,
+              bgcolor: 'background.default',
+              boxShadow: 'none',
+              borderRadius: 3,
+              p: 3,
+              border: '1px solid',
+              borderColor: 'custom.Boarder02',
+
+              // mb: 3,
             }}
           >
             <Typography
               sx={{
-                fontWeight: 600,
-                fontSize: 'fontSize.sm',
                 color: 'text.primary',
-              }}
-            >
-              Listed Price
-            </Typography>
-            <Typography
-              sx={{
-                component: 'span',
-                color: 'text.primary',
-                fontWeight: 600,
                 fontSize: 'fontSize.sm',
-              }}
-            >
-              Ξ 42.69
-            </Typography>
-            <Typography sx={{ component: 'span', color: 'text.primary' }}>
-              $110.01k
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: 'flex',
-              gap: 1,
-              flexDirection: { xs: 'column', sm: 'row' },
-              width: '100%',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            <Button
-              variant="contained"
-              color="primary"
-              sx={{
-                fontWeight: 700,
+                pb: 2,
 
-                fontSize: 13,
-                borderRadius: 2,
-                border: '1px solid',
-                borderColor: 'custom.Boarder02',
-                backgroundColor: 'custom.ButtonPrimary',
-                '&:hover': {
-                  backgroundColor: 'custom.ButtonHover',
-                  color: 'custom.secondaryDark',
-                },
-
-                flex: 1,
-                minWidth: 300,
+                display: 'flex',
+                gap: 2,
               }}
             >
-              Buy Now
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              sx={{
-                fontWeight: 700,
-                fontSize: 13,
-                borderRadius: 2,
-                border: '1px solid',
-                borderColor: 'custom.Boarder02',
-                '&:hover': {
-                  backgroundColor: 'custom.lightGrey', // or color: 'primary.main'
-                },
-                flex: 1,
-                minWidth: 300,
-              }}
-            >
-              Make Offer
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              sx={{
-                fontWeight: 700,
-                fontSize: 13,
-                borderRadius: 2,
-                border: '1px solid',
-                borderColor: 'custom.Boarder02',
-                '&:hover': {
-                  backgroundColor: 'custom.lightGrey', // or color: 'primary.main'
-                },
-                flex: 1,
-                minWidth: 300,
-              }}
-            >
-              Add to Cart
-            </Button>
-          </Box>
-          <Box mt={1}>
-            <Typography color="text.primary" fontWeight={600} fontSize={18}>
-              Current Bids
+              Listed Price{' '}
+              <Box
+                sx={{
+                  component: 'span',
+                  color: 'text.primary',
+                  fontWeight: 600,
+                  fontSize: 'fontSize.sm',
+                }}
+              >
+                Ξ 42.69
+              </Box>{' '}
+              <Box sx={{ component: 'span', color: 'text.primary' }}>
+                $110.01k
+              </Box>
             </Typography>
-          </Box>
+            <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+              <Button
+                variant="contained"
+                color="primary"
+                sx={{
+                  fontWeight: 700,
+
+                  fontSize: 13,
+                  borderRadius: 2,
+                  border: '1px solid',
+                  borderColor: 'custom.Boarder02',
+                  backgroundColor: 'custom.ButtonPrimary',
+                  '&:hover': {
+                    backgroundColor: 'custom.ButtonHover', // or color: 'primary.main'
+                    color: 'custom.secondaryDark',
+                  },
+
+                  flex: 1,
+                  minWidth: 200,
+                }}
+              >
+                Buy Now
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                sx={{
+                  fontWeight: 700,
+                  fontSize: 13,
+                  borderRadius: 2,
+                  border: '1px solid',
+                  borderColor: 'custom.Boarder02',
+                  '&:hover': {
+                    backgroundColor: 'custom.lightGrey', // or color: 'primary.main'
+                  },
+                  flex: 1,
+                  minWidth: 200,
+                }}
+              >
+                Make Offer
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                sx={{
+                  fontWeight: 700,
+                  fontSize: 13,
+                  borderRadius: 2,
+                  border: '1px solid',
+                  borderColor: 'custom.Boarder02',
+                  '&:hover': {
+                    backgroundColor: 'custom.lightGrey', // or color: 'primary.main'
+                  },
+                  flex: 1,
+                  minWidth: 200,
+                }}
+              >
+                Add to Cart
+              </Button>
+            </Box>
+            <Box mt={1}>
+              <Typography
+                color="text.primary"
+                fontWeight={600}
+                fontSize={18}
+                mb={1}
+              >
+                Current Bids
+              </Typography>
+              {/* <Typography color="text.secondary" fontSize={14}>
+                No current bids.
+              </Typography> */}
+            </Box>
+          </Paper>
         </Box>
         <Box
           sx={{
@@ -753,19 +726,14 @@ const Screen: React.FC = () => {
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'flex-start',
-                    paddingLeft: { lg: 8, md: 8, sm: 0, xs: 0 },
+                    paddingLeft: 8,
                     // paddingRight: 10,
                   }}
                 >
                   {/* Left side: Labels */}
                   <Box
                     sx={{
-                      width: {
-                        lg: '66.666667%',
-                        md: '66.666667%',
-                        sm: '100%',
-                        xs: '100%',
-                      },
+                      width: '66.666667%',
                       display: 'flex',
                       // flexDirection: 'column',
                       gap: 1,
