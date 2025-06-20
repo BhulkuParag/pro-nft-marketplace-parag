@@ -340,7 +340,7 @@ export default function Header(): JSX.Element {
               <ListItemText
                 primary={item.lable}
                 sx={{
-                  // opacity: open ? 1 : 0,
+                  // opacity: open ? 1 : 0,""
                   '& .MuiTypography-root': {
                     fontSize: '14px',
                     fontWeight: 500,
