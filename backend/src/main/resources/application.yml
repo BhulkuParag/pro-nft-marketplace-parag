@@ -7,5 +7,7 @@ logging:
   type: json
   application:
     name: Polycruz
-
+  
+reservoir:
+  trendingMintsUrl: "https://api.reservoir.tools/collections/trending-mints/v2"
       
