@@ -10,4 +10,5 @@ logging:
   
 reservoir:
   trendingMintsUrl: "https://api.reservoir.tools/collections/trending-mints/v2"
+  askCancelUrl: "https://api.reservoir.tools/tokens/0x5af0d9827e0c53e4799bb226655a1de152a425a5:9099/activity/v5"
       
