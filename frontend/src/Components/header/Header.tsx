@@ -366,14 +366,14 @@ export default function Header(): JSX.Element {
           borderBottom: '1px solid',
           borderColor: 'divider',
           color: 'text.primary',
-          paddingLeft: { md: '55px', xs: 0 },
+          paddingLeft: { md: '70px', xs: 0 },
         }}
       >
         <Toolbar
           sx={{
             display: 'flex',
             justifyContent: 'space-between',
-          gap: { md: 1.5, xs: '5px' },
+            gap: { md: 1.5, xs: '5px' },
             backgroundColor: 'background.default',
           }}
         >
@@ -386,7 +386,6 @@ export default function Header(): JSX.Element {
                 gap: 1,
               }}
             >
-              {/* Hamburger Menu */}
               <IconButton
                 edge="start"
                 color="inherit"
@@ -415,7 +414,6 @@ export default function Header(): JSX.Element {
               >
                 {drawerContent}
               </Drawer>
-              {/* Logo */}
               <Box
                 component="div"
                 sx={{
@@ -428,30 +426,20 @@ export default function Header(): JSX.Element {
                 <img
                   src="https://analytic.polycruz.io/_next/static/media/logo.32e9a1fc.svg"
                   alt=""
-                  style={{ height: 32 }}
+                  height={32}
                 />
               </Box>
-              {/* Dropdown */}
               <Box sx={{ width: '100%' }}>
                 <CustomDropdown
                   options={options}
                   value={selected}
                   onChange={setSelected}
+                  disableMenuItemTouchRipple={true}
+                  disableTouchRipple={true}
                 />
               </Box>
-              {/* Search */}
-              <Box
-                sx={{
-                  flexGrow: 1,
-                  width: '100%',
-                  display: 'flex',
-                  justifyContent: 'flex-end',
-                }}
-              >
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <CustomSearch />
-              </Box>
-              {/* Icons */}
-              <Box sx={{ display: 'flex', gap: 1 }}>
                 <IconButton
                   size="large"
                   aria-label="toggle theme"
@@ -488,85 +476,77 @@ export default function Header(): JSX.Element {
               </Box>
             </Box>
           )}
-
-          {/* DESKTOP VIEW ONLY */}
-          {!isMobile && (
-            <Box
-              sx={{
-                display: { xs: 'none', lg: 'flex' },
-                alignItems: 'center',
-                width: '100%',
-                gap: 2,
-              }}
-            >
-              {/* Add your desktop header layout here */}
-              {/* Example: Logo, Dropdown, Search, Icons, Connect Button */}
-
-              <Box sx={{ width: '100%' }}>
-                <CustomDropdown
-                  options={options}
-                  value={selected}
-                  onChange={setSelected}
-                />
-              </Box>
-              <Box
+          <Box
+            sx={{
+              display: { xs: 'none', lg: 'flex' },
+              alignItems: 'center',
+              width: '100%',
+              gap: 2,
+            }}
+          >
+            <Box sx={{ width: '100%' }}>
+              <CustomDropdown
+                options={options}
+                value={selected}
+                onChange={setSelected}
+                disableMenuItemTouchRipple={true}
+                disableTouchRipple={true}
+              />
+            </Box>
+            <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+              <CustomSearch />
+              <IconButton
+                size="large"
+                aria-label="toggle theme"
+                color="inherit"
+                onClick={toggleTheme}
+                sx={{ padding: '5px' }}
+              >
+                <Badge color="error">
+                  {mode === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
+                </Badge>
+              </IconButton>
+              <IconButton
+                size="large"
+                aria-label="show notifications"
+                color="inherit"
+                sx={{ padding: '5px' }}
+              >
+                <Badge color="error">
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
+              <Button
+                variant="contained"
+                disableElevation
+                disableTouchRipple
                 sx={{
-                  flexGrow: 1,
-                  display: 'flex',
-                  justifyContent: 'flex-end',
+                  fontSize: 16,
+                  width: '165px',
+                  backgroundColor: '#FFFFFF',
+                  color: 'black',
+                  borderRadius: '10px',
+                  textTransform: 'none',
+                  border: '1px solid',
+                  borderColor: 'divider',
                 }}
               >
-                <CustomSearch />
-              </Box>
-              <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-                <IconButton
-                  size="large"
-                  aria-label="toggle theme"
-                  color="inherit"
-                  onClick={toggleTheme}
-                  sx={{ padding: '5px' }}
-                >
-                  <Badge color="error">
-                    {mode === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
-                  </Badge>
-                </IconButton>
-                <IconButton
-                  size="large"
-                  aria-label="show notifications"
-                  color="inherit"
-                  sx={{ padding: '5px' }}
-                >
-                  <Badge color="error">
-                    <NotificationsIcon />
-                  </Badge>
-                </IconButton>
-                <Button
-                  variant="contained"
-                  sx={{
-                    fontSize: 16,
-                    width: '165px',
-                    backgroundColor: 'custom.whiteLightO1',
-                    color: 'custom.black02',
-                    borderRadius: '10px',
-                  }}
-                >
-                  Connect
-                </Button>
-                <IconButton
-                  size="large"
-                  edge="end"
-                  aria-label="shopping cart"
-                  aria-controls={menuId}
-                  aria-haspopup="true"
-                  onClick={handleProfileMenuOpen}
-                  color="inherit"
-                  sx={{ padding: '5px' }}
-                >
-                  <LocalGroceryStoreIcon />
-                </IconButton>
-              </Box>
+                Connect
+              </Button>
+              <IconButton
+                size="large"
+                edge="end"
+                aria-label="shopping cart"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+                sx={{ padding: '5px' }}
+              >
+                <LocalGroceryStoreIcon />
+              </IconButton>
             </Box>
-          )}
+          </Box>
         </Toolbar>
       </AppBar>
     </Box>

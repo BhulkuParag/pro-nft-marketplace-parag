@@ -7,13 +7,13 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Typography,
 } from '@mui/material';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import { menuItems } from '../constants/menuItem';
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 200;
-const collapsedWidth = 60;
+const collapsedWidth = '4.6rem';
 
 const sideBar: React.FC = () => {
   const [open, setOpen] = React.useState(false);
@@ -31,15 +31,15 @@ const sideBar: React.FC = () => {
           marginTop: 2,
         }}
       >
-        <div className="px-3 flex items-center gap-x-3 text-xl font-bold">
+        <Link to={'/home'} className="px-3 flex items-center gap-x-3 text-xl font-bold">
           <img
             src="https://analytic.polycruz.io/_next/static/media/logo.32e9a1fc.svg"
             alt=""
           />
-          <span>Polycruz</span>
-        </div>
+          <Typography fontSize={26} fontWeight={600} display={open ? 'block' : 'none'}>Polycruz</Typography>
+        </Link>
 
-        {menuItems.map((item, index) => (
+        {menuItems.map((item) => (
           <ListItem key={item.path} disablePadding>
             <ListItemButton
               sx={{
@@ -106,7 +106,8 @@ const sideBar: React.FC = () => {
             backgroundColor: 'secondary.main',
             overflowX: 'hidden',
             color: 'text.primary',
-            border: '1px solid custom.borderblack01',
+            borderRight: '2px solid',
+            borderColor: 'custom.borderblack01'
           },
         }}
         open={open}

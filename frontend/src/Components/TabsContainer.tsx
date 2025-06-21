@@ -5,16 +5,15 @@ import { useMemo } from 'react';
 import type { RowData } from '../types/table';
 import type { ColDef } from 'ag-grid-community';
 import {
-  AddSortIcon,
   CollectionRenderer,
-  InfoIcon,
+  NormalRenderer,
   PriceRenderer,
   StarRenderer,
-  VolumeRenderer,
-  AGGridTable,
   SupplyRenderer,
-  NormalRenderer,
-} from '../../@ui-component/Common/AGGridTable';
+  VolumeRenderer,
+} from '../utils/Table/cellRenderer';
+import { AddSortIcon, InfoIcon } from '../utils/Table/headerRenderer';
+import { AGGridTable } from '../../@ui-component/Common/AGGridTable';
 
 const TabsContainer = () => {
   const columnForTrending: ColDef<RowData, unknown>[] = useMemo(
