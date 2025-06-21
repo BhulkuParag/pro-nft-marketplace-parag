@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material';
-import CustomTab, { type TabItem } from '../../@ui-component/Common/Tab';
+import CustomTab, { type TabItem } from '../../@ui-component/Comman/Tab';
 import TableFilterBar from './ui/TableFilterBar';
 import { useMemo } from 'react';
 import type { RowData } from '../types/table';
@@ -13,7 +13,7 @@ import {
   VolumeRenderer,
 } from '../utils/Table/cellRenderer';
 import { AddSortIcon, InfoIcon } from '../utils/Table/headerRenderer';
-import { AGGridTable } from '../../@ui-component/Common/AGGridTable';
+import { AGGridTable } from '../../@ui-component/Comman/AGGridTable';
 
 const TabsContainer = () => {
   const columnForTrending: ColDef<RowData, unknown>[] = useMemo(
