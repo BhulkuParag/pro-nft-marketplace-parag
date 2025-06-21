@@ -22,5 +22,6 @@ public class SaleToken {
     private boolean isNsfw;
     private double rarityScore;
     private int rarityRank;
+    private CollectionData collection;
 
 }
