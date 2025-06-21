@@ -13,7 +13,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import { menuItems } from '../constants/menuItem';
 
 const drawerWidth = 200;
-const collapsedWidth = 60;
+const collapsedWidth = 65;
 
 const sideBar: React.FC = () => {
   const [open, setOpen] = React.useState(false);

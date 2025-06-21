@@ -76,7 +76,9 @@ const SearchBar: FC<SearchBarProps> = ({
             height: { xs: '24px', sm: '30px' },
             color: 'custom.lightGrey',
             backgroundColor: 'background.default',
-            display: { xs: 'none', sm: 'flex' }, // Hide on mobile, show on desktop
+
+            
+            display: { xs: 'none', sm: 'flex' }, 
           }}
         >
           /

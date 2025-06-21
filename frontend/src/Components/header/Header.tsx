@@ -373,7 +373,7 @@ export default function Header(): JSX.Element {
           sx={{
             display: 'flex',
             justifyContent: 'space-between',
-          gap: { md: 1.5, xs: '5px' },
+            gap: { md: 1.5, xs: '5px' },
             backgroundColor: 'background.default',
           }}
         >
@@ -391,7 +391,7 @@ export default function Header(): JSX.Element {
                 edge="start"
                 color="inherit"
                 aria-label="menu"
-                sx={{ mr: 1, display: { xs: 'flex', lg: 'none' } }}
+                sx={{ display: { xs: 'flex', lg: 'none' } }}
                 onClick={handleDrawerToggle}
               >
                 <MenuIcon />
@@ -421,7 +421,6 @@ export default function Header(): JSX.Element {
                 sx={{
                   width: 40,
                   minWidth: 40,
-                  mr: 1,
                   display: { xs: 'block', lg: 'none' },
                 }}
               >
@@ -445,7 +444,7 @@ export default function Header(): JSX.Element {
                   flexGrow: 1,
                   width: '100%',
                   display: 'flex',
-                  justifyContent: 'flex-end',
+                  justifyContent: 'Center',
                 }}
               >
                 <CustomSearch />
