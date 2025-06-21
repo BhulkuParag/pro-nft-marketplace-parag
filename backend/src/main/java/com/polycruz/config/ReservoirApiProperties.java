@@ -8,4 +8,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class ReservoirApiProperties {
     private String trendingMintsUrl;
     private String askCancelUrl;
+    private String salesUrl;
 }
