@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/reservoir")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class Controller {
 
@@ -24,9 +24,8 @@ public class Controller {
             @RequestParam(required = false, defaultValue = "true") boolean includeMetadata,
             @RequestParam(required = false, defaultValue = "ask_cancel") String types
     ) {
-        TrendingMintsResponse data = service.fetchTokenActivity(token, sortBy, includeMetadata, types);
+        TrendingMintsResponse data = service.fetchAskCancel(token, sortBy, includeMetadata, types);
         return new ResponseEntity<>(transformer.transform(data), HttpStatus.CREATED);
     }
-
 
 }

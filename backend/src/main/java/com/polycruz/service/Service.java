@@ -18,14 +18,14 @@ public class Service {
     private final RestTemplate restTemplate = new RestTemplate();
     private final ReservoirApiProperties apiProperties;
 
-    public TrendingMintsResponse fetchTokenActivity(String token, String sortBy, boolean includeMetadata, String types) {
-        String baseUrl = apiProperties.getTrendingMintsUrl();
+    public TrendingMintsResponse fetchAskCancel(String token, String sortBy, boolean includeMetadata, String types) {
+        String baseUrl = apiProperties.getAskCancelUrl();
 
         URI uri = UriComponentsBuilder.fromHttpUrl(baseUrl)
-                .queryParam("period", "24h")
-                .queryParam("limit", 10)
-                .queryParam("sortDirection", "desc")
-                .queryParam("offset", 0)
+                .queryParam("token", token)
+                .queryParam("sortBy", sortBy)
+                .queryParam("includeMetadata", includeMetadata)
+                .queryParam("types", types)
                 .build()
                 .toUri();
         System.out.println("Calling URL: " + uri);
