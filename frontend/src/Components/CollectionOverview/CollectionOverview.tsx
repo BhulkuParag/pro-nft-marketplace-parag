@@ -21,6 +21,13 @@ import CheckIcon from '@mui/icons-material/Check';
 import Tooltip from '@mui/material/Tooltip';
 import CollectionHero from '../CollectionHero/CollectionHero';
 import CollectionFooter from '../CollectionFooter/CollectionFooter';
+import SailingIcon from '@mui/icons-material/Sailing';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import LanguageIcon from '@mui/icons-material/Language';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import ShareIcon from '@mui/icons-material/Share';
+import ChatIcon from '@mui/icons-material/Chat';
 import "./CollectionOverview.css";
 
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -289,6 +296,49 @@ const CollectionOverview = () => {
                                                 ) : (
                                                     <RotateLeftIcon sx={{ color: theme.palette.text.secondary, width: '20px', height: '20px' }} />
                                                 )}
+                                            </IconButton>
+                                        </Tooltip>
+                                    </Box>
+                                    <Box sx={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '15px',
+                                        marginLeft: "auto"
+                                    }}>
+                                        <Tooltip title="OpenSea" arrow placement="top">
+                                            <IconButton size="small">
+                                                <SailingIcon sx={{ color: theme.palette.text.primary }} />
+                                            </IconButton>
+                                        </Tooltip>
+                                        <Tooltip title="Stats" arrow placement="top">
+                                            <IconButton size="small">
+                                                <BarChartIcon sx={{ color: theme.palette.text.primary }} />
+                                            </IconButton>
+                                        </Tooltip>
+                                        <Tooltip title="Website" arrow placement="top">
+                                            <IconButton size="small">
+                                                <LanguageIcon sx={{ color: theme.palette.text.primary }} />
+                                            </IconButton>
+                                        </Tooltip>
+                                        <Tooltip title="Discord" arrow placement="top">
+                                            <IconButton size="small">
+                                                <ChatIcon sx={{ color: theme.palette.text.primary }} />
+                                            </IconButton>
+                                        </Tooltip>
+                                        <Tooltip title="Twitter" arrow placement="top">
+                                            <IconButton size="small">
+                                                <TwitterIcon sx={{ color: theme.palette.text.primary }} />
+                                            </IconButton>
+                                        </Tooltip>
+                                        <Tooltip title="Instagram" arrow placement="top">
+                                            <IconButton size="small">
+                                                <InstagramIcon sx={{ color: theme.palette.text.primary }} />
+                                            </IconButton>
+                                        </Tooltip>
+                                        <Box sx={{ borderLeft: `1px solid ${theme.palette.text.secondary}`, height: '24px', mx: 1 }} />
+                                        <Tooltip title="Share" arrow placement="top">
+                                            <IconButton size="small">
+                                                <ShareIcon sx={{ color: theme.palette.text.primary }} />
                                             </IconButton>
                                         </Tooltip>
                                     </Box>
