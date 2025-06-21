@@ -7,4 +7,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "reservoir")
 public class ReservoirApiProperties {
     private String trendingMintsUrl;
+    private String collectionsV7Url;
+    private String tokens;
 }

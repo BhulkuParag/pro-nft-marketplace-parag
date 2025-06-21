@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.polycruz.config.ReservoirApiProperties;
+import com.polycruz.pojo.CollectionsV7Response;
 import com.polycruz.pojo.SalesApiResponse;
+import com.polycruz.pojo.TokenResponse;
 import com.polycruz.pojo.TrendingApiResponse;
 import com.polycruz.pojo.TrendingMintsResponse;
 
@@ -70,5 +72,34 @@ public class VendorService {
 	 			System.out.println("Raw JSON: " + response2.getBody());
 	 	    return response.getBody();
 	 	}
+	 	
+	 	public CollectionsV7Response fetchCollections(String contract) {
+	        URI uri = UriComponentsBuilder.fromHttpUrl(apiProperties.getCollectionsV7Url())
+	            .queryParam("contract", contract)
+	            .build()
+	            .encode()
+	            .toUri();
+	        
+	        ResponseEntity<String> response2 = restTemplate.exchange(
+	 			    uri,
+	 			    HttpMethod.GET,
+	 			   null,
+	 			    String.class
+	 			);
+	 			System.out.println("Raw JSON: " + response2.getBody());
+	 	    
+
+	        return restTemplate.getForObject(uri, CollectionsV7Response.class);
+	    }
+	 	
+	 	public TokenResponse fetchTokens(String collection, String sortBy, int limit) {
+	        String uri = UriComponentsBuilder.fromHttpUrl(apiProperties.getTokens())
+	                .queryParam("collection", collection)
+	                .queryParam("sortBy", sortBy)
+	                .queryParam("limit", limit)
+	                .toUriString();
+
+	        return restTemplate.getForObject(uri, TokenResponse.class);
+	    }
 
 }

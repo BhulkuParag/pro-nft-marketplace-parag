@@ -1,27 +1,32 @@
 package com.polycruz.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Setter
-@Getter
-
+@Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Amount {
 	
 	 private String raw;
 	    private double decimal;
 	    private double usd;
-	    private double nativeCurrency;
-
 	    @JsonProperty("native")
-	    public double getNativeCurrency() {
-	        return nativeCurrency;
-	    }
+	    private double nativeCurrency;
+//	    private double nativeAmount;
 
-	    public void setNativeCurrency(double nativeCurrency) {
-	        this.nativeCurrency = nativeCurrency;
-	    }
+//	    @JsonProperty("native")
+//	    public double getNativeCurrency() {
+//	        return nativeCurrency;
+//	    }
+
+//	    public void setNativeCurrency(double nativeCurrency) {
+//	        this.nativeCurrency = nativeCurrency;
+//	    }
+	    
+//	    public void setNative(double nativeVal) {
+//            this.nativeAmount = nativeVal;
+//        }
 
 }
