@@ -1,0 +1,37 @@
+To push your changes to the submodule:
+1. Go into the submodule directory:
+cd frontend/@ui-component/ui
+
+2. Check status and add your changes:
+git status
+git add .
+git commit -m "Your commit message"
+
+3. Push to the submodule's remote:
+git push
+
+4. Go back to your main repo root:
+cd ../../..
+
+
+5. Stage the submodule pointer update in the main repo:
+git add frontend/@ui-component/ui
+git commit -m "Update ui submodule pointer"
+git push
+
+
+To pull the latest submodule changes from other developers:
+1. Pull the latest changes in the main repo (including submodule pointer):
+git pull
+
+2. Update the submodule to the latest commit referenced by the main repo:
+git submodule update --init --recursive
+
+3. (Optional) If you want the very latest from the submodule’s remote branch:
+cd frontend/@ui-component/ui
+git checkout main   # or the branch you want
+git pull
+cd ../../..
+git add frontend/@ui-component/ui
+git commit -m "Update ui submodule to latest"
+git push
