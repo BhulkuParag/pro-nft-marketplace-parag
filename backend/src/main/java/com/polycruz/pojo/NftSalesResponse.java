@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TokenResponse {
-    private List<TokenData> tokens;
+public class NftSalesResponse {
+    private List<NftSaleDTO> sales;
     private String continuation;
 }

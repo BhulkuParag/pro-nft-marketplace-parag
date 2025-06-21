@@ -7,7 +7,8 @@ import java.util.List;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TokenResponse {
-    private List<TokenData> tokens;
-    private String continuation;
+public class ActivityResponse {
+
+    private List<Activity> activities;
+
 }

@@ -12,7 +12,11 @@ reservoir:
   trendingMintsUrl: "https://api.reservoir.tools/collections/trending-mints/v2"
   collections-v7-url: "https://api.reservoir.tools/collections/v7"
   tokens: "https://api.reservoir.tools/tokens/v7"
-
+  activityUrl: "https://api.reservoir.tools/tokens/0x5af0d9827e0c53e4799bb226655a1de152a425a5:9099/activity/v5"
+  askCancelUrl: "https://api.reservoir.tools/tokens/0x5af0d9827e0c53e4799bb226655a1de152a425a5:9099/activity/v5"
+  salesUrl: "https://api.reservoir.tools/sales/v6"
+  trendingApi: "https://api.reservoir.tools/collections/trending/v1?period={period}&sortBy={sortBy}"
+  topSales: "https://api.reservoir.tools/sales/v6?startTimestamp={startTimestamp}&sortBy={sortBy}&sortDirection={sortDirection}&limit={limit}&offset={offset}&includeTokenMetadata={includeTokenMetadata}"
 
 spring:
   jackson:
@@ -24,4 +28,6 @@ springdoc:
     path: /v3/api-docs
   swagger-ui:
     path: /swagger-ui.html
+
+  
       
