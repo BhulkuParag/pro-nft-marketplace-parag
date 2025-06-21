@@ -10,6 +10,7 @@ import com.polycruz.service.*;
 import com.polycruz.pojo.TrendingApiResponse;
 import com.polycruz.pojo.CollectionsV7Response;
 import com.polycruz.pojo.SalesApiResponse;
+import com.polycruz.pojo.TokenResponse;
 import com.polycruz.pojo.TrendingMintsResponse;
 
 
@@ -32,7 +33,7 @@ public class ReservoirController {
                 HttpStatus.OK);
     }
     
-    @GetMapping("/top")
+    @GetMapping("/top-sales")
     public ResponseEntity<TechResponse<SalesApiResponse>> getTopSales(
             @RequestParam long startTimestamp,
             @RequestParam(defaultValue = "10") int limit,
@@ -50,9 +51,20 @@ public class ReservoirController {
     
     @GetMapping("/collections/v7")
     @Operation( summary = "2.Collection Details a.overview")
-    public ResponseEntity<TechResponse<CollectionsV7Response>> getCollectionsV7(@RequestParam String contract) {
+    public ResponseEntity<TechResponse<CollectionsV7Response>> getCollectionsV7(
+    		@RequestParam(value = "contract",defaultValue = "0x5af0d9827e0c53e4799bb226655a1de152a425a5", required = false) String contract) {
         return new ResponseEntity<>(transformer.transform(vendorService.fetchCollections(contract)),
                 HttpStatus.OK);
+    }
+    
+    @GetMapping("/tokens")
+    @Operation( summary = "2.Collection Details b.Items")
+    public ResponseEntity<TechResponse<TokenResponse>> getTokens(
+            @RequestParam(value = "collection",defaultValue = "0x5af0d9827e0c53e4799bb226655a1de152a425a5", required = false) String collection,
+            @RequestParam(value = "sortBy", defaultValue = "floorAskPrice") String sortBy,
+            @RequestParam(value = "limit", defaultValue = "40") int limit) {
+
+        return new ResponseEntity<>(transformer.transform(vendorService.fetchTokens(collection, sortBy, limit)),HttpStatus.OK);
     }
 }
 

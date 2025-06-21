@@ -16,5 +16,6 @@ public class FloorAsk {
     private long validFrom;
     private long validUntil;
     private Token token;
+    private Source source;
 
 }

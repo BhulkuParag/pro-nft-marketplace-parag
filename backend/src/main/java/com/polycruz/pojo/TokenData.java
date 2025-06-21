@@ -1,13 +1,12 @@
 package com.polycruz.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import lombok.Data;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Metadata {
-	 private String imageOriginal;
-	    private String imageMimeType;
-	    private String tokenURI;
+public class TokenData {
+	private Token token;
+	private Market market;
+	private String updatedAt;
 }
