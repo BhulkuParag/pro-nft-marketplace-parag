@@ -2,6 +2,7 @@ package com.polycruz.service;
 
 import com.polycruz.config.ReservoirApiProperties;
 import com.polycruz.pojo.ActivityResponse;
+import com.polycruz.pojo.TokenDetails;
 import com.polycruz.pojo.TrendingMintsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
@@ -36,6 +37,33 @@ public class Service {
         URI uri = builder.build().toUri();
         System.out.println("Calling URL: " + uri);
         ResponseEntity<ActivityResponse> response = restTemplate.exchange(
+                uri,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<>() {}
+        );
+
+        ResponseEntity<String> response2 = restTemplate.exchange(
+                uri,
+                HttpMethod.GET,
+                null,
+                String.class
+        );
+        System.out.println("Raw JSON: " + response2.getBody());
+        return response.getBody();
+    }
+
+    public TokenDetails fetchTokenDetails(String currency) {
+        String baseUrl = apiProperties.getTokenDetailUrl();
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(baseUrl);
+        if (currency != null && !currency.isBlank()) {
+            builder.queryParam("currency", currency);
+        }
+
+        URI uri = builder.build().toUri();
+        System.out.println("Calling URL: " + uri);
+        ResponseEntity<TokenDetails> response = restTemplate.exchange(
                 uri,
                 HttpMethod.GET,
                 null,

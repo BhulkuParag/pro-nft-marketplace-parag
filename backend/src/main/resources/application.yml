@@ -15,6 +15,7 @@ reservoir:
   activityUrl: "https://api.reservoir.tools/tokens/0x5af0d9827e0c53e4799bb226655a1de152a425a5:9099/activity/v5"
   askCancelUrl: "https://api.reservoir.tools/tokens/0x5af0d9827e0c53e4799bb226655a1de152a425a5:9099/activity/v5"
   salesUrl: "https://api.reservoir.tools/sales/v6"
+  tokenDetailUrl: "https://marketplace.polycruz.io/api/unleash/nft/1/0x5af0d9827e0c53e4799bb226655a1de152a425a5/9099"
 
 spring:
   jackson:
