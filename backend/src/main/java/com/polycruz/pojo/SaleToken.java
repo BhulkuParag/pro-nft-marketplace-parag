@@ -8,8 +8,14 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SaleToken {
     private String contract;
+
+    @JsonProperty("tokenId")
     private String tokenId;
+
+    @JsonProperty("tokenName")
     private String name;
+
+    @JsonProperty("tokenImage")
     private String image;
     private TokenMetadata metadata;
     private boolean isSpam;
@@ -17,13 +23,4 @@ public class SaleToken {
     private double rarityScore;
     private int rarityRank;
 
-    @JsonProperty("tokenName")
-    public String getName() {
-        return name;
-    }
-
-    @JsonProperty("tokenImage")
-    public String getImage() {
-        return image;
-    }
 }

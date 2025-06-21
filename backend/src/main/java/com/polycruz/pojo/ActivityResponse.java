@@ -9,6 +9,6 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ActivityResponse {
 
-    private List<Activity> collections;
+    private List<Activity> activities;
 
 }

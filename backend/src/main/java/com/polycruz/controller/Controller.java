@@ -18,13 +18,13 @@ public class Controller {
     private final Service service;
     private final ResponseTransformer transformer;
 
-    @GetMapping("/token-activity")
-    public ResponseEntity<TechResponse<ActivityResponse>> getAskCancel(
+    @GetMapping("/activity")
+    public ResponseEntity<TechResponse<ActivityResponse>> getActivity(
             @RequestParam(required = false, defaultValue = "eventTimestamp") String sortBy,
-            @RequestParam(required = false, defaultValue = "true") boolean includeMetadata,
-            @RequestParam(required = false, defaultValue = "ask_cancel") String types
+            @RequestParam(required = false, defaultValue = "false") Boolean includeMetadata,
+            @RequestParam(required = false) String types
     ) {
-        return new ResponseEntity<>(transformer.transform(service.fetchAskCancel(sortBy, includeMetadata, types)), HttpStatus.CREATED);
+        return new ResponseEntity<>(transformer.transform(service.fetchActivity(sortBy, includeMetadata, types)), HttpStatus.CREATED);
     }
 
 }

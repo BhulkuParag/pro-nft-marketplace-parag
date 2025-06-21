@@ -7,5 +7,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "reservoir")
 public class ReservoirApiProperties {
     private String trendingMintsUrl;
-    private String askCancelUrl;
+    private String activityUrl;
+
 }

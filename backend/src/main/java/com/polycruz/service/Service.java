@@ -19,15 +19,21 @@ public class Service {
     private final RestTemplate restTemplate = new RestTemplate();
     private final ReservoirApiProperties apiProperties;
 
-    public ActivityResponse fetchAskCancel(String sortBy, boolean includeMetadata, String types) {
-        String baseUrl = apiProperties.getAskCancelUrl();
+    public ActivityResponse fetchActivity(String sortBy, Boolean includeMetadata, String types) {
+        String baseUrl = apiProperties.getActivityUrl();
 
-        URI uri = UriComponentsBuilder.fromHttpUrl(baseUrl)
-                .queryParam("sortBy", sortBy)
-                .queryParam("includeMetadata", includeMetadata)
-                .queryParam("types", types)
-                .build()
-                .toUri();
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(baseUrl);
+        if (sortBy != null && !sortBy.isBlank()) {
+            builder.queryParam("sortBy", sortBy);
+        }
+        if (includeMetadata != null) {
+            builder.queryParam("includeMetadata", includeMetadata);
+        }
+        if (types != null && !types.isBlank()) {
+            builder.queryParam("types", types);
+        }
+
+        URI uri = builder.build().toUri();
         System.out.println("Calling URL: " + uri);
         ResponseEntity<ActivityResponse> response = restTemplate.exchange(
                 uri,
