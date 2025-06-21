@@ -1,8 +1,5 @@
-import React from 'react';
 import { Box, Typography, Card, CardContent, useTheme } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import Header from '../header/Header';
-import Sidebar from '../header/Sidebar';
 import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
@@ -94,7 +91,7 @@ const CollectionOverview = () => {
     >
       <Box
         sx={{
-          paddingInline: '80px',
+        //   paddingInline: '80px',
           width: '100%',
           paddingTop: '10px',
         }}
