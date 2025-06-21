@@ -29,7 +29,7 @@ public class Controller {
         return new ResponseEntity<>(transformer.transform(service.fetchActivity(sortBy, includeMetadata, types)), HttpStatus.CREATED);
     }
 
-    @GetMapping("/token-details")
+    @GetMapping("/token-detail")
     @Operation( summary = "2.Collection Details d. ")
     public ResponseEntity<TechResponse<TokenDetail>> getTokenDetails(
             @RequestParam(required = false) String currency
