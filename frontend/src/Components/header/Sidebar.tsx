@@ -31,12 +31,21 @@ const sideBar: React.FC = () => {
           marginTop: 2,
         }}
       >
-        <Link to={'/home'} className="px-3 flex items-center gap-x-3 text-xl font-bold">
+        <Link
+          to={'/home'}
+          className="px-3 flex items-center gap-x-3 text-xl font-bold"
+        >
           <img
             src="https://analytic.polycruz.io/_next/static/media/logo.32e9a1fc.svg"
             alt=""
           />
-          <Typography fontSize={26} fontWeight={600} display={open ? 'block' : 'none'}>Polycruz</Typography>
+          <Typography
+            fontSize={26}
+            fontWeight={600}
+            display={open ? 'block' : 'none'}
+          >
+            Polycruz
+          </Typography>
         </Link>
 
         {menuItems.map((item) => (
@@ -107,7 +116,7 @@ const sideBar: React.FC = () => {
             overflowX: 'hidden',
             color: 'text.primary',
             borderRight: '2px solid',
-            borderColor: 'custom.borderblack01'
+            borderColor: 'custom.borderblack01',
           },
         }}
         open={open}

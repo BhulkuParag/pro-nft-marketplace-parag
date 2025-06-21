@@ -139,9 +139,10 @@ const CustomSearch: React.FC = () => {
         <>
           <IconButton
             onClick={handleOpenDialog}
+            disableRipple
             sx={{
               color: 'custom.whiteLight',
-              // padding: { xs: 0, sm: 1 },
+              padding: { xs: '6px', sm: 1 },
             }}
           >
             <img alt="search" width="24" height="24" src={Search} />

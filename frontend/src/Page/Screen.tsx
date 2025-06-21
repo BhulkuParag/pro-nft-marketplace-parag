@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   Box,
-  Paper,
+  IconButton,
   Typography,
   Button,
   Accordion,
@@ -14,7 +14,6 @@ import {
 } from '@mui/material';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { IconButton } from '@mui/material';
 
 const Screen: React.FC = () => {
   const theme = useTheme();
@@ -33,11 +32,6 @@ const Screen: React.FC = () => {
 
   return (
     <Box
-      // width="100%"
-      // maxWidth="1200px"
-      // display="flex"
-      // flexWrap={'wrap'}
-      // gap={4}
       sx={{
         display: 'grid',
         gridTemplateColumns: {
@@ -57,8 +51,7 @@ const Screen: React.FC = () => {
 
       <Box
         sx={{
-          bgcolor: 'background.paper',
-          // borderRadius: 4,
+          // bgcolor: 'background.paper',
           p: 2,
           width: '100%',
           display: 'flex',
@@ -68,6 +61,7 @@ const Screen: React.FC = () => {
           alignItems: 'center',
         }}
       >
+        {/* image */}
         <Box
           component="img"
           src="https://cryptopunks.app/cryptopunks/cryptopunk7703.png"
@@ -86,7 +80,6 @@ const Screen: React.FC = () => {
           <Accordion
             sx={{
               borderBottom: 'none',
-              // Optional: Remove the divider between accordions
               '&:before': {
                 display: 'none',
               },
@@ -432,9 +425,6 @@ const Screen: React.FC = () => {
 
       {/* Right Side: Main Info, Actions, and Tabs */}
       <Box
-        // flex={1}
-        // display="flex"
-        // flexDirection="column"
         sx={{
           width: '100%',
           display: 'flex',
@@ -474,17 +464,20 @@ const Screen: React.FC = () => {
             >
               <Typography
                 variant="h5"
-                fontWeight={700}
-                color="text.primary"
-                noWrap
+                sx={{
+                  fontWeight: 700,
+                  color: 'text.primary',
+                }}
               >
                 CryptoPunks
               </Typography>
               <Typography
-                color="text.primary"
-                fontWeight={600}
-                fontSize={18}
-                noWrap={true}
+                sx={{
+                  color: 'text.primary',
+                  fontWeight: 600,
+                  fontSize: 'fontSize.md',
+                  // noWrap:{true}
+                }}
               >
                 #7703
               </Typography>

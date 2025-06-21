@@ -390,7 +390,7 @@ export default function Header(): JSX.Element {
                 edge="start"
                 color="inherit"
                 aria-label="menu"
-                sx={{ mr: 1, display: { xs: 'flex', lg: 'none' } }}
+                sx={{ display: { xs: 'flex', lg: 'none' } }}
                 onClick={handleDrawerToggle}
               >
                 <MenuIcon />
@@ -419,7 +419,6 @@ export default function Header(): JSX.Element {
                 sx={{
                   width: 40,
                   minWidth: 40,
-                  mr: 1,
                   display: { xs: 'block', lg: 'none' },
                 }}
               >
