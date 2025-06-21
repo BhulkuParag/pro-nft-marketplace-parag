@@ -50,7 +50,7 @@ const Home = () => {
             flexDirection: 'column',
             gap: '15px',
             paddingTop: '10px',
-            paddingLeft: { xs: '0px', lg: '60px' },
+            paddingLeft: { xs: '0px', lg: '55px' },
           }}
         >
           <Box
