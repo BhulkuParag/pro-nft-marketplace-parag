@@ -1,5 +1,6 @@
 package com.polycruz.controller;
 
+import com.polycruz.pojo.ActivityResponse;
 import com.polycruz.pojo.TrendingMintsResponse;
 import com.polycruz.service.Service;
 import com.polycruz.utils.ResponseTransformer;
@@ -17,15 +18,13 @@ public class Controller {
     private final Service service;
     private final ResponseTransformer transformer;
 
-    @GetMapping("/token-activity/{token}")
-    public ResponseEntity<TechResponse<TrendingMintsResponse>> getAskCancel(
-            @PathVariable String token,
+    @GetMapping("/token-activity")
+    public ResponseEntity<TechResponse<ActivityResponse>> getAskCancel(
             @RequestParam(required = false, defaultValue = "eventTimestamp") String sortBy,
             @RequestParam(required = false, defaultValue = "true") boolean includeMetadata,
             @RequestParam(required = false, defaultValue = "ask_cancel") String types
     ) {
-        TrendingMintsResponse data = service.fetchAskCancel(token, sortBy, includeMetadata, types);
-        return new ResponseEntity<>(transformer.transform(data), HttpStatus.CREATED);
+        return new ResponseEntity<>(transformer.transform(service.fetchAskCancel(sortBy, includeMetadata, types)), HttpStatus.CREATED);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.polycruz.service;
 
 import com.polycruz.config.ReservoirApiProperties;
+import com.polycruz.pojo.ActivityResponse;
 import com.polycruz.pojo.TrendingMintsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
@@ -18,18 +19,17 @@ public class Service {
     private final RestTemplate restTemplate = new RestTemplate();
     private final ReservoirApiProperties apiProperties;
 
-    public TrendingMintsResponse fetchAskCancel(String token, String sortBy, boolean includeMetadata, String types) {
+    public ActivityResponse fetchAskCancel(String sortBy, boolean includeMetadata, String types) {
         String baseUrl = apiProperties.getAskCancelUrl();
 
         URI uri = UriComponentsBuilder.fromHttpUrl(baseUrl)
-                .queryParam("token", token)
                 .queryParam("sortBy", sortBy)
                 .queryParam("includeMetadata", includeMetadata)
                 .queryParam("types", types)
                 .build()
                 .toUri();
         System.out.println("Calling URL: " + uri);
-        ResponseEntity<TrendingMintsResponse> response = restTemplate.exchange(
+        ResponseEntity<ActivityResponse> response = restTemplate.exchange(
                 uri,
                 HttpMethod.GET,
                 null,
