@@ -1,30 +1,26 @@
 import './App.css';
-// import PrimarySearchAppBar from "./Components/ui/Searchbar";
-// import ResponsiveDrawer from "./Components/ui/Sidebar";
 import { Routes, Route } from 'react-router-dom';
-import Home from './Page/Home';
 import { Box } from '@mui/material';
 import MuiTheme from './utils/MuiTheme';
-
-const routes = [{ path: '/', component: <Home /> }];
+import { routes } from './Components/constants/routes';
 
 const App = () => {
   return (
-    <>
-      {/* <ResponsiveDrawer />
-      <PrimarySearchAppBar /> */}
-      <Box sx={{ backgroundColor: 'background.default' }}>
+      <Box sx={{width: '100%', height: '100vh', backgroundColor: 'background.default' }}>
         <div className="w-screen h-screen max-h-screen">
           <MuiTheme>
             <Routes>
-              {routes.map((route, i) => (
-                <Route key={i} path={route.path} element={route.component} />
+              {routes.map((route) => (
+                <Route
+                  key={route.path}
+                  path={route.path}
+                  element={<route.component />}
+                />
               ))}
             </Routes>
           </MuiTheme>
         </div>
       </Box>
-    </>
   );
 };
 
