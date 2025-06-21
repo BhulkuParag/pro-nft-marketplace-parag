@@ -1,6 +1,6 @@
 package com.polycruz.pojo;
 
-public class Activity {
+public class Order {
     private String id;
     private String side;
     private Source source;
