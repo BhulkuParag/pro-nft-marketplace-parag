@@ -5,21 +5,8 @@ import lombok.Data;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Source {
-    private String id;
-    private String domain;
-    private String name;
-    private String icon;
-    private String url;
+public class TokenData {
+	private Token token;
+	private Market market;
+	private String updatedAt;
 }
-
-
-
-
-
-
-
-
-
-
-

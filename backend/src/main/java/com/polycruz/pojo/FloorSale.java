@@ -1,25 +1,15 @@
 package com.polycruz.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Source {
-    private String id;
-    private String domain;
-    private String name;
-    private String icon;
-    private String url;
+public class FloorSale {
+	
+	private double _1day;
+    private double _7day;
+    private double _30day;
+
 }
-
-
-
-
-
-
-
-
-
-
-

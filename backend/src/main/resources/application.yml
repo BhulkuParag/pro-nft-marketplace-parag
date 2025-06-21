@@ -10,4 +10,19 @@ logging:
   
 reservoir:
   trendingMintsUrl: "https://api.reservoir.tools/collections/trending-mints/v2"
+  collections-v7-url: "https://api.reservoir.tools/collections/v7"
+  tokens: "https://api.reservoir.tools/tokens/v7"
+
+
+spring:
+  jackson:
+    default-property-inclusion: NON_NULL
+
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
   activityUrl: "https://api.reservoir.tools/tokens/0x5af0d9827e0c53e4799bb226655a1de152a425a5:9099/activity/v5"
