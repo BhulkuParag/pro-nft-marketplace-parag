@@ -10,6 +10,7 @@ type SearchBarProps = {
   setSearch?: any;
   handleFocus?: FocusEventHandler<HTMLInputElement>;
   handleBlur?: FocusEventHandler<HTMLInputElement>;
+  handleOnClick?: () => void;
 };
 
 const SearchBar: FC<SearchBarProps> = ({
@@ -19,6 +20,7 @@ const SearchBar: FC<SearchBarProps> = ({
   setSearch,
   handleFocus,
   handleBlur,
+  handleOnClick
 }) => {
   const handleSearch = (e: any) => {
     setSearch(e.target.value);
@@ -58,6 +60,7 @@ const SearchBar: FC<SearchBarProps> = ({
         onChange={handleSearch}
         onFocus={handleFocus}
         onBlur={handleBlur}
+        onClick={handleOnClick}
       />
       {hasSplash && (
         <Box
@@ -73,7 +76,9 @@ const SearchBar: FC<SearchBarProps> = ({
             height: { xs: '24px', sm: '30px' },
             color: 'custom.lightGrey',
             backgroundColor: 'background.default',
-            display: { xs: 'none', sm: 'flex' }, // Hide on mobile, show on desktop
+
+            
+            display: { xs: 'none', sm: 'flex' }, 
           }}
         >
           /

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   Box,
   Menu,
@@ -13,8 +13,7 @@ import {
 } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import BarFilterIcon from '../../Components/Icon/BarFilterIcon';
-
-const timeOptions = ['5m', '10m', '30m', '1h', '6h', '24h', '7d', '30d'];
+import DropDown from '../../../@ui-component/Common/DropDown';
 
 const TableFilterBar = () => {
   const [selectedMetric, setSelectedMetric] = useState<'Volume' | 'Sales'>(
@@ -23,20 +22,29 @@ const TableFilterBar = () => {
   const theme = useTheme();
   const isMobileOrLaptop = useMediaQuery(theme.breakpoints.down('lg'));
   const [selectedTime, setSelectedTime] = useState('24h');
-  const [anchorElMetric, setAnchorElMetric] = useState<null | HTMLElement>(
-    null
-  );
-  const [anchorElTime, setAnchorElTime] = useState<null | HTMLElement>(null);
   const [anchorElFilter, setAnchorElFilter] = useState<null | HTMLElement>(
     null
   );
 
-  // const handleDropdownClick = (event: React.MouseEvent<HTMLElement>) => {
-  //   setAnchorElFilter(event.currentTarget);
-  // };
-  // const handleClose = () => {
-  //   setAnchorElFilter(null);
-  // };
+  const timeOptions = useMemo(() => {
+    return [
+      { label: '5m', value: '5m' },
+      { label: '10m', value: '10m' },
+      { label: '30m', value: '30m' },
+      { label: '1h', value: '1h' },
+      { label: '6h', value: '6h' },
+      { label: '24h', value: '24h' },
+      { label: '7d', value: '7d' },
+      { label: '30d', value: '30d' },
+    ];
+  }, []);
+
+  const vauleSales = useMemo(() => {
+    return [
+      { label: 'Volume', value: 'Volume' },
+      { label: 'Sales', value: 'Sales' },
+    ];
+  }, []);
 
   return (
     <Box
@@ -70,8 +78,8 @@ const TableFilterBar = () => {
           textTransform: 'none',
           border: '1px solid',
           borderColor: 'divider',
-          backgroundColor: 'custom.secondary',
-          padding: '6px 10px',
+          backgroundColor: 'background.default',
+          padding: '7px 10px',
           borderRadius: 2,
           fontFamily: 'Inter, sans-serif',
           color: 'custom.lightGrey',
@@ -235,68 +243,14 @@ const TableFilterBar = () => {
         gap={isMobileOrLaptop ? '14px' : '36px'}
       >
         {isMobileOrLaptop ? (
-          <>
-            <Button
-              onClick={(e) => setAnchorElMetric(e.currentTarget)}
-              endIcon={<KeyboardArrowDownIcon />}
-              disableElevation
-              disableTouchRipple
-              sx={{
-                border: '1px solid',
-                borderColor: 'divider',
-                textTransform: 'none',
-                borderRadius: 2,
-                padding: '6px 10px',
-                color: 'custom.lightGrey',
-                transition: 'none',
-              }}
-            >
-              {selectedMetric}
-            </Button>
-            <Menu
-              anchorEl={anchorElMetric}
-              open={Boolean(anchorElMetric)}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              onClose={() => setAnchorElMetric(null)}
-              slotProps={{
-                paper: {
-                  sx: {
-                    border: '1px solid',
-                    borderColor: 'divider',
-                    padding: 0,
-                    borderRadius: 2,
-                    marginTop: 0.5,
-                  },
-                },
-                list: {
-                  sx: {
-                    padding: 0,
-                    margin: 0,
-                    fontFamily: 'Inter, sans-serif',
-                    backgroundColor: 'background.default',
-                    color: 'custom.lightGrey',
-                    '& .MuiListItem-root-selected': {
-                      backgroundColor: 'custom.lightGrey',
-                    },
-                  },
-                },
-              }}
-            >
-              <MenuItem onClick={() => setSelectedMetric('Volume')}>
-                volume
-              </MenuItem>
-              <MenuItem onClick={() => setSelectedMetric('Sales')}>
-                Sales
-              </MenuItem>
-            </Menu>
-          </>
+          <DropDown
+            minWidth={93.84}
+            options={vauleSales}
+            value={selectedMetric}
+            disableMenuItemTouchRipple
+            disableTouchRipple
+            onChange={(v) => setSelectedMetric(v as 'Volume' | 'Sales')}
+          />
         ) : (
           <ToggleButtonGroup
             value={selectedMetric}
@@ -372,87 +326,32 @@ const TableFilterBar = () => {
         />
 
         {isMobileOrLaptop ? (
-          <>
-            <Button
-              onClick={(e) => setAnchorElTime(e.currentTarget)}
-              endIcon={<KeyboardArrowDownIcon />}
-              disableTouchRipple
-              sx={{
-                border: '1px solid',
-                borderColor: 'divider',
-                textTransform: 'none',
-                borderRadius: 2,
-                padding: '6px 10px',
-                color: 'custom.lightGrey',
-              }}
-            >
-              {selectedTime}
-            </Button>
-            <Menu
-              anchorEl={anchorElTime}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              slotProps={{
-                paper: {
-                  sx: {
-                    border: '1px solid',
-                    borderColor: 'divider',
-                    padding: 0,
-                    borderRadius: 2,
-                    marginTop: 0.5,
-                  },
-                },
-                list: {
-                  sx: {
-                    padding: 0,
-                    margin: 0,
-                    fontFamily: 'Inter, sans-serif',
-                    backgroundColor: 'background.default',
-                    color: 'custom.lightGrey',
-                    '& .MuiListItem-root-selected': {
-                      backgroundColor: 'custom.lightGrey',
-                    },
-                  },
-                },
-              }}
-              open={Boolean(anchorElTime)}
-              onClose={() => setAnchorElTime(null)}
-            >
-              {timeOptions.map((time) => (
-                <MenuItem
-                  key={time}
-                  onClick={() => {
-                    setSelectedTime(time);
-                    setAnchorElTime(null);
-                  }}
-                >
-                  {time}
-                </MenuItem>
-              ))}
-            </Menu>
-          </>
+          <DropDown
+            options={timeOptions}
+            value={selectedTime}
+            onChange={setSelectedTime}
+            disableMenuItemTouchRipple
+            disableTouchRipple
+            minWidth={64}
+            maxHeight={'30vh'}
+            padding="6px 10px"
+          />
         ) : (
           <Box display="flex">
             {timeOptions.map((time) => (
               <Button
-                key={time}
+                key={time.value}
                 disableTouchRipple
                 disableElevation
-                variant={selectedTime === time ? 'contained' : 'text'}
+                variant={selectedTime === time.value ? 'contained' : 'text'}
                 size="small"
-                onClick={() => setSelectedTime(time)}
+                onClick={() => setSelectedTime(time.value)}
                 sx={{
                   minWidth: '35.52px',
                   height: '36px',
                   padding: '6px 8px',
                   color:
-                    selectedTime === time
+                    selectedTime === time.value
                       ? 'text.secondary'
                       : 'custom.lightGrey',
                   textTransform: 'none',
@@ -461,19 +360,19 @@ const TableFilterBar = () => {
                   borderRadius: 2,
                   transition: 'none',
                   backgroundColor:
-                    selectedTime === time
+                    selectedTime === time.value
                       ? 'custom.filterBthBg'
                       : 'transparent',
                   '&:hover': {
                     backgroundColor:
-                      selectedTime === time
+                      selectedTime === time.value
                         ? 'custom.filterBthBg'
                         : 'transparent',
                     color: 'text.secondary',
                   },
                 }}
               >
-                {time}
+                {time.label}
               </Button>
             ))}
           </Box>

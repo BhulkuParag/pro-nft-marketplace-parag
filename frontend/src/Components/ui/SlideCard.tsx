@@ -47,7 +47,7 @@ export default function SlideCard() {
     >
       <Swiper
         style={{
-          width: '94vw', // Matches your .swiper CSS
+          width: '95vw', // Matches your .swiper CSS
           height: '200px',
         }}
         // spaceBetween={0}
