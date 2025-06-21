@@ -6,18 +6,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.polycruz.service.*;
-import com.polycruz.pojo.TrendingApiResponse;
+
+import com.polycruz.pojo.ActivityResponse;
 import com.polycruz.pojo.CollectionsV7Response;
+import com.polycruz.pojo.NftSalesResponse;
 import com.polycruz.pojo.SalesApiResponse;
 import com.polycruz.pojo.TokenResponse;
+import com.polycruz.pojo.TrendingApiResponse;
 import com.polycruz.pojo.TrendingMintsResponse;
-
-
+import com.polycruz.service.VendorService;
 import com.polycruz.utils.ResponseTransformer;
 import com.polycruz.utils.TechResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -28,22 +31,33 @@ public class ReservoirController {
     private final ResponseTransformer transformer;
 
     @GetMapping("/trending-api")
-    public ResponseEntity<TechResponse<TrendingApiResponse>> getTrending() {
-        return new ResponseEntity<>(transformer.transform(vendorService.getTrending24h()),
+    @Operation( summary = "1.Listing Table a.Trending Collections")
+    public ResponseEntity<TechResponse<TrendingApiResponse>> getTrendingCollections(
+    		  @RequestParam(defaultValue = "24h") String period,
+    	        @RequestParam(defaultValue = "volume") String sortBy
+    		) {
+        return new ResponseEntity<>(transformer.transform(vendorService.getTrendingCollections(period, sortBy)),
                 HttpStatus.OK);
     }
     
     @GetMapping("/top-sales")
-    public ResponseEntity<TechResponse<SalesApiResponse>> getTopSales(
-            @RequestParam long startTimestamp,
+    @Operation( summary = "1.Listing Table c. Top Sales")
+    public ResponseEntity<TechResponse<SalesApiResponse>>  fetchSales(
+            @RequestParam(defaultValue = "1749689257") long startTimestamp,
+            @RequestParam(defaultValue = "price") String sortBy,
+            @RequestParam(defaultValue = "desc") String sortDirection,
             @RequestParam(defaultValue = "10") int limit,
-            @RequestParam(defaultValue = "0") int offset
-    ) {
-        return new ResponseEntity<>(transformer.transform(vendorService.getSales(startTimestamp, limit, offset)),
+            @RequestParam(defaultValue = "0") int offset,
+            @RequestParam(defaultValue = "true") boolean includeTokenMetadata
+        ) {
+        return new ResponseEntity<>(transformer.transform(vendorService.getSalesData(
+                startTimestamp, sortBy, sortDirection, limit, offset, includeTokenMetadata
+                )),
                 HttpStatus.OK);
     }
     
     @GetMapping("/trending-mints")
+    @Operation( summary = "1.Listing Table c. Top Mint Ranking Not working")
     public  ResponseEntity<TechResponse<TrendingMintsResponse>> getTrendingMints() {
         return new ResponseEntity<>(transformer.transform(vendorService.fetchTrendingMints()),
                 HttpStatus.OK);
@@ -76,6 +90,30 @@ public class ReservoirController {
     	return new ResponseEntity<>(transformer.transform(vendorService.fetchTokenData(tokens, sortBy)),HttpStatus.OK);
         
     }
+    
+    @GetMapping("/nft-sales")
+    @Operation(summary = "1.Listing Table b.NFT Sales")
+    public ResponseEntity<TechResponse<NftSalesResponse>> getNftSales(
+            @RequestParam(required = false, defaultValue = "true") boolean includeTokenMetadata
+    ) {
+        return new ResponseEntity<>(transformer.transform(vendorService.fetchNftSales(includeTokenMetadata)), HttpStatus.CREATED);
+    }
+    
+    @GetMapping("/activity")
+    @Operation(summary = "2.Collection Details e.Activity with all sorting")
+    public ResponseEntity<TechResponse<ActivityResponse>> getActivity(
+            @RequestParam(required = false, defaultValue = "eventTimestamp") String sortBy,
+            @RequestParam(required = false, defaultValue = "false") Boolean includeMetadata,
+            @Parameter(
+                    description = "Type of event. Example: ask_cancel",
+                    schema = @Schema(allowableValues = {"ask_cancel", "sale", "mint","transfer","ask","bid","bid_cancel"},
+                    defaultValue = "")
+            		)
+            @RequestParam(required = false) String types
+    ) {
+        return new ResponseEntity<>(transformer.transform(vendorService.fetchActivity(sortBy, includeMetadata, types)), HttpStatus.CREATED);
+    }
+
 }
 
 

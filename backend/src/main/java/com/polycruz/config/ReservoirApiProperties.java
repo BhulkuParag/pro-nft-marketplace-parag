@@ -12,4 +12,6 @@ public class ReservoirApiProperties {
     private String activityUrl;
     private String askCancelUrl;
     private String salesUrl;
+    private String trendingApi;
+    private String topSales;
 }
