@@ -1,7 +1,9 @@
 package com.polycruz.pojo;
 
-import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Data;
 
+@Data
 public class Activity {
     private String type;
     private String fromAddress;
@@ -14,5 +16,11 @@ public class Activity {
     private SaleToken token;
     private CollectionData collection;
     private Order order;
+    private String txHash;
+    private int logIndex;
+    private int batchIndex;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String comment;
 }
 
