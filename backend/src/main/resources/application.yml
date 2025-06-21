@@ -1,0 +1,13 @@
+server:
+  port: 8085
+  
+  
+  
+logging:
+  type: json
+  application:
+    name: Polycruz
+  
+reservoir:
+  trendingMintsUrl: "https://api.reservoir.tools/collections/trending-mints/v2"
+      
