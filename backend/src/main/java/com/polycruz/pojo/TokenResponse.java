@@ -9,4 +9,5 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TokenResponse {
     private List<TokenData> tokens;
+    private String continuation;
 }

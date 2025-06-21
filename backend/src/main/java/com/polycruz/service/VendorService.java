@@ -101,5 +101,15 @@ public class VendorService {
 
 	        return restTemplate.getForObject(uri, TokenResponse.class);
 	    }
+	 	
+	 	public TokenResponse fetchTokenData(String tokens, String sortBy) {
+	        String uri = UriComponentsBuilder.fromHttpUrl(apiProperties.getTokens())
+	        		 .queryParam("tokens", tokens)
+                     .queryParam("sortBy", sortBy)
+	                .toUriString();
 
-}
+	        return restTemplate.getForObject(uri, TokenResponse.class);
+	    }
+	}
+
+

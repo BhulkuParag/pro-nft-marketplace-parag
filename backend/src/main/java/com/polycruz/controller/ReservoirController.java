@@ -66,6 +66,16 @@ public class ReservoirController {
 
         return new ResponseEntity<>(transformer.transform(vendorService.fetchTokens(collection, sortBy, limit)),HttpStatus.OK);
     }
+    
+    @GetMapping("/tokens/item-details")
+    @Operation( summary = "2.Collection Details c.Items details")
+    public ResponseEntity<TechResponse<TokenResponse>> getTokenData(
+            @RequestParam(defaultValue = "0x5af0d9827e0c53e4799bb226655a1de152a425a5:9099") String tokens,
+            @RequestParam(defaultValue = "floorAskPrice") String sortBy) {
+
+    	return new ResponseEntity<>(transformer.transform(vendorService.fetchTokenData(tokens, sortBy)),HttpStatus.OK);
+        
+    }
 }
 
 
