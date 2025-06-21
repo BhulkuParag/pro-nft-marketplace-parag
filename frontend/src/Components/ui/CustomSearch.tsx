@@ -12,7 +12,6 @@ import {
   Fade,
 } from '@mui/material';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
-// import CloseIcon from '@mui/icons-material/Close';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import SearchBar from './SearchBar';
 import Search from '../../assets/icons/search.svg';
@@ -55,9 +54,13 @@ const SearchContent = () => (
             alignItems: 'center',
             cursor: 'pointer',
             px: 0.5,
+            opacity: 0.7,
             py: 2,
             borderRadius: 2,
             '& .MuiChip-label': { px: 1 },
+            '&:hover': {
+              opacity: 1,
+            },
           }}
           icon={
             <ArrowOutwardIcon
@@ -83,9 +86,6 @@ const SearchContent = () => (
         pb: 0,
         fontSize: 13,
         color: 'custom.lightGrey',
-        // position: 'absolute',
-        // bottom: 0,
-        // left: 0,
       }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>

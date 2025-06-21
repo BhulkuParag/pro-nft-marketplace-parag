@@ -40,7 +40,8 @@ const SearchBar: FC<SearchBarProps> = ({
         borderColor: 'divider',
         backgroundColor: 'custom.secondaryDark',
         transition: 'none',
-        width: '100%', // Make sure the box takes full width
+        width: '100%',
+        mr: 1
       }}
     >
       <div className="relative flex justify-between items-center">
