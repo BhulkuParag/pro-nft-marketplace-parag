@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TokenDetails {
+public class TokenDetail {
 
     private String name;
     private String collection_name;

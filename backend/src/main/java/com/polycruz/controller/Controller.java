@@ -1,8 +1,7 @@
 package com.polycruz.controller;
 
 import com.polycruz.pojo.ActivityResponse;
-import com.polycruz.pojo.TokenDetails;
-import com.polycruz.pojo.TrendingMintsResponse;
+import com.polycruz.pojo.TokenDetail;
 import com.polycruz.service.Service;
 import com.polycruz.utils.ResponseTransformer;
 import com.polycruz.utils.TechResponse;
@@ -32,7 +31,7 @@ public class Controller {
 
     @GetMapping("/token-details")
     @Operation( summary = "2.Collection Details d. ")
-    public ResponseEntity<TechResponse<TokenDetails>> getTokenDetails(
+    public ResponseEntity<TechResponse<TokenDetail>> getTokenDetails(
             @RequestParam(required = false) String currency
     ) {
         return new ResponseEntity<>(transformer.transform(service.fetchTokenDetails(currency)), HttpStatus.CREATED);

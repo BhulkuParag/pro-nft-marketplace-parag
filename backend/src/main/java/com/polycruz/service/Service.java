@@ -2,8 +2,7 @@ package com.polycruz.service;
 
 import com.polycruz.config.ReservoirApiProperties;
 import com.polycruz.pojo.ActivityResponse;
-import com.polycruz.pojo.TokenDetails;
-import com.polycruz.pojo.TrendingMintsResponse;
+import com.polycruz.pojo.TokenDetail;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -53,7 +52,7 @@ public class Service {
         return response.getBody();
     }
 
-    public TokenDetails fetchTokenDetails(String currency) {
+    public TokenDetail fetchTokenDetails(String currency) {
         String baseUrl = apiProperties.getTokenDetailUrl();
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(baseUrl);
@@ -63,7 +62,7 @@ public class Service {
 
         URI uri = builder.build().toUri();
         System.out.println("Calling URL: " + uri);
-        ResponseEntity<TokenDetails> response = restTemplate.exchange(
+        ResponseEntity<TokenDetail> response = restTemplate.exchange(
                 uri,
                 HttpMethod.GET,
                 null,
