@@ -10,4 +10,14 @@ logging:
   
 reservoir:
   trendingMintsUrl: "https://api.reservoir.tools/collections/trending-mints/v2"
+  collections-v7-url: "https://api.reservoir.tools/collections/v7"
+
+
+
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
       

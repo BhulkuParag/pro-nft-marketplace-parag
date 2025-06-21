@@ -3,7 +3,7 @@ package com.polycruz.utils;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,10 +19,10 @@ import java.util.List;
 @JsonInclude(Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TechResponse<T> {
-	@ApiModelProperty(required = true, value = "A collection of information messages that give insight on what happedned in the request. Most indicates what error occured. ")
+	@Schema(description   = "A collection of information messages that give insight on what happedned in the request. Most indicates what error occured. ")
 	private List<InformationMessage> informationMessage;
 
-	@ApiModelProperty(required = true, value = "Response data")
+	@Schema(description  = "Response data")
 	private T data;
 
 	private String statusCode;
