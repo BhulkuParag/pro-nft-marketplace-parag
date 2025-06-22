@@ -4,6 +4,9 @@ server:
   
   
 logging:
+  config: classpath:logback-spring.xml
+  level:
+    com.polycruz: DEBUG
   type: json
   application:
     name: Polycruz
@@ -30,6 +33,7 @@ springdoc:
     path: /v3/api-docs
   swagger-ui:
     path: /swagger-ui.html
+
 
   
       
