@@ -11,6 +11,7 @@ import com.polycruz.pojo.ActivityResponse;
 import com.polycruz.pojo.CollectionsV7Response;
 import com.polycruz.pojo.NftSalesResponse;
 import com.polycruz.pojo.SalesApiResponse;
+import com.polycruz.pojo.TokenDetail;
 import com.polycruz.pojo.TokenResponse;
 import com.polycruz.pojo.TrendingApiResponse;
 import com.polycruz.pojo.TrendingMintsResponse;
@@ -117,6 +118,14 @@ public class ReservoirController {
             @RequestParam(required = false) String types
     ) {
         return new ResponseEntity<>(transformer.transform(vendorService.fetchActivity(sortBy, includeMetadata, types)), HttpStatus.CREATED);
+    }
+
+     @GetMapping("/token-detail")
+    @Operation( summary = "2.Collection Details d. ")
+    public ResponseEntity<TechResponse<TokenDetail>> getTokenDetails(
+            @RequestParam(required = false) String currency
+    ) {
+        return new ResponseEntity<>(transformer.transform(vendorService.fetchTokenDetails(currency)), HttpStatus.CREATED);
     }
 
 }
