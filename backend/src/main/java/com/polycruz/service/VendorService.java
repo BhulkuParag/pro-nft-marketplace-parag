@@ -1,15 +1,18 @@
 package com.polycruz.service;
 
+import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.util.UriComponentsBuilder;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.polycruz.config.ReservoirApiProperties;
 import com.polycruz.pojo.ActivityResponse;
 import com.polycruz.pojo.CollectionsV7Response;
@@ -18,20 +21,22 @@ import com.polycruz.pojo.SalesApiResponse;
 import com.polycruz.pojo.TokenDetail;
 import com.polycruz.pojo.TokenResponse;
 import com.polycruz.pojo.TrendingApiResponse;
-import com.polycruz.pojo.TrendingMint;
 import com.polycruz.pojo.TrendingMintsResponse;
+import org.springframework.web.client.RestTemplate;
+
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.util.UriComponentsBuilder;
-import java.net.URI;
-import java.util.HashMap;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
+@Retryable(
+	    value = { HttpServerErrorException.GatewayTimeout.class },
+	    maxAttempts = 3,
+	    backoff = @Backoff(delay = 2000)
+	)
 public class VendorService {
 
-	private final RestTemplate restTemplate = new RestTemplate();
+	private final RestTemplate restTemplate;
 	private final ReservoirApiProperties apiProperties;
 	
 	
@@ -98,7 +103,7 @@ public class VendorService {
 
 		URI uri = UriComponentsBuilder.fromHttpUrl(baseUrl).queryParam("includeTokenMetadata", includeTokenMetadata)
 				.build().toUri();
-		System.out.println("Calling URL: " + uri);
+		
 		ResponseEntity<NftSalesResponse> response = restTemplate.exchange(uri, HttpMethod.GET, null,
 				new ParameterizedTypeReference<>() {
 				});
@@ -121,7 +126,7 @@ public class VendorService {
 		}
 
 		URI uri = builder.build().toUri();
-		System.out.println("Calling URL: " + uri);
+		
 		ResponseEntity<ActivityResponse> response = restTemplate.exchange(uri, HttpMethod.GET, null,
 				new ParameterizedTypeReference<>() {
 				});
@@ -137,7 +142,7 @@ public class VendorService {
         }
 
         URI uri = builder.build().toUri();
-        System.out.println("Calling URL: " + uri);
+        
         ResponseEntity<TokenDetail> response = restTemplate.exchange(
                 uri,
                 HttpMethod.GET,
