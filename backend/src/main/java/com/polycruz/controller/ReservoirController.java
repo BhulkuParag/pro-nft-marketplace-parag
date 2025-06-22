@@ -57,9 +57,14 @@ public class ReservoirController {
     }
     
     @GetMapping("/trending-mints")
-    @Operation( summary = "1.Listing Table c. Top Mint Ranking Not working")
-    public  ResponseEntity<TechResponse<TrendingMintsResponse>> getTrendingMints() {
-        return new ResponseEntity<>(transformer.transform(vendorService.fetchTrendingMints()),
+    @Operation( summary = "1.Listing Table c. Top Mint Ranking")
+    public  ResponseEntity<TechResponse<TrendingMintsResponse>> getTrendingMints(
+    		 @RequestParam(defaultValue = "24h") String period,
+             @RequestParam(defaultValue = "10") int limit,
+             @RequestParam(defaultValue = "desc") String sortDirection,
+             @RequestParam(defaultValue = "0") int offset
+    		) {
+        return new ResponseEntity<>(transformer.transform(vendorService.getTrendingMints(period, limit, sortDirection, offset)),
                 HttpStatus.OK);
     }
     

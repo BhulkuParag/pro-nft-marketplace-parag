@@ -16,6 +16,7 @@ reservoir:
   askCancelUrl: "https://api.reservoir.tools/tokens/0x5af0d9827e0c53e4799bb226655a1de152a425a5:9099/activity/v5"
   salesUrl: "https://api.reservoir.tools/sales/v6"
   trendingApi: "https://api.reservoir.tools/collections/trending/v1?period={period}&sortBy={sortBy}"
+  trendingMints: "https://api.reservoir.tools/collections/trending-mints/v2?period={period}&limit={limit}&sortDirection={sortDirection}&offset={offset}"
   topSales: "https://api.reservoir.tools/sales/v6?startTimestamp={startTimestamp}&sortBy={sortBy}&sortDirection={sortDirection}&limit={limit}&offset={offset}&includeTokenMetadata={includeTokenMetadata}"
 
 spring:

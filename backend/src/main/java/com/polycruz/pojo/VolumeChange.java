@@ -1,20 +1,20 @@
 package com.polycruz.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class VolumeChange {
     @JsonProperty("1day")
-    private double oneDay;
+    private Double oneDay;
 
     @JsonProperty("7day")
-    private double sevenDay;
+    private Double sevenDay;
 
     @JsonProperty("30day")
-    private double thirtyDay;
+    private Double thirtyDay;
 
 }
