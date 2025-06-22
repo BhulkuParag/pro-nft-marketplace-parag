@@ -58,7 +58,7 @@ public class ReservoirController {
     }
     
     @GetMapping("/trending-mints")
-    @Operation( summary = "1.Listing Table c. Top Mint Ranking")
+    @Operation( summary = "1.Listing Table d. Top Mint Ranking")
     public  ResponseEntity<TechResponse<TrendingMintsResponse>> getTrendingMints(
     		 @RequestParam(defaultValue = "24h") String period,
              @RequestParam(defaultValue = "10") int limit,
@@ -102,7 +102,7 @@ public class ReservoirController {
     public ResponseEntity<TechResponse<NftSalesResponse>> getNftSales(
             @RequestParam(required = false, defaultValue = "true") boolean includeTokenMetadata
     ) {
-        return new ResponseEntity<>(transformer.transform(vendorService.fetchNftSales(includeTokenMetadata)), HttpStatus.CREATED);
+        return new ResponseEntity<>(transformer.transform(vendorService.fetchNftSales(includeTokenMetadata)), HttpStatus.OK);
     }
     
     @GetMapping("/activity")
@@ -117,15 +117,15 @@ public class ReservoirController {
             		)
             @RequestParam(required = false) String types
     ) {
-        return new ResponseEntity<>(transformer.transform(vendorService.fetchActivity(sortBy, includeMetadata, types)), HttpStatus.CREATED);
+        return new ResponseEntity<>(transformer.transform(vendorService.fetchActivity(sortBy, includeMetadata, types)), HttpStatus.OK);
     }
 
      @GetMapping("/token-detail")
     @Operation( summary = "2.Collection Details d. ")
     public ResponseEntity<TechResponse<TokenDetail>> getTokenDetails(
-            @RequestParam(required = false) String currency
+            @RequestParam(required = false,defaultValue = "eth") String currency
     ) {
-        return new ResponseEntity<>(transformer.transform(vendorService.fetchTokenDetails(currency)), HttpStatus.CREATED);
+        return new ResponseEntity<>(transformer.transform(vendorService.fetchTokenDetails(currency)), HttpStatus.OK);
     }
 
 }
