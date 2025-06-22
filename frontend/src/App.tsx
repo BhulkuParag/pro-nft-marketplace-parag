@@ -1,10 +1,11 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import { Box } from '@mui/material';
-import MuiTheme from './utils/MuiTheme';
 import { routes } from './Components/constants/routes';
 import Header from './Components/header/Header';
 import Sidebar from './Components/header/Sidebar';
+import { Suspense } from 'react';
+import Loading from '../@ui-component/Comman/Loading';
 
 const App = () => {
   return (
@@ -15,56 +16,63 @@ const App = () => {
         backgroundColor: 'background.default',
       }}
     >
-      <div className="w-screen h-screen max-h-screen">
+      <Box
+        sx={{
+          backgroundColor: 'background.default',
+        }}
+      >
         <Box
-          sx={{
-            width: '100%',
-            height: '100vh',
+          sx={{ 
             backgroundColor: 'background.default',
           }}
         >
-          <MuiTheme>
-            <Box
-              sx={{
-                width: '100%',
-              }}
-            >
-              <Sidebar />
-            </Box>
+          <Sidebar />
+        </Box>
 
-            <Box
-              sx={{
-                width: '100%',
-              }}
-            >
-              <Header />
+        <Box
+          sx={{
+            backgroundColor: 'background.default',
+          }}
+        >
+          <Header />
+          <Suspense
+            fallback={
               <Box
                 sx={{
-                  // width: '100%',
-                  // width: 'calc(100% - 60px)',
+                  backgroundColor: 'background.default',
+                  width: '100vw',
+                  maxHeight: 'calc(100vh - 64px)',
+                  overflowY: 'scroll',
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  flexDirection: 'column',
-                  gap: '15px',
-                  paddingTop: '10px',
-                  paddingLeft: { xs: '0px', lg: '70px' },
                 }}
               >
-                <Routes>
-                  {routes.map((route) => (
-                    <Route
-                      key={route.path}
-                      path={route.path}
-                      element={<route.component />}
-                    />
-                  ))}
-                </Routes>
+                <Loading />
               </Box>
+            }
+          >
+            <Box
+              sx={{
+                height: 'calc(100vh - 64px)',
+                overflowY: 'scroll',
+                paddingTop: '10px',
+                paddingLeft: { xs: '0px', lg: '70px' },
+              }}
+            >
+              <Routes>
+                {routes.map((route) => (
+                  <Route
+                    key={route.path}
+                    path={route.path}
+                    element={<route.component />}
+                  />
+                ))}
+              </Routes>
             </Box>
-          </MuiTheme>
+          </Suspense>
         </Box>
-      </div>
+      </Box>
     </Box>
   );
 };

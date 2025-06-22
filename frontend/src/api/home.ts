@@ -1,6 +1,6 @@
-import axios from './axios';
+import AXIOS from './axios';
 
-export const getAllUsers = async () => {
-  const response = await axios.get('https://api.reservoir.tools/collections/trending/v1?period=24h&sortBy=volume');
-  return response.data;
+export const fetchTrendingData = async (): Promise<any> => {
+  const response = await AXIOS.get('https://api.reservoir.tools/collections/trending/v1?period=24h&sortBy=volume');
+  return response.data.collections;
 };

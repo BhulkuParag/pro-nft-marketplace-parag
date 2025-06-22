@@ -17,7 +17,8 @@ export interface RowData {
   id: string;
   image: string;
   volume: number;
-  openseaVerificationStatus: boolean;
+  ownerCount: number;
+  openseaVerificationStatus: string;
   topBid: {
     price: {
       amount: {
@@ -26,6 +27,17 @@ export interface RowData {
       };
     };
   };
+  volumeChange: {
+    '1day': number;
+    '7day': number;
+    '30day': number;
+  }
+  collectionVolume:  {
+    '1day': number;
+    '7day': number;
+    '30day': number;
+    allTime: number;
+  }
   floorAsk: {
     price: {
       amount: {

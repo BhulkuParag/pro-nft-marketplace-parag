@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'https://api.example.com';
 
-const axiosInstance = axios.create({
+const AXIOS = axios.create({
   baseURL: BASE_URL,
   timeout: 10000,
   headers: {
@@ -11,7 +11,7 @@ const axiosInstance = axios.create({
 });
 
 // Request Interceptor
-axiosInstance.interceptors.request.use(
+AXIOS.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
     if (token && config.headers) {
@@ -23,7 +23,7 @@ axiosInstance.interceptors.request.use(
 );
 
 // Response Interceptor
-axiosInstance.interceptors.response.use(
+AXIOS.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
@@ -34,4 +34,4 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-export default axiosInstance;
+export default AXIOS;
