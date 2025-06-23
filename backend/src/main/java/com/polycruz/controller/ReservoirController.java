@@ -1,0 +1,133 @@
+package com.polycruz.controller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.polycruz.pojo.ActivityResponse;
+import com.polycruz.pojo.CollectionsV7Response;
+import com.polycruz.pojo.NftSalesResponse;
+import com.polycruz.pojo.SalesApiResponse;
+import com.polycruz.pojo.TokenDetail;
+import com.polycruz.pojo.TokenResponse;
+import com.polycruz.pojo.TrendingApiResponse;
+import com.polycruz.pojo.TrendingMintsResponse;
+import com.polycruz.service.VendorService;
+import com.polycruz.utils.ResponseTransformer;
+import com.polycruz.utils.TechResponse;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.RequiredArgsConstructor;
+
+@RestController
+@RequestMapping("/api/v1/reservoir")
+@RequiredArgsConstructor 
+public class ReservoirController {
+    private final VendorService vendorService;
+    private final ResponseTransformer transformer;
+
+    @GetMapping("/trending-api")
+    @Operation( summary = "1.Listing Table a.Trending Collections")
+    public ResponseEntity<TechResponse<TrendingApiResponse>> getTrendingCollections(
+    		  @RequestParam(defaultValue = "24h") String period,
+    	        @RequestParam(defaultValue = "volume") String sortBy
+    		) {
+        return new ResponseEntity<>(transformer.transform(vendorService.getTrendingCollections(period, sortBy)),
+                HttpStatus.OK);
+    }
+    
+    @GetMapping("/top-sales")
+    @Operation( summary = "1.Listing Table c. Top Sales")
+    public ResponseEntity<TechResponse<SalesApiResponse>>  fetchSales(
+            @RequestParam(defaultValue = "1749689257") long startTimestamp,
+            @RequestParam(defaultValue = "price") String sortBy,
+            @RequestParam(defaultValue = "desc") String sortDirection,
+            @RequestParam(defaultValue = "10") int limit,
+            @RequestParam(defaultValue = "0") int offset,
+            @RequestParam(defaultValue = "true") boolean includeTokenMetadata
+        ) {
+        return new ResponseEntity<>(transformer.transform(vendorService.getSalesData(
+                startTimestamp, sortBy, sortDirection, limit, offset, includeTokenMetadata
+                )),
+                HttpStatus.OK);
+    }
+    
+    @GetMapping("/trending-mints")
+    @Operation( summary = "1.Listing Table d. Top Mint Ranking")
+    public  ResponseEntity<TechResponse<TrendingMintsResponse>> getTrendingMints(
+    		 @RequestParam(defaultValue = "24h") String period,
+             @RequestParam(defaultValue = "10") int limit,
+             @RequestParam(defaultValue = "desc") String sortDirection,
+             @RequestParam(defaultValue = "0") int offset
+    		) {
+        return new ResponseEntity<>(transformer.transform(vendorService.getTrendingMints(period, limit, sortDirection, offset)),
+                HttpStatus.OK);
+    }
+    
+    @GetMapping("/collections/v7")
+    @Operation( summary = "2.Collection Details a.overview")
+    public ResponseEntity<TechResponse<CollectionsV7Response>> getCollectionsV7(
+    		@RequestParam(value = "contract",defaultValue = "0x5af0d9827e0c53e4799bb226655a1de152a425a5", required = false) String contract) {
+        return new ResponseEntity<>(transformer.transform(vendorService.fetchCollections(contract)),
+                HttpStatus.OK);
+    }
+    
+    @GetMapping("/tokens")
+    @Operation( summary = "2.Collection Details b.Items")
+    public ResponseEntity<TechResponse<TokenResponse>> getTokens(
+            @RequestParam(value = "collection",defaultValue = "0x5af0d9827e0c53e4799bb226655a1de152a425a5", required = false) String collection,
+            @RequestParam(value = "sortBy", defaultValue = "floorAskPrice") String sortBy,
+            @RequestParam(value = "limit", defaultValue = "40") int limit) {
+
+        return new ResponseEntity<>(transformer.transform(vendorService.fetchTokens(collection, sortBy, limit)),HttpStatus.OK);
+    }
+    
+    @GetMapping("/tokens/item-details")
+    @Operation( summary = "2.Collection Details c.Items details")
+    public ResponseEntity<TechResponse<TokenResponse>> getTokenData(
+            @RequestParam(defaultValue = "0x5af0d9827e0c53e4799bb226655a1de152a425a5:9099") String tokens,
+            @RequestParam(defaultValue = "floorAskPrice") String sortBy) {
+
+    	return new ResponseEntity<>(transformer.transform(vendorService.fetchTokenData(tokens, sortBy)),HttpStatus.OK);
+        
+    }
+    
+    @GetMapping("/nft-sales")
+    @Operation(summary = "1.Listing Table b.NFT Sales")
+    public ResponseEntity<TechResponse<NftSalesResponse>> getNftSales(
+            @RequestParam(required = false, defaultValue = "true") boolean includeTokenMetadata
+    ) {
+        return new ResponseEntity<>(transformer.transform(vendorService.fetchNftSales(includeTokenMetadata)), HttpStatus.OK);
+    }
+    
+    @GetMapping("/activity")
+    @Operation(summary = "2.Collection Details e.Activity with all sorting")
+    public ResponseEntity<TechResponse<ActivityResponse>> getActivity(
+            @RequestParam(required = false, defaultValue = "eventTimestamp") String sortBy,
+            @RequestParam(required = false, defaultValue = "false") Boolean includeMetadata,
+            @Parameter(
+                    description = "Type of event. Example: ask_cancel",
+                    schema = @Schema(allowableValues = {"ask_cancel", "sale", "mint","transfer","ask","bid","bid_cancel"},
+                    defaultValue = "")
+            		)
+            @RequestParam(required = false) String types
+    ) {
+        return new ResponseEntity<>(transformer.transform(vendorService.fetchActivity(sortBy, includeMetadata, types)), HttpStatus.OK);
+    }
+
+     @GetMapping("/token-detail")
+    @Operation( summary = "2.Collection Details d. ")
+    public ResponseEntity<TechResponse<TokenDetail>> getTokenDetails(
+            @RequestParam(required = false,defaultValue = "eth") String currency
+    ) {
+        return new ResponseEntity<>(transformer.transform(vendorService.fetchTokenDetails(currency)), HttpStatus.OK);
+    }
+
+}
+
+
