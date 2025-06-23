@@ -1,10 +1,72 @@
-import { Box, Grid, useMediaQuery, useTheme } from '@mui/material';
-import Header from '../Components/header/Header';
-import Sidebar from '../Components/header/Sidebar';
+import { Box, Typography } from '@mui/material';
 import SlideCard from '../Components/ui/SlideCard';
+import CustomTab, { type TabItem } from '../../@ui-component/Comman/Tab';
 import Footer from '../Components/header/Footer';
+import TableFilterBar from '../Components/ui/TableFilterBar';
+import ActiveTab from '../Components/ActiveTab';
 import TabsContainer from '../Components/TabsContainer';
-import HomeCard from '../../@ui-component/Comman/HomeCard';
+
+const tabs: TabItem[] = [
+  {
+    label: 'Trending',
+    value: 'trending',
+    content: (
+      <>
+        <Typography
+          variant="h4"
+          fontWeight={600}
+          color="custom.whiteLightO1"
+          fontSize={26}
+        >
+          Top Trending Collections
+        </Typography>
+        <TableFilterBar />
+      </>
+    ),
+  },
+  {
+    label: 'NFT Sales',
+    value: 'nft_sales',
+    content: (
+      <Typography
+        variant="h4"
+        fontWeight={600}
+        color="custom.whiteLightO1"
+        fontSize={26}
+      >
+        Current NFT Sales
+      </Typography>
+    ),
+  },
+  {
+    label: 'Top Sales',
+    value: 'top_sales',
+    content: (
+      <Typography
+        variant="h4"
+        fontWeight={600}
+        color="custom.whiteLightO1"
+        fontSize={26}
+      >
+        Top Sales
+      </Typography>
+    ),
+  },
+  {
+    label: 'Mint Ranking',
+    value: 'top_mint_ranking',
+    content: (
+      <Typography
+        variant="h4"
+        fontWeight={600}
+        color="custom.whiteLightO1"
+        fontSize={26}
+      >
+        Top Mint Ranking
+      </Typography>
+    ),
+  },
+];
 
 const Home = () => {
   const theme = useTheme();
@@ -14,77 +76,21 @@ const Home = () => {
     <Box
       sx={{
         width: '100%',
-        height: '100vh',
-        backgroundColor: 'background.default',
         position: 'relative',
       }}
     >
+      <SlideCard />
+      <CustomTab tabs={tabs} />
       <Box
         sx={{
           width: '100%',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          zIndex: 1200,
+          padding: { xs: '20px', xl: '20px' },
         }}
       >
-        <Sidebar />
+        <TabsContainer tabs={tabs} />
+        <ActiveTab />
       </Box>
-
-      <Box
-        sx={{
-          width: '100%',
-        }}
-      >
-        <Box
-          sx={{
-            width: '100%',
-          }}
-        >
-          <Header />
-        </Box>
-        <Box
-          sx={{
-            width: '100%',
-            // width: 'calc(100% - 60px)',
-
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexDirection: 'column',
-            gap: '15px',
-            paddingTop: '10px',
-            paddingLeft: { xs: '0px', lg: '70px' },
-          }}
-        >
-          <Box
-            sx={{
-              width: '100%',
-            }}
-          >
-            <Box
-              component="div"
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 1,
-              }}
-            >
-              <SlideCard />
-
-              <Box
-                sx={{
-                  paddingInline: 1.5,
-                }}
-              >
-                <HomeCard />
-              </Box>
-            </Box>
-            <TabsContainer />
-          </Box>
-        </Box>
-        <Footer />
-      </Box>
+      <Footer />
     </Box>
   );
 };

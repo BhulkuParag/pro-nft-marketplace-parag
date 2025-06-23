@@ -15,6 +15,10 @@ export const routes: RouteConfig[] = [
     component: Home,
   },
   {
+    path: '/Home',
+    component: Home,  
+  },
+  {
     path: '/trendingCollections/assets/buy',
     component: Screen,
   },

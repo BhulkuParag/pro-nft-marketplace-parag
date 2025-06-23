@@ -50,15 +50,17 @@ const Footer: FC<FooterProps> = () => {
     <Box
       component={'footer'}
       sx={{
+        width: '100%',
         backgroundColor: 'background.default',
         color: 'inherit',
-        position: 'sticky',
+        position: 'fixed',
         bottom: 0,
-        // left: 0,
-        right: 0,
+        left: 0,
+        // right: 0,
         borderTop: '1px solid',
         borderColor: 'divider',
         zIndex: 1000,
+        paddingLeft: { xs: '0px', xl: '60px' },
       }}
       // className="hidden lg:block"
     >

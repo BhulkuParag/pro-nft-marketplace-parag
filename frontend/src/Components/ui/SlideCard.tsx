@@ -61,9 +61,9 @@ export default function SlideCard() {
         // }}
         modules={[Autoplay, Pagination]}
       >
-        {carouselItems.map((item, idx) => (
+        {carouselItems.map((item) => (
           <SwiperSlide
-            key={idx}
+            key={item.title}
             style={{
               // textAlign: 'center',
               // fontSize: 18,
