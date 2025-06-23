@@ -1,11 +1,15 @@
-import { Box } from '@mui/material';
+import { Box, Grid, useMediaQuery, useTheme } from '@mui/material';
 import Header from '../Components/header/Header';
 import Sidebar from '../Components/header/Sidebar';
 import SlideCard from '../Components/ui/SlideCard';
 import Footer from '../Components/header/Footer';
 import TabsContainer from '../Components/TabsContainer';
+import HomeCard from '../../@ui-component/Comman/HomeCard';
 
 const Home = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
     <Box
       sx={{
@@ -50,7 +54,7 @@ const Home = () => {
             flexDirection: 'column',
             gap: '15px',
             paddingTop: '10px',
-            paddingLeft: { xs: '0px', lg: '55px' },
+            paddingLeft: { xs: '0px', lg: '70px' },
           }}
         >
           <Box
@@ -58,7 +62,24 @@ const Home = () => {
               width: '100%',
             }}
           >
-            <SlideCard />
+            <Box
+              component="div"
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 1,
+              }}
+            >
+              <SlideCard />
+
+              <Box
+                sx={{
+                  paddingInline: 1.5,
+                }}
+              >
+                <HomeCard />
+              </Box>
+            </Box>
             <TabsContainer />
           </Box>
         </Box>
