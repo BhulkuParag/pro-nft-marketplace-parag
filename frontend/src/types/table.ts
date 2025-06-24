@@ -13,14 +13,14 @@
 // }
 
 export interface RowData {
-  name: string;
-  id: string;
-  banner: string;
-  image: string;
-  volume: number;
-  ownerCount: number;
-  openseaVerificationStatus: string;
-  topBid: {
+  name?: string;
+  id?: string;
+  banner?: string;
+  image?: string;
+  volume?: number;
+  ownerCount?: number;
+  openseaVerificationStatus?: string;
+  topBid?: {
     price: {
       amount: {
         usd: number;
@@ -28,18 +28,18 @@ export interface RowData {
       };
     };
   };
-  volumeChange: {
+  volumeChange?: {
     '1day': number;
     '7day': number;
     '30day': number;
-  }
-  collectionVolume:  {
+  };
+  collectionVolume?: {
     '1day': number;
     '7day': number;
     '30day': number;
     allTime: number;
-  }
-  floorAsk: {
+  };
+  floorAsk?: {
     price: {
       amount: {
         usd: number;
@@ -47,5 +47,10 @@ export interface RowData {
       };
     };
   };
-  sampleImages: string[]
+  sampleImages?: string[];
+  type?: string;
+  from?: string;
+  to?: string;
+  price?: string;
+  time?: string;
 }

@@ -187,29 +187,39 @@ const Screen: React.FC = () => {
     <Box
       sx={{
         display: 'flex',
-        gap: 1,
-        alignItems: 'flex-start',
+        flexDirection: { xs: 'column', md: 'row' },
+        gap: { xs: 2, md: 1 },
+        alignItems: { xs: 'stretch', md: 'flex-start' },
         width: '100%',
         backgroundColor: 'background.default',
-        p: 2,
+        p: { xs: 1, md: 2 },
         minHeight: '100vh',
       }}
     >
       {/* Left: NFT Image */}
       <Box
         sx={{
-          flex: '0 0 480px',
+          flex: { xs: 'unset', md: '0 0 480px' },
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'flex-start',
+          alignItems: { xs: 'center', md: 'flex-start' },
           bgcolor: 'background.paper',
           borderRadius: 4,
-          p: 2,
-          minHeight: 600,
+          p: { xs: 1, md: 2 },
+          minHeight: { xs: 'auto', md: 600 },
+          width: { xs: '100%', md: 'auto' },
+          mb: { xs: 2, md: 0 },
         }}
       >
         {/* Badge Row */}
-        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            alignItems: 'center',
+            mb: 2,
+          }}
+        >
           <Avatar
             src="https://cryptopunks.app/favicon.ico"
             alt="Collection"
@@ -241,7 +251,15 @@ const Screen: React.FC = () => {
           }}
         />
         {/* Action Buttons */}
-        <Box sx={{ display: 'flex', gap: 2, mt: 3, width: '100%' }}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: { xs: 'column', md: 'row' },
+            gap: 2,
+            mt: 3,
+            width: '100%',
+          }}
+        >
           {/* Buy Now Button Group */}
           <Box
             component="div"
@@ -306,7 +324,15 @@ const Screen: React.FC = () => {
         </Box>
       </Box>
       {/* Right: Info, Traits, Activity */}
-      <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 3 }}>
+      <Box
+        sx={{
+          flex: 1,
+          display: 'flex',
+          flexWrap: 'wrap',
+          flexDirection: 'column',
+          gap: 3,
+        }}
+      >
         {/* Info Row */}
         <Paper
           sx={{
@@ -322,11 +348,11 @@ const Screen: React.FC = () => {
           <Box
             sx={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(6, 1fr)',
+              gridTemplateColumns: { xs: '1fr 1fr', md: 'repeat(6, 1fr)' },
               alignItems: 'center',
               width: '100%',
             }}
-          > 
+          >
             {infoItems.map((item) => (
               <Box
                 key={item.label}
@@ -347,6 +373,7 @@ const Screen: React.FC = () => {
                   fontSize={15}
                   sx={{
                     display: 'flex',
+                    flexWrap: 'wrap',
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: 1,
@@ -376,7 +403,7 @@ const Screen: React.FC = () => {
           <Box
             sx={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(3, 1fr)',
+              gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' },
               gap: 1,
             }}
           >
@@ -389,6 +416,7 @@ const Screen: React.FC = () => {
                   bgcolor: 'background.default',
                   border: '1px solid #44455A',
                   display: 'flex',
+                  flexWrap: 'wrap',
                   flexDirection: 'row',
                   alignItems: 'center',
                   justifyContent: 'space-between',
