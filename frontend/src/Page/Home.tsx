@@ -5,6 +5,7 @@ import Footer from '../Components/header/Footer';
 import TableFilterBar from '../Components/ui/TableFilterBar';
 import ActiveTab from '../Components/ActiveTab';
 import TabsContainer from '../Components/TabsContainer';
+import HomeCard from '../../@ui-component/Comman/HomeCard';
 
 const tabs: TabItem[] = [
   {
@@ -69,9 +70,7 @@ const tabs: TabItem[] = [
 ];
 
 const Home = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
+ 
   return (
     <Box
       sx={{
@@ -79,7 +78,23 @@ const Home = () => {
         position: 'relative',
       }}
     >
-      <SlideCard />
+      <Box
+        component="div"
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 1,
+        }}
+      >
+        <SlideCard />
+        <Box
+          sx={{
+            paddingInline: 1.5,
+          }}
+        >
+          <HomeCard />
+        </Box>
+      </Box>
       <CustomTab tabs={tabs} />
       <Box
         sx={{

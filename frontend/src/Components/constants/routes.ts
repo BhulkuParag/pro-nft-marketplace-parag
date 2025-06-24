@@ -1,8 +1,10 @@
 import React, { type ComponentType } from 'react';
-import CollectionOverview from '../CollectionOverview/CollectionOverview';
 
 const Home = React.lazy(() => import('../../Page/Home'));
 const Screen = React.lazy(() => import('../../Page/Screen'));
+const CollectionOverview = React.lazy(
+  () => import('../CollectionOverview/CollectionOverview')
+);
 
 interface RouteConfig {
   path: string;
@@ -16,7 +18,7 @@ export const routes: RouteConfig[] = [
   },
   {
     path: '/Home',
-    component: Home,  
+    component: Home,
   },
   {
     path: '/trendingCollections/assets/buy',
