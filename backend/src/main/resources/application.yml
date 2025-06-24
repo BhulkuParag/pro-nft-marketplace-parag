@@ -12,6 +12,7 @@ logging:
     name: Polycruz
   
 reservoir:
+  apiKey: "2fb57ee0-63ec-53bb-9311-5a0cc6b8bc49"
   trendingMintsUrl: "https://api.reservoir.tools/collections/trending-mints/v2"
   collections-v7-url: "https://api.reservoir.tools/collections/v7"
   tokens: "https://api.reservoir.tools/tokens/v7"
