@@ -16,4 +16,5 @@ public class ReservoirApiProperties {
     private String topSales;
     private String trendingMints;
     private String tokenDetailUrl;
+    private String apiKey;
 }
