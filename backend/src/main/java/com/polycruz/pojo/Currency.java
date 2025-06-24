@@ -1,15 +1,16 @@
 package com.polycruz.pojo;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@Getter
-@Setter
+import lombok.Data;
+
+@Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Currency {
 	
 	private String contract;
     private String name;
     private String symbol;
-    private int decimals;
+    private Integer decimals;
 
 }

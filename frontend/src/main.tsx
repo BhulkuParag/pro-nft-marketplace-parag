@@ -1,19 +1,20 @@
-import { StrictMode, Suspense } from 'react';
+import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App.tsx';
 import { BrowserRouter } from 'react-router-dom';
 import MuiThemeProvider from './utils/MuiTheme.tsx';
-//import Loading from '../@ui-component/Common/Loading.tsx';
+import { Provider } from 'react-redux';
+import { store } from './app/store';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
-      <Suspense>
+    <Provider store={store}>
+      <BrowserRouter>
         <MuiThemeProvider>
           <App />
         </MuiThemeProvider>
-      </Suspense>
-    </BrowserRouter>
+      </BrowserRouter>
+    </Provider>
   </StrictMode>
 );

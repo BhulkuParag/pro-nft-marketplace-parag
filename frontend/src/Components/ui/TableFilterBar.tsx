@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import {
   Box,
   Menu,
@@ -14,6 +14,7 @@ import {
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import BarFilterIcon from '../../Components/Icon/BarFilterIcon';
 import DropDown from '../../../@ui-component/Comman/DropDown';
+import DateFilter from '../../../@ui-component/Comman/DateFilter';
 
 const TableFilterBar = () => {
   const [selectedMetric, setSelectedMetric] = useState<'Volume' | 'Sales'>(
@@ -325,7 +326,7 @@ const TableFilterBar = () => {
           }}
         />
 
-        {isMobileOrLaptop ? (
+        {/*isMobileOrLaptop ? (
           <DropDown
             options={timeOptions}
             value={selectedTime}
@@ -376,7 +377,12 @@ const TableFilterBar = () => {
               </Button>
             ))}
           </Box>
-        )}
+        )*/}
+        <DateFilter
+          timeOptions={timeOptions}
+          selectedTime={selectedTime}
+          handleChange={setSelectedTime}
+        />
       </Box>
     </Box>
   );
