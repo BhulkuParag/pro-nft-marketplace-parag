@@ -326,7 +326,7 @@ const Screen: React.FC = () => {
               alignItems: 'center',
               width: '100%',
             }}
-          >
+          > 
             {infoItems.map((item) => (
               <Box
                 key={item.label}
