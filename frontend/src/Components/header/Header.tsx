@@ -46,8 +46,8 @@ export default function Header(): JSX.Element {
       chainId: 1,
       icon: (
         <Ethereum
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fill-[#141416]"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -437,7 +437,14 @@ export default function Header(): JSX.Element {
                   disableTouchRipple={true}
                 />
               </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Box
+                sx={{
+                  width: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 1,
+                }}
+              >
                 <CustomSearch />
                 <IconButton
                   size="large"
@@ -475,77 +482,94 @@ export default function Header(): JSX.Element {
               </Box>
             </Box>
           )}
-          <Box
-            sx={{
-              display: { xs: 'none', lg: 'flex' },
-              alignItems: 'center',
-              width: '100%',
-              gap: 2,
-            }}
-          >
-            <Box sx={{ width: '100%' }}>
-              <CustomDropdown
-                options={options}
-                value={selected}
-                onChange={setSelected}
-                disableMenuItemTouchRipple={true}
-                disableTouchRipple={true}
-              />
+          {!isMobile && (
+            <Box
+              sx={{
+                display: { xs: 'none', lg: 'flex' },
+                alignItems: 'center',
+                width: '100%',
+                gap: 2,
+              }}
+            >
+              <Box sx={{ width: '100%' }}>
+                <CustomDropdown
+                  options={options}
+                  value={selected}
+                  onChange={setSelected}
+                  disableMenuItemTouchRipple={true}
+                  disableTouchRipple={true}
+                />
+              </Box>
+              <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+                <CustomSearch />
+                <IconButton
+                  size="large"
+                  aria-label="toggle theme"
+                  onClick={toggleTheme}
+                  sx={{
+                    color: 'custom.lightGrey',
+                    '& :hover': {
+                      color: 'custom.primaryLight',
+                    },
+                  }}
+                  // sx={{ padding: '5px' }}
+                >
+                  <Badge color="error">
+                    {mode === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
+                  </Badge>
+                </IconButton>
+                <IconButton
+                  size="large"
+                  aria-label="show notifications"
+                  sx={{
+                    color: 'custom.lightGrey',
+                    '& :hover': {
+                      color: 'custom.primaryLight',
+                    },
+                  }}
+                  // sx={{ padding: '5px' }}
+                >
+                  <Badge color="error">
+                    <NotificationsIcon />
+                  </Badge>
+                </IconButton>
+                <Button
+                  variant="contained"
+                  disableElevation
+                  disableTouchRipple
+                  sx={{
+                    fontSize: 16,
+                    width: '165px',
+                    backgroundColor: '#FFFFFF',
+                    color: 'black',
+                    borderRadius: '10px',
+                    textTransform: 'none',
+                    border: '1px solid',
+                    borderColor: 'divider',
+                  }}
+                >
+                  Connect
+                </Button>
+                <IconButton
+                  size="large"
+                  edge="end"
+                  aria-label="shopping cart"
+                  aria-controls={menuId}
+                  aria-haspopup="true"
+                  onClick={handleProfileMenuOpen}
+                  sx={{
+                    color: 'custom.lightGrey',
+                    '& :hover': {
+                      color: 'custom.primaryLight',
+                    },
+                  }}
+                  // sx={{ padding: '5px' }}
+                >
+                  <LocalGroceryStoreIcon />
+                </IconButton>
+              </Box>
             </Box>
-            <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-              <CustomSearch />
-              <IconButton
-                size="large"
-                aria-label="toggle theme"
-                color="inherit"
-                onClick={toggleTheme}
-                sx={{ padding: '5px' }}
-              >
-                <Badge color="error">
-                  {mode === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
-                </Badge>
-              </IconButton>
-              <IconButton
-                size="large"
-                aria-label="show notifications"
-                color="inherit"
-                sx={{ padding: '5px' }}
-              >
-                <Badge color="error">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
-              <Button
-                variant="contained"
-                disableElevation
-                disableTouchRipple
-                sx={{
-                  fontSize: 16,
-                  width: '165px',
-                  backgroundColor: '#FFFFFF',
-                  color: 'black',
-                  borderRadius: '10px',
-                  textTransform: 'none',
-                  border: '1px solid',
-                  borderColor: 'divider',
-                }}
-              >
-                Connect
-              </Button>
-              <IconButton
-                size="large"
-                edge="end"
-                aria-label="shopping cart"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
-                color="inherit"
-                sx={{ padding: '5px' }}
-              >
-                <LocalGroceryStoreIcon />
-              </IconButton>
-            </Box>
-          </Box>
+          )}
         </Toolbar>
       </AppBar>
     </Box>

@@ -1,10 +1,13 @@
-import { useEffect, useState } from 'react';
+import {
+  useEffect,
+  // useState
+} from 'react';
 import { AGGridTable } from '../../@ui-component/Comman/AGGridTable';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../app/store';
 import {
   fetchTrendingDataRequest,
-  setTabData,
+  // setTabData,
 } from '../features/home/homeSlice';
 import { Box } from '@mui/material';
 

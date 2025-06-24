@@ -12,7 +12,7 @@ export const AddSortIcon: React.FC<IHeaderParams> = (props) => {
   return (
     <Box
       onClick={handleSort}
-      className="flex items-center justify-between cursor-pointer w-full px-2 py-1"
+      className="flex items-center justify-between cursor-pointer w-full px-2 h-full"
     >
       <div className="flex items-center gap-2">
         <span className="text-sm font-medium">{props.displayName}</span>
@@ -24,7 +24,7 @@ export const AddSortIcon: React.FC<IHeaderParams> = (props) => {
 
 export const InfoIcon: React.FC<IHeaderParams> = (props) => {
   return (
-    <Box className="flex items-center justify-between cursor-pointer w-full px-2 py-1">
+    <Box className="flex items-center justify-between cursor-pointer w-full px-2 h-full">
       <div className="flex items-center gap-2">
         <span className="text-sm font-medium">{props.displayName}</span>
         <Tooltip

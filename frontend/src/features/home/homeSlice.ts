@@ -153,6 +153,9 @@ const homeSlice = createSlice({
     ) => {
       state.tabData = action.payload;
     },
+    setVolume_sales: (state, action: PayloadAction<string>) => {
+      state.volume_sales = action.payload;
+    }
   },
 });
 

@@ -5,6 +5,8 @@ import Footer from '../Components/header/Footer';
 import TableFilterBar from '../Components/ui/TableFilterBar';
 import ActiveTab from '../Components/ActiveTab';
 import TabsContainer from '../Components/TabsContainer';
+import { setActiveTab } from '../features/home/homeSlice';
+import { useDispatch } from 'react-redux';
 
 const tabs: TabItem[] = [
   {
@@ -69,6 +71,12 @@ const tabs: TabItem[] = [
 ];
 
 const Home = () => {
+  const dispatch = useDispatch();
+
+    const handleChange = (_: React.SyntheticEvent, newValue: string) => {
+      dispatch(setActiveTab(newValue));
+    };
+  
   return (
     <Box
       sx={{
@@ -77,7 +85,7 @@ const Home = () => {
       }}
     >
       <SlideCard />
-      <CustomTab tabs={tabs} />
+      <CustomTab tabs={tabs} handleChange={handleChange} />
       <Box
         sx={{
           width: '100%',
