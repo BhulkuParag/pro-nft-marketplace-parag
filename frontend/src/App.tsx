@@ -41,7 +41,7 @@ const App = () => {
                 sx={{
                   backgroundColor: 'background.default',
                   width: '100vw',
-                  maxHeight: 'calc(100vh - 64px)',
+                  height: 'calc(100vh - 64px)',
                   overflowY: 'scroll',
                   display: 'flex',
                   justifyContent: 'center',
@@ -54,8 +54,10 @@ const App = () => {
           >
             <Box
               sx={{
-                height: 'calc(100vh - 64px)',
+                height: 'calc(100vh - 108px)',
                 overflowY: 'scroll',
+                overflowX: 'hidden',
+                scrollbarWidth: 'thin',
                 paddingTop: '10px',
                 paddingLeft: { xs: '0px', lg: '70px' },
               }}

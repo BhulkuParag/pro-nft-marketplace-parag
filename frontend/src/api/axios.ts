@@ -1,13 +1,14 @@
 import axios from 'axios';
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'https://api.example.com';
+const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8085';
 
 const AXIOS = axios.create({
   baseURL: BASE_URL,
-  timeout: 10000,
+  // timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
   },
+  // withCredentials: true,
 });
 
 // Request Interceptor

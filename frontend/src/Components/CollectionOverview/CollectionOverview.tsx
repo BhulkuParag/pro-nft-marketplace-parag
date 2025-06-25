@@ -4,6 +4,8 @@ import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import CollectionHero from '../CollectionHero/CollectionHero';
+import MarketOverview from './MarketOverview';
+import HolderHistory from './HolderHistory';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -83,7 +85,8 @@ const CollectionOverview = () => {
   return (
     <Box
       sx={{
-        width: '100vw',
+        paddingLeft: '10px',
+        // width: '100vw',
         minHeight: '100vh',
         backgroundColor: 'background.default',
         position: 'relative',
@@ -91,7 +94,7 @@ const CollectionOverview = () => {
     >
       <Box
         sx={{
-        //   paddingInline: '80px',
+          //   paddingInline: '80px',
           width: '100%',
           paddingTop: '10px',
         }}
@@ -160,6 +163,10 @@ const CollectionOverview = () => {
             </StyledCard>
           ))}
         </Box>
+      </Box>
+      <Box component="div" sx={{ p: '0.5rem' }}>
+        <HolderHistory />
+        <MarketOverview />
       </Box>
     </Box>
   );

@@ -5,6 +5,8 @@ import Footer from '../Components/header/Footer';
 import TableFilterBar from '../Components/ui/TableFilterBar';
 import ActiveTab from '../Components/ActiveTab';
 import TabsContainer from '../Components/TabsContainer';
+import { setActiveTab } from '../features/home/homeSlice';
+import { useDispatch } from 'react-redux';
 import HomeCard from '../../@ui-component/Comman/HomeCard';
 
 const tabs: TabItem[] = [
@@ -70,7 +72,12 @@ const tabs: TabItem[] = [
 ];
 
 const Home = () => {
- 
+  const dispatch = useDispatch();
+
+    const handleChange = (_: React.SyntheticEvent, newValue: string) => {
+      dispatch(setActiveTab(newValue));
+    };
+  
   return (
     <Box
       sx={{

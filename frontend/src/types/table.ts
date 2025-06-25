@@ -15,6 +15,7 @@
 export interface RowData {
   name: string;
   id: string;
+  banner: string;
   image: string;
   volume: number;
   ownerCount: number;
@@ -46,4 +47,5 @@ export interface RowData {
       };
     };
   };
+  sampleImages: string[]
 }

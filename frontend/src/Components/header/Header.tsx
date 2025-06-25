@@ -46,8 +46,8 @@ export default function Header(): JSX.Element {
       chainId: 1,
       icon: (
         <Ethereum
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fill-[#141416]"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -487,8 +487,6 @@ export default function Header(): JSX.Element {
               </Box>
             </Box>
           )}
-
-          {/* DESKTOP VIEW ONLY */}
           {!isMobile && (
             <Box
               sx={{
@@ -498,32 +496,28 @@ export default function Header(): JSX.Element {
                 gap: 2,
               }}
             >
-              {/* Add your desktop header layout here */}
-              {/* Example: Logo, Dropdown, Search, Icons, Connect Button */}
-
               <Box sx={{ width: '100%' }}>
                 <CustomDropdown
                   options={options}
                   value={selected}
                   onChange={setSelected}
+                  disableMenuItemTouchRipple={true}
+                  disableTouchRipple={true}
                 />
               </Box>
-              <Box
-                sx={{
-                  flexGrow: 1,
-                  display: 'flex',
-                  justifyContent: 'flex-end',
-                }}
-              >
-                <CustomSearch />
-              </Box>
               <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+                <CustomSearch />
                 <IconButton
                   size="large"
                   aria-label="toggle theme"
-                  color="inherit"
                   onClick={toggleTheme}
-                  sx={{ padding: '5px' }}
+                  sx={{
+                    color: 'custom.lightGrey',
+                    '& :hover': {
+                      color: 'custom.primaryLight',
+                    },
+                  }}
+                  // sx={{ padding: '5px' }}
                 >
                   <Badge color="error">
                     {mode === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
@@ -532,8 +526,13 @@ export default function Header(): JSX.Element {
                 <IconButton
                   size="large"
                   aria-label="show notifications"
-                  color="inherit"
-                  sx={{ padding: '5px' }}
+                  sx={{
+                    color: 'custom.lightGrey',
+                    '& :hover': {
+                      color: 'custom.primaryLight',
+                    },
+                  }}
+                  // sx={{ padding: '5px' }}
                 >
                   <Badge color="error">
                     <NotificationsIcon />
@@ -541,12 +540,17 @@ export default function Header(): JSX.Element {
                 </IconButton>
                 <Button
                   variant="contained"
+                  disableElevation
+                  disableTouchRipple
                   sx={{
                     fontSize: 16,
                     width: '165px',
-                    backgroundColor: 'custom.whiteLightO1',
-                    color: 'custom.black02',
+                    backgroundColor: '#FFFFFF',
+                    color: 'black',
                     borderRadius: '10px',
+                    textTransform: 'none',
+                    border: '1px solid',
+                    borderColor: 'divider',
                   }}
                 >
                   Connect
@@ -558,8 +562,13 @@ export default function Header(): JSX.Element {
                   aria-controls={menuId}
                   aria-haspopup="true"
                   onClick={handleProfileMenuOpen}
-                  color="inherit"
-                  sx={{ padding: '5px' }}
+                  sx={{
+                    color: 'custom.lightGrey',
+                    '& :hover': {
+                      color: 'custom.primaryLight',
+                    },
+                  }}
+                  // sx={{ padding: '5px' }}
                 >
                   <LocalGroceryStoreIcon />
                 </IconButton>
