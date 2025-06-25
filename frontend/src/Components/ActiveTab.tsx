@@ -10,10 +10,11 @@ import {
   // setTabData,
 } from '../features/home/homeSlice';
 import { Box } from '@mui/material';
+import Loading from '../../@ui-component/Comman/Loading';
 
 const ActiveTab = () => {
   const dispatch = useDispatch();
-  const { activeTab, tabData, columnDefsMap, trending_loading } = useSelector(
+  const { activeTab, tabData, columnDefsMap, trending_loading, time, volume_sales } = useSelector(
     (state: RootState) => state.home
   );
 
@@ -36,7 +37,7 @@ const ActiveTab = () => {
   //   }, [activeTab]); // Only re-subscribe when activeTab changes
   useEffect(() => {
     dispatch(fetchTrendingDataRequest());
-  }, []);
+  }, [dispatch,time, volume_sales]);
 
   return (
     <Box
@@ -44,11 +45,15 @@ const ActiveTab = () => {
         padding: { xs: '0px', xl: '0px 20px 20px 20px' },
       }}
     >
-      <AGGridTable
-        columnDefs={columnDefsMap[activeTab]}
-        rowData={tabData[activeTab] || []}
-        loading={trending_loading}
-      />
+      {trending_loading ? (
+        <Loading />
+      ) : (
+        <AGGridTable
+          columnDefs={columnDefsMap[activeTab]}
+          rowData={tabData[activeTab] || []}
+          // loading={trending_loading}
+        />
+      )}
     </Box>
   );
 };

@@ -16,11 +16,13 @@ interface HomeState {
   columnDefsMap: Record<string, any[]>;
   volume_sales: string;
   trending_loading: boolean;
+  time: string;
   error: string | null;
 }
 
 const initialState: HomeState = {
   activeTab: 'trending',
+  time: '24h',
   tabData: {
     trending: [],
   },
@@ -121,7 +123,7 @@ const initialState: HomeState = {
     top_sales: [],
     top_mint_ranking: [],
   },
-  volume_sales: 'Volume',
+  volume_sales: 'volume',
   trending_loading: false,
   error: null,
 };
@@ -155,6 +157,9 @@ const homeSlice = createSlice({
     },
     setVolume_sales: (state, action: PayloadAction<string>) => {
       state.volume_sales = action.payload;
+    },
+    setTime: (state, action: PayloadAction<string>) => {
+      state.time = action.payload;
     }
   },
 });
@@ -165,6 +170,8 @@ export const {
   fetchTrendingDataFailure,
   setActiveTab,
   setTabData,
+  setTime,
+  setVolume_sales
 } = homeSlice.actions;
 
 export default homeSlice.reducer;

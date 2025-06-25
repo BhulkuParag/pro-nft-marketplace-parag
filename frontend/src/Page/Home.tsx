@@ -85,11 +85,11 @@ const Home = () => {
       }}
     >
       <SlideCard />
-      <CustomTab tabs={tabs} handleChange={handleChange} />
+      <CustomTab tabs={tabs} handleChange={handleChange} borderBottom />
       <Box
         sx={{
           width: '100%',
-          padding: { xs: '20px', xl: '20px' },
+          padding: '20px',
         }}
       >
         <TabsContainer tabs={tabs} />
