@@ -85,6 +85,10 @@ const Home = () => {
         position: 'relative',
       }}
     >
+      <SlideCard />
+      <CustomTab tabs={tabs} handleChange={handleChange} borderBottom />
+      }}
+    >
       <Box
         component="div"
         sx={{
@@ -106,7 +110,7 @@ const Home = () => {
       <Box
         sx={{
           width: '100%',
-          padding: { xs: '20px', xl: '20px' },
+          padding: '20px',
         }}
       >
         <TabsContainer tabs={tabs} />

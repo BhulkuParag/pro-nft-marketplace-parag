@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 // import GraphFilter from "components/latest/HomeTabs/GraphFilter";
 // import Switch from "components/latest/switch/Switch";
 import {
@@ -10,9 +10,11 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-} from "recharts";
-import EthIcon from "../../../Components/Icon/crypto-icon/EthIcon";
-import Info from "../../../Components/info/Info";
+} from 'recharts';
+import EthIcon from '../../../Components/Icon/crypto-icon/EthIcon';
+import Info from '../../../Components/info/Info';
+import { Typography } from '@mui/material';
+import DateFilter from '../../../../@ui-component/Comman/DateFilter';
 
 interface ChartData {
   name: string;
@@ -23,43 +25,43 @@ interface ChartData {
 
 const chartData: ChartData[] = [
   {
-    name: "Sept 24",
+    name: 'Sept 24',
     LowPrice: 0,
     HighPrice: -20,
     AvgPrice: 60,
   },
   {
-    name: "Sept 25",
+    name: 'Sept 25',
     LowPrice: -20,
     HighPrice: 20,
     AvgPrice: 20,
   },
   {
-    name: "Sept 26",
+    name: 'Sept 26',
     LowPrice: 0,
     HighPrice: -20,
     AvgPrice: 60,
   },
   {
-    name: "Sept 27",
+    name: 'Sept 27',
     LowPrice: 20,
     HighPrice: -60,
     AvgPrice: 100,
   },
   {
-    name: "Sept 28",
+    name: 'Sept 28',
     LowPrice: 60,
     HighPrice: 20,
     AvgPrice: 0,
   },
   {
-    name: "Sept 29",
+    name: 'Sept 29',
     LowPrice: 20,
     HighPrice: 60,
     AvgPrice: -20,
   },
   {
-    name: "Sept 30",
+    name: 'Sept 30',
     LowPrice: 0,
     HighPrice: 20,
     AvgPrice: -100,
@@ -75,36 +77,36 @@ interface graphData {
 
 const holderTraders: graphData[] = [
   {
-    name: "High Price",
-    color: "bg-primary-light",
-    value: "45.49",
-    change: "-46.15%",
+    name: 'High Price',
+    color: 'bg-primary-light',
+    value: '45.49',
+    change: '-46.15%',
   },
   {
-    name: "Avg Price(All)",
-    color: "bg-primary",
-    value: "44.03",
-    change: "-46.15%",
+    name: 'Avg Price(All)',
+    color: 'bg-primary',
+    value: '44.03',
+    change: '-46.15%',
   },
   {
-    name: "Low Price",
-    color: "bg-light-primary-light-100",
-    value: "352.27",
-    change: "-46.15%",
+    name: 'Low Price',
+    color: 'bg-light-primary-light-100',
+    value: '352.27',
+    change: '-46.15%',
   },
 ];
 
 const PriceAndSales = () => {
   const [outliers, setOutliers] = useState(false);
   const filter = [
-    { tabName: "All Time" },
-    { tabName: "12mo" },
-    { tabName: "3mo" },
-    { tabName: "30d" },
-    { tabName: "7d" },
-    { tabName: "24h" },
+    { label: 'All Time', value: 'All Time' },
+    { label: '12mo', value: '' },
+    { label: '3mo' },
+    { label: '30d', value: '' },
+    { label: '7d', value: '' },
+    { label: '24h', value: '' },
   ];
-  const [range, setRange] = useState<string>("7d");
+  const [range, setRange] = useState<string>('7d');
   //   console.log("range =",range);
 
   // const customTicks = [100, 60, 20, 0, -20, -60, -100];
@@ -112,26 +114,29 @@ const PriceAndSales = () => {
   return (
     <div className="p-3 md:p-6 rounded-xl bg-white dark:bg-dark-secondary-dark">
       <div className="flex items-center gap-2">
-        <span className="font-medium text-xl text-black dark:text-white">
+        <Typography
+          fontWeight={500}
+          fontSize={20}
+          sx={{
+            color: 'text.primary',
+          }}
+        >
           Price & Sales
-        </span>
+        </Typography>
         <Info iconType="questionMark" height={5} weight={5} isTooltip={true} />
       </div>
       <span className="text-xs text-grey">846.844 ETH</span>
       <div className="flex flex-col md:flex-row gap-3 justify-between">
         <div className="flex gap-4 my-3 flex-wrap">
-          {holderTraders?.map((item, index) => {
+          {holderTraders?.map((item) => {
             return (
               <div
+                key={item.value}
                 className="border-r-[1px] border-black01 pr-[12px] flex flex-col gap-[2px] last:border-none"
-                key={index}
               >
                 <div className="flex items-center gap-[6px]">
                   <div
-                    className={
-                      "h-[10px] w-[10px] rounded-full" +
-                      item?.color
-                    }
+                    className={'h-[10px] w-[10px] rounded-full' + item?.color}
                   ></div>
                   <span className="text-grey text-[14px]">{item?.name}</span>
                 </div>
@@ -162,17 +167,11 @@ const PriceAndSales = () => {
             <span className="text-grey text-sm">Outliers</span>
           </div>
           <div className="flex items-center gap-3 xl:gap-5 w-full justify-end sm:w-auto">
-            {/* <GraphFilter
-              categories={filter}
-              isLeftBorder
-              selectedTabRoundedStyle={false}
-              onTabChange={(option: any) => {
-                setRange(
-                  option?.tabName === "All Time" ? "all" : option?.tabName
-                );
-              }}
-              placeholder={filter[0]?.tabName}
-            /> */}
+            <DateFilter
+              timeOptions={filter}
+              selectedTime={outliers}
+              handleChange={setOutliers}
+            />
           </div>
         </div>
       </div>
@@ -197,14 +196,14 @@ const PriceAndSales = () => {
             dataKey="name"
             fontSize={12}
             className="stroke-1 stroke-tremor-border dark:stroke-dark-tremor-border"
-          // scale="band"
-          // dx={100}
+            // scale="band"
+            // dx={100}
           />
           <YAxis
             axisLine={false}
             tickLine={false}
             fontSize={12}
-          //   ticks={customTicks}
+            //   ticks={customTicks}
           />
           <Tooltip />
           <Area

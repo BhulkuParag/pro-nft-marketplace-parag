@@ -55,12 +55,9 @@ const Footer: FC<FooterProps> = () => {
         color: 'inherit',
         position: 'fixed',
         bottom: 0,
-        left: 0,
-        // right: 0,
         borderTop: '1px solid',
         borderColor: 'divider',
         zIndex: 1000,
-        paddingLeft: { xs: '0px', xl: '60px' },
       }}
       // className="hidden lg:block"
     >
@@ -73,7 +70,7 @@ const Footer: FC<FooterProps> = () => {
                 rel="noopener noreferrer"
                 to="https://discord.com/invite/aJzSfPPrkg"
               >
-                <DiscordIcon className="w-4 h-4 fill-grey hover:fill-light-primary-light dark:hover:fill-dark-primary-light" />
+                <DiscordIcon className="w-4 h-4 fill-[#777E90] hover:fill-[#6B5FE8] dark:hover:fill-[#A49BFF]" />
               </Link>
             </li>
             <li className="inline-block">
@@ -82,7 +79,7 @@ const Footer: FC<FooterProps> = () => {
                 rel="noopener noreferrer"
                 to="https://x.com/Polycruzz"
               >
-                <XIcon className="fill-grey hover:fill-light-primary-light dark:hover:fill-dark-primary-light" />
+                <XIcon className="fill-[#777E90] hover:fill-[#6B5FE8] dark:hover:fill-[#A49BFF]" />
               </Link>
             </li>
             {/* <li className="inline-block">
@@ -90,7 +87,7 @@ const Footer: FC<FooterProps> = () => {
                 <Telegram  className="fill-grey hover:fill-light-primary-light dark:hover:fill-dark-primary-light" width="14" height="13" />
               </Link>
             </li> */}
-            <div className="border-r w-1 h-4 border-light-black-01 dark:border-dark-black-01"></div>
+            <div className="border-r w-1 h-4 border-[#9DA1AF]"></div>
             <div className="justify-center items-center gap-1 inline-flex">
               <img className="w-5 h-5" alt="Live-data" src={liveData} />
               <div className="flex-col shrink-0 justify-center items-start inline-flex">
@@ -106,7 +103,7 @@ const Footer: FC<FooterProps> = () => {
             </div>
             <div className="border-r w-1 h-4 border-[#9DA1AF]"></div>
             <div className="justify-center items-center gap-1 inline-flex">
-              <EthIcon className="fill-grey w-5 h-5" />
+              <EthIcon className="fill-[#777E90] hover:fill-[#6B5FE8] w-5 h-5" />
               <div className="flex-col justify-center items-start inline-flex">
                 <Typography
                   sx={{

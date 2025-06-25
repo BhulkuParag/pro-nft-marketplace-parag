@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Info from "../../../info/Info";
-// import GraphFilter from "components/latest/HomeTabs/GraphFilter";
+import DateFilter from "../../../../../@ui-component/Comman/DateFilter";
+import OnOffSwitch from "../../../../../@ui-component/Comman/Switch";
 import {
   ScatterChart,
   Scatter,
@@ -12,6 +13,7 @@ import {
 } from "recharts";
 
 import EthIcon from "../../../../Components/Icon/crypto-icon/EthIcon";
+import { Typography } from "@mui/material";
 // import Switch from "components/latest/switch/Switch";
 
 interface DataPoint {
@@ -37,14 +39,14 @@ const data01: DataPoint[] = generateData(12);
 const data02: DataPoint[] = generateData(24);
 const data03: DataPoint[] = generateData(18);
 
-interface graphData {
+interface GraphData {
   name: string;
   color: string;
   value: string;
   change: string;
 }
 
-const holderTraders: graphData[] = [
+const holderTraders: GraphData[] = [
   {
     name: "Floor Price",
     color: "bg-primary-light",
@@ -68,16 +70,19 @@ const holderTraders: graphData[] = [
 const Sales: React.FC = () => {
   const [outliers, setOutliers] = useState(false);
   const [range, setRange] = useState("24h");
-  // console.log("range =",range);
   const filter = [
-    { tabName: "All Time" },
-    { tabName: "12mo" },
-    { tabName: "3mo" },
-    { tabName: "30d" },
-    { tabName: "7d" },
-    { tabName: "24h" },
+    { label: "All Time" ,value: "All Time" },
+    { label: "12mo" ,value: "12mo" },
+    { label: "3mo" ,value: "3mo" },
+    { label: "30d" ,value: "30d" },
+    { label: "7d" ,value: "7d" },
+    { label: "24h" ,value: "24h" },
   ];
   const customTicks = [0, 20, 40, 60, 80, 100];
+
+  const handleChangeSwitch = () => {
+    setOutliers(!outliers);
+  }
 
   return (
     <div className="p-3">
@@ -127,20 +132,13 @@ const Sales: React.FC = () => {
               icon={""}
               large={false}
             /> */}
-            <span className="text-grey text-sm">Outliers</span>
+            <OnOffSwitch checked={outliers} handleOnChange={handleChangeSwitch}/>
+            <Typography fontSize={14} sx={{
+              color: 'custom.grey01'
+            }}>Outliers</Typography>
           </div>
           <div className="flex items-center gap-3 xl:gap-5 w-full justify-end sm:w-auto">
-            {/* <GraphFilter
-              categories={filter}
-              isLeftBorder
-              selectedTabRoundedStyle={false}
-              onTabChange={(option: any) => {
-                setRange(
-                  option?.tabName === "All Time" ? "all" : option?.tabName
-                );
-              }}
-              placeholder={filter[0]?.tabName}
-            /> */}
+            <DateFilter timeOptions={filter} selectedTime={range} handleChange={setRange}/>
           </div>
         </div>
       </div>

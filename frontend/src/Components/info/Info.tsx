@@ -22,7 +22,7 @@ const Info: FC<InfoProps> = ({
 
   return (
     <div className="flex w-max">
-      <Tooltip title={['Info']}>
+      <Tooltip placement='top' title={['Info']}>
         <span className={'cursor-pointer'}>
           {iconType === 'questionMark' ? (
             <InfoQuestionIcon
@@ -30,8 +30,8 @@ const Info: FC<InfoProps> = ({
             ${
               !iconColor &&
               (isInfo
-                ? 'fill-light-primary-light dark:fill-dark-primary-light'
-                : 'fill-grey hover:fill-light-primary-light dark:hover:fill-dark-primary-light')
+                ? 'fill-[#6B5FE8] dark:fill-[#A49BFF]'
+                : 'fill-[#777E90] hover:fill-[#6B5FE8] dark:hover:fill-[#A49BFF]')
             }
                     ${iconColor ?? iconColor}
                     `}
@@ -42,8 +42,8 @@ const Info: FC<InfoProps> = ({
                     ${
                       !iconColor &&
                       (isInfo
-                        ? 'fill-light-primary-light dark:fill-dark-primary-light'
-                        : 'fill-grey hover:fill-light-primary-light dark:hover:fill-dark-primary-light')
+                        ? 'fill-[#6B5FE8] dark:fill-[#A49BFF]'
+                        : 'fill-[#777E90] hover:fill-[#6B5FE8] dark:hover:fill-[#A49BFF]')
                     }
                   ${iconColor ?? iconColor}
                   `}

@@ -26,6 +26,7 @@ const ChartTabSection = () => {
   const [pos, setPos] = useState('Sales');
 
   const handleChange = (_: React.SyntheticEvent, newValue: string) => {
+    console.log('pos ', newValue);
     setPos(newValue);
   };
 

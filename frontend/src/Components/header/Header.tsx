@@ -58,8 +58,8 @@ export default function Header(): JSX.Element {
       chainId: 137,
       icon: (
         <Polygon
-          backgroundClass="dark:bg-dark-black-light bg-light-black-light w-7 h-7"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:bg-[#141416] bg-[#141416] w-7 h-7"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
         />
       ),
       value: 'matic',
@@ -69,8 +69,8 @@ export default function Header(): JSX.Element {
       chainId: 1101,
       icon: (
         <Polygon
-          backgroundClass="dark:bg-dark-black-light bg-light-black-light w-7 h-7"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:bg-[#141416] bg-[#141416] w-7 h-7"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
         />
       ),
       value: 'zkevm',
@@ -80,8 +80,8 @@ export default function Header(): JSX.Element {
       chainId: 8453,
       icon: (
         <Ethereum
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fill-[#141416]"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -92,8 +92,8 @@ export default function Header(): JSX.Element {
       chainId: 43114,
       icon: (
         <Avalanche
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fill-[#141416]"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -104,8 +104,8 @@ export default function Header(): JSX.Element {
       chainId: 56,
       icon: (
         <BNBChain
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fil[#141416]-light"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -116,8 +116,8 @@ export default function Header(): JSX.Element {
       chainId: 42161,
       icon: (
         <Ethereum
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fil[#141416]-light"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -128,8 +128,8 @@ export default function Header(): JSX.Element {
       chainId: 42170,
       icon: (
         <Ethereum
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fil[#141416]-light"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -140,8 +140,8 @@ export default function Header(): JSX.Element {
       chainId: 59144,
       icon: (
         <Ethereum
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fil[#141416]-light"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -152,8 +152,8 @@ export default function Header(): JSX.Element {
       chainId: 10,
       icon: (
         <Ethereum
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fil[#141416]-light"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -164,8 +164,8 @@ export default function Header(): JSX.Element {
       chainId: 16350,
       icon: (
         <Ethereum
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fil[#141416]-light"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -176,8 +176,8 @@ export default function Header(): JSX.Element {
       chainId: 592,
       icon: (
         <Ethereum
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fil[#141416]-light"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -188,8 +188,8 @@ export default function Header(): JSX.Element {
       chainId: 81457,
       icon: (
         <Ethereum
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fil[#141416]-light"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -200,8 +200,8 @@ export default function Header(): JSX.Element {
       chainId: 1,
       icon: (
         <Ethereum
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fil[#141416]-light"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -212,8 +212,8 @@ export default function Header(): JSX.Element {
       chainId: 713715,
       icon: (
         <Ethereum
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fil[#141416]-light"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -224,8 +224,8 @@ export default function Header(): JSX.Element {
       chainId: 7777777,
       icon: (
         <Ethereum
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fil[#141416]-light"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -236,8 +236,8 @@ export default function Header(): JSX.Element {
       chainId: 324,
       icon: (
         <Ethereum
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fil[#141416]-light"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -248,8 +248,8 @@ export default function Header(): JSX.Element {
       chainId: 303,
       icon: (
         <Ethereum
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fil[#141416]-light"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -260,8 +260,8 @@ export default function Header(): JSX.Element {
       chainId: 313,
       icon: (
         <Ethereum
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fil[#141416]-light"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
