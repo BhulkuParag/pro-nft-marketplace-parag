@@ -54,3 +54,4 @@ export interface RowData {
   price?: string;
   time?: string;
 }
+
