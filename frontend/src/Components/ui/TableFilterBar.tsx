@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Box,
   Menu,
@@ -15,48 +15,38 @@ import ToggleButton from '../../../@ui-component/Comman/ToggleButton';
 import DateFilter from '../../../@ui-component/Comman/DateFilter';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../app/store';
-import { setTime, setVolume_sales } from '../../features/home/homeSlice';
+import { fetchTrendingDataRequest, setTime, setVolume_sales } from '../../features/home/homeSlice';
 
 const TableFilterBar = () => {
   const dispatch = useDispatch();
-  const { volume_sales, time } = useSelector((state: RootState) => state.home);
+  const { volume_sales, time, vauleSales, timeOptions } = useSelector((state: RootState) => state.home);
   const theme = useTheme();
   const isMobileOrLaptop = useMediaQuery(theme.breakpoints.down('lg'));
   const [anchorElFilter, setAnchorElFilter] = useState<null | HTMLElement>(
     null
   );
 
-  const timeOptions = useMemo(() => {
-    return [
-      { label: '5m', value: '5m' },
-      { label: '10m', value: '10m' },
-      { label: '30m', value: '30m' },
-      { label: '1h', value: '1h' },
-      { label: '6h', value: '6h' },
-      { label: '24h', value: '24h' },
-      { label: '7d', value: '7d' },
-      { label: '30d', value: '30d' },
-    ];
-  }, []);
-
-  const vauleSales = useMemo(() => {
-    return [
-      { label: 'Volume', value: 'volume' },
-      { label: 'Sales', value: 'sales' },
-    ];
-  }, []);
-
-  const handleOnChange = (_: React.SyntheticEvent, value: string) => {
-    dispatch(setVolume_sales(value));
-  };
+  const handleOnChange = useCallback(
+    (_: React.SyntheticEvent, value: string) => {
+      if (volume_sales !== value) dispatch(setVolume_sales(value));
+    },
+    [dispatch, volume_sales]
+  );
 
   const handleOnChangeForMobile = (value: string) => {
     dispatch(setVolume_sales(value));
   };
 
-  const handleDateFilterChange = (date: string) => {
-    dispatch(setTime(date));
-  };
+  const handleDateFilterChange = useCallback(
+    (date: string) => {
+      if (time !== date) dispatch(setTime(date));
+    },
+    [dispatch, time]
+  );
+
+    useEffect(() => {
+      dispatch(fetchTrendingDataRequest());
+    }, [time, volume_sales]);
 
   return (
     <Box

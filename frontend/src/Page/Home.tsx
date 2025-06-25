@@ -4,79 +4,87 @@ import CustomTab, { type TabItem } from '../../@ui-component/Comman/Tab';
 import Footer from '../Components/header/Footer';
 import TableFilterBar from '../Components/ui/TableFilterBar';
 import ActiveTab from '../Components/ActiveTab';
-import TabsContainer from '../Components/TabsContainer';
+import TabHeader from '../Components/TabsContainer';
 import { setActiveTab } from '../features/home/homeSlice';
-import { useDispatch } from 'react-redux';
-
-const tabs: TabItem[] = [
-  {
-    label: 'Trending',
-    value: 'trending',
-    content: (
-      <>
-        <Typography
-          variant="h4"
-          fontWeight={600}
-          color="custom.whiteLightO1"
-          fontSize={26}
-        >
-          Top Trending Collections
-        </Typography>
-        <TableFilterBar />
-      </>
-    ),
-  },
-  {
-    label: 'NFT Sales',
-    value: 'nft_sales',
-    content: (
-      <Typography
-        variant="h4"
-        fontWeight={600}
-        color="custom.whiteLightO1"
-        fontSize={26}
-      >
-        Current NFT Sales
-      </Typography>
-    ),
-  },
-  {
-    label: 'Top Sales',
-    value: 'top_sales',
-    content: (
-      <Typography
-        variant="h4"
-        fontWeight={600}
-        color="custom.whiteLightO1"
-        fontSize={26}
-      >
-        Top Sales
-      </Typography>
-    ),
-  },
-  {
-    label: 'Mint Ranking',
-    value: 'top_mint_ranking',
-    content: (
-      <Typography
-        variant="h4"
-        fontWeight={600}
-        color="custom.whiteLightO1"
-        fontSize={26}
-      >
-        Top Mint Ranking
-      </Typography>
-    ),
-  },
-];
+import { useDispatch, useSelector } from 'react-redux';
+import type { RootState } from '../app/store';
+import React, { useCallback, useMemo } from 'react';
 
 const Home = () => {
-  const dispatch = useDispatch();
+  const tabs = useMemo<TabItem[]>(() => {
+    return [
+      {
+        label: 'Trending',
+        value: 'trending',
+        content: (
+          <>
+            <Typography
+              variant="h4"
+              fontWeight={600}
+              color="custom.whiteLightO1"
+              fontSize={26}
+            >
+              Top Trending Collections
+            </Typography>
+            <TableFilterBar />
+          </>
+        ),
+      },
+      {
+        label: 'NFT Sales',
+        value: 'nft_sales',
+        content: (
+          <Typography
+            variant="h4"
+            fontWeight={600}
+            color="custom.whiteLightO1"
+            fontSize={26}
+          >
+            Current NFT Sales
+          </Typography>
+        ),
+      },
+      {
+        label: 'Top Sales',
+        value: 'top_sales',
+        content: (
+          <Typography
+            variant="h4"
+            fontWeight={600}
+            color="custom.whiteLightO1"
+            fontSize={26}
+          >
+            Top Sales
+          </Typography>
+        ),
+      },
+      {
+        label: 'Mint Ranking',
+        value: 'top_mint_ranking',
+        content: (
+          <Typography
+            variant="h4"
+            fontWeight={600}
+            color="custom.whiteLightO1"
+            fontSize={26}
+          >
+            Top Mint Ranking
+          </Typography>
+        ),
+      },
+    ];
+  }, []);
 
-    const handleChange = (_: React.SyntheticEvent, newValue: string) => {
+  const dispatch = useDispatch();
+  const { activeTab } = useSelector((state: RootState) => state.home);
+
+  const handleChange = useCallback(
+    (_: React.SyntheticEvent, newValue: string) => {
       dispatch(setActiveTab(newValue));
-    };
-  
+    },
+    [dispatch]
+  );
+
   return (
     <Box
       sx={{
@@ -85,14 +93,19 @@ const Home = () => {
       }}
     >
       <SlideCard />
-      <CustomTab tabs={tabs} handleChange={handleChange} borderBottom />
+      <CustomTab
+        tabs={tabs}
+        handleChange={handleChange}
+        selectedTab={activeTab}
+        borderBottom
+      />
       <Box
         sx={{
           width: '100%',
           padding: '20px',
         }}
       >
-        <TabsContainer tabs={tabs} />
+        <TabHeader />
         <ActiveTab />
       </Box>
       <Footer />
@@ -100,4 +113,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default React.memo(Home);

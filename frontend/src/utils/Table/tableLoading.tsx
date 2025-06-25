@@ -1,30 +1,40 @@
 import { Box, Skeleton } from '@mui/material';
 
-const ROWS = 8;
+const ROWS = 9;
 const COLS = 9;
 
 export const AGGridSkeletonOverlay = () => (
-  <Box sx={{ width: '100%', height: '100%', p: 2 }}>
-    {[...Array(ROWS)].map((_, rowIdx) => (
+  <Box
+    sx={{
+      width: 'calc(100vw - 73.6px)',
+      // height: '258vh',
+      height: '22vh',
+      // p: 2,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'start',
+      backgroundColor: 'background.default',
+    }}
+  >
+    {[...Array(ROWS)].map((_) => (
       <Box
         key={_}
         sx={{
           display: 'grid',
-          gridTemplateColumns: `repeat(9, 1fr)`,
-          gap: 10,
+          gridTemplateRows: `repeat(9, 1fr)`,
+          gap: 5,
           my: 5,
         }}
       >
-        {[...Array(COLS)].map((_, colIdx) => (
+        {[...Array(COLS)].map((_) => (
           <Skeleton
             key={_}
             variant="rectangular"
             height={28}
             sx={{
+              flexGrow: 1,
               width: 110,
               borderRadius: 1,
-              //   bgcolor: rowIdx % 2 === 1 ? 'primary.dark' : 'grey.800', // Optional: alternate row color
-              //   bgcolor: 'grey.800', // Optional: alternate row color
               opacity: 0.18,
             }}
           />

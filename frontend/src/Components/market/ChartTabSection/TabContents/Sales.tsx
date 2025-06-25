@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import Info from "../../../info/Info";
-import DateFilter from "../../../../../@ui-component/Comman/DateFilter";
-import OnOffSwitch from "../../../../../@ui-component/Comman/Switch";
+import React, { useState } from 'react';
+import Info from '../../../info/Info';
+import DateFilter from '../../../../../@ui-component/Comman/DateFilter';
+import OnOffSwitch from '../../../../../@ui-component/Comman/Switch';
 import {
   ScatterChart,
   Scatter,
@@ -10,10 +10,10 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-} from "recharts";
+} from 'recharts';
 
-import EthIcon from "../../../../Components/Icon/crypto-icon/EthIcon";
-import { Typography } from "@mui/material";
+import EthIcon from '../../../../Components/Icon/crypto-icon/EthIcon';
+import { Typography } from '@mui/material';
 // import Switch from "components/latest/switch/Switch";
 
 interface DataPoint {
@@ -48,41 +48,41 @@ interface GraphData {
 
 const holderTraders: GraphData[] = [
   {
-    name: "Floor Price",
-    color: "bg-primary-light",
-    value: "45.49",
-    change: "-46.15%",
+    name: 'Floor Price',
+    color: 'bg-[#6B5FE8]',
+    value: '45.49',
+    change: '-46.15%',
   },
   {
-    name: "Avg Price(All)",
-    color: "bg-primary",
-    value: "44.03",
-    change: "-46.15%",
+    name: 'Avg Price(All)',
+    color: 'bg-[#4130EA]',
+    value: '44.03',
+    change: '-46.15%',
   },
   {
-    name: "Normal Sales",
-    color: "bg-transparent border border-primary-light",
-    value: "352.27",
-    change: "-46.15%",
+    name: 'Normal Sales',
+    color: 'bg-transparent border border-[#6B5FE8]',
+    value: '352.27',
+    change: '-46.15%',
   },
 ];
 
 const Sales: React.FC = () => {
   const [outliers, setOutliers] = useState(false);
-  const [range, setRange] = useState("24h");
+  const [range, setRange] = useState('24h');
   const filter = [
-    { label: "All Time" ,value: "All Time" },
-    { label: "12mo" ,value: "12mo" },
-    { label: "3mo" ,value: "3mo" },
-    { label: "30d" ,value: "30d" },
-    { label: "7d" ,value: "7d" },
-    { label: "24h" ,value: "24h" },
+    { label: 'All Time', value: 'All Time' },
+    { label: '12mo', value: '12mo' },
+    { label: '3mo', value: '3mo' },
+    { label: '30d', value: '30d' },
+    { label: '7d', value: '7d' },
+    { label: '24h', value: '24h' },
   ];
   const customTicks = [0, 20, 40, 60, 80, 100];
 
   const handleChangeSwitch = () => {
     setOutliers(!outliers);
-  }
+  };
 
   return (
     <div className="p-3">
@@ -101,10 +101,7 @@ const Sales: React.FC = () => {
               >
                 <div className="flex items-center gap-[6px]">
                   <div
-                    className={
-                      "h-[10px] w-[10px] rounded-full" +
-                      item?.color
-                    }
+                    className={`h-[10px] w-[10px] rounded-full ${item?.color}`}
                   ></div>
                   <span className="text-grey text-[14px]">{item?.name}</span>
                 </div>
@@ -125,20 +122,25 @@ const Sales: React.FC = () => {
         </div>
         <div className="flex gap-5 items-center">
           <div className="flex items-center gap-2">
-            {/* <Switch
-              enabled={outliers}
-              onChange={(v: any) => setOutliers((e: any) => !e)}
-              disabled={false}
-              icon={""}
-              large={false}
-            /> */}
-            <OnOffSwitch checked={outliers} handleOnChange={handleChangeSwitch}/>
-            <Typography fontSize={14} sx={{
-              color: 'custom.grey01'
-            }}>Outliers</Typography>
+            <OnOffSwitch
+              checked={outliers}
+              handleOnChange={handleChangeSwitch}
+            />
+            <Typography
+              fontSize={14}
+              sx={{
+                color: 'custom.grey01',
+              }}
+            >
+              Outliers
+            </Typography>
           </div>
           <div className="flex items-center gap-3 xl:gap-5 w-full justify-end sm:w-auto">
-            <DateFilter timeOptions={filter} selectedTime={range} handleChange={setRange}/>
+            <DateFilter
+              timeOptions={filter}
+              selectedTime={range}
+              handleChange={setRange}
+            />
           </div>
         </div>
       </div>
@@ -176,7 +178,7 @@ const Sales: React.FC = () => {
             tickLine={false}
             fontSize={12}
           />
-          <Tooltip cursor={{ strokeDasharray: "3 3", stroke: "#A49BFF" }} />
+          <Tooltip cursor={{ strokeDasharray: '3 3', stroke: '#A49BFF' }} />
           <Scatter name="A school" data={data01} fill="#4836FF" />
           <Scatter name="A school" data={data02} fill="#A49BFF" />
           <Scatter

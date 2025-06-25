@@ -79,7 +79,7 @@ export const VolumeRenderer = (params: ICellRendererParams<RowData>) => (
 
 export const SupplyRenderer = (params: ICellRendererParams<RowData>) => (
   <div className="flex h-full items-center">
-    <span>{params.value}k</span>
+    <span>{params.value ?? 0}k</span>
   </div>
 );
 
