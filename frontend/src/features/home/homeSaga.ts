@@ -1,11 +1,19 @@
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import {
+  call,
+  put,
+  select,
+  takeLatest,
+  type SagaReturnType,
+} from 'redux-saga/effects';
 import {
   fetchTrendingDataRequest,
   fetchTrendingDataSuccess,
   fetchTrendingDataFailure,
+  fetchNftSalesDataRequest,
+  fetchNftSalesDataFailure,
+  fetchNftSalesDataSuccess,
 } from './homeSlice';
-import { fetchTrendingData } from '../../api/home';
-import type { RowData } from '../../types/table';
+import { fetchNftSalesData, fetchTrendingData } from '../../api/home';
 import type { RootState } from '../../app/store';
 
 function* handleFetchTrendingData() {
@@ -14,7 +22,11 @@ function* handleFetchTrendingData() {
     const sortBy: string = yield select(
       (state: RootState) => state.home.volume_sales
     );
-    const data: RowData[] = yield call(fetchTrendingData, period, sortBy);
+    const data: SagaReturnType<typeof fetchTrendingData> = yield call(
+      fetchTrendingData,
+      period,
+      sortBy
+    );
     yield put(fetchTrendingDataSuccess(data));
   } catch (error: any) {
     yield put(
@@ -22,6 +34,23 @@ function* handleFetchTrendingData() {
     );
   }
 }
+function* handleFetchNftSalesData() {
+  try {
+    const includeTokenMetadata: boolean = yield select(
+      (state: RootState) => state.home.includeTokenMetadata
+    );
+    const data: SagaReturnType<typeof fetchNftSalesData> = yield call(
+      fetchNftSalesData,
+      includeTokenMetadata
+    );
+    yield put(fetchNftSalesDataSuccess(data));
+  } catch (error: any) {
+    yield put(
+      fetchNftSalesDataFailure(error.message ?? 'Something went wrong')
+    );
+  }
+}
 export function* homeSaga() {
   yield takeLatest(fetchTrendingDataRequest.type, handleFetchTrendingData);
+  yield takeLatest(fetchNftSalesDataRequest.type, handleFetchNftSalesData);
 }

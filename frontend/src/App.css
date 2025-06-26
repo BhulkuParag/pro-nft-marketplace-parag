@@ -30,6 +30,9 @@
 .ag-theme-quartz .ag-header,
 .ag-theme-quartz-dark .ag-header {
   background-color: transparent;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
 }
 
 .ag-row {

@@ -13,8 +13,9 @@ import {
 } from 'recharts';
 import EthIcon from '../../../Components/Icon/crypto-icon/EthIcon';
 import Info from '../../../Components/info/Info';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import DateFilter from '../../../../@ui-component/Comman/DateFilter';
+import OnOffSwitch from '../../../../@ui-component/Comman/Switch';
 
 interface ChartData {
   name: string;
@@ -68,29 +69,29 @@ const chartData: ChartData[] = [
   },
 ];
 
-interface graphData {
+interface GraphData {
   name: string;
   color: string;
   value: string;
   change: string;
 }
 
-const holderTraders: graphData[] = [
+const holderTraders: GraphData[] = [
   {
     name: 'High Price',
-    color: 'bg-primary-light',
+    color: 'bg-[#6B5FE8]',
     value: '45.49',
     change: '-46.15%',
   },
   {
     name: 'Avg Price(All)',
-    color: 'bg-primary',
+    color: 'bg-[#4130EA]',
     value: '44.03',
     change: '-46.15%',
   },
   {
     name: 'Low Price',
-    color: 'bg-light-primary-light-100',
+    color: 'bg-[#D2CDFF]',
     value: '352.27',
     change: '-46.15%',
   },
@@ -100,19 +101,26 @@ const PriceAndSales = () => {
   const [outliers, setOutliers] = useState(false);
   const filter = [
     { label: 'All Time', value: 'All Time' },
-    { label: '12mo', value: '' },
-    { label: '3mo' },
-    { label: '30d', value: '' },
-    { label: '7d', value: '' },
-    { label: '24h', value: '' },
+    { label: '12mo', value: '12mo' },
+    { label: '3mo', value: '3mo' },
+    { label: '30d', value: '30d' },
+    { label: '7d', value: '7d' },
+    { label: '24h', value: '24h' },
   ];
   const [range, setRange] = useState<string>('7d');
-  //   console.log("range =",range);
 
-  // const customTicks = [100, 60, 20, 0, -20, -60, -100];
+  const handleChangeSwitch = () => {
+    setOutliers(!outliers);
+  };
 
   return (
-    <div className="p-3 md:p-6 rounded-xl bg-white dark:bg-dark-secondary-dark">
+    <Box
+      sx={{
+        padding: { xs: '12px', md: '24px' },
+        borderRadius: 3,
+        backgroundColor: 'secondary.main',
+      }}
+    >
       <div className="flex items-center gap-2">
         <Typography
           fontWeight={500}
@@ -125,7 +133,14 @@ const PriceAndSales = () => {
         </Typography>
         <Info iconType="questionMark" height={5} weight={5} isTooltip={true} />
       </div>
-      <span className="text-xs text-grey">846.844 ETH</span>
+      <Typography
+        fontSize={12}
+        sx={{
+          color: 'custom.grey01',
+        }}
+      >
+        846.844 ETH
+      </Typography>
       <div className="flex flex-col md:flex-row gap-3 justify-between">
         <div className="flex gap-4 my-3 flex-wrap">
           {holderTraders?.map((item) => {
@@ -136,18 +151,24 @@ const PriceAndSales = () => {
               >
                 <div className="flex items-center gap-[6px]">
                   <div
-                    className={'h-[10px] w-[10px] rounded-full' + item?.color}
+                    className={`h-[10px] w-[10px] rounded-full ${item?.color}`}
                   ></div>
-                  <span className="text-grey text-[14px]">{item?.name}</span>
+                  <span className="text-gray-500 text-[14px]">{item?.name}</span>
                 </div>
                 <div className="flex items-end gap-1">
                   <div className="flex items-center gap-[6px]">
-                    <span className=" text-[14px] font-medium text-light-white-light dark:text-white">
+                    <Typography
+                      fontWeight={500}
+                      fontSize={14}
+                      sx={{
+                        color: 'text.primary',
+                      }}
+                    >
                       {item?.value}
-                    </span>
-                    <EthIcon className="fill-grey w-3 h-3" />
+                    </Typography>
+                    <EthIcon className="fill-[#777E90] w-3 h-3" />
                   </div>
-                  <span className="text-[10px] text-light-red dark:text-dark-red">
+                  <span className="text-[10px] text-red-400">
                     {item?.change}
                   </span>
                 </div>
@@ -157,20 +178,24 @@ const PriceAndSales = () => {
         </div>
         <div className="flex gap-5 items-center">
           <div className="flex items-center gap-2">
-            {/* <Switch
-              enabled={outliers}
-              onChange={(v: any) => setOutliers((e: any) => !e)}
-              disabled={false}
-              icon={""}
-              large={false}
-            /> */}
-            <span className="text-grey text-sm">Outliers</span>
+            <OnOffSwitch
+              checked={outliers}
+              handleOnChange={handleChangeSwitch}
+            />
+            <Typography
+              fontSize={14}
+              sx={{
+                color: 'custom.grey01',
+              }}
+            >
+              Outliers
+            </Typography>
           </div>
           <div className="flex items-center gap-3 xl:gap-5 w-full justify-end sm:w-auto">
             <DateFilter
               timeOptions={filter}
-              selectedTime={outliers}
-              handleChange={setOutliers}
+              selectedTime={range}
+              handleChange={setRange}
             />
           </div>
         </div>
@@ -227,7 +252,7 @@ const PriceAndSales = () => {
           />
         </ComposedChart>
       </ResponsiveContainer>
-    </div>
+    </Box>
   );
 };
 

@@ -1,17 +1,10 @@
-// export interface RowData {
-//   id: number;
-//   Collection: string;
-//   'Floor Price(24H)': number;
-//   'Top Bid(24H)': number;
-//   'Volume(24H)': number;
-//   'Volume (1 Day)': number;
-//   'Volume (7 Day)': number;
-//   'Collection Volume (1 day)': number;
-//   'Collection Volume (7 day)': number;
-//   Owners: number;
-//   Supply: number;
-// }
+import type { ColDef } from 'ag-grid-community';
 
+export interface AGGridTableProps {
+  columnDefs: ColDef<RowData>[];
+  rowData: RowData[];
+  loading?: boolean;
+}
 export interface RowData {
   name: string;
   id: string;
@@ -32,13 +25,13 @@ export interface RowData {
     '1day': number;
     '7day': number;
     '30day': number;
-  }
-  collectionVolume:  {
+  };
+  collectionVolume: {
     '1day': number;
     '7day': number;
     '30day': number;
     allTime: number;
-  }
+  };
   floorAsk: {
     price: {
       amount: {
@@ -47,5 +40,22 @@ export interface RowData {
       };
     };
   };
-  sampleImages: string[]
+  sampleImages: string[];
+}
+
+export interface Nft_sales {
+  id: string;
+  token: {
+    name: string;
+    image: string;
+    contract: string;
+    tokenId: string;
+  };
+  price: {
+    amount: {
+      usd: number;
+      decimal: number;
+    };
+  };
+  washTradingScore: number;
 }

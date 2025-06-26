@@ -1,4 +1,5 @@
-import React from "react";
+import { Box, Typography } from '@mui/material';
+import React from 'react';
 // import GraphFilter from "components/latest/HomeTabs/GraphFilter";
 import {
   Area,
@@ -9,7 +10,7 @@ import {
   ResponsiveContainer,
   Line,
   ComposedChart,
-} from "recharts";
+} from 'recharts';
 // import { negativeViewNumber } from "lib/numbers";
 
 interface CustomTooltipProps {
@@ -27,23 +28,23 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
     return (
       <div
         style={{
-          backgroundColor: "black",
-          color: "white",
-          padding: "8px",
-          borderRadius: "8px",
-          fontSize: "14px",
+          backgroundColor: 'black',
+          color: 'white',
+          padding: '8px',
+          borderRadius: '8px',
+          fontSize: '14px',
         }}
       >
         <p>{label}</p>
-        <p style={{ color: "#4836FF" }}>
-          Volume:{" "}
-          <span style={{ color: "#fff" }}>
+        <p style={{ color: '#4836FF' }}>
+          Volume:{' '}
+          <span style={{ color: '#fff' }}>
             {payload[0].value.toLocaleString()}
             {/*negativeViewNumber(payload[0].value, true)*/}
           </span>
         </p>
-        <p style={{ color: "#FFC155" }}>
-          Sales: <span style={{ color: "#fff" }}>{payload[1].value}</span>
+        <p style={{ color: '#FFC155' }}>
+          Sales: <span style={{ color: '#fff' }}>{payload[1].value}</span>
         </p>
       </div>
     );
@@ -64,35 +65,48 @@ const MarketCap: React.FC<MarketCapProps> = ({
   setRange,
 }) => {
   const filterOptions = [
-    { tabName: "7d" },
-    { tabName: "30d" },
-    { tabName: "90d" },
-    { tabName: "All Time" },
+    { tabName: '7d' },
+    { tabName: '30d' },
+    { tabName: '90d' },
+    { tabName: 'All Time' },
   ];
 
   const handleTabChange = (option: { tabName: string }) => {
     const selectedRange =
-      option?.tabName === "All Time" ? "all" : option?.tabName;
+      option?.tabName === 'All Time' ? 'all' : option?.tabName;
     if (setRange) setRange(selectedRange);
   };
 
   return (
-    <div className="p-3 md:p-6 flex flex-col rounded-xl bg-white dark:bg-dark-secondary-dark">
-      <span className="font-medium text-xl text-black dark:text-white">
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        borderRadius: 3,
+        backgroundColor: 'secondary.main',
+        padding: { xs: '12px', md: '24px' },
+      }}
+    >
+      <Typography
+        fontWeight={500}
+        fontSize={20}
+        sx={{
+          color: 'text.primary',
+        }}
+      >
         Sales & Volume
-      </span>
+      </Typography>
       <div className="flex flex-col md:flex-row gap-3 justify-between">
         <div className="flex gap-4 my-3">
-          {chipValue.map((item, index) => (
+          {chipValue.map((item) => (
             <div
               className="border-r-[1px] border-black01 pr-[12px] flex flex-col gap-[2px] last:border-none"
-              key={index}
+              key={item.name}
             >
               <div className="flex items-center gap-[6px]">
                 <div
                   className={
-                    "h-[10px] w-[10px] rounded-full" +
-                    `bg-[${item.color}]`
+                    'h-[10px] w-[10px] rounded-full' + `bg-[${item.color}]`
                   }
                 ></div>
                 <span className="text-grey text-[14px]">{item.name}</span>
@@ -100,7 +114,7 @@ const MarketCap: React.FC<MarketCapProps> = ({
               <div className="flex items-end gap-1">
                 <div className="flex items-center gap-[6px]">
                   <span className=" text-[14px] font-medium text-light-white-light dark:text-white">
-                    {item.name == "Volume"
+                    {item.name == 'Volume'
                       ? `$${Number(item.value)?.toLocaleString()}`
                       : Number(item.value)?.toLocaleString()}
                   </span>
@@ -171,7 +185,7 @@ const MarketCap: React.FC<MarketCapProps> = ({
           <Line yAxisId="right" dataKey="sales" stroke="#FFC155" dot={false} />
         </ComposedChart>
       </ResponsiveContainer>
-    </div>
+    </Box>
   );
 };
 

@@ -38,6 +38,8 @@ export default function SlideCard() {
         width: '100%',
         maxWidth: '100%',
         minHeight: 200,
+        padding: '20px',
+        paddingY: '10px',
         // fontSize: 14,
         // color: '#fff',
         // margin: 0,
@@ -47,8 +49,9 @@ export default function SlideCard() {
     >
       <Swiper
         style={{
-          width: '94vw', // Matches your .swiper CSS
+          width: '100%', // Matches your .swiper CSS
           height: '200px',
+          borderRadius: '10px',
         }}
         // spaceBetween={0}
         centeredSlides={true}

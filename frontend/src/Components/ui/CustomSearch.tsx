@@ -35,7 +35,7 @@ const SearchContent = () => (
         gap: 1,
         px: 1.5,
         alignItems: 'center',
-        overflowX: 'auto',
+        overflowX: 'scroll',
         scrollbarWidth: 'none',
         scrollBehavior: 'smooth',
       }}
