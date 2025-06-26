@@ -74,19 +74,15 @@ const tabs: TabItem[] = [
 const Home = () => {
   const dispatch = useDispatch();
 
-    const handleChange = (_: React.SyntheticEvent, newValue: string) => {
-      dispatch(setActiveTab(newValue));
-    };
-  
+  const handleChange = (_: React.SyntheticEvent, newValue: string) => {
+    dispatch(setActiveTab(newValue));
+  };
+
   return (
     <Box
       sx={{
         width: '100%',
         position: 'relative',
-      }}
-    >
-      <SlideCard />
-      <CustomTab tabs={tabs} handleChange={handleChange} borderBottom />
       }}
     >
       <Box
@@ -106,7 +102,7 @@ const Home = () => {
           <HomeCard />
         </Box>
       </Box>
-      <CustomTab tabs={tabs} />
+      <CustomTab tabs={tabs} handleChange={handleChange} borderBottom />
       <Box
         sx={{
           width: '100%',

@@ -5,8 +5,9 @@ import CollectionMarket from '../CollectionMarket/CollectionMarket';
 const Home = React.lazy(() => import('../../Page/Home'));
 const Screen = React.lazy(() => import('../../Page/Screen'));
 const CollectionOverview = React.lazy(
-  () => import('../CollectionOverview/CollectionOverview')
+  () => import('../../Page/CollectionOverview')
 );
+const AiValuation = React.lazy(() => import('../../Page/AiValuation'));
 
 interface RouteConfig {
   path: string;
@@ -34,5 +35,8 @@ export const routes: RouteConfig[] = [
     path: '/market',
     component: CollectionMarket,
   },
-  
+  {
+    path: '/aivaluation',
+    component: AiValuation,
+  },
 ];

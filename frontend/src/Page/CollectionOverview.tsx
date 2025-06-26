@@ -3,9 +3,9 @@ import { styled } from '@mui/material/styles';
 import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import CollectionHero from '../CollectionHero/CollectionHero';
-import MarketOverview from './MarketOverview';
-import HolderHistory from './HolderHistory';
+import CollectionHero from '../Components/CollectionHero/CollectionHero';
+import MarketOverview from '../Components/CollectionOverview/MarketOverview';
+import HolderHistory from '../Components/CollectionOverview/HolderHistory';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
