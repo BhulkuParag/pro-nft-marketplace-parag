@@ -1,5 +1,6 @@
 import React, { type ComponentType } from 'react';
 import CollectionMarket from '../CollectionMarket/CollectionMarket';
+import Activity from '../CollectionActivity/CollectionActivity';
 
 const Home = React.lazy(() => import('../../Page/Home'));
 const Screen = React.lazy(() => import('../../Page/Screen'));
@@ -17,11 +18,15 @@ export const routes: RouteConfig[] = [
   },
   {
     path: '/Home',
-    component: Home,  
+    component: Home,
   },
   {
     path: '/trendingCollections/assets/:id',
     component: Screen,
+  },
+  {
+    path: '/ActivityScreen',
+    component: Activity,
   },
   {
     path: '/trendingCollections/item/:id',
