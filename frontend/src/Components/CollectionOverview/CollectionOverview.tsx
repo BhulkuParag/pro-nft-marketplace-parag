@@ -4,6 +4,7 @@ import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import CollectionHero from '../CollectionHero/CollectionHero';
+import { useMemo } from 'react';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -83,17 +84,17 @@ const CollectionOverview = () => {
   return (
     <Box
       sx={{
-        width: '100vw',
-        minHeight: '100vh',
+        width: '100%',
+        // minHeight: '100vh',
         backgroundColor: 'background.default',
         position: 'relative',
+        padding: '20px',
       }}
     >
       <Box
         sx={{
-        //   paddingInline: '80px',
+          //   paddingInline: '80px',
           width: '100%',
-          paddingTop: '10px',
         }}
       >
         <Typography

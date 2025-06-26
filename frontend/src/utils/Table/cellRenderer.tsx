@@ -5,7 +5,7 @@ import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
 import { Link } from 'react-router-dom';
 
 export const StarRenderer = (params: ICellRendererParams<RowData>) => (
-  <div className="flex h-full items-center cursor-pointer">
+  <div className="w-auto flex h-full items-center cursor-pointer">
     <Tooltip title="Add to Compare" placement="top" arrow={true}>
       <StarBorderRoundedIcon className="text-gray-500" />
     </Tooltip>
@@ -14,7 +14,7 @@ export const StarRenderer = (params: ICellRendererParams<RowData>) => (
 );
 
 export const CollectionRenderer = (params: ICellRendererParams<RowData>) => (
-  <div className="flex h-full items-center gap-2">
+  <div className="w-auto flex h-full items-center gap-2 justify-start">
     <img
       src={params.data?.image}
       alt={params.data?.name}
@@ -46,7 +46,7 @@ export const PriceRenderer = (params: ICellRendererParams<RowData>) => {
   }
 
   return (
-    <div className="flex h-full items-center cursor-pointer">
+    <div className="w-auto flex h-full items-center cursor-pointer justify-end">
       <img
         src="https://marketplace.polycruz.io/eth.svg"
         width={8}
@@ -72,19 +72,19 @@ export const PriceRenderer = (params: ICellRendererParams<RowData>) => {
 };
 
 export const VolumeRenderer = (params: ICellRendererParams<RowData>) => (
-  <div className="flex h-full items-center text-[#12CAB6]">
+  <div className="w-auto flex h-full items-center text-[#12CAB6] justify-end">
     <Typography lineHeight={2.5}>{params.value}%</Typography>
   </div>
 );
 
 export const SupplyRenderer = (params: ICellRendererParams<RowData>) => (
-  <div className="flex h-full items-center">
+  <div className="w-auto flex h-full items-center justify-end">
     <span>{params.value ?? 0}k</span>
   </div>
 );
 
 export const NormalRenderer = (params: ICellRendererParams<RowData>) => (
-  <div className="flex h-full items-center">
+  <div className="w-auto flex h-full items-center justify-end">
     <span>{params.value}</span>
   </div>
 );

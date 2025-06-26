@@ -12,9 +12,9 @@ export const AddSortIcon: React.FC<IHeaderParams> = (props) => {
   return (
     <Box
       onClick={handleSort}
-      className="flex items-center justify-between cursor-pointer w-full px-2 h-full"
+      className="flex items-center cursor-pointer justify-end w-fit h-full"
     >
-      <div className="flex items-center gap-2">
+      <div className="flex items-center justify-end gap-2">
         <span className="text-sm font-medium">{props.displayName}</span>
         <PiCaretUpDown className="text-[#CAC4D0]" />
       </div>
@@ -24,7 +24,7 @@ export const AddSortIcon: React.FC<IHeaderParams> = (props) => {
 
 export const InfoIcon: React.FC<IHeaderParams> = (props) => {
   return (
-    <Box className="flex items-center justify-between cursor-pointer w-full px-2 h-full">
+    <Box className="flex items-center justify-end cursor-pointer w-fit h-full">
       <div className="flex items-center gap-2">
         <span className="text-sm font-medium">{props.displayName}</span>
         <Tooltip
@@ -34,6 +34,16 @@ export const InfoIcon: React.FC<IHeaderParams> = (props) => {
         >
           <InfoIconMui sx={{ fontSize: 16, opacity: 0.7 }} />
         </Tooltip>
+      </div>
+    </Box>
+  );
+};
+
+export const NormalHeader: React.FC<IHeaderParams> = (props) => {
+  return (
+    <Box className="flex items-center justify-end cursor-pointer w-fit h-full">
+      <div className="flex items-center gap-2">
+        <span>{props.displayName}</span>
       </div>
     </Box>
   );

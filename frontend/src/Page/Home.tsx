@@ -9,6 +9,8 @@ import { setActiveTab } from '../features/home/homeSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../app/store';
 import React, { useCallback, useMemo } from 'react';
+import TopSales from '../Components/HomeTabsHeader/TopSales';
+import NftSales from '../Components/HomeTabsHeader/NftSales';
 
 const Home = () => {
   const tabs = useMemo<TabItem[]>(() => {
@@ -33,30 +35,12 @@ const Home = () => {
       {
         label: 'NFT Sales',
         value: 'nft_sales',
-        content: (
-          <Typography
-            variant="h4"
-            fontWeight={600}
-            color="custom.whiteLightO1"
-            fontSize={26}
-          >
-            Current NFT Sales
-          </Typography>
-        ),
+        content: <NftSales />,
       },
       {
         label: 'Top Sales',
         value: 'top_sales',
-        content: (
-          <Typography
-            variant="h4"
-            fontWeight={600}
-            color="custom.whiteLightO1"
-            fontSize={26}
-          >
-            Top Sales
-          </Typography>
-        ),
+        content: <TopSales />,
       },
       {
         label: 'Mint Ranking',

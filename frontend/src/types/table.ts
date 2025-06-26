@@ -43,7 +43,7 @@ export interface RowData {
   sampleImages: string[];
 }
 
-export interface Nft_sales {
+export interface NftSalesT {
   id: string;
   token: {
     name: string;
@@ -57,5 +57,37 @@ export interface Nft_sales {
       decimal: number;
     };
   };
+  volumeChange: {
+    '1day': number;
+    '7day': number;
+    '30day': number;
+  };
+  collectionVolume: {
+    '1day': number;
+    '7day': number;
+    '30day': number;
+    allTime: number;
+  };
   washTradingScore: number;
+}
+
+export interface TopSalesT {
+  id: string;
+  token: {
+    name: string;
+    image: string;
+    contract: string;
+    tokenId: string;
+    collectiton: {
+      id: string;
+      name: string;
+    };
+  };
+  price: {
+    amount: {
+      usd: number;
+      decimal: number;
+      row: string;
+    };
+  };
 }

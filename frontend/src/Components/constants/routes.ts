@@ -1,9 +1,9 @@
 import React, { type ComponentType } from 'react';
-import CollectionOverview from '../CollectionOverview/CollectionOverview';
 import CollectionMarket from '../CollectionMarket/CollectionMarket';
 
 const Home = React.lazy(() => import('../../Page/Home'));
 const Screen = React.lazy(() => import('../../Page/Screen'));
+const Collection = React.lazy(() => import('../../Page/Collection'));
 
 interface RouteConfig {
   path: string;
@@ -20,12 +20,12 @@ export const routes: RouteConfig[] = [
     component: Home,  
   },
   {
-    path: '/trendingCollections/assets/buy',
+    path: '/trendingCollections/assets/:id',
     component: Screen,
   },
   {
     path: '/trendingCollections/item/:id',
-    component: CollectionOverview,
+    component: Collection,
   },
   {
     path: '/market',
