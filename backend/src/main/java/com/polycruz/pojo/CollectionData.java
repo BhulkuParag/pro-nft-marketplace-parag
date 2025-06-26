@@ -45,7 +45,7 @@ public class CollectionData {
         return name;
     }
 
-    @JsonProperty("collectionImage")
+    @JsonProperty("image")
     public String getImage() {
         return image;
     }
