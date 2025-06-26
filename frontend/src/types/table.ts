@@ -20,6 +20,9 @@ export interface RowData {
   volume?: number;
   ownerCount?: number;
   openseaVerificationStatus?: string;
+  RarityScore?: string;
+  Quantity?: string;
+  RarityRank?: string;
   topBid?: {
     price: {
       amount: {
@@ -53,5 +56,5 @@ export interface RowData {
   to?: string;
   price?: string;
   time?: string;
+  field?: string;
 }
-

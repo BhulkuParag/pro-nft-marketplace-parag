@@ -45,7 +45,7 @@ export const InfoIconSortIcon: React.FC<IHeaderParams> = (props) => {
   };
 
   return (
-    <Box className="flex items-center justify-between cursor-pointer w-full px-2 py-1">
+    <Box className="flex items-center justify-between cursor-pointer w-full px-1 py-1">
       <div className="flex items-center gap-1">
         <span className="text-sm font-medium">{props.displayName}</span>
         <Box

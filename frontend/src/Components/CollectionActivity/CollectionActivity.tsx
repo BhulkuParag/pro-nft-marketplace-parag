@@ -3,15 +3,8 @@ import {
   Box,
   Paper,
   Typography,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
   Avatar,
   useTheme,
-  type Theme,
   InputBase,
   IconButton,
   Chip,
@@ -22,57 +15,80 @@ import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import { type RowData } from '../../types/table';
+import { AGGridTable } from '../../../@ui-component/Comman/AGGridTable';
+import type { ColDef, ICellRendererParams } from 'ag-grid-community';
+import {
+  AddSortIcon,
+  InfoIconSortIcon,
+} from '../../utils/Table/headerRenderer';
 
-const activityRows: RowData[] = [
-  {
-    id: '1',
-    name: 'Pudgy Penguins',
-    type: 'bid',
-    from: '0x37...a02c',
-    to: '-',
-    price: 'Ξ 6.82',
-    time: '6 s',
-    image: 'https://i.seadn.io/gae/6n3...png',
-    openseaVerificationStatus: 'verified',
-  },
-  {
-    id: '2',
-    name: 'Pudgy Penguins',
-    type: 'bid',
-    from: '0x4b...3324',
-    to: '-',
-    price: 'Ξ 6.82',
-    time: '9 s',
-    image: 'https://i.seadn.io/gae/6n3...png',
-    openseaVerificationStatus: 'verified',
-  },
-  // ...more rows
-];
+const TypeCell = (row: ICellRendererParams<RowData>) => (
+  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, height: '100%' }}>
+    {row.data?.type === 'bid' && (
+      <Avatar
+        src={
+          'https://raw.githubusercontent.com/reservoirprotocol/assets/main/sources/opensea-logo.svg'
+        }
+        alt="opensea"
+        sx={{ width: 24, height: 24, bgcolor: 'transparent' }}
+        variant="rounded"
+      />
+    )}
+    <Typography fontWeight={700} textTransform="lowercase">
+      {row.data?.type}
+    </Typography>
+  </Box>
+);
+
+const PriceCell = (row: ICellRendererParams<RowData>) => (
+  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, height: '100%' }}>
+    <img
+      src={row.data?.image}
+      alt="eth"
+      width={16}
+      height={16}
+      style={{ marginRight: 4, verticalAlign: 'middle' }}
+    />
+    <Typography fontWeight={700} color="text.primary">
+      {row.data?.price?.replace('Ξ', '').trim()}
+    </Typography>
+  </Box>
+);
+
+const AddressCell = (row: ICellRendererParams<RowData>) => (
+  <Typography
+    fontFamily="monospace"
+    fontWeight={500}
+    color="text.primary"
+    sx={{ whiteSpace: 'nowrap' }}
+  >
+    {row.data?.to ?? '-'}
+  </Typography>
+);
 
 // Custom renderers (same as before)
-const CollectionCell = (row: RowData, theme: Theme) => (
+const CollectionCell = (row: ICellRendererParams<RowData>) => (
   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
     <Avatar
-      src={row.image}
-      alt={row.name}
+      src={
+        'https://img.reservoir.tools/images/v2/mainnet/i9YO%2F4yHXUdJsWcTqhqvf2sE%2BcsbkeVl%2B4W8jWCuUkuov0PzHyR9IJ1xIZwBbFfEA%2Bwbk8y%2FqPIB7%2Bl8cd71OhaAEqplwlieK5r99VTmOqcsfmGuFgltwHCGNfo0uIC3Iw%2B%2F2g0%2BMOl%2F7WgreT%2FjGA%3D%3D.png'
+      }
+      alt={row.data?.name}
       sx={{
         width: 32,
         height: 32,
-        border: `2px solid ${
-          theme.palette?.custom?.primaryLight ?? theme.palette.primary.main
-        }`,
       }}
     />
     <Typography fontWeight={700} color="text.primary">
-      {row.name}
+      {row.data?.name}
     </Typography>
-    {row.openseaVerificationStatus === 'verified' && (
+    {row.data?.openseaVerificationStatus === 'verified' && (
       <Box
         component="span"
         sx={{
           ml: 0.5,
-          color:
-            theme.palette?.custom?.primaryLight ?? theme.palette.primary.main,
+          // color:
+          //   theme.palette?.custom?.primaryLight ?? theme.palette.primary.main,
           fontSize: 18,
         }}
       >
@@ -80,48 +96,6 @@ const CollectionCell = (row: RowData, theme: Theme) => (
       </Box>
     )}
   </Box>
-);
-
-const TypeCell = (row: RowData) => (
-  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-    {row.type === 'bid' && (
-      <Avatar
-        src="https://opensea.io/static/images/logos/opensea.svg"
-        alt="opensea"
-        sx={{ width: 24, height: 24, bgcolor: 'transparent' }}
-        variant="rounded"
-      />
-    )}
-    <Typography fontWeight={700} textTransform="lowercase">
-      {row.type}
-    </Typography>
-  </Box>
-);
-
-const PriceCell = (row: RowData, theme: Theme) => (
-  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-    <img
-      src="https://cryptologos.cc/logos/ethereum-eth-logo.png"
-      alt="eth"
-      width={16}
-      height={16}
-      style={{ marginRight: 4, verticalAlign: 'middle' }}
-    />
-    <Typography fontWeight={700} color="text.primary">
-      {row.price?.replace('Ξ', '').trim()}
-    </Typography>
-  </Box>
-);
-
-const AddressCell = (address?: string) => (
-  <Typography
-    fontFamily="monospace"
-    fontWeight={500}
-    color="text.primary"
-    sx={{ whiteSpace: 'nowrap' }}
-  >
-    {address || '-'}
-  </Typography>
 );
 
 // Example filter state
@@ -136,6 +110,200 @@ const Activity: React.FC = () => {
   const theme = useTheme();
   const [filters, setFilters] = React.useState(FILTERS);
 
+  const activityColumns: ColDef<RowData>[] = [
+    {
+      headerName: 'Collection Name',
+      field: 'name',
+      minWidth: 300,
+      cellRenderer: CollectionCell,
+    },
+    {
+      headerName: 'Type',
+      field: 'type',
+      // width: 180,
+      cellRenderer: TypeCell,
+      headerComponent: AddSortIcon,
+    },
+    {
+      headerName: 'Floor Price',
+      field: 'price',
+      minWidth: 140,
+      cellRenderer: PriceCell,
+      headerComponent: InfoIconSortIcon,
+    },
+    {
+      headerName: 'From',
+      field: 'from',
+      // width: 100,
+      headerComponent: AddSortIcon,
+    },
+    {
+      headerName: 'To',
+      field: 'to',
+      // // width: 140,
+      cellRenderer: AddressCell,
+      headerComponent: AddSortIcon,
+      // cellStyle: { fontWeight: 700, textAlign: 'right' },
+    },
+    {
+      headerName: 'Rarity Score',
+      field: 'RarityScore',
+      // width: 140,
+      headerComponent: AddSortIcon,
+      // cellStyle: { fontWeight: 700, textAlign: 'right' },
+    },
+    {
+      headerName: 'Quantity',
+      field: 'Quantity',
+      // width: 140,
+      headerComponent: AddSortIcon,
+      // cellStyle: { fontWeight: 700, textAlign: 'right' },
+    },
+    {
+      headerName: 'Rarity Rank',
+      field: 'RarityRank',
+      // width: 140,
+      headerComponent: AddSortIcon,
+      // cellStyle: { fontWeight: 700, textAlign: 'right' },
+    },
+    {
+      headerName: 'Time',
+      field: 'time',
+      // width: 140,
+      headerComponent: AddSortIcon,
+      // cellStyle: { fontWeight: 700, textAlign: 'right' },
+    },
+  ];
+
+  const activityRows: RowData[] = [
+    {
+      id: '1',
+      name: 'Pudgy Penguins',
+      type: 'bid',
+      from: '0x37...a02c',
+      to: '-',
+      price: 'Ξ 6.82',
+      time: '6 s',
+      image: 'https://marketplace.polycruz.io/eth.svg',
+      openseaVerificationStatus: 'verified',
+      RarityScore: '29.528',
+      Quantity: '1',
+      RarityRank: '352',
+    },
+    {
+      id: '2',
+      name: 'Pudgy Penguins',
+      type: 'bid',
+      from: '0x4b...3324',
+      to: '-',
+      price: 'Ξ 6.82',
+      time: '9 s',
+      image: 'https://marketplace.polycruz.io/eth.svg',
+      openseaVerificationStatus: 'verified',
+      RarityScore: '22.242',
+      Quantity: '1',
+      RarityRank: '3486',
+    },
+    {
+      id: '2',
+      name: 'Pudgy Penguins',
+      type: 'bid',
+      from: '0x4b...3324',
+      to: '-',
+      price: 'Ξ 6.82',
+      time: '9 s',
+      image: 'https://marketplace.polycruz.io/eth.svg',
+      openseaVerificationStatus: 'verified',
+      RarityScore: '29.528',
+      Quantity: '1',
+      RarityRank: '352',
+    },
+    {
+      id: '2',
+      name: 'Pudgy Penguins',
+      type: 'bid',
+      from: '0x4b...3324',
+      to: '-',
+      price: 'Ξ 6.82',
+      time: '9 s',
+      image: 'https://marketplace.polycruz.io/eth.svg',
+      openseaVerificationStatus: 'verified',
+      RarityScore: '',
+      Quantity: '1',
+      RarityRank: '',
+    },
+    {
+      id: '2',
+      name: 'Pudgy Penguins',
+      type: 'bid',
+      from: '0x4b...3324',
+      to: '-',
+      price: 'Ξ 6.82',
+      time: '9 s',
+      image: 'https://marketplace.polycruz.io/eth.svg',
+      openseaVerificationStatus: 'verified',
+      RarityScore: '',
+      Quantity: '1',
+      RarityRank: '',
+    },
+    {
+      id: '2',
+      name: 'Pudgy Penguins',
+      type: 'bid',
+      from: '0x4b...3324',
+      to: '-',
+      price: 'Ξ 6.82',
+      time: '9 s',
+      image: 'https://marketplace.polycruz.io/eth.svg',
+      openseaVerificationStatus: 'verified',
+      RarityScore: '76.417',
+      Quantity: '1',
+      RarityRank: '90',
+    },
+    {
+      id: '2',
+      name: 'Pudgy Penguins',
+      type: 'bid',
+      from: '0x4b...3324',
+      to: '-',
+      price: 'Ξ 6.82',
+      time: '9 s',
+      image: 'https://marketplace.polycruz.io/eth.svg',
+      openseaVerificationStatus: 'verified',
+      RarityScore: '30.528',
+      Quantity: '1',
+      RarityRank: '452',
+    },
+    {
+      id: '2',
+      name: 'Pudgy Penguins',
+      type: 'bid',
+      from: '0x4b...3324',
+      to: '-',
+      price: 'Ξ 6.82',
+      time: '9 s',
+      image: 'https://marketplace.polycruz.io/eth.svg',
+      openseaVerificationStatus: 'verified',
+      RarityScore: '31.528',
+      Quantity: '1',
+      RarityRank: '652',
+    },
+    {
+      id: '2',
+      name: 'Pudgy Penguins',
+      type: 'bid',
+      from: '0x4b...3324',
+      to: '-',
+      price: 'Ξ 6.82',
+      time: '9 s',
+      image: 'https://marketplace.polycruz.io/eth.svg',
+      openseaVerificationStatus: 'verified',
+      RarityScore: '28.528',
+      Quantity: '1',
+      RarityRank: '252',
+    },
+    // ...more rows
+  ];
   const handleDelete = (idx: number) => {
     setFilters((prev) => prev.filter((_, i) => i !== idx));
   };
@@ -143,13 +311,12 @@ const Activity: React.FC = () => {
   const handleClear = () => setFilters([]);
 
   return (
-    <Paper
+    <Box
       sx={{
-        bgcolor: 'background.paper',
+        width: '100%',
+        bgcolor: 'background.default',
         borderRadius: 3,
         p: 3,
-        border: '1px solid',
-        borderColor: 'divider',
         mt: 4,
       }}
     >
@@ -160,6 +327,7 @@ const Activity: React.FC = () => {
           alignItems: 'center',
           gap: 2,
           mb: 2,
+          bgcolor: 'background.default',
           flexWrap: 'wrap',
         }}
       >
@@ -269,99 +437,8 @@ const Activity: React.FC = () => {
           </Link>
         )}
       </Box>
-
-      {/* Table */}
-      <TableContainer
-        sx={{
-          maxHeight: 420,
-          borderRadius: 2,
-          border: `1px solid ${
-            theme.palette?.custom?.borderblack01 ?? theme.palette.divider
-          }`,
-          background: theme.palette.background.default,
-        }}
-      >
-        <Table stickyHeader>
-          <TableHead>
-            <TableRow>
-              <TableCell
-                sx={{
-                  background: theme.palette.background.paper,
-                  fontWeight: 700,
-                }}
-              >
-                #
-              </TableCell>
-              <TableCell
-                sx={{
-                  background: theme.palette.background.paper,
-                  fontWeight: 700,
-                }}
-              >
-                Collection Name
-              </TableCell>
-              <TableCell
-                sx={{
-                  background: theme.palette.background.paper,
-                  fontWeight: 700,
-                }}
-              >
-                Type
-              </TableCell>
-              <TableCell
-                sx={{
-                  background: theme.palette.background.paper,
-                  fontWeight: 700,
-                }}
-              >
-                Floor Price
-              </TableCell>
-              <TableCell
-                sx={{
-                  background: theme.palette.background.paper,
-                  fontWeight: 700,
-                }}
-              >
-                From
-              </TableCell>
-              <TableCell
-                sx={{
-                  background: theme.palette.background.paper,
-                  fontWeight: 700,
-                }}
-              >
-                To
-              </TableCell>
-              <TableCell
-                sx={{
-                  background: theme.palette.background.paper,
-                  fontWeight: 700,
-                }}
-              >
-                Time
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {activityRows.map((row, idx) => (
-              <TableRow key={row.id ?? idx} hover>
-                <TableCell>{idx + 1}</TableCell>
-                <TableCell>{CollectionCell(row, theme)}</TableCell>
-                <TableCell>{TypeCell(row)}</TableCell>
-                <TableCell>{PriceCell(row, theme)}</TableCell>
-                <TableCell>{AddressCell(row.from)}</TableCell>
-                <TableCell>{AddressCell(row.to)}</TableCell>
-                <TableCell>
-                  <Typography fontWeight={700} color="text.primary">
-                    {row.time}
-                  </Typography>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Paper>
+      <AGGridTable columnDefs={activityColumns} rowData={activityRows} />
+    </Box>
   );
 };
 
