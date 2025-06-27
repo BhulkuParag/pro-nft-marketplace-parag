@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Box,
-  Paper,
   Typography,
   Avatar,
   useTheme,
@@ -14,15 +13,15 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import { type RowData } from '../../types/table';
-import { AGGridTable } from '../../../@ui-component/Comman/AGGridTable';
+import { type ItemDetailActivity } from '../../types/table';
+import AGGridTable from '../../../@ui-component/Comman/AGGridTable';
 import type { ColDef, ICellRendererParams } from 'ag-grid-community';
 import {
   AddSortIcon,
   InfoIconSortIcon,
 } from '../../utils/Table/headerRenderer';
 
-const TypeCell = (row: ICellRendererParams<RowData>) => (
+const TypeCell = (row: ICellRendererParams<ItemDetailActivity>) => (
   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, height: '100%' }}>
     {row.data?.type === 'bid' && (
       <Avatar
@@ -40,7 +39,7 @@ const TypeCell = (row: ICellRendererParams<RowData>) => (
   </Box>
 );
 
-const PriceCell = (row: ICellRendererParams<RowData>) => (
+const PriceCell = (row: ICellRendererParams<ItemDetailActivity>) => (
   <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, height: '100%' }}>
     <img
       src={row.data?.image}
@@ -55,7 +54,7 @@ const PriceCell = (row: ICellRendererParams<RowData>) => (
   </Box>
 );
 
-const AddressCell = (row: ICellRendererParams<RowData>) => (
+const AddressCell = (row: ICellRendererParams<ItemDetailActivity>) => (
   <Typography
     fontFamily="monospace"
     fontWeight={500}
@@ -67,7 +66,7 @@ const AddressCell = (row: ICellRendererParams<RowData>) => (
 );
 
 // Custom renderers (same as before)
-const CollectionCell = (row: ICellRendererParams<RowData>) => (
+const CollectionCell = (row: ICellRendererParams<ItemDetailActivity>) => (
   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
     <Avatar
       src={
@@ -110,7 +109,7 @@ const Activity: React.FC = () => {
   const theme = useTheme();
   const [filters, setFilters] = React.useState(FILTERS);
 
-  const activityColumns: ColDef<RowData>[] = [
+  const activityColumns: ColDef<ItemDetailActivity>[] = [
     {
       headerName: 'Collection Name',
       field: 'name',
@@ -175,7 +174,7 @@ const Activity: React.FC = () => {
     },
   ];
 
-  const activityRows: RowData[] = [
+  const activityRows: ItemDetailActivity[] = [
     {
       id: '1',
       name: 'Pudgy Penguins',

@@ -1,8 +1,9 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { RowData } from '../../types/table';
+import type { ActivityType, ItemDetails, RowData } from '../../types/table';
 
 interface CollectionState {
   activeTab: string;
+  itemDetails: ItemDetails;
   tabData: { [key: string]: any };
   columnDefsMap: Record<string, any[]>;
   loading: boolean;
@@ -14,6 +15,7 @@ interface CollectionState {
 
 const initialState: CollectionState = {
   activeTab: 'overview',
+  itemDetails: {},
   collection: '0x5af0d9827e0c53e4799bb226655a1de152a425a5',
   sortBy: 'floorAskPrice',
   limit: 40,
@@ -45,15 +47,31 @@ const collectionSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    fetchItemDetailsDataRequest: (state) => {
+    fetchItemDetailsDataRequest: (state, action: PayloadAction<string>) => {
       state.loading = true;
       state.error = null;
     },
-    fetchItemDetailsDataSuccess: (state, action: PayloadAction<RowData[]>) => {
+    fetchItemDetailsDataSuccess: (
+      state,
+      action: PayloadAction<ItemDetails[]>
+    ) => {
+      state.loading = false;
+      console.log(action.payload[0]);
+      state.itemDetails = action.payload[0];
+    },
+    fetchItemDetailsDataFailure: (state, action: PayloadAction<string>) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    fetchActivityDataRequest: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    fetchActivityDataSuccess: (state, action: PayloadAction<ActivityType[]>) => {
       state.loading = false;
       state.tabData = { ...state.tabData, [state.activeTab]: action.payload };
     },
-    fetchItemDetailsDataFailure: (state, action: PayloadAction<string>) => {
+    fetchActivityDataFailure: (state, action: PayloadAction<string>) => {
       state.loading = false;
       state.error = action.payload;
     },
@@ -63,7 +81,7 @@ const collectionSlice = createSlice({
     setTabData: (
       state,
       action: PayloadAction<{
-        [key: string]: RowData[];
+        [key: string]: ItemDetails[];
       }>
     ) => {
       state.tabData = action.payload;
@@ -81,6 +99,9 @@ export const {
   fetchItemDetailsDataRequest,
   fetchItemDetailsDataSuccess,
   fetchItemDetailsDataFailure,
+  fetchActivityDataRequest,
+  fetchActivityDataSuccess,
+  fetchActivityDataFailure,
   setActiveTab,
   setTabData,
   setCollection,

@@ -114,7 +114,6 @@ const items = [
 const ethIcon = 'https://marketplace.polycruz.io/eth.svg';
 
 const CollectionItems = () => {
-
   const [selectedIds, setSelectedIds] = React.useState<number[]>([]);
   const dispatch = useDispatch();
   const { tabData } = useSelector((state: RootState) => state.collection);
@@ -137,7 +136,10 @@ const CollectionItems = () => {
         }}
       >
         {tabData['items']?.map((item: any) => (
-          <Link to={`/trendingCollections/assets/${item?.token?.collection?.id}`} key={item.id}>
+          <Link
+            to={`/trendingCollections/assets/${item?.token?.collection?.id}:${item?.token?.tokenId}`}
+            key={item?.token?.id}
+          >
             <Card
               sx={{
                 borderRadius: '16px',
@@ -164,6 +166,7 @@ const CollectionItems = () => {
               >
                 <img
                   className="nft-thumbnail"
+                  loading="lazy"
                   src={item.token.metadata.imageOriginal}
                   alt={`NFT #${item.id}`}
                   style={{

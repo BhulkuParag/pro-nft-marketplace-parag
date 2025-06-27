@@ -91,7 +91,7 @@ const initialState: HomeState = {
         cellRenderer: NormalRenderer,
         // minWidth: 110,
         valueGetter: (params: ICellRendererParams<RowData>) =>
-          params.data?.volume.toFixed(2) ?? '',
+          params.data?.volume?.toFixed(2) ?? '',
       },
       {
         field: 'volumeChange',
@@ -99,7 +99,7 @@ const initialState: HomeState = {
         cellRenderer: VolumeRenderer,
         // minWidth: 110,
         valueGetter: (params: ICellRendererParams<RowData>) =>
-          params.data?.volumeChange['1day'].toFixed(2) ?? '',
+          params.data?.volumeChange['1day']?.toFixed(2) ?? '',
       },
       {
         field: 'volumeChange',
@@ -107,7 +107,7 @@ const initialState: HomeState = {
         cellRenderer: VolumeRenderer,
         // minWidth: 110,
         valueGetter: (params: ICellRendererParams<RowData>) =>
-          params.data?.volumeChange['7day'].toFixed(2) ?? '',
+          params.data?.volumeChange['7day']?.toFixed(2) ?? '',
       },
       {
         field: 'collectionVolume',
@@ -115,7 +115,7 @@ const initialState: HomeState = {
         cellRenderer: NormalRenderer,
         minWidth: 200,
         valueGetter: (params: ICellRendererParams<RowData>) =>
-          params.data?.collectionVolume['1day'].toFixed(2) ?? '',
+          params.data?.collectionVolume['1day']?.toFixed(2) ?? '',
       },
       {
         field: 'collectionVolume',
@@ -123,20 +123,22 @@ const initialState: HomeState = {
         cellRenderer: NormalRenderer,
         minWidth: 200,
         valueGetter: (params: ICellRendererParams<RowData>) =>
-          params.data?.collectionVolume['7day'].toFixed(2) ?? '',
+          params.data?.collectionVolume['7day']?.toFixed(2) ?? '',
       },
       {
         field: 'ownerCount',
         headerName: 'Owners',
         cellRenderer: NormalRenderer,
+        headerComponent: AddSortIcon,
         // minWidth: 110,
         valueGetter: (params: ICellRendererParams<RowData>) =>
-          params.data?.ownerCount.toFixed(0) ?? '',
+          params.data?.ownerCount?.toFixed(0) ?? '',
       },
       {
         field: 'Supply',
         headerName: 'Supply',
         cellRenderer: SupplyRenderer,
+        headerComponent: AddSortIcon,
         // minWidth: 120,
       },
     ],
@@ -158,7 +160,7 @@ const initialState: HomeState = {
         flex: 2,
         minWidth: 300,
         valueGetter: (params: ICellRendererParams<NftSalesT>) =>
-          params.data?.token.name ?? '',
+          params.data?.token?.name ?? '',
       },
       {
         field: 'contract',
@@ -228,7 +230,7 @@ const initialState: HomeState = {
         flex: 2,
         minWidth: 300,
         valueGetter: (params: ICellRendererParams<TopSalesT>) =>
-          params.data?.token.collectiton.name ?? '',
+          params.data?.token.collectiton?.name ?? '',
       },
       {
         field: 'token',

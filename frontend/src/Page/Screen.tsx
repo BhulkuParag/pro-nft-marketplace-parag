@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
 import {
   Box,
   Typography,
@@ -8,20 +8,16 @@ import {
   IconButton,
 } from '@mui/material';
 import Chip from '@mui/material/Chip';
-import { AGGridTable } from '../../@ui-component/Comman/AGGridTable';
+import AGGridTable from '../../@ui-component/Comman/AGGridTable';
 import type { ColDef } from 'ag-grid-community';
-import type { RowData } from '../types/table';
+import type { ItemDetailActivity } from '../types/table';
 import { AddSortIcon, InfoIconSortIcon } from '../utils/Table/headerRenderer';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchItemDetailsDataRequest } from '../features/collection/collectionSlice';
+import { useParams } from 'react-router-dom';
+import type { RootState } from '../app/store';
 
-const infoItems = [
-  { label: 'Floor Price', value: 'Ξ 11.40' },
-  { label: 'Rarity', value: '66.799' },
-  { label: 'Rarity Rank', value: '3,900' },
-  { label: 'Owner', value: '0x29...a20b' },
-  { label: 'Token ID', value: '4938' },
-  { label: 'Supply', value: '9,998' },
-];
 const BlurTypeRenderer = (params: any) => (
   <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
     <img
@@ -61,7 +57,7 @@ const AddressRenderer = (params: any) =>
     <span>...</span>
   );
 
-const activityColumns: ColDef<RowData>[] = [
+const activityColumns: ColDef<ItemDetailActivity>[] = [
   {
     headerName: 'Type',
     field: 'type',
@@ -97,7 +93,7 @@ const activityColumns: ColDef<RowData>[] = [
     cellStyle: { fontWeight: 700, textAlign: 'right' },
   },
 ];
-const activityRows: RowData[] = [
+const activityRows: ItemDetailActivity[] = [
   {
     type: 'Ask',
     from: '0x2946...98a20b',
@@ -183,6 +179,37 @@ const traits = [
 ];
 
 const Screen: React.FC = () => {
+  const dispatch = useDispatch();
+  const params = useParams<{ id: string }>();
+  const id = params.id;
+  const ItemDetails = useSelector(
+    (state: RootState) => state.collection.itemDetails
+  );
+
+  const infoItems = useMemo(() => {
+    return [
+      {
+        label: 'Floor Price',
+        value: `Ξ ${ItemDetails.token?.collection.floorAskPrice.amount.decimal}`,
+      },
+      { label: 'Rarity', value: ItemDetails.token?.rarity },
+      { label: 'Rarity Rank', value: ItemDetails.token?.rarityRank },
+      {
+        label: 'Owner',
+        value: `${ItemDetails.token?.owner.slice(
+          0,
+          4
+        )}...${ItemDetails.token?.owner.slice(-4)}`,
+      },
+      { label: 'Token ID', value: ItemDetails.token?.tokenId },
+      { label: 'Supply', value: ItemDetails.token?.collection.tokenCount },
+    ];
+  }, []);
+
+  useEffect(() => {
+    if (id) dispatch(fetchItemDetailsDataRequest(id));
+  }, [id]);
+
   return (
     <Box
       sx={{
@@ -212,6 +239,18 @@ const Screen: React.FC = () => {
         }}
       >
         {/* Badge Row */}
+        <Typography
+          fontSize={24}
+          component={'h1'}
+          sx={{
+            color: 'text.primary',
+          }}
+        >
+          {ItemDetails.token?.collection?.name +
+            ' ' +
+            '#' +
+            ItemDetails.token?.tokenId}
+        </Typography>
         <Box
           sx={{
             display: 'flex',
@@ -226,7 +265,7 @@ const Screen: React.FC = () => {
             sx={{ width: 32, height: 32, mr: 1 }}
           />
           <Chip
-            label="erc721"
+            label={ItemDetails.token?.kind}
             sx={{
               bgcolor: '#6C63B5',
               color: '#fff',
@@ -240,7 +279,8 @@ const Screen: React.FC = () => {
 
         <Box
           component="img"
-          src="https://cryptopunks.app/cryptopunks/cryptopunk7703.png"
+          src={ItemDetails?.token?.collection?.image}
+          loading="lazy"
           alt="NFT"
           sx={{
             width: 440,
