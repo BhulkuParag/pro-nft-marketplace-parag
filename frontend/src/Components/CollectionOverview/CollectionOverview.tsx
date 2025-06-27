@@ -3,10 +3,10 @@ import { styled } from '@mui/material/styles';
 import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import CollectionHero from '../Components/CollectionHero/CollectionHero';
+import CollectionHero from '../CollectionHero/CollectionHero';
 import { useMemo } from 'react';
-import MarketOverview from '../Components/CollectionOverview/MarketOverview';
-import HolderHistory from '../Components/CollectionOverview/HolderHistory';
+import MarketOverview from './MarketOverview';
+import HolderHistory from './HolderHistory';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -95,7 +95,7 @@ const CollectionOverview = () => {
     >
       <Box
         sx={{
-            //   paddingInline: '80px',
+          //   paddingInline: '80px',
           width: '100%',
         }}
       >
@@ -166,7 +166,10 @@ const CollectionOverview = () => {
       </Box>
       <Box component="div" sx={{ p: '0.5rem' }}>
         <HolderHistory />
-        <MarketOverview />
+        <Box component="div">
+        
+          <MarketOverview />
+        </Box>
       </Box>
     </Box>
   );

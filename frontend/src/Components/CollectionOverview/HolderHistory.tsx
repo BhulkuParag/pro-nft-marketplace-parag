@@ -137,13 +137,13 @@ function HolderHistory() {
             >
               <Typography
                 component="span"
-                sx={{ fontSize: '10px', color: 'text.primary' }}
+                sx={{ fontSize: '16px', color: 'custom.thirdText' }}
               >
                 {/* {data?.holders?.value} */}
                 Holder
               </Typography>
-              <IconButton>
-                <InfoOutlineIcon />
+              <IconButton sx={{ color: 'custom.thirdText' }}>
+                <InfoOutlineIcon sx={{ fontSize: '18px' }} />
               </IconButton>
             </Box>
             <Box
@@ -182,6 +182,15 @@ function HolderHistory() {
               backgroundColor: 'secondary.main',
             }}
           >
+            <Typography
+              component="h6"
+              sx={{
+                fontSize: '16px',
+                color: 'custom.thirdText',
+              }}
+            >
+              Numbers of Holder
+            </Typography>
             {cardData.map((item, index) => {
               // Calculate percentage (avoid division by zero)
               const total = data?.holders?.value || 0;
@@ -194,10 +203,10 @@ function HolderHistory() {
                   sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: '1rem',
+                    gap: '0.5rem',
+                    fontSize: '0.875rem ',
 
                     color: 'custom.thirdText',
-                    fontSize: '0.875rem ',
                     lineHeight: '1.25rem',
                     // mt: '1rem',
                   }}
@@ -218,10 +227,23 @@ function HolderHistory() {
                         // gap: '0.5rem',
                       }}
                     >
-                      <span>{item.name}</span>
-                      <span className="font-semibold text-white dark:dext-black">
+                      <Typography
+                        component="span"
+                        sx={{
+                          color: 'custom.thirdText',
+                          fontWeight: 500,
+                          lineHeight: 1.5,
+                          fontSize: '0.7rem',
+                        }}
+                      >
+                        {item.name}
+                      </Typography>
+                      <Typography
+                        component="span"
+                        sx={{ color: 'custom.thirdText', fontWeight: 500 }}
+                      >
                         {item.value}
-                      </span>
+                      </Typography>
                     </Box>
                     <span>{percent.toFixed(2)}%</span>
                     {/* <ProgressBar
@@ -232,7 +254,11 @@ function HolderHistory() {
                           tooltip={`${percent.toFixed(2)}%`}
                           /> */}
                   </Box>
-                  <BorderLinearProgress variant="determinate" value={50} />
+                  <BorderLinearProgress
+                    variant="determinate"
+                    value={50}
+                    sx={{ padding: '0.4rem' }}
+                  />
                 </Box>
               );
             })}
