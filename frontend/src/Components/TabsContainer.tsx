@@ -5,6 +5,7 @@ import { Box, Typography } from '@mui/material';
 import Trending from './HomeTabsHeader/Trending';
 import NftSales from './HomeTabsHeader/NftSales';
 import TopMInitRanking from './HomeTabsHeader/TopMInitRanking';
+import TopSales from './HomeTabsHeader/TopSales';
 
 type TabKey = 'trending' | 'nft_sales' | 'top_sales' | 'top_mint_ranking';
 
@@ -30,16 +31,7 @@ const TabHeader = () => {
       top_sales: {
         label: 'Top Sales',
         value: 'top_sales',
-        content: (
-          <Typography
-            variant="h4"
-            fontWeight={600}
-            color="custom.whiteLightO1"
-            fontSize={26}
-          >
-            Top Sales
-          </Typography>
-        ),
+        content: <TopSales />,
       },
       top_mint_ranking: {
         label: 'Mint Ranking',

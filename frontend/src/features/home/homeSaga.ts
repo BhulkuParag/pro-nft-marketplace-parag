@@ -12,12 +12,14 @@ import {
   fetchNftSalesDataRequest,
   fetchNftSalesDataFailure,
   fetchNftSalesDataSuccess,
+  fetchTopSalesDataRequest,
   fetchTopMintDataRequest,
   fetchTopMintDataSuccess,
   fetchTopMintDataFailure,
 } from './homeSlice';
 import {
   fetchNftSalesData,
+  fetchTopSalesData,
   fetchTrendingData,
   fetchMintRankingData,
 } from '../../api/home';
@@ -41,6 +43,7 @@ function* handleFetchTrendingData() {
     );
   }
 }
+
 function* handleFetchNftSalesData() {
   try {
     const includeTokenMetadata: boolean = yield select(
@@ -48,6 +51,23 @@ function* handleFetchNftSalesData() {
     );
     const data: SagaReturnType<typeof fetchNftSalesData> = yield call(
       fetchNftSalesData,
+      includeTokenMetadata
+    );
+    yield put(fetchNftSalesDataSuccess(data));
+  } catch (error: any) {
+    yield put(
+      fetchNftSalesDataFailure(error.message ?? 'Something went wrong')
+    );
+  }
+}
+
+function* handleFetchTopSalesData() {
+  try {
+    const includeTokenMetadata: boolean = yield select(
+      (state: RootState) => state.home.includeTokenMetadata
+    );
+    const data: SagaReturnType<typeof fetchTopSalesData> = yield call(
+      fetchTopSalesData,
       includeTokenMetadata
     );
     yield put(fetchNftSalesDataSuccess(data));
@@ -78,5 +98,6 @@ function* handleMintRankingData() {
 export function* homeSaga() {
   yield takeLatest(fetchTrendingDataRequest.type, handleFetchTrendingData);
   yield takeLatest(fetchNftSalesDataRequest.type, handleFetchNftSalesData);
+  yield takeLatest(fetchTopSalesDataRequest.type, handleFetchTopSalesData);
   yield takeLatest(fetchTopMintDataRequest.type, handleMintRankingData);
 }

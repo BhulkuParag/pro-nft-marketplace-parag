@@ -1,13 +1,10 @@
 import React, { type ComponentType } from 'react';
-// import CollectionOverview from '../CollectionOverview/CollectionOverview';
 import CollectionMarket from '../CollectionMarket/CollectionMarket';
+import Activity from '../CollectionActivity/CollectionActivity';
 
 const Home = React.lazy(() => import('../../Page/Home'));
 const Screen = React.lazy(() => import('../../Page/Screen'));
-const CollectionOverview = React.lazy(
-  () => import('../../Page/CollectionOverview')
-);
-const AiValuation = React.lazy(() => import('../../Page/AiValuation'));
+const Collection = React.lazy(() => import('../../Page/Collection'));
 
 interface RouteConfig {
   path: string;
@@ -24,12 +21,16 @@ export const routes: RouteConfig[] = [
     component: Home,
   },
   {
-    path: '/trendingCollections/assets/buy',
+    path: '/trendingCollections/assets/:id',
     component: Screen,
   },
   {
+    path: '/ActivityScreen',
+    component: Activity,
+  },
+  {
     path: '/trendingCollections/item/:id',
-    component: CollectionOverview,
+    component: Collection,
   },
   {
     path: '/market',

@@ -1,28 +1,22 @@
-import React, {
-  useMemo,
-} from 'react';
+import React, { useMemo } from 'react';
 import AGGridTable from '../../@ui-component/Comman/AGGridTable';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../app/store';
-import {
-} from '../features/home/homeSlice';
+import {} from '../features/home/homeSlice';
 import { Box } from '@mui/material';
 import Loading from '../../@ui-component/Comman/Loading';
 
 const ActiveTab = () => {
-  const {
-    activeTab,
-    tabData,
-    columnDefsMap,
-    trending_loading,
-  } = useSelector((state: RootState) => state.home);
+  const { activeTab, tabData, columnDefsMap, loading } = useSelector(
+    (state: RootState) => state.home
+  );
 
   const columnDefs = useMemo(
     () => columnDefsMap[activeTab],
     [columnDefsMap, activeTab]
   );
 
-  const rowData = useMemo(() => tabData[activeTab] || [], [tabData, activeTab]);
+  const rowData = useMemo(() => tabData[activeTab] ?? [], [tabData, activeTab]);
 
   //   useEffect(() => {
   //     const socket = io('ws://localhost:8080'); // io
@@ -56,7 +50,7 @@ const ActiveTab = () => {
       <AGGridTable
         columnDefs={columnDefs}
         rowData={rowData}
-        loading={trending_loading}
+        loading={loading}
       />
       {/* )} */}
     </Box>

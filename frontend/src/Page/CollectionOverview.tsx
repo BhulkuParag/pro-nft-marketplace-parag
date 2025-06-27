@@ -4,6 +4,7 @@ import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import CollectionHero from '../Components/CollectionHero/CollectionHero';
+import { useMemo } from 'react';
 import MarketOverview from '../Components/CollectionOverview/MarketOverview';
 import HolderHistory from '../Components/CollectionOverview/HolderHistory';
 
@@ -85,18 +86,17 @@ const CollectionOverview = () => {
   return (
     <Box
       sx={{
-        paddingLeft: '10px',
-        // width: '100vw',
-        minHeight: '100vh',
+        width: '100%',
+        // minHeight: '100vh',
         backgroundColor: 'background.default',
         position: 'relative',
+        padding: '20px',
       }}
     >
       <Box
         sx={{
-          //   paddingInline: '80px',
+            //   paddingInline: '80px',
           width: '100%',
-          paddingTop: '10px',
         }}
       >
         <Typography

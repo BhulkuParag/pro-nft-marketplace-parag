@@ -1,5 +1,10 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { Nft_sales, RowData, TopMintData } from '../../types/table';
+import type {
+  NftSalesT,
+  RowData,
+  TopSalesT,
+  TopMintData,
+} from '../../types/table';
 import {
   CollectionRenderer,
   NormalRenderer,
@@ -22,8 +27,7 @@ interface HomeState {
   tabData: { [key: string]: any };
   columnDefsMap: Record<string, any[]>;
   volume_sales: string;
-  trending_loading: boolean;
-  NftSales_loading: boolean;
+  loading: boolean;
   topMint_loading: boolean;
   time: string;
   timeOptions: Options[];
@@ -66,7 +70,7 @@ const initialState: HomeState = {
       },
       {
         field: 'name',
-        headerName: 'Collection',
+        headerName: 'Collection Name',
         cellRenderer: CollectionRenderer,
         flex: 2,
         minWidth: 300,
@@ -92,10 +96,9 @@ const initialState: HomeState = {
         field: 'volume',
         headerName: 'Volume (24H)',
         cellRenderer: NormalRenderer,
-        headerComponent: AddSortIcon,
         // minWidth: 110,
         valueGetter: (params: ICellRendererParams<RowData>) =>
-          params.data?.volume.toFixed(2) ?? '',
+          params.data?.volume?.toFixed(2) ?? '',
       },
       {
         field: 'volumeChange',
@@ -103,7 +106,7 @@ const initialState: HomeState = {
         cellRenderer: VolumeRenderer,
         // minWidth: 110,
         valueGetter: (params: ICellRendererParams<RowData>) =>
-          params.data?.volumeChange['1day'].toFixed(2) ?? '',
+          params.data?.volumeChange['1day']?.toFixed(2) ?? '',
       },
       {
         field: 'volumeChange',
@@ -111,7 +114,7 @@ const initialState: HomeState = {
         cellRenderer: VolumeRenderer,
         // minWidth: 110,
         valueGetter: (params: ICellRendererParams<RowData>) =>
-          params.data?.volumeChange['7day'].toFixed(2) ?? '',
+          params.data?.volumeChange['7day']?.toFixed(2) ?? '',
       },
       {
         field: 'collectionVolume',
@@ -119,7 +122,7 @@ const initialState: HomeState = {
         cellRenderer: NormalRenderer,
         minWidth: 200,
         valueGetter: (params: ICellRendererParams<RowData>) =>
-          params.data?.collectionVolume['1day'].toFixed(2) ?? '',
+          params.data?.collectionVolume['1day']?.toFixed(2) ?? '',
       },
       {
         field: 'collectionVolume',
@@ -127,22 +130,22 @@ const initialState: HomeState = {
         cellRenderer: NormalRenderer,
         minWidth: 200,
         valueGetter: (params: ICellRendererParams<RowData>) =>
-          params.data?.collectionVolume['7day'].toFixed(2) ?? '',
+          params.data?.collectionVolume['7day']?.toFixed(2) ?? '',
       },
       {
         field: 'ownerCount',
         headerName: 'Owners',
-        headerComponent: AddSortIcon,
         cellRenderer: NormalRenderer,
+        headerComponent: AddSortIcon,
         // minWidth: 110,
         valueGetter: (params: ICellRendererParams<RowData>) =>
-          params.data?.ownerCount.toFixed(0) ?? '',
+          params.data?.ownerCount?.toFixed(0) ?? '',
       },
       {
         field: 'Supply',
         headerName: 'Supply',
-        headerComponent: AddSortIcon,
         cellRenderer: SupplyRenderer,
+        headerComponent: AddSortIcon,
         // minWidth: 120,
       },
     ],
@@ -153,7 +156,7 @@ const initialState: HomeState = {
         minWidth: 70,
         maxWidth: 70,
         cellRenderer: StarRenderer,
-        valueGetter: (params: ICellRendererParams<Nft_sales>) =>
+        valueGetter: (params: ICellRendererParams<NftSalesT>) =>
           params.node?.rowIndex != null ? params.node.rowIndex + 1 : '',
       },
       {
@@ -163,8 +166,8 @@ const initialState: HomeState = {
         headerComponent: AddSortIcon,
         flex: 2,
         minWidth: 300,
-        valueGetter: (params: ICellRendererParams<Nft_sales>) =>
-          params.data?.token.name ?? '',
+        valueGetter: (params: ICellRendererParams<NftSalesT>) =>
+          params.data?.token?.name ?? '',
       },
       {
         field: 'contract',
@@ -172,7 +175,7 @@ const initialState: HomeState = {
         headerComponent: AddSortIcon,
         cellRenderer: NormalRenderer,
         // minWidth: 110,
-        valueGetter: (params: ICellRendererParams<Nft_sales>) =>
+        valueGetter: (params: ICellRendererParams<NftSalesT>) =>
           params.data?.token.contract ?? '',
       },
       {
@@ -181,14 +184,14 @@ const initialState: HomeState = {
         headerComponent: AddSortIcon,
         cellRenderer: NormalRenderer,
         // minWidth: 110,
-        valueGetter: (params: ICellRendererParams<Nft_sales>) =>
+        valueGetter: (params: ICellRendererParams<NftSalesT>) =>
           params.data?.token.tokenId ?? '',
       },
       {
         field: 'Floor Price',
         headerName: 'Floor Price',
         headerComponent: AddSortIcon,
-        cellRenderer: NormalRenderer,
+        cellRenderer: PriceRenderer,
         // minWidth: 110,
       },
       {
@@ -197,7 +200,7 @@ const initialState: HomeState = {
         headerComponent: AddSortIcon,
         cellRenderer: NormalRenderer,
         // minWidth: 110,
-        valueGetter: (params: ICellRendererParams<Nft_sales>) =>
+        valueGetter: (params: ICellRendererParams<NftSalesT>) =>
           params.data?.price.amount.usd.toFixed(0) ?? '',
       },
       {
@@ -206,7 +209,7 @@ const initialState: HomeState = {
         headerComponent: AddSortIcon,
         cellRenderer: NormalRenderer,
         // minWidth: 110,
-        valueGetter: (params: ICellRendererParams<Nft_sales>) =>
+        valueGetter: (params: ICellRendererParams<NftSalesT>) =>
           params.data?.washTradingScore.toFixed(0) ?? '',
       },
       {
@@ -217,7 +220,72 @@ const initialState: HomeState = {
         // minWidth: 110,
       },
     ],
-    top_sales: [],
+    top_sales: [
+      {
+        field: 'id',
+        headerName: '',
+        minWidth: 70,
+        maxWidth: 70,
+        cellRenderer: StarRenderer,
+        valueGetter: (params: ICellRendererParams<TopSalesT>) =>
+          params.node?.rowIndex != null ? params.node.rowIndex + 1 : '',
+      },
+      {
+        field: 'name',
+        headerName: 'Collection Name',
+        cellRenderer: CollectionRenderer,
+        flex: 2,
+        minWidth: 300,
+        valueGetter: (params: ICellRendererParams<TopSalesT>) =>
+          params.data?.token.collectiton?.name ?? '',
+      },
+      {
+        field: 'token',
+        headerName: 'Token',
+        cellRenderer: NormalRenderer,
+        valueGetter: (params: ICellRendererParams<TopSalesT>) =>
+          params.data?.token.name ?? '',
+        // minWidth: 110,
+      },
+      {
+        field: 'contract',
+        headerName: 'Contract',
+        cellRenderer: NormalRenderer,
+        // minWidth: 110,
+        valueGetter: (params: ICellRendererParams<TopSalesT>) =>
+          params.data?.token.contract ?? '',
+      },
+      {
+        field: 'tokenId',
+        headerName: 'Token ID',
+        cellRenderer: NormalRenderer,
+        // minWidth: 110,
+        valueGetter: (params: ICellRendererParams<TopSalesT>) =>
+          params.data?.token.tokenId ?? '',
+      },
+      {
+        field: 'price',
+        headerName: 'Price (ETH)',
+        cellRenderer: PriceRenderer,
+        // minWidth: 110,
+        valueGetter: (params: ICellRendererParams<TopSalesT>) =>
+          params.data?.price.amount.row ?? '',
+      },
+      {
+        field: 'price',
+        headerName: 'Price (USD)',
+        cellRenderer: PriceRenderer,
+        // minWidth: 110,
+        valueGetter: (params: ICellRendererParams<TopSalesT>) =>
+          params.data?.price.amount.usd ?? '',
+      },
+      {
+        field: 'time',
+        headerName: 'Time',
+        cellRenderer: NormalRenderer,
+        // minWidth: 120,
+      },
+    ],
     top_mint_ranking: [
       {
         field: 'id',
@@ -289,8 +357,7 @@ const initialState: HomeState = {
     ],
   },
   volume_sales: 'volume',
-  trending_loading: false,
-  NftSales_loading: false,
+  loading: false,
   topMint_loading: false,
   error: null,
 };
@@ -300,33 +367,46 @@ const homeSlice = createSlice({
   initialState,
   reducers: {
     fetchTrendingDataRequest: (state) => {
-      state.trending_loading = true;
+      state.loading = true;
       state.error = null;
     },
     fetchTrendingDataSuccess: (state, action: PayloadAction<RowData[]>) => {
-      state.trending_loading = false;
+      state.loading = false;
       state.tabData = { ...state.tabData, [state.activeTab]: action.payload };
     },
     fetchTrendingDataFailure: (state, action: PayloadAction<string>) => {
-      state.trending_loading = false;
+      state.loading = false;
       state.error = action.payload;
     },
     fetchNftSalesDataRequest: (state) => {
-      state.NftSales_loading = true;
+      state.loading = true;
       state.error = null;
     },
-    fetchNftSalesDataSuccess: (state, action: PayloadAction<Nft_sales[]>) => {
-      state.NftSales_loading = false;
+    fetchNftSalesDataSuccess: (state, action: PayloadAction<NftSalesT[]>) => {
+      state.loading = false;
       state.tabData = { ...state.tabData, [state.activeTab]: action.payload };
     },
     fetchNftSalesDataFailure: (state, action: PayloadAction<string>) => {
-      state.NftSales_loading = false;
+      state.loading = false;
+      state.error = action.payload;
+    },
+    fetchTopSalesDataRequest: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    fetchTopSalesDataSuccess: (state, action: PayloadAction<TopSalesT[]>) => {
+      state.loading = false;
+      state.tabData = { ...state.tabData, [state.activeTab]: action.payload };
+    },
+    fetchTopSalesDataFailure: (state, action: PayloadAction<string>) => {
+      state.loading = false;
       state.error = action.payload;
     },
     fetchTopMintDataRequest: (state) => {
       state.topMint_loading = true;
       state.error = null;
     },
+
     fetchTopMintDataSuccess: (state, action: PayloadAction<TopMintData[]>) => {
       state.topMint_loading = false;
       state.tabData = { ...state.tabData, [state.activeTab]: action.payload };
@@ -359,9 +439,12 @@ export const {
   fetchTrendingDataRequest,
   fetchTrendingDataSuccess,
   fetchTrendingDataFailure,
-  fetchNftSalesDataFailure,
   fetchNftSalesDataRequest,
   fetchNftSalesDataSuccess,
+  fetchNftSalesDataFailure,
+  fetchTopSalesDataRequest,
+  fetchTopSalesDataSuccess,
+  fetchTopSalesDataFailure,
   fetchTopMintDataRequest,
   fetchTopMintDataSuccess,
   fetchTopMintDataFailure,
