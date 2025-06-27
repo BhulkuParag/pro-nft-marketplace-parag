@@ -20,7 +20,6 @@ const ActiveTab = () => {
 
   //   useEffect(() => {
   //     const socket = io('ws://localhost:8080'); // io
-
   //     // Listen for data updates
   //     socket.on('data-update', (data: any) => {
   //       dispatch(
@@ -30,29 +29,22 @@ const ActiveTab = () => {
   //         })
   //       );
   //     });
-
   //     return () => {
   //       socket.disconnect();
   //     };
   //   }, [activeTab]); // Only re-subscribe when activeTab changes
 
-  // In ActiveTab.tsx or TabsContainer.tsx
-
   return (
-    <Box
-      sx={{
-        padding: { xs: '0px', xl: '0px 20px 20px 20px' },
-      }}
-    >
-      {/* {trending_loading ? (
+    <Box>
+      {loading ? (
         <Loading />
-      ) : ( */}
-      <AGGridTable
-        columnDefs={columnDefs}
-        rowData={rowData}
-        loading={loading}
-      />
-      {/* )} */}
+      ) : (
+        <AGGridTable
+          columnDefs={columnDefs}
+          rowData={rowData}
+          // loading={loading}
+        />
+      )}
     </Box>
   );
 };

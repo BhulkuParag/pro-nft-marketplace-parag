@@ -12,10 +12,16 @@ import {
   fetchItemDetailsDataFailure,
   fetchItemDetailsDataSuccess,
   fetchItemDetailsDataRequest,
+  fetchActivityDataSuccess,
+  fetchActivityDataFailure,
+  fetchActivityDataRequest,
 } from './collectionSlice';
-import { fetchItemDetailData, fetchItemsData } from '../../api/collection';
+import {
+  fetchItemDetailData,
+  fetchItemsData,
+  fetchActivityData,
+} from '../../api/collection';
 import type { RootState } from '../../app/store';
-import { useParams } from 'react-router-dom';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 function* handleFetchItemsData() {
@@ -52,10 +58,31 @@ function* handleFetchItemsDetailData(action: PayloadAction<string>) {
   }
 }
 
+function* handleFetchActivityData() {
+  try {
+    const { type, sortBy, includeMetadata } = yield select(
+      (state: RootState) => state.collection
+    );
+    const data: SagaReturnType<typeof fetchActivityData> = yield call(
+      fetchActivityData,
+      includeMetadata,
+      type,
+      sortBy
+    );
+    yield put(fetchActivityDataSuccess(data));
+  } catch (error: any) {
+    yield put(
+      fetchActivityDataFailure(error.message ?? 'Something went wrong')
+    );
+  }
+}
+
 export function* collectionSaga() {
   yield takeLatest(fetchItemsDataRequest.type, handleFetchItemsData);
   yield takeLatest(
     fetchItemDetailsDataRequest.type,
     handleFetchItemsDetailData
   );
+  yield takeLatest(fetchItemDetailsDataRequest.type, handleFetchItemsDetailData);
+  yield takeLatest(fetchActivityDataRequest.type, handleFetchActivityData);
 }

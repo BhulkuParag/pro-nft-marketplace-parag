@@ -14,6 +14,7 @@ export interface RowData {
   ownerCount?: number;
   mintVolume: number;
   openseaVerificationStatus?: string;
+  mintVolume?: number;
   topBid?: {
     price: {
       amount: {
@@ -659,7 +660,6 @@ export interface ActivityType {
   batchIndex: 0;
   comment: string;
 }
-
 export interface TopMintData {
   id: string; //objectID -- Contract
   name: string; //name -- Collection

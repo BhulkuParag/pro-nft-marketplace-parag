@@ -13,7 +13,7 @@ import {
 import DropDown from '../../../@ui-component/Comman/DropDown';
 import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
 
-const ProgressBar = () => {
+const MarketOverview = () => {
   const [selectedValue, setSelectedValue] = useState<'Traders' | 'WashTraders'>(
     'Traders'
   );
@@ -132,14 +132,18 @@ const ProgressBar = () => {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'start',
-        gap: 2,
-        mt: 2,
+        gap: '1.25rem',
+        mt: '2rem',
       }}
     >
       <Typography
-        component="h4"
-        sx={{ fontSize: '1.3rem', color: 'text.primary' }}
+        component="span"
+        sx={{
+          fontSize: '1.5rem',
+          fontWeight: 600,
+          color: 'text.primary',
+          pl: 1,
+        }}
       >
         Market Overview
       </Typography>
@@ -148,14 +152,12 @@ const ProgressBar = () => {
           width: '100%',
           borderRadius: 5,
           backgroundColor: 'secondary.main',
-          padding: '1.5rem',
+          padding: '24px',
           display: 'flex',
           flexDirection: 'column',
           gap: 2,
         }}
       >
-        {/* Map over the data and render a detail card for each item */}
-
         <Box
           sx={{
             display: 'flex',
@@ -265,26 +267,19 @@ const ProgressBar = () => {
                 flexDirection: 'column',
                 borderRadius: '1rem',
                 gap: 2,
-                p: '1.3rem',
+                p: 4,
                 minHeight: '265px',
                 position: 'relative',
                 backgroundColor: 'background.default',
               }}
             >
-              <Box component="div">
+              <div>
                 <div className="flex items-center justify-between ">
-                  <Typography
-                    component="span"
-                    sx={{
-                      color: 'custom.thirdText',
-                      fontSize: '1rem ',
-                      fontWeight: 600,
-                    }}
-                  >
+                  <span className="text-white text-lg font-medium">
                     {item.title}
-                  </Typography>
+                  </span>
                   <span className="cursor-pointer">
-                    <IconButton sx={{ color: 'custom.thirdText' }}>
+                    <IconButton>
                       <InfoOutlineIcon />
                     </IconButton>
                   </span>
@@ -334,4 +329,4 @@ const ProgressBar = () => {
   );
 };
 
-export default ProgressBar;
+export default MarketOverview;

@@ -5,6 +5,12 @@ import type {
   TopSalesT,
   TopMintData,
 } from '../../types/table';
+import type {
+  NftSalesT,
+  RowData,
+  TopSalesT,
+  TopMintData,
+} from '../../types/table';
 import {
   CollectionRenderer,
   NormalRenderer,
@@ -28,7 +34,6 @@ interface HomeState {
   columnDefsMap: Record<string, any[]>;
   volume_sales: string;
   loading: boolean;
-  topMint_loading: boolean;
   time: string;
   timeOptions: Options[];
   vauleSales: Options[];
@@ -358,7 +363,6 @@ const initialState: HomeState = {
   },
   volume_sales: 'volume',
   loading: false,
-  topMint_loading: false,
   error: null,
 };
 
@@ -403,16 +407,16 @@ const homeSlice = createSlice({
       state.error = action.payload;
     },
     fetchTopMintDataRequest: (state) => {
-      state.topMint_loading = true;
+      state.loading = true;
       state.error = null;
     },
 
     fetchTopMintDataSuccess: (state, action: PayloadAction<TopMintData[]>) => {
-      state.topMint_loading = false;
+      state.loading = false;
       state.tabData = { ...state.tabData, [state.activeTab]: action.payload };
     },
     fetchTopMintDataFailure: (state, action: PayloadAction<string>) => {
-      state.topMint_loading = false;
+      state.loading = false;
       state.error = action.payload;
     },
     setActiveTab: (state, action: PayloadAction<string>) => {

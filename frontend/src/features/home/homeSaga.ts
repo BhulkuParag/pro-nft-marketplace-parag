@@ -21,6 +21,7 @@ import {
   fetchNftSalesData,
   fetchTopSalesData,
   fetchTrendingData,
+  fetchTopSalesData,
   fetchMintRankingData,
 } from '../../api/home';
 import type { RootState } from '../../app/store';

@@ -1,7 +1,8 @@
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import React, { useEffect } from 'react';
 import { fetchNftSalesDataRequest } from '../../features/home/homeSlice';
 import { useDispatch } from 'react-redux';
+import ActiveTab from '../ActiveTab';
 
 const NftSales = () => {
   const dispatch = useDispatch();
@@ -11,14 +12,21 @@ const NftSales = () => {
   }, []);
 
   return (
-    <Typography
-      variant="h4"
-      fontWeight={600}
-      color="custom.whiteLightO1"
-      fontSize={26}
+    <Box
+      sx={{
+        padding: { xs: '0px', xl: '10px 0px 0px 10px' },
+      }}
     >
-      Current NFT Sales
-    </Typography>
+      <Typography
+        variant="h4"
+        fontWeight={600}
+        color="custom.whiteLightO1"
+        fontSize={26}
+      >
+        Current NFT Sales
+      </Typography>
+      <ActiveTab />
+    </Box>
   );
 };
 

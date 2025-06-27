@@ -1,4 +1,4 @@
-import type { ItemDetails, RowData } from '../types/table';
+import type { ActivityType, ItemDetails, RowData } from '../types/table';
 import AXIOS from './axios';
 
 interface ItemsApiResponse {
@@ -10,6 +10,12 @@ interface ItemsApiResponse {
 interface ItemDetailApiResponse {
   data?: {
     tokens?: ItemDetails[];
+  };
+}
+
+interface ActivityApiResponse {
+  data?: {
+    activities?: ActivityType[];
   };
 }
 
@@ -32,4 +38,15 @@ export const fetchItemDetailData = async (
     `/api/v1/reservoir/tokens/item-details?tokens=${token}&sortBy=${sortBy}`
   );
   return response.data?.data?.tokens ?? [];
+};
+
+export const fetchActivityData = async (
+  includeMetadata: boolean,
+  type: string,
+  sortBy: string
+): Promise<ActivityType[]> => {
+  const response = await AXIOS.get<ActivityApiResponse>(
+    `/api/v1/reservoir/activity?sortBy=${sortBy}&includeMetadata=${includeMetadata}&type=${type}`
+  );
+  return response.data?.data?.activities ?? [];
 };

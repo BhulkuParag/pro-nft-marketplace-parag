@@ -83,7 +83,12 @@ function HolderHistory() {
     >
       <Typography
         component="span"
-        sx={{ fontSize: '1.5rem', fontWeight: 600, color: 'text.primary' }}
+        sx={{
+          fontSize: '1.5rem',
+          fontWeight: 600,
+          color: 'text.primary',
+          pl: 1,
+        }}
       >
         Holder History
       </Typography>
