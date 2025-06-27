@@ -5,6 +5,9 @@ import Activity from '../CollectionActivity/CollectionActivity';
 
 const Home = React.lazy(() => import('../../Page/Home'));
 const Screen = React.lazy(() => import('../../Page/Screen'));
+const FeateursCollection = React.lazy(
+  () => import('../../Page/FeateursCollection')
+);
 
 interface RouteConfig {
   path: string;
@@ -24,6 +27,11 @@ export const routes: RouteConfig[] = [
     path: '/trendingCollections/assets/buy',
     component: Screen,
   },
+  {
+    path: '/FeatureCollectonFigma',
+    component: FeateursCollection,
+  },
+
   {
     path: '/ActivityScreen',
     component: Activity,
