@@ -7,6 +7,7 @@ import ActiveTab from '../Components/ActiveTab';
 import TabHeader from '../Components/TabsContainer';
 import { setActiveTab } from '../features/home/homeSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import HomeCard from '../../@ui-component/Comman/HomeCard';
 import type { RootState } from '../app/store';
 import React, { useCallback, useMemo } from 'react';
 import TopSales from '../Components/HomeTabsHeader/TopSales';
@@ -77,12 +78,7 @@ const Home = () => {
       }}
     >
       <SlideCard />
-      <CustomTab
-        tabs={tabs}
-        handleChange={handleChange}
-        selectedTab={activeTab}
-        borderBottom
-      />
+      <CustomTab tabs={tabs} handleChange={handleChange} borderBottom   selectedTab={activeTab}/>
       <Box
         sx={{
           width: '100%',

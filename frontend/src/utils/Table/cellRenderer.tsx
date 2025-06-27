@@ -1,5 +1,6 @@
 import type { ICellRendererParams } from 'ag-grid-community';
 import type { RowData } from '../../types/table';
+import type { TopMintData } from '../../types/table';
 import { Tooltip, Typography } from '@mui/material';
 import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
 import { Link } from 'react-router-dom';
@@ -43,6 +44,10 @@ export const PriceRenderer = (params: ICellRendererParams<RowData>) => {
     usdValue = params.data?.floorAsk?.price?.amount?.usd;
   } else if (field === 'topBid') {
     usdValue = params.data?.topBid?.price?.amount?.usd;
+  } else if (field === 'mintPrice') {
+    usdValue = params.data?.mintPrice.amount.usd;
+  } else if (field === 'mintVolume') {
+    usdValue = params.data?.mintVolume;
   }
 
   return (
@@ -88,3 +93,23 @@ export const NormalRenderer = (params: ICellRendererParams<RowData>) => (
     <span>{params.value}</span>
   </div>
 );
+
+export const HoverRenderer = (params: ICellRendererParams<TopMintData>) => {
+  let hover: String | undefined;
+
+  const field = params.colDef?.field;
+  if (field === 'id') {
+    hover = params.data?.id;
+  }
+  return (
+    <div className="flex h-full items-center cursor-pointer">
+      <Tooltip
+        title={hover !== undefined ? `${hover.toString()}` : ''}
+        placement="top"
+        arrow={true}
+      >
+        <span className="ml-1">{params.value}</span>
+      </Tooltip>
+    </div>
+  );
+};

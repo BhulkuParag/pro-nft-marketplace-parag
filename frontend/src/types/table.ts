@@ -21,6 +21,13 @@ export interface RowData {
       };
     };
   };
+  mintPrice: {
+    //-- Mint Price
+    amount: {
+      usd: number;
+      decimal: number;
+    };
+  };
   volumeChange: {
     '1day': number;
     '7day': number;
@@ -650,4 +657,31 @@ export interface ActivityType {
   logIndex: 0;
   batchIndex: 0;
   comment: string;
+}
+export interface TopMintData {
+  id: string; //objectID -- Contract
+  name: string; //name -- Collection
+  mintCount: number; //529  -- Mints
+  ownerCount: number; //53 -- Notable Minters
+  tokenCount: string; //739 -- Total Supply
+  mintVolume: number; // 1.50 -- Mint Volume
+  mintPrice: {
+    //-- Mint Price
+    amount: {
+      usd: number;
+      decimal: number;
+    };
+  };
+  collectionVolume: {
+    '1day': number;
+    '7day': number;
+    '30day': number;
+    allTime: number;
+  };
+
+  volumeChange: {
+    '1day': number;
+    '7day': number;
+    '30day': number;
+  };
 }

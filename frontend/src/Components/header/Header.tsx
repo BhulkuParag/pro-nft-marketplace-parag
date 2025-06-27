@@ -366,7 +366,7 @@ export default function Header(): JSX.Element {
           borderBottom: '1px solid',
           borderColor: 'divider',
           color: 'text.primary',
-          paddingLeft: { md: '70px', xs: 0 },
+          paddingLeft: { md: '55px', xs: 0 },
         }}
       >
         <Toolbar
@@ -386,6 +386,7 @@ export default function Header(): JSX.Element {
                 gap: 1,
               }}
             >
+              {/* Hamburger Menu */}
               <IconButton
                 edge="start"
                 color="inherit"
@@ -414,6 +415,7 @@ export default function Header(): JSX.Element {
               >
                 {drawerContent}
               </Drawer>
+              {/* Logo */}
               <Box
                 component="div"
                 sx={{
@@ -425,27 +427,30 @@ export default function Header(): JSX.Element {
                 <img
                   src="https://analytic.polycruz.io/_next/static/media/logo.32e9a1fc.svg"
                   alt=""
-                  height={32}
+                  style={{ height: 32 }}
                 />
               </Box>
+              {/* Dropdown */}
               <Box sx={{ width: '100%' }}>
                 <CustomDropdown
                   options={options}
                   value={selected}
                   onChange={setSelected}
-                  disableMenuItemTouchRipple={true}
-                  disableTouchRipple={true}
                 />
               </Box>
+              {/* Search */}
               <Box
                 sx={{
+                  flexGrow: 1,
                   width: '100%',
                   display: 'flex',
-                  alignItems: 'center',
-                  gap: 1,
+                  justifyContent: 'Center',
                 }}
               >
                 <CustomSearch />
+              </Box>
+              {/* Icons */}
+              <Box sx={{ display: 'flex', gap: 1 }}>
                 <IconButton
                   size="large"
                   aria-label="toggle theme"
