@@ -13,9 +13,7 @@ import {
 import DropDown from '../../../@ui-component/Comman/DropDown';
 import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
 
-
-
-const ProgressBar = () => {
+const MarketOverview = () => {
   const [selectedValue, setSelectedValue] = useState<'Traders' | 'WashTraders'>(
     'Traders'
   );
@@ -132,170 +130,188 @@ const ProgressBar = () => {
   return (
     <Box
       sx={{
-        width: '100%',
-        borderRadius: 5,
-        backgroundColor: 'secondary.main',
-        padding: '24px',
-        mt: 2,
         display: 'flex',
         flexDirection: 'column',
-        gap: 2,
+        gap: '1.25rem',
+        mt: '2rem',
       }}
     >
-      {/* Map over the data and render a detail card for each item */}
-
-      <Box
+      <Typography
+        component="span"
         sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
+          fontSize: '1.5rem',
+          fontWeight: 600,
+          color: 'text.primary',
+          pl: 1,
         }}
       >
-        <Box>
-          <Typography
-            variant="h5"
-            sx={{
-              color: 'text.primary',
-            }}
-          >
-            {selectedValue}
-          </Typography>
-        </Box>
-        <Box sx={{ display: 'flex', gap: 3 }}>
-          {/* dropdown */}
-          <Box sx={{}}>
-            <DropDown
-              minWidth={93.84}
-              options={dropdownOptions}
-              value={selectedValue}
-              disableTouchRipple
-              disableMenuItemTouchRipple
-              onChange={(v) => setSelectedValue(v as 'Traders' | 'WashTraders')}
-            />
+        Market Overview
+      </Typography>
+      <Box
+        sx={{
+          width: '100%',
+          borderRadius: 5,
+          backgroundColor: 'secondary.main',
+          padding: '24px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 2,
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Box>
+            <Typography
+              variant="h5"
+              sx={{
+                color: 'text.primary',
+              }}
+            >
+              {selectedValue}
+            </Typography>
           </Box>
-          <Divider
-            flexItem
-            orientation="vertical"
-            sx={{
-              height: '36px',
-              // mt: 1,
-              mr: -1.5,
-              borderColor: 'divider',
-              display: ismobile ? 'none' : 'block',
-            }}
-          />
-          {/* days */}
-          {ismobile ? (
-            <DropDown
-              options={timeOptions}
-              value={selectedTime}
-              onChange={setSelectedTime}
-              disableMenuItemTouchRipple
-              disableTouchRipple
-              minWidth={64}
-              maxHeight={'30vh'}
-              padding="6px 10px"
+          <Box sx={{ display: 'flex', gap: 3 }}>
+            {/* dropdown */}
+            <Box sx={{}}>
+              <DropDown
+                minWidth={93.84}
+                options={dropdownOptions}
+                value={selectedValue}
+                disableTouchRipple
+                disableMenuItemTouchRipple
+                onChange={(v) =>
+                  setSelectedValue(v as 'Traders' | 'WashTraders')
+                }
+              />
+            </Box>
+            <Divider
+              flexItem
+              orientation="vertical"
+              sx={{
+                height: '36px',
+                // mt: 1,
+                mr: -1.5,
+                borderColor: 'divider',
+                display: ismobile ? 'none' : 'block',
+              }}
             />
-          ) : (
-            <Box display="flex">
-              {timeOptions.map((time) => (
-                <Button
-                  key={time.value}
-                  disableTouchRipple
-                  disableElevation
-                  variant={selectedTime === time.value ? 'contained' : 'text'}
-                  size="small"
-                  onClick={() => setSelectedTime(time.value)}
-                  sx={{
-                    minWidth: '35.52px',
-                    height: '36px',
-                    padding: '6px 8px',
-                    color:
-                      selectedTime === time.value
-                        ? 'text.secondary'
-                        : 'custom.lightGrey',
-                    textTransform: 'none',
-                    fontSize: 16,
-                    fontWeight: 400,
-                    borderRadius: 2,
-                    transition: 'none',
-                    backgroundColor:
-                      selectedTime === time.value
-                        ? 'custom.filterBthBg'
-                        : 'transparent',
-                    '&:hover': {
+            {/* days */}
+            {ismobile ? (
+              <DropDown
+                options={timeOptions}
+                value={selectedTime}
+                onChange={setSelectedTime}
+                disableMenuItemTouchRipple
+                disableTouchRipple
+                minWidth={64}
+                maxHeight={'30vh'}
+                padding="6px 10px"
+              />
+            ) : (
+              <Box display="flex">
+                {timeOptions.map((time) => (
+                  <Button
+                    key={time.value}
+                    disableTouchRipple
+                    disableElevation
+                    variant={selectedTime === time.value ? 'contained' : 'text'}
+                    size="small"
+                    onClick={() => setSelectedTime(time.value)}
+                    sx={{
+                      minWidth: '35.52px',
+                      height: '36px',
+                      padding: '6px 8px',
+                      color:
+                        selectedTime === time.value
+                          ? 'text.secondary'
+                          : 'custom.lightGrey',
+                      textTransform: 'none',
+                      fontSize: 16,
+                      fontWeight: 400,
+                      borderRadius: 2,
+                      transition: 'none',
                       backgroundColor:
                         selectedTime === time.value
                           ? 'custom.filterBthBg'
                           : 'transparent',
-                      color: 'text.secondary',
-                    },
-                  }}
-                >
-                  {time.label}
-                </Button>
-              ))}
-            </Box>
-          )}
+                      '&:hover': {
+                        backgroundColor:
+                          selectedTime === time.value
+                            ? 'custom.filterBthBg'
+                            : 'transparent',
+                        color: 'text.secondary',
+                      },
+                    }}
+                  >
+                    {time.label}
+                  </Button>
+                ))}
+              </Box>
+            )}
+          </Box>
         </Box>
-      </Box>
-      <div className="w-full rounded-xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-3 md:gap-8">
-        {(selectedValue === 'Traders'
-          ? TradersCardsData
-          : WashtradeCardsData
-        ).map((item, index) => (
-          <Box
-            key={index}
-            // className="flex flex-col bg-[#18181B] rounded-2xl p-6 min-h-[265px] shadow-md relative"
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              borderRadius: '1rem',
-              gap: 2,
-              p: 4,
-              minHeight: '265px',
-              position: 'relative',
-              backgroundColor: 'background.default',
-            }}
-          >
-            <div>
-              <div className="flex items-center justify-between ">
-                <span className="text-white text-lg font-medium">
-                  {item.title}
-                </span>
-                <span className="cursor-pointer">
-                  <IconButton>
-                    <InfoOutlineIcon />
-                  </IconButton>
-                </span>
-              </div>
-
-              <div className="text-white text-2xl font-bold ">
-                {item.value ?? '$'}
-              </div>
-            </div>
-            <div className="flex flex-1 items-center justify-center">
-              <ProgressCircle
-                value={item.subValue ?? 0}
-                color={item?.color}
-                size="xl"
-                strokeWidth={17}
-                className="circleChart"
-              >
-                <div className="flex flex-col justify-center items-center">
-                  <span className="text-[22px] font-semibold text-white">
-                    {item.subValue !== undefined && item.subValue !== null
-                      ? `${Number(item.subValue).toFixed(3)}%`
-                      : '-'}
+        <div className="w-full rounded-xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-3 md:gap-8">
+          {(selectedValue === 'Traders'
+            ? TradersCardsData
+            : WashtradeCardsData
+          ).map((item, index) => (
+            <Box
+              key={index}
+              // className="flex flex-col bg-[#18181B] rounded-2xl p-6 min-h-[265px] shadow-md relative"
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                borderRadius: '1rem',
+                gap: 2,
+                p: 4,
+                minHeight: '265px',
+                position: 'relative',
+                backgroundColor: 'background.default',
+              }}
+            >
+              <div>
+                <div className="flex items-center justify-between ">
+                  <span className="text-white text-lg font-medium">
+                    {item.title}
+                  </span>
+                  <span className="cursor-pointer">
+                    <IconButton>
+                      <InfoOutlineIcon />
+                    </IconButton>
                   </span>
                 </div>
-              </ProgressCircle>
 
-            </div>
-          </Box>
-        ))}
-      </div>
+                <div className="text-white text-2xl font-bold ">
+                  {item.value ?? '$'}
+                </div>
+              </div>
+              <div className="flex flex-1 items-center justify-center">
+                <ProgressCircle
+                  value={item.subValue ?? 0}
+                  color={item?.color}
+                  size="xl"
+                  strokeWidth={17}
+                  className="circleChart"
+                >
+                  <div className="flex flex-col justify-center items-center">
+                    <span className="text-[22px] font-semibold text-white">
+                      {item.subValue !== undefined && item.subValue !== null
+                        ? `${Number(item.subValue).toFixed(3)}%`
+                        : '-'}
+                    </span>
+                  </div>
+                </ProgressCircle>
+              </div>
+            </Box>
+          ))}
+        </div>
+      </Box>
     </Box>
   );
 };
 
-export default ProgressBar;
+export default MarketOverview;

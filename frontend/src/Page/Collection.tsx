@@ -6,9 +6,12 @@ import type { RootState } from '../app/store';
 import CollectionOverview from '../Components/CollectionOverview/CollectionOverview';
 import CollectionItems from '../Components/CollectionItems/CollectionItems';
 import CollectionFooter from '../Components/CollectionFooter/CollectionFooter';
+import CollectionStandout from '../Components/CollectionStandout/CollectionStandout';
 import { Box } from '@mui/material';
+import AiValuation from './AiValuation';
+import CollectionActivity from '../Components/CollectionActivity/CollectionActivity';
 
-type TabKey = 'overview' | 'items' | 'ai_valuation' | 'standout' | 'activity';
+export type TabKey = 'overview' | 'items' | 'ai_valuation' | 'standout' | 'activity';
 
 interface TabContent {
   label: string;
@@ -32,14 +35,17 @@ const Collection = () => {
       ai_valuation: {
         label: 'AI Valuation',
         value: 'ai_valuation',
+        content: <AiValuation />,
       },
       standout: {
         label: 'Standout',
         value: 'standout',
+        content: <CollectionStandout />,
       },
       activity: {
         label: 'Activity',
         value: 'activity',
+        content: <CollectionActivity />,
       },
     };
   }, []);
@@ -68,7 +74,14 @@ const Collection = () => {
         handleChange={handleChange}
         selectedTab={activeTab}
       />
-      {tabs[activeTab].content}
+      <Box
+        sx={{
+          width: '100%',
+          padding: { xs: '12px 0px', lg: '32px 20px' },
+        }}
+      >
+        {tabs[activeTab].content}
+      </Box>
       <CollectionFooter />
     </Box>
   );

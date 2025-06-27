@@ -13,6 +13,7 @@ export interface RowData {
   volume?: number;
   ownerCount?: number;
   openseaVerificationStatus?: string;
+  mintVolume?: number;
   topBid?: {
     price: {
       amount: {

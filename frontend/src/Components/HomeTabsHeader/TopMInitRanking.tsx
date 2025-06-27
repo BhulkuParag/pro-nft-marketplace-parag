@@ -1,7 +1,8 @@
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import React, { useEffect } from 'react';
 import { fetchTopMintDataRequest } from '../../features/home/homeSlice';
+import ActiveTab from '../ActiveTab';
 
 const TopMInitRanking = () => {
   const dispatch = useDispatch();
@@ -9,14 +10,21 @@ const TopMInitRanking = () => {
     dispatch(fetchTopMintDataRequest());
   }, []);
   return (
-    <Typography
-      variant="h4"
-      fontWeight={600}
-      color="custom.whiteLightO1"
-      fontSize={26}
+    <Box
+      sx={{
+        padding: { xs: '0px', xl: '10px 0px 0px 10px' },
+      }}
     >
-      Top Trending Collections
-    </Typography>
+      <Typography
+        variant="h4"
+        fontWeight={600}
+        color="custom.whiteLightO1"
+        fontSize={26}
+      >
+        Top Trending Collections
+      </Typography>
+      <ActiveTab />
+    </Box>
   );
 };
 

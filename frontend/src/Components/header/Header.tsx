@@ -366,7 +366,7 @@ export default function Header(): JSX.Element {
           borderBottom: '1px solid',
           borderColor: 'divider',
           color: 'text.primary',
-          paddingLeft: { md: '55px', xs: 0 },
+          paddingLeft: { md: '70px', xs: 0 },
         }}
       >
         <Toolbar
@@ -547,7 +547,7 @@ export default function Header(): JSX.Element {
                     width: '165px',
                     backgroundColor: '#FFFFFF',
                     color: 'black',
-                    borderRadius: '10px',
+                    borderRadius: 2,
                     textTransform: 'none',
                     border: '1px solid',
                     borderColor: 'divider',

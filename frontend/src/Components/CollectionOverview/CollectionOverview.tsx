@@ -1,11 +1,11 @@
-import { Box, Typography, Card, CardContent, useTheme } from '@mui/material';
+import { Box, Typography, Card, CardContent } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import CollectionHero from '../Components/CollectionHero/CollectionHero';
-import MarketOverview from '../Components/CollectionOverview/MarketOverview';
-import HolderHistory from '../Components/CollectionOverview/HolderHistory';
+import CollectionHero from '../CollectionHero/CollectionHero';
+import MarketOverview from './MarketOverview';
+import HolderHistory from './HolderHistory';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -25,8 +25,6 @@ const TitleContainer = styled(Box)(({ theme }) => ({
 }));
 
 const CollectionOverview = () => {
-  const theme = useTheme();
-
   const stats = [
     {
       title: 'NFT Volume (24H)',
@@ -89,7 +87,6 @@ const CollectionOverview = () => {
         // minHeight: '100vh',
         backgroundColor: 'background.default',
         position: 'relative',
-        padding: '20px',
       }}
     >
       <Box
@@ -98,17 +95,6 @@ const CollectionOverview = () => {
           width: '100%',
         }}
       >
-        <Typography
-          variant="h4"
-          component="h1"
-          sx={{
-            fontWeight: 'bold',
-            mb: 4,
-            color: theme.palette.text.primary,
-          }}
-        >
-          Collection Overview
-        </Typography>
         <CollectionHero
           image="https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fz9JRSpLYGu7%252BCZoKWtAuAA79K674Y2b4%252F48FTC1v%252BJ4rEwpjEK3D0qjUdzqyInvnSJFH5IaIgEk7pF0NEn6WqgSgbCdGL27rkoWAYjQhV2aH%252F8nBd9uVO2ymg2znWvbXJa379tKUzlm4lW4%252BFvX3Lkybz6boYKjCsVC4GCdwAv31e%252BCSMdhCyyVeL2Un9dcLOA78C2fikkVa0IrHu8NT7ZLNEHOGf3f%252F6Glrmk5hPMQCESBDZgtca2GNwcP7lvjzDJXMS9jKgLqNBZFUSYsb2g%253D%253D%3Fwidth%3D250&w=640&q=75"
           title="Bored Ape Yacht Club"

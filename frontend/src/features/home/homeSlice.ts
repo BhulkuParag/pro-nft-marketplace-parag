@@ -1,5 +1,10 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { NftSalesT, RowData, TopSalesT, TopMintData } from '../../types/table';
+import type {
+  NftSalesT,
+  RowData,
+  TopSalesT,
+  TopMintData,
+} from '../../types/table';
 import {
   CollectionRenderer,
   NormalRenderer,
@@ -280,9 +285,18 @@ const initialState: HomeState = {
         // minWidth: 120,
       },
     ],
-  top_mint_ranking: [
-    {
-      field: 'name',
+    top_mint_ranking: [
+      {
+        field: 'id',
+        headerName: '',
+        minWidth: 70,
+        maxWidth: 70,
+        cellRenderer: StarRenderer,
+        valueGetter: (params: ICellRendererParams<TopMintData>) =>
+          params.node?.rowIndex != null ? params.node.rowIndex + 1 : '',
+      },
+      {
+        field: 'name',
         headerName: 'Collection',
         cellRenderer: CollectionRenderer,
         flex: 2,

@@ -31,11 +31,10 @@ const CollectionHero: React.FC<CollectionHeroProps> = ({
             sx={{
                 background: '#241e70',
                 borderRadius: '18px',
-                p: { xs: 2, md: 4 },
+                p: { xs: 2 },
                 display: 'flex',
                 alignItems: 'flex-start',
                 gap: { xs: 2, md: 4 },
-                mt: 2,
                 mb: 4,
                 minHeight: 220,
             }}

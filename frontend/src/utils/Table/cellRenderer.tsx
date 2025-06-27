@@ -1,7 +1,10 @@
 import type { ICellRendererParams } from 'ag-grid-community';
-import type { RowData } from '../../types/table';
-import type { TopMintData } from '../../types/table';
-import { Tooltip, Typography } from '@mui/material';
+import type {
+  ItemDetailActivity,
+  RowData,
+  TopMintData,
+} from '../../types/table';
+import { Avatar, Box, Tooltip, Typography } from '@mui/material';
 import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
 import { Link } from 'react-router-dom';
 
@@ -95,7 +98,7 @@ export const NormalRenderer = (params: ICellRendererParams<RowData>) => (
 );
 
 export const HoverRenderer = (params: ICellRendererParams<TopMintData>) => {
-  let hover: String | undefined;
+  let hover: string | undefined;
 
   const field = params.colDef?.field;
   if (field === 'id') {
@@ -113,3 +116,80 @@ export const HoverRenderer = (params: ICellRendererParams<TopMintData>) => {
     </div>
   );
 };
+
+export const TypeCell = (row: ICellRendererParams<ItemDetailActivity>) => (
+  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, height: '100%' }}>
+    {row.data?.type === 'bid' && (
+      <Avatar
+        src={
+          'https://raw.githubusercontent.com/reservoirprotocol/assets/main/sources/opensea-logo.svg'
+        }
+        alt="opensea"
+        sx={{ width: 24, height: 24, bgcolor: 'transparent' }}
+        variant="rounded"
+      />
+    )}
+    <Typography fontWeight={700} textTransform="lowercase">
+      {row.data?.type}
+    </Typography>
+  </Box>
+);
+
+export const PriceCell = (row: ICellRendererParams<ItemDetailActivity>) => (
+  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, height: '100%' }}>
+    <img
+      src={row.data?.image}
+      alt="eth"
+      width={16}
+      height={16}
+      style={{ marginRight: 4, verticalAlign: 'middle', backgroundColor: '' }}
+    />
+    <Typography fontWeight={700} color="text.primary">
+      {row.data?.price?.replace('Ξ', '').trim()}
+    </Typography>
+  </Box>
+);
+
+export const AddressCell = (row: ICellRendererParams<ItemDetailActivity>) => (
+  <Typography
+    fontFamily="monospace"
+    fontWeight={500}
+    color="text.primary"
+    sx={{ whiteSpace: 'nowrap' }}
+  >
+    {row.data?.to ?? '-'}
+  </Typography>
+);
+
+export const CollectionCell = (
+  row: ICellRendererParams<ItemDetailActivity>
+) => (
+  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+    <Avatar
+      src={
+        'https://img.reservoir.tools/images/v2/mainnet/i9YO%2F4yHXUdJsWcTqhqvf2sE%2BcsbkeVl%2B4W8jWCuUkuov0PzHyR9IJ1xIZwBbFfEA%2Bwbk8y%2FqPIB7%2Bl8cd71OhaAEqplwlieK5r99VTmOqcsfmGuFgltwHCGNfo0uIC3Iw%2B%2F2g0%2BMOl%2F7WgreT%2FjGA%3D%3D.png'
+      }
+      alt={row.data?.name}
+      sx={{
+        width: 32,
+        height: 32,
+      }}
+    />
+    <Typography fontWeight={700} color="text.primary">
+      {row.data?.name}
+    </Typography>
+    {row.data?.openseaVerificationStatus === 'verified' && (
+      <Box
+        component="span"
+        sx={{
+          ml: 0.5,
+          // color:
+          //   theme.palette?.custom?.primaryLight ?? theme.palette.primary.main,
+          fontSize: 18,
+        }}
+      >
+        {/* &#10003; */}
+      </Box>
+    )}
+  </Box>
+);

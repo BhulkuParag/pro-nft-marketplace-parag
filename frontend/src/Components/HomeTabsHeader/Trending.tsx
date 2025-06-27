@@ -1,10 +1,16 @@
 import React from 'react';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import TableFilterBar from '../ui/TableFilterBar';
+import ActiveTab from '../ActiveTab';
 
 const Trending = () => {
   return (
-    <>
+    <Box
+      sx={{
+        width: '100%',
+        padding: { xs: '0px', xl: '20px' },
+      }}
+    >
       <Typography
         variant="h4"
         fontWeight={600}
@@ -14,7 +20,8 @@ const Trending = () => {
         Top Trending Collections
       </Typography>
       <TableFilterBar />
-    </>
+      <ActiveTab />
+    </Box>
   );
 };
 

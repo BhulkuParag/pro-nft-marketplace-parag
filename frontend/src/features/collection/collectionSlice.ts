@@ -1,5 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { ActivityType, ItemDetails, RowData } from '../../types/table';
+import { AddSortIcon, InfoIconSortIcon } from '../../utils/Table/headerRenderer';
+import { AddressCell, CollectionCell, PriceCell, TypeCell } from '../../utils/Table/cellRenderer';
 
 interface CollectionState {
   activeTab: string;
@@ -8,14 +10,26 @@ interface CollectionState {
   columnDefsMap: Record<string, any[]>;
   loading: boolean;
   collection: string;
-  sortBy: string;
+  sortBy: 'eventTimestamp' | 'floorAskPrice' | '';
+  includeMetadata: boolean;
   limit: number;
+  type:
+    | 'ask_cancel'
+    | 'sale'
+    | 'mint'
+    | 'transfer'
+    | 'ask'
+    | 'bid'
+    | 'bid_cancel'
+    | '';
   error: string | null;
 }
 
 const initialState: CollectionState = {
   activeTab: 'overview',
   itemDetails: {},
+  includeMetadata: false,
+  type: '',
   collection: '0x5af0d9827e0c53e4799bb226655a1de152a425a5',
   sortBy: 'floorAskPrice',
   limit: 40,
@@ -25,7 +39,70 @@ const initialState: CollectionState = {
     items: [],
     ai_valuation: [],
     standout: [],
-    activity: [],
+    activity: [
+        {
+          headerName: 'Collection Name',
+          field: 'name',
+          minWidth: 300,
+          cellRenderer: CollectionCell,
+        },
+        {
+          headerName: 'Type',
+          field: 'type',
+          // width: 180,
+          cellRenderer: TypeCell,
+          headerComponent: AddSortIcon,
+        },
+        {
+          headerName: 'Floor Price',
+          field: 'price',
+          minWidth: 140,
+          cellRenderer: PriceCell,
+          headerComponent: InfoIconSortIcon,
+        },
+        {
+          headerName: 'From',
+          field: 'from',
+          // width: 100,
+          headerComponent: AddSortIcon,
+        },
+        {
+          headerName: 'To',
+          field: 'to',
+          // // width: 140,
+          cellRenderer: AddressCell,
+          headerComponent: AddSortIcon,
+          // cellStyle: { fontWeight: 700, textAlign: 'right' },
+        },
+        {
+          headerName: 'Rarity Score',
+          field: 'RarityScore',
+          // width: 140,
+          headerComponent: AddSortIcon,
+          // cellStyle: { fontWeight: 700, textAlign: 'right' },
+        },
+        {
+          headerName: 'Quantity',
+          field: 'Quantity',
+          // width: 140,
+          headerComponent: AddSortIcon,
+          // cellStyle: { fontWeight: 700, textAlign: 'right' },
+        },
+        {
+          headerName: 'Rarity Rank',
+          field: 'RarityRank',
+          // width: 140,
+          headerComponent: AddSortIcon,
+          // cellStyle: { fontWeight: 700, textAlign: 'right' },
+        },
+        {
+          headerName: 'Time',
+          field: 'time',
+          // width: 140,
+          headerComponent: AddSortIcon,
+          // cellStyle: { fontWeight: 700, textAlign: 'right' },
+        },
+      ],
   },
   loading: false,
   error: null,
@@ -67,7 +144,10 @@ const collectionSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
-    fetchActivityDataSuccess: (state, action: PayloadAction<ActivityType[]>) => {
+    fetchActivityDataSuccess: (
+      state,
+      action: PayloadAction<ActivityType[]>
+    ) => {
       state.loading = false;
       state.tabData = { ...state.tabData, [state.activeTab]: action.payload };
     },

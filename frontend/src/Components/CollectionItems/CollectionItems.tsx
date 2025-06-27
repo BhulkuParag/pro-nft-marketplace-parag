@@ -123,7 +123,7 @@ const CollectionItems = () => {
   }, []);
 
   return (
-    <Box sx={{ p: 4, background: '#191919', minHeight: '100vh' }}>
+    <Box sx={{ background: '#191919', minHeight: '100vh' }}>
       <Box
         sx={{
           display: 'grid',
