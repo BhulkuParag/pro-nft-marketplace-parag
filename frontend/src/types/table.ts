@@ -12,6 +12,7 @@ export interface RowData {
   image: string;
   volume: number;
   ownerCount: number;
+  mintVolume: number;
   openseaVerificationStatus: string;
   topBid: {
     price: {
@@ -19,6 +20,13 @@ export interface RowData {
         usd: number;
         decimal: number;
       };
+    };
+  };
+  mintPrice: {
+    //-- Mint Price
+    amount: {
+      usd: number;
+      decimal: number;
     };
   };
   volumeChange: {
@@ -58,4 +66,32 @@ export interface Nft_sales {
     };
   };
   washTradingScore: number;
+}
+
+export interface TopMintData {
+  id: string; //objectID -- Contract
+  name: string; //name -- Collection
+  mintCount: number; //529  -- Mints
+  ownerCount: number; //53 -- Notable Minters
+  tokenCount: string; //739 -- Total Supply
+  mintVolume: number; // 1.50 -- Mint Volume
+  mintPrice: {
+    //-- Mint Price
+    amount: {
+      usd: number;
+      decimal: number;
+    };
+  };
+  collectionVolume: {
+    '1day': number;
+    '7day': number;
+    '30day': number;
+    allTime: number;
+  };
+
+  volumeChange: {
+    '1day': number;
+    '7day': number;
+    '30day': number;
+  };
 }

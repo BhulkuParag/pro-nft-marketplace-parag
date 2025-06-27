@@ -1,4 +1,4 @@
-import type { RowData } from '../types/table';
+import type { RowData, TopMintData } from '../types/table';
 import AXIOS from './axios';
 
 // Define the expected response shapes
@@ -11,6 +11,12 @@ interface TrendingApiResponse {
 interface NftSalesApiResponse {
   data?: {
     sales?: any[];
+  };
+}
+
+interface MintRankingApiResponse {
+  data?: {
+    mints?: TopMintData[];
   };
 }
 
@@ -31,4 +37,14 @@ export const fetchNftSalesData = async (
     `/api/v1/reservoir/nft-sales?includeTokenMetadata=${includeTokenMetadata}`
   );
   return response.data?.data?.sales ?? [];
+};
+
+export const fetchMintRankingData = async (
+  period: string,
+  sortBy: string
+): Promise<TopMintData[]> => {
+  const response = await AXIOS.get<MintRankingApiResponse>(
+    `/api/v1/reservoir/trending-mints?period=${period}&sortBy=${sortBy}`
+  );
+  return response.data?.data?.mints ?? [];
 };

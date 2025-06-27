@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { Nft_sales, RowData } from '../../types/table';
+import type { Nft_sales, RowData, TopMintData } from '../../types/table';
 import {
   CollectionRenderer,
   NormalRenderer,
@@ -7,6 +7,7 @@ import {
   StarRenderer,
   SupplyRenderer,
   VolumeRenderer,
+  HoverRenderer,
 } from '../../utils/Table/cellRenderer';
 import { AddSortIcon, InfoIcon } from '../../utils/Table/headerRenderer';
 import type { ICellRendererParams } from 'ag-grid-community';
@@ -23,6 +24,7 @@ interface HomeState {
   volume_sales: string;
   trending_loading: boolean;
   NftSales_loading: boolean;
+  topMint_loading: boolean;
   time: string;
   timeOptions: Options[];
   vauleSales: Options[];
@@ -216,11 +218,80 @@ const initialState: HomeState = {
       },
     ],
     top_sales: [],
-    top_mint_ranking: [],
+    top_mint_ranking: [
+      {
+        field: 'id',
+        headerName: '',
+        minWidth: 70,
+        maxWidth: 70,
+        cellRenderer: StarRenderer,
+        valueGetter: (params: ICellRendererParams<TopMintData>) =>
+          params.node?.rowIndex != null ? params.node.rowIndex + 1 : '',
+      },
+      {
+        field: 'name',
+        headerName: 'Collection',
+        cellRenderer: CollectionRenderer,
+        flex: 2,
+        minWidth: 300,
+        valueGetter: (params: ICellRendererParams<TopMintData>) =>
+          params.data?.name.toString(),
+      },
+      {
+        field: 'id',
+        headerName: 'Contract',
+        cellRenderer: HoverRenderer,
+        // minWidth: 160,
+        valueGetter: (params: ICellRendererParams<TopMintData>) =>
+          params.data?.id.slice(0, 6) + '...' + params.data?.id.slice(-4),
+      },
+      {
+        field: 'mintCount',
+        headerName: 'Mints',
+        headerComponent: AddSortIcon,
+        cellRenderer: PriceRenderer,
+        // minWidth: 110,
+        valueGetter: (params: ICellRendererParams<TopMintData>) =>
+          params.data?.mintCount.toFixed(0) ?? '',
+      },
+      {
+        field: 'ownerCount',
+        headerName: 'Notable Minters',
+        headerComponent: AddSortIcon,
+        cellRenderer: NormalRenderer,
+        valueGetter: (params: ICellRendererParams<TopMintData>) =>
+          params.data?.ownerCount.toFixed(0) ?? '',
+      },
+      {
+        field: 'mintPrice',
+        headerName: 'Mint Price',
+        headerComponent: AddSortIcon,
+        cellRenderer: PriceRenderer,
+        valueGetter: (params: ICellRendererParams<TopMintData>) =>
+          params.data?.mintPrice.amount.decimal.toFixed(2) ?? '',
+      },
+      {
+        field: 'tokenCount',
+        headerName: 'Total Supply',
+        headerComponent: AddSortIcon,
+        cellRenderer: NormalRenderer,
+        valueGetter: (params: ICellRendererParams<TopMintData>) =>
+          params.data?.tokenCount.toString() ?? '',
+      },
+      {
+        field: 'mintVolume',
+        headerName: 'Mint Volume',
+        headerComponent: AddSortIcon,
+        cellRenderer: PriceRenderer,
+        valueGetter: (params: ICellRendererParams<TopMintData>) =>
+          params.data?.mintVolume.toFixed(2) ?? '',
+      },
+    ],
   },
   volume_sales: 'volume',
   trending_loading: false,
   NftSales_loading: false,
+  topMint_loading: false,
   error: null,
 };
 
@@ -252,6 +323,18 @@ const homeSlice = createSlice({
       state.NftSales_loading = false;
       state.error = action.payload;
     },
+    fetchTopMintDataRequest: (state) => {
+      state.topMint_loading = true;
+      state.error = null;
+    },
+    fetchTopMintDataSuccess: (state, action: PayloadAction<TopMintData[]>) => {
+      state.topMint_loading = false;
+      state.tabData = { ...state.tabData, [state.activeTab]: action.payload };
+    },
+    fetchTopMintDataFailure: (state, action: PayloadAction<string>) => {
+      state.topMint_loading = false;
+      state.error = action.payload;
+    },
     setActiveTab: (state, action: PayloadAction<string>) => {
       state.activeTab = action.payload;
     },
@@ -279,6 +362,9 @@ export const {
   fetchNftSalesDataFailure,
   fetchNftSalesDataRequest,
   fetchNftSalesDataSuccess,
+  fetchTopMintDataRequest,
+  fetchTopMintDataSuccess,
+  fetchTopMintDataFailure,
   setActiveTab,
   setTabData,
   setTime,

@@ -4,6 +4,7 @@ import type { RootState } from '../app/store';
 import { Box, Typography } from '@mui/material';
 import Trending from './HomeTabsHeader/Trending';
 import NftSales from './HomeTabsHeader/NftSales';
+import TopMInitRanking from './HomeTabsHeader/TopMInitRanking';
 
 type TabKey = 'trending' | 'nft_sales' | 'top_sales' | 'top_mint_ranking';
 
@@ -43,16 +44,7 @@ const TabHeader = () => {
       top_mint_ranking: {
         label: 'Mint Ranking',
         value: 'top_mint_ranking',
-        content: (
-          <Typography
-            variant="h4"
-            fontWeight={600}
-            color="custom.whiteLightO1"
-            fontSize={26}
-          >
-            Top Mint Ranking
-          </Typography>
-        ),
+        content: <TopMInitRanking />,
       },
     };
   }, []);
