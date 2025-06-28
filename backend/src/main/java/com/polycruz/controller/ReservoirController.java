@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.polycruz.pojo.ActivityResponse;
+import com.polycruz.pojo.ChainStatsResponse;
 import com.polycruz.pojo.CollectionsV7Response;
 import com.polycruz.pojo.NftSalesResponse;
 import com.polycruz.pojo.SalesApiResponse;
@@ -127,6 +128,14 @@ public class ReservoirController {
     ) {
         return new ResponseEntity<>(transformer.transform(vendorService.fetchTokenDetails(currency)), HttpStatus.OK);
     }
+     
+     @GetMapping("/stats")
+     @Operation(summary = "chain stats v1")
+     public ResponseEntity<TechResponse<ChainStatsResponse>> getChainStats(
+            
+     ) {
+         return new ResponseEntity<>(transformer.transform(vendorService.getChainStats()), HttpStatus.OK);
+     }
 
 }
 
