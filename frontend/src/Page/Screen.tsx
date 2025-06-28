@@ -1,804 +1,485 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Box,
-  IconButton,
   Typography,
-  Button,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
   Avatar,
-  Tabs,
-  Tab,
-  useTheme,
+  Paper,
+  Button,
+  IconButton,
 } from '@mui/material';
+import Chip from '@mui/material/Chip';
+import { AGGridTable } from '../../@ui-component/Comman/AGGridTable';
+import type { ColDef } from 'ag-grid-community';
+import type { RowData } from '../types/table';
+import { AddSortIcon, InfoIconSortIcon } from '../utils/Table/headerRenderer';
+import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+const infoItems = [
+  { label: 'Floor Price', value: 'Ξ 11.40' },
+  { label: 'Rarity', value: '66.799' },
+  { label: 'Rarity Rank', value: '3,900' },
+  { label: 'Owner', value: '0x29...a20b' },
+  { label: 'Token ID', value: '4938' },
+  { label: 'Supply', value: '9,998' },
+];
+const BlurTypeRenderer = (params: any) => (
+  <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+    <img
+      src="https://analytic.polycruz.io/_next/image?url=https%3A%2F%2Fblur.io%2Ffavicons%2F180.png&w=48&q=75"
+      alt="blur"
+      width={22}
+      height={22}
+      style={{ marginRight: 4, verticalAlign: 'middle' }}
+    />
+    <span style={{ textTransform: 'lowercase', fontWeight: 700 }}>
+      {params.value}
+    </span>
+  </span>
+);
+
+const PriceRenderer = (params: any) => (
+  <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+    <img
+      src="https://marketplace.polycruz.io/eth.svg"
+      alt="eth"
+      width={16}
+      height={16}
+      style={{ marginRight: 4, verticalAlign: 'middle' }}
+    />
+    <span style={{ fontWeight: 700 }}>
+      {params.value.replace('Ξ', '').trim()}
+    </span>
+  </span>
+);
+
+const AddressRenderer = (params: any) =>
+  params.value ? (
+    <span style={{ fontFamily: 'monospace', fontWeight: 500 }}>
+      {params.value}
+    </span>
+  ) : (
+    <span>...</span>
+  );
+
+const activityColumns: ColDef<RowData>[] = [
+  {
+    headerName: 'Type',
+    field: 'type',
+    width: 100,
+    cellRenderer: BlurTypeRenderer,
+  },
+  {
+    headerName: 'From Address',
+    field: 'from',
+    width: 180,
+    cellRenderer: AddressRenderer,
+    headerComponent: InfoIconSortIcon,
+  },
+  {
+    headerName: 'To Address',
+    field: 'to',
+    width: 180,
+    cellRenderer: AddressRenderer,
+    headerComponent: AddSortIcon,
+  },
+  {
+    headerName: 'Price',
+    field: 'price',
+    width: 100,
+    cellRenderer: PriceRenderer,
+    headerComponent: AddSortIcon,
+  },
+  {
+    headerName: 'Time',
+    field: 'time',
+    width: 140,
+    headerComponent: AddSortIcon,
+    cellStyle: { fontWeight: 700, textAlign: 'right' },
+  },
+];
+const activityRows: RowData[] = [
+  {
+    type: 'Ask',
+    from: '0x2946...98a20b',
+    to: '...',
+    price: 'Ξ 11.40',
+    time: '23 minutes ago',
+  },
+  {
+    type: 'Ask',
+    from: '0x2946...98a20b',
+    to: '...',
+    price: 'Ξ 11.40',
+    time: '23 minutes ago',
+  },
+  {
+    type: 'Ask',
+    from: '0x2946...98a20b',
+    to: '...',
+    price: 'Ξ 11.40',
+    time: '23 minutes ago',
+  },
+  {
+    type: 'Ask',
+    from: '0x2946...98a20b',
+    to: '  ...  ',
+    price: 'Ξ 11.40',
+    time: '23 minutes ago',
+  },
+  {
+    type: 'Ask',
+    from: '0x2946...98a20b',
+    to: '  ...  ',
+    price: 'Ξ 11.40',
+    time: '23 minutes ago',
+  },
+  {
+    type: 'Ask',
+    from: '0x2946...98a20b',
+    to: '  ...  ',
+    price: 'Ξ 11.40',
+    time: '23 minutes ago',
+  },
+  {
+    type: 'Ask',
+    from: '0x2946...98a20b',
+    to: '  ...  ',
+    price: 'Ξ 11.40',
+    time: '23 minutes ago',
+  },
+  {
+    type: 'Ask',
+    from: '0x2946...98a20b',
+    to: '  ...  ',
+    price: 'Ξ 11.40',
+    time: '23 minutes ago',
+  },
+  {
+    type: 'Ask',
+    from: '0x2946...98a20b',
+    to: '  ...  ',
+    price: 'Ξ 11.40',
+    time: '23 minutes ago',
+  },
+  {
+    type: 'Ask',
+    from: '0x2946...98a20b',
+    to: '  ...  ',
+    price: 'Ξ 11.40',
+    time: '23 minutes ago',
+  },
+  // ...add more rows as needed
+];
+
+const traits = [
+  { label: 'TRAIT COUNT', value: '6', rarity: '5326 (53.3%)' },
+  { label: 'MOUTH', value: 'Phoneme ooo', rarity: '256 (2.6%)' },
+  { label: 'Hat', value: 'Safari', rarity: '182 (1.8%)' },
+  { label: 'Fur', value: 'Golden Brown', rarity: '779 (7.8%)' },
+  { label: 'Eyes', value: 'Coins', rarity: '479 (4.8%)' },
+  { label: 'Clothes', value: 'Wool Turtleneck', rarity: '240 (2.4%)' },
+  { label: 'Background', value: 'Blue', rarity: '1242 (12.4%)' },
+  { label: 'APECOIN STAKED', value: '0 - 1 ApeCoin', rarity: '8548 (85.5%)' },
+];
 
 const Screen: React.FC = () => {
-  const theme = useTheme();
-
-  const [tab, setTab] = useState(0);
-
-  // Info items for the info row
-  const infoItems = [
-    { label: 'Created By', value: 'Crypt...unks' },
-    { label: 'Created Date', value: '2022-09-13' },
-    { label: 'Owner', value: '0xa2...7aa7' },
-    { label: 'Floor Price', value: '42.69' },
-    { label: 'Supply', value: '9,996' },
-    { label: 'Type', value: 'cryptopunks' },
-  ];
-
   return (
     <Box
       sx={{
-        display: 'grid',
-        gridTemplateColumns: {
-          lg: '25% 1fr',
-          md: '25% 1fr',
-          sm: '1fr',
-          xs: '1fr',
-        },
-        // gridTemplateRows: 'auto',
-        gap: 1,
-        alignItems: 'start',
+        display: 'flex',
+        flexDirection: { xs: 'column', md: 'row' },
+        gap: { xs: 2, md: 1 },
+        alignItems: { xs: 'stretch', md: 'flex-start' },
         width: '100%',
         backgroundColor: 'background.default',
+        p: { xs: 1, md: 2 },
+        minHeight: '100vh',
       }}
     >
-      {/* Left Side: Image and Accordion */}
-
+      {/* Left: NFT Image */}
       <Box
         sx={{
-          // bgcolor: 'background.paper',
-          p: 2,
-          width: '100%',
+          flex: { xs: 'unset', md: '0 0 480px' },
           display: 'flex',
-
-          gap: 2,
           flexDirection: 'column',
-          alignItems: 'center',
+          alignItems: { xs: 'center', md: 'flex-start' },
+          bgcolor: 'background.paper',
+          borderRadius: 4,
+          p: { xs: 1, md: 2 },
+          minHeight: { xs: 'auto', md: 600 },
+          width: { xs: '100%', md: 'auto' },
+          mb: { xs: 2, md: 0 },
         }}
       >
-        {/* image */}
+        {/* Badge Row */}
+        <Box
+          sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            alignItems: 'center',
+            mb: 2,
+          }}
+        >
+          <Avatar
+            src="https://cryptopunks.app/favicon.ico"
+            alt="Collection"
+            sx={{ width: 32, height: 32, mr: 1 }}
+          />
+          <Chip
+            label="erc721"
+            sx={{
+              bgcolor: '#6C63B5',
+              color: '#fff',
+              fontWeight: 700,
+              fontSize: 18,
+              borderRadius: 2,
+              height: 32,
+            }}
+          />
+        </Box>
+
         <Box
           component="img"
           src="https://cryptopunks.app/cryptopunks/cryptopunk7703.png"
-          alt="CryptoPunk"
+          alt="NFT"
           sx={{
-            borderRadius: 3,
-            width: '100%',
-            height: 350,
+            width: 440,
+            height: 440,
+            borderRadius: 4,
             objectFit: 'cover',
+            boxShadow: 3,
           }}
         />
-        {/* Accordion */}
-        <Box component="div" sx={{
-          width: '100%',
-        }}>
-          <Accordion
-            sx={{
-              borderBottom: 'none',
-              '&:before': {
-                display: 'none',
-              },
-            }}
-          >
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography component="span">Collection info </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Box
-                sx={{
-                  display: 'grid',
-                  gridTemplateColumns: { xs: '1fr 1fr', sm: '1fr 1fr' },
-                  gap: 3,
-                  width: '100%',
-                }}
-              >
-                {/* Volume */}
-                <Box>
-                  <Typography color="text.primary" fontWeight={500}>
-                    Volume
-                  </Typography>
-                  <Box display="flex" alignItems="center" gap={0.5}>
-                    <Box />
-                    <Typography fontWeight={600} color="text.primary">
-                      56.16
-                    </Typography>
-                  </Box>
-                </Box>
-
-                {/* Floor Price */}
-                <Box>
-                  <Typography color="text.primary" fontWeight={500}>
-                    Floor Price
-                  </Typography>
-                  <Box display="flex" alignItems="center" gap={0.5}>
-                    <Box />
-                    <Typography fontWeight={600} color="text.primary">
-                      1.82
-                    </Typography>
-                  </Box>
-                </Box>
-
-                {/* Rank */}
-                <Box>
-                  <Typography color="text.primary" fontWeight={500}>
-                    Rank
-                  </Typography>
-                  <Typography fontWeight={600} color="text.primary">
-                    5
-                  </Typography>
-                </Box>
-
-                {/* Floor Sale */}
-                <Box>
-                  <Typography color="text.primary" fontWeight={500}>
-                    Floor Sale
-                  </Typography>
-                  <Typography fontWeight={600} color="text.primary">
-                    1.79
-                  </Typography>
-                </Box>
-              </Box>
-            </AccordionDetails>
-          </Accordion>
-          <Accordion
-            sx={{
-              borderBottom: 'none',
-              // Optional: Remove the divider between accordions
-              '&:before': {
-                display: 'none',
-              },
-            }}
-          >
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography component="span">Details</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Box
-                sx={{
-                  width: {
-                    lg: '66.666667%',
-                    md: '66.666667%',
-                    sm: '100%',
-                    xs: '100%',
-                  },
-                  display: 'flex',
-                  // flexDirection: 'column',
-                  gap: 1,
-                  justifyContent: 'space-between',
-                }}
-              >
-                <Box sx={{ color: 'text.primary' }}>
-                  <Typography>Name</Typography>
-                  <Typography>Token ID</Typography>
-                  <Typography>Contract Address</Typography>
-                </Box>
-                {/* Right side: Values */}
-                <Box sx={{ color: 'custom.lightGrey' }}>
-                  <Typography fontWeight={600}>CRYPTOPUNKS</Typography>
-                  <Typography fontWeight={600}>6193</Typography>
-                  <Typography fontWeight={600}>0xb4...3bbb</Typography>
-                </Box>
-              </Box>
-            </AccordionDetails>
-          </Accordion>
-          <Accordion
-            sx={{
-              borderBottom: 'none',
-              // Optional: Remove the divider between accordions
-              '&:before': {
-                display: 'none',
-              },
-            }}
-          >
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography component="span">Traits</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Box
-                sx={{
-                  display: 'grid',
-                  gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
-                  gap: 2,
-                  width: '100%',
-                }}
-              >
-                {/* Trait 1 */}
-                <Box>
-                  <Typography
-                    color="custom.lightGrey"
-                    fontWeight={500}
-                    fontSize={14}
-                  >
-                    Trait Count
-                  </Typography>
-                  <Typography
-                    fontWeight={700}
-                    fontSize={18}
-                    color="text.primary"
-                  >
-                    7
-                  </Typography>
-                  <Typography color="custom.lightGrey" fontSize={15}>
-                    3783 Have this
-                  </Typography>
-                </Box>
-
-                {/* Trait 2 */}
-                <Box>
-                  <Typography
-                    color="custom.lightGrey"
-                    fontWeight={500}
-                    fontSize={14}
-                  >
-                    Serum Type
-                  </Typography>
-                  <Typography
-                    fontWeight={700}
-                    fontSize={18}
-                    color="text.primary"
-                  >
-                    M1
-                  </Typography>
-                  <Typography color="custom.lightGrey" fontSize={15}>
-                    14734 Have this
-                  </Typography>
-                </Box>
-
-                {/* Trait 3 */}
-                <Box>
-                  <Typography
-                    color="custom.lightGrey"
-                    fontWeight={500}
-                    fontSize={14}
-                  >
-                    Mouth
-                  </Typography>
-                  <Typography
-                    fontWeight={700}
-                    fontSize={18}
-                    color="text.primary"
-                  >
-                    M1 Bored
-                  </Typography>
-                  <Typography color="custom.lightGrey" fontSize={15}>
-                    3327 Have this
-                  </Typography>
-                </Box>
-
-                {/* Trait 4 */}
-                <Box>
-                  <Typography
-                    color="custom.lightGrey"
-                    fontWeight={500}
-                    fontSize={14}
-                  >
-                    Hat
-                  </Typography>
-                  <Typography
-                    fontWeight={700}
-                    fontSize={18}
-                    color="text.primary"
-                  >
-                    M1 Army Hat
-                  </Typography>
-                  <Typography color="custom.lightGrey" fontSize={15}>
-                    434 Have this
-                  </Typography>
-                </Box>
-
-                {/* Trait 5 */}
-                <Box>
-                  <Typography
-                    color="custom.lightGrey"
-                    fontWeight={500}
-                    fontSize={14}
-                  >
-                    Fur
-                  </Typography>
-                  <Typography
-                    fontWeight={700}
-                    fontSize={18}
-                    color="text.primary"
-                  >
-                    M1 Black
-                  </Typography>
-                  <Typography color="custom.lightGrey" fontSize={15}>
-                    1800 Have this
-                  </Typography>
-                </Box>
-
-                {/* Trait 6 */}
-                <Box>
-                  <Typography
-                    color="custom.lightGrey"
-                    fontWeight={500}
-                    fontSize={14}
-                  >
-                    Eyes
-                  </Typography>
-                  <Typography
-                    fontWeight={700}
-                    fontSize={18}
-                    color="text.primary"
-                  >
-                    M1 Closed
-                  </Typography>
-                  <Typography color="custom.lightGrey" fontSize={15}>
-                    1040 Have this
-                  </Typography>
-                </Box>
-
-                {/* Trait 7 */}
-                <Box>
-                  <Typography
-                    color="custom.lightGrey"
-                    fontWeight={500}
-                    fontSize={14}
-                  >
-                    Earring
-                  </Typography>
-                  <Typography
-                    fontWeight={700}
-                    fontSize={18}
-                    color="text.primary"
-                  >
-                    M1 Gold Hoop
-                  </Typography>
-                  <Typography color="custom.lightGrey" fontSize={15}>
-                    669 Have this
-                  </Typography>
-                </Box>
-                {/* Trait 8 */}
-                <Box>
-                  <Typography
-                    color="custom.lightGrey"
-                    fontWeight={500}
-                    fontSize={14}
-                  >
-                    Clothes
-                  </Typography>
-                  <Typography
-                    fontWeight={700}
-                    fontSize={18}
-                    color="text.primary"
-                  >
-                    M1 Sleeveless T
-                  </Typography>
-                  <Typography color="custom.lightGrey" fontSize={15}>
-                    384 Have this
-                  </Typography>
-                </Box>
-
-                {/* Trait 9 */}
-                <Box>
-                  <Typography
-                    color="custom.lightGrey"
-                    fontWeight={500}
-                    fontSize={14}
-                  >
-                    Background
-                  </Typography>
-                  <Typography
-                    fontWeight={700}
-                    fontSize={18}
-                    color="text.primary"
-                  >
-                    M1 Blue
-                  </Typography>
-                  <Typography color="custom.lightGrey" fontSize={15}>
-                    1813 Have this
-                  </Typography>
-                </Box>
-
-                {/* Trait 10 */}
-                <Box>
-                  <Typography
-                    color="custom.lightGrey"
-                    fontWeight={500}
-                    fontSize={14}
-                  >
-                    ApeCoin Staked
-                  </Typography>
-                  <Typography
-                    fontWeight={700}
-                    fontSize={18}
-                    color="text.primary"
-                  >
-                    0 - 1 ApeCoin
-                  </Typography>
-                  <Typography color="custom.lightGrey" fontSize={15}>
-                    13661 Have this
-                  </Typography>
-                </Box>
-
-                {/* Add more traits as needed, following the same pattern */}
-              </Box>
-            </AccordionDetails>
-          </Accordion>
-        </Box>
-      </Box>
-
-      {/* Right Side: Main Info, Actions, and Tabs */}
-      <Box
-        sx={{
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'flex-start',
-
-          gap: 2,
-          height: '100%',
-          p: 2,
-        }}
-      >
-        {/* Header */}
+        {/* Action Buttons */}
         <Box
           sx={{
             display: 'flex',
-            flexDirection: 'column',
-            gap: 1,
+            flexDirection: { xs: 'column', md: 'row' },
+            gap: 2,
+            mt: 3,
+            width: '100%',
           }}
         >
+          {/* Buy Now Button Group */}
           <Box
+            component="div"
             sx={{
+              color: 'text.primary',
+              fontWeight: 700,
+              borderRadius: 3,
+              border: '2px solid #A6A6B9',
               display: 'flex',
+              alignItems: 'center',
               gap: 2,
+              backgroundColor: 'custom.ButtonPrimary',
+              '&:hover': { bgcolor: 'custom.ButtonPrimary' },
+              // justifyContent: 'space-between',
             }}
           >
-            <Avatar
-              src="https://cryptopunks.app/cryptopunks/cryptopunk7703.png"
-              sx={{ borderRadius: 3, width: 80, height: 80 }}
-            />
-            <Box
+            <Button
               sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'start',
-                gap: 1,
+                color: 'text.primary',
+                fontWeight: 700,
+                paddingInline: 3,
+                // fontSize: 20,
               }}
             >
-              <Typography
-                variant="h5"
-                sx={{
-                  fontWeight: 700,
-                  color: 'text.primary',
-                }}
-              >
-                CryptoPunks
-              </Typography>
-              <Typography
-                sx={{
-                  color: 'text.primary',
-                  fontWeight: 600,
-                  fontSize: 'fontSize.md',
-                  // noWrap:{true}
-                }}
-              >
-                #7703
-              </Typography>
-            </Box>
+              <span> Buy Now</span>
+              <span style={{ paddingLeft: '2px' }}>
+                <img
+                  src="https://marketplace.polycruz.io/eth.svg"
+                  alt="eth"
+                  height={10}
+                  width={10}
+                />
+              </span>
+              <span style={{ paddingLeft: '15px' }}> 10.99</span>
+            </Button>
+
+            <IconButton>
+              <LocalGroceryStoreIcon />
+            </IconButton>
           </Box>
-          <Box
-            // mt={2}
+
+          {/* Make Offer Button */}
+          <Button
             sx={{
-              display: 'flex',
-              gap: 1,
+              color: '#fff',
+              fontWeight: 700,
+              fontSize: 20,
+              px: 5,
+              borderRadius: 3,
+              height: 56,
+              bgcolor: 'transparent',
+              border: '2px solid #A6A6B9',
+              textTransform: 'none',
+
+              flex: 1,
+              minWidth: 0,
+              '&:hover': { bgcolor: '#232336' },
             }}
           >
-            <Box
-              bgcolor="background.paper"
-              color="text.primary"
-              borderRadius={10}
-              px={2}
-              py={0.5}
-              fontSize={12}
-              border={`1px solid ${theme.palette.divider}`}
-            >
-              #86
-            </Box>
-            <Box
-              bgcolor="background.paper"
-              color="text.primary"
-              borderRadius={10}
-              px={2}
-              py={0.5}
-              fontSize={12}
-              border={`1px solid ${theme.palette.divider}`}
-            >
-              #3238
-            </Box>
-          </Box>
+            Make Offer
+          </Button>
         </Box>
+      </Box>
+      {/* Right: Info, Traits, Activity */}
+      <Box
+        sx={{
+          flex: 1,
+          display: 'flex',
+          flexWrap: 'wrap',
+          flexDirection: 'column',
+          gap: 3,
+        }}
+      >
         {/* Info Row */}
-        <Box
+        <Paper
           sx={{
-            // display: 'flex',
-            // flexWrap: 'wrap',
-            // gap: 4,
-            display: 'grid',
-            gridTemplateColumns: {
-              lg: 'repeat(auto-fit, minmax(150px, 1fr))',
-              md: 'repeat(auto-fit, minmax(150px, 1fr))',
-              sm: 'repeat(auto-fit, minmax(150px, 1fr))',
-              xs: 'repeat(2,2fr) ',
-            },
-            gap: 2,
-            color: 'text.primary',
-            fontSize: 'xl',
-            fontWeight: 500,
-            width: { xs: '100%', lg: '100%', md: '100%' },
+            bgcolor: 'transparent',
+            borderRadius: 3,
+            p: 0,
+            border: '2px solid #44455A',
+
+            boxShadow: 'none',
+            overflow: 'hidden',
           }}
         >
-          {infoItems.map((item) => (
-            <Box key={item.label}>
-              <Typography
-                sx={{ color: 'custom.lightGrey', fontSize: 'fontSize.sm' }}
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: { xs: '1fr 1fr', md: 'repeat(6, 1fr)' },
+              alignItems: 'center',
+              width: '100%',
+            }}
+          >
+            {infoItems.map((item) => (
+              <Box
+                key={item.label}
+                sx={{
+                  p: 2,
+                  textAlign: 'center',
+
+                  borderRight:
+                    item.label !== 'Supply' ? '1px solid #44455A' : 'none',
+                }}
               >
-                {item.label}
-              </Typography>
-              <Typography fontWeight={600}>{item.value}</Typography>
-            </Box>
-          ))}
-        </Box>
-        {/* Card with Price and Actions */}
-        <Box
+                <Typography color="text.primary" fontSize={12}>
+                  {item.label}
+                </Typography>
+                <Typography
+                  color="text.primary"
+                  fontWeight={700}
+                  fontSize={15}
+                  sx={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 1,
+                  }}
+                >
+                  {item.label === 'Floor Price'}
+                  {item.value}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
+        </Paper>
+
+        {/* Traits Section */}
+        <Paper
           sx={{
-            width: '100%',
-            bgcolor: 'background.default',
-            boxShadow: 'none',
+            bgcolor: 'background.paper',
             borderRadius: 3,
             p: 3,
             border: '1px solid',
-            borderColor: 'custom.Boarder02',
+            borderColor: 'divider',
           }}
         >
+          <Typography fontWeight={700} fontSize={22} mb={2}>
+            Traits ({traits.length})
+          </Typography>
           <Box
             sx={{
-              color: 'text.primary',
-              fontSize: 'fontSize.sm',
-              pb: 2,
-              display: 'flex',
-              justifyContent: {
-                xs: 'center',
-                sm: 'center',
-                md: 'start',
-                lg: 'start',
-              },
+              display: 'grid',
+              gridTemplateColumns: { xs: '1fr ', md: 'repeat(3, 1fr)' },
               gap: 1,
             }}
           >
-            <Typography
-              sx={{
-                fontWeight: 600,
-                fontSize: 'fontSize.sm',
-                color: 'text.primary',
-              }}
-            >
-              Listed Price
-            </Typography>
-            <Typography
-              sx={{
-                component: 'span',
-                color: 'text.primary',
-                fontWeight: 600,
-                fontSize: 'fontSize.sm',
-              }}
-            >
-              Ξ 42.69
-            </Typography>
-            <Typography sx={{ component: 'span', color: 'text.primary' }}>
-              $110.01k
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: 'flex',
-              gap: 1,
-              flexDirection: { xs: 'column', sm: 'row' },
-              width: '100%',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            <Button
-              variant="contained"
-              color="primary"
-              sx={{
-                fontWeight: 700,
-
-                fontSize: 13,
-                borderRadius: 2,
-                border: '1px solid',
-                borderColor: 'custom.Boarder02',
-                backgroundColor: 'custom.ButtonPrimary',
-                '&:hover': {
-                  backgroundColor: 'custom.ButtonHover',
-                  color: 'custom.secondaryDark',
-                },
-
-                flex: 1,
-                minWidth: 300,
-              }}
-            >
-              Buy Now
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              sx={{
-                fontWeight: 700,
-                fontSize: 13,
-                borderRadius: 2,
-                border: '1px solid',
-                borderColor: 'custom.Boarder02',
-                '&:hover': {
-                  backgroundColor: 'custom.lightGrey', // or color: 'primary.main'
-                },
-                flex: 1,
-                minWidth: 300,
-              }}
-            >
-              Make Offer
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              sx={{
-                fontWeight: 700,
-                fontSize: 13,
-                borderRadius: 2,
-                border: '1px solid',
-                borderColor: 'custom.Boarder02',
-                '&:hover': {
-                  backgroundColor: 'custom.lightGrey', // or color: 'primary.main'
-                },
-                flex: 1,
-                minWidth: 300,
-              }}
-            >
-              Add to Cart
-            </Button>
-          </Box>
-          <Box mt={1}>
-            <Typography color="text.primary" fontWeight={600} fontSize={18}>
-              Current Bids
-            </Typography>
-          </Box>
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            width: '100%',
-            maxWidth: 1200,
-          }}
-
-          // mt={0}
-        >
-          {/* Current Bids section here */}
-
-          {/* Tabs Section */}
-          <Box
-            sx={{
-              // bgcolor: 'background.paper',
-              borderRadius: 3,
-              // p: 3,
-
-              width: '100%',
-              // border: '1px solid',
-              // borderColor: 'divider',
-              // height: '400',
-            }}
-          >
-            <Tabs
-              value={tab}
-              onChange={(_, v) => setTab(v)}
-              textColor="primary"
-              indicatorColor="primary"
-              sx={{ mb: 1 }}
-            >
-              <Tab label="Info" />
-              <Tab label="Market" />
-              <Tab label="Activity" />
-            </Tabs>
-            {tab === 0 && (
+            {traits.map((trait) => (
               <Box
+                key={trait.label}
                 sx={{
-                  display: 'grid',
-                  gridTemplateColumns: '2fr ',
-                  gap: 2,
+                  p: 2,
+                  borderRadius: 2,
+                  bgcolor: 'background.default',
+                  border: '1px solid #44455A',
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  flexDirection: 'row',
                   alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: 1,
+                  ':hover': {
+                    borderColor: 'text.primary',
+                  },
                 }}
               >
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                  <Avatar
-                    src="https://cryptopunks.app/cryptopunks/cryptopunk7703.png"
-                    sx={{ width: 48, height: 48 }}
-                  />
+                <Box>
                   <Typography
-                    sx={{
-                      fontWeight: 700,
-                      fontSize: 'fontSize.xl',
-                      color: 'text.primary',
-                    }}
+                    color="text.primary"
+                    fontSize={13}
+                    fontWeight={600}
                   >
-                    CRYPTOPUNKS
+                    {trait.label}
                   </Typography>
-                  <Box flex={1} />
-                  <IconButton>
-                    {/* Twitter SVG */}
-                    <svg
-                      width="24"
-                      height="24"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M22.46 6c-.77.35-1.6.58-2.47.69a4.3 4.3 0 0 0 1.88-2.37 8.59 8.59 0 0 1-2.72 1.04A4.28 4.28 0 0 0 16.11 4c-2.37 0-4.29 1.92-4.29 4.29 0 .34.04.67.11.99C7.69 9.13 4.07 7.38 1.64 4.7c-.37.64-.58 1.38-.58 2.17 0 1.5.76 2.82 1.92 3.6-.7-.02-1.36-.21-1.94-.53v.05c0 2.1 1.5 3.85 3.5 4.25-.36.1-.74.16-1.13.16-.28 0-.54-.03-.8-.08.54 1.7 2.1 2.94 3.95 2.97A8.6 8.6 0 0 1 2 19.54c-.29 0-.57-.02-.85-.05A12.13 12.13 0 0 0 8.29 21.5c7.55 0 11.68-6.26 11.68-11.68 0-.18-.01-.36-.02-.54A8.18 8.18 0 0 0 24 4.59a8.36 8.36 0 0 1-2.54.7z" />
-                    </svg>
-                  </IconButton>
-                </Box>
-                {/* Info Tab Content */}
-                <Box
-                  sx={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'flex-start',
-                    paddingLeft: { lg: 8, md: 8, sm: 0, xs: 0 },
-                    // paddingRight: 10,
-                  }}
-                >
-                  {/* Left side: Labels */}
-                  <Box
-                    sx={{
-                      width: {
-                        lg: '66.666667%',
-                        md: '66.666667%',
-                        sm: '100%',
-                        xs: '100%',
-                      },
-                      display: 'flex',
-                      // flexDirection: 'column',
-                      gap: 1,
-                      justifyContent: 'space-between',
-                    }}
+                  <Typography
+                    fontWeight={700}
+                    fontSize={16}
+                    color="text.primary"
                   >
-                    <Box sx={{ color: 'text.primary' }}>
-                      <Typography>Name</Typography>
-                      <Typography>Token ID</Typography>
-                      <Typography>Contract Address</Typography>
-                    </Box>
-                    {/* Right side: Values */}
-                    <Box sx={{ color: 'custom.lightGrey' }}>
-                      <Typography fontWeight={600}>CRYPTOPUNKS</Typography>
-                      <Typography fontWeight={600}>6193</Typography>
-                      <Typography fontWeight={600}>0xb4...3bbb</Typography>
-                    </Box>
-                  </Box>
+                    {trait.value}
+                  </Typography>
+                </Box>
+                <Box sx={{ textAlign: 'right' }}>
+                  <Typography
+                    color="text.primary"
+                    fontSize={13}
+                    fontWeight={600}
+                  >
+                    RARITY
+                  </Typography>
+                  <Typography
+                    fontWeight={700}
+                    fontSize={16}
+                    color="text.primary"
+                  >
+                    {trait.rarity}
+                  </Typography>
                 </Box>
               </Box>
-            )}
-            {tab === 1 && (
-              <Box>
-                <Typography color="text.secondary">
-                  Market data goes here.
-                </Typography>
-              </Box>
-            )}
-            {tab === 2 && (
-              <Box>
-                <Typography color="text.secondary">
-                  Activity data goes here.
-                </Typography>
-              </Box>
-            )}
+            ))}
           </Box>
-        </Box>
+        </Paper>
+
+        {/* Activity Section */}
+        <Paper
+          sx={{
+            bgcolor: 'background.paper',
+            borderRadius: 3,
+            p: 3,
+            border: '1px solid',
+            borderColor: 'divider',
+          }}
+        >
+          <Typography fontWeight={700} fontSize={22} mb={2}>
+            Activity
+          </Typography>
+          <Box sx={{ maxHeight: 300, overflow: 'auto', display: 'flex' }}>
+            <AGGridTable columnDefs={activityColumns} rowData={activityRows} />
+          </Box>
+        </Paper>
       </Box>
     </Box>
   );

@@ -50,15 +50,17 @@ const Footer: FC<FooterProps> = () => {
     <Box
       component={'footer'}
       sx={{
+        width: '100%',
         backgroundColor: 'background.default',
         color: 'inherit',
-        position: 'sticky',
+        position: 'fixed',
         bottom: 0,
-        // left: 0,
-        right: 0,
+        left: 0,
+        // right: 0,
         borderTop: '1px solid',
         borderColor: 'divider',
         zIndex: 1000,
+        paddingLeft: { xs: '0px', xl: '60px' },
       }}
       // className="hidden lg:block"
     >
@@ -132,13 +134,27 @@ const Footer: FC<FooterProps> = () => {
               {'0.883628002'} GWEI
             </Box>
           </ul>
-          <ul className="flex items-center gap-4 hidden lg:block">
+          <Box
+            component={'ul'}
+            sx={{
+              display: { xs: 'none', lg: 'inline-flex' },
+              alignItems: 'center',
+              gap: '16px',
+              // color: 'custom.lightGrey',
+            }}
+          >
             {links?.map((link) => (
-              <li key={link.url} className="inline-block">
+              <Box
+                component={'ol'}
+                sx={{
+                  color: 'custom.lightGrey',
+                }}
+                key={link.url}
+              >
                 <Link to={link.url}>{link.text}</Link>
-              </li>
+              </Box>
             ))}
-          </ul>
+          </Box>
         </div>
       </nav>
     </Box>
