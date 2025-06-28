@@ -1,4 +1,9 @@
-import type { ActivityType, ItemDetails, RowData } from '../types/table';
+import type {
+  ActivityType,
+  ItemDetails,
+  OverviewDetailType,
+  RowData,
+} from '../types/table';
 import AXIOS from './axios';
 
 interface ItemsApiResponse {
@@ -19,13 +24,19 @@ interface ActivityApiResponse {
   };
 }
 
+interface OverviewDetailApiResponse {
+  data?: {
+    collections?: OverviewDetailType[];
+  };
+}
+
 export const fetchItemsData = async (
   limit: number,
   sortBy: string,
   collection: string
 ): Promise<RowData[]> => {
   const response = await AXIOS.get<ItemsApiResponse>(
-    `/api/v1/reservoir/tokens?collection=${collection}&sortBy=${sortBy}&limit=${limit}`
+    `/api/v1/reservoir/tokens?collection=${collection}&sortBy=${'floorAskPrice'}&limit=${limit}`
   );
   return response.data?.data?.tokens ?? [];
 };
@@ -49,4 +60,13 @@ export const fetchActivityData = async (
     `/api/v1/reservoir/activity?sortBy=${sortBy}&includeMetadata=${includeMetadata}&type=${type}`
   );
   return response.data?.data?.activities ?? [];
+};
+
+export const fetchOverviewDetailData = async (
+  contract: string
+): Promise<OverviewDetailType[]> => {
+  const response = await AXIOS.get<OverviewDetailApiResponse>(
+    `/api/v1/reservoir/collections/v7?contract=${contract}`
+  );
+  return response.data?.data?.collections ?? [];
 };

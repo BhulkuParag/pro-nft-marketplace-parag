@@ -122,7 +122,7 @@ const CollectionItems = () => {
   }, []);
 
   return (
-    <Box sx={{ background: '#191919', minHeight: '100vh' }}>
+    <Box sx={{ background: 'background.default', minHeight: '100vh' }}>
       <Box
         sx={{
           display: 'grid',
@@ -182,7 +182,7 @@ const CollectionItems = () => {
                     height: '100%',
                     objectFit: 'cover',
                     display: 'block',
-                    transition: 'transform 0.3s cubic-bezier(.4,2,.6,1)',
+                    //transition: 'transform 0.3s cubic-bezier(.4,2,.6,1)',
                   }}
                 />
                 <IconButton
