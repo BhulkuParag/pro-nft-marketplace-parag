@@ -1,16 +1,15 @@
-import React, { useEffect } from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import IconButton from '@mui/material/IconButton';
-import Avatar from '@mui/material/Avatar';
+import React, { useEffect, useState } from 'react';
+import { Box, Typography, IconButton } from '@mui/material';
+
 import AddIcon from '@mui/icons-material/Add';
 import CheckIcon from '@mui/icons-material/Check';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchItemsDataRequest } from '../../features/collection/collectionSlice';
+import { MdOutlineShoppingCart } from 'react-icons/md';
+
 import type { RootState } from '../../app/store';
+import { Button } from '@mui/material';
 
 const items = [
   {
@@ -127,33 +126,41 @@ const CollectionItems = () => {
       <Box
         sx={{
           display: 'grid',
+          //justifyContent: 'space-between',
           gridTemplateColumns: {
-            xs: '1fr',
-            sm: 'repeat(4, 1fr)',
-            md: 'repeat(8, 1fr)',
+            xs: 'repeat(2, minmax(0, 1fr))',
+            sm: 'repeat(4, minmax(0, 1fr))',
+            md: 'repeat(6, minmax(0, 1fr))',
+            lg: 'repeat(8, minmax(0, 1fr))',
           },
-          gap: 3,
+          gap: 1.5,
         }}
       >
         {tabData['items']?.map((item: any) => (
           <Link
+            className="rounded-xl"
             to={`/trendingCollections/assets/${item?.token?.collection?.id}:${item?.token?.tokenId}`}
             key={item?.token?.id}
           >
-            <Card
+            <Box
               sx={{
-                borderRadius: '16px',
+                // borderRadius: '16px',
+                borderRadius: '12px',
                 overflow: 'hidden',
                 background: '#232323',
                 position: 'relative',
                 cursor: 'pointer',
+
                 boxShadow: 'none',
                 transition:
                   'transform 0.3s cubic-bezier(.4,2,.6,1), box-shadow 0.3s cubic-bezier(.4,2,.6,1)',
                 '&:hover': {
-                  transform: 'scale(1.02) translatez(-4px)',
+                  transform: 'scale(1.01) translatez(-4px)',
                   boxShadow: 6,
+                  // p: 0,
                 },
+                '&:hover .price-section': { display: 'none' },
+                '&:hover .buy-now-section': { display: 'flex' },
               }}
             >
               <Box
@@ -164,12 +171,13 @@ const CollectionItems = () => {
                   background: '#222',
                 }}
               >
-                <img
-                  className="nft-thumbnail"
+                <Typography 
+                  component="img"
+                  className="nft-thumbnail "
                   loading="lazy"
                   src={item.token.metadata.imageOriginal}
                   alt={`NFT #${item.id}`}
-                  style={{
+                  sx={{
                     width: '100%',
                     height: '100%',
                     objectFit: 'cover',
@@ -208,42 +216,164 @@ const CollectionItems = () => {
                   {selectedIds.includes(item.id) ? <CheckIcon /> : <AddIcon />}
                 </IconButton>
               </Box>
-              <CardContent
+              <Box
                 sx={{
-                  background: '#191919',
+                  backgroundColor: 'secondary.main',
                   border: '1px solid rgb(53, 57, 69)',
                   color: '#fff',
-                  borderBottomLeftRadius: '16px',
-                  borderBottomRightRadius: '16px',
-                  p: 2,
-                  pt: 1.5,
-                  pb: 1.5,
+                  borderBottomLeftRadius: '12px',
+                  borderBottomRightRadius: '12px',
+                  // p: 1,
+                  // pt: 1.5,
+                  // pb: '11px',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'flex-start',
+                  width: '100%',
+                  gap: 1,
+                  '&:hover': {
+                    p: 0, // remove padding on hover
+                  },
+                  // padding: 1,
                 }}
               >
                 <Typography
-                  variant="subtitle2"
-                  sx={{ color: '#fff', fontWeight: 600, fontSize: 14, mb: 0.5 }}
+                  variant="body1"
+                  sx={{
+                    color: '#fff',
+                    fontWeight: 600,
+                    fontSize: 12,
+                    ml: 0.5,
+                    px: '0.5rem',
+                    pt: '0.7rem',
+                  }}
                 >
-                  {item?.token?.name} #{item?.token?.tokenId}
+                  {item?.token?.name}
+                  {/*  #{item?.token?.tokenId} */}
                 </Typography>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <Typography
-                    variant="subtitle1"
-                    sx={{ color: '#fff', fontWeight: 700, fontSize: 14 }}
+
+                <Box
+                  className="price-section"
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    width: '100%',
+                    // transition: 'all 0.3s ease-in-out',
+                    opacity: 1,
+                    px: '1rem',
+                    pb: '1rem',
+                  }}
+                >
+                  <Box
+                    component="div"
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      flexDirection: 'column',
+                    }}
                   >
-                    {item?.token?.collection?.floorAskPrice?.amount?.decimal}
-                  </Typography>
-                  <img
-                    src="https://marketplace.polycruz.io/eth.svg"
-                    alt="ETH"
-                    style={{ width: '16px', height: '16px' }}
-                  />
+                    <Typography
+                      variant="body1"
+                      sx={{ color: '#fff', fontWeight: 700, fontSize: 10 }}
+                    >
+                      Price
+                    </Typography>
+                    <Box
+                      component="div"
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        // flexDirection: 'column',
+                      }}
+                    >
+                      <img
+                        src="https://marketplace.polycruz.io/eth.svg"
+                        alt="ETH"
+                        style={{ width: '16px', height: '16px' }}
+                      />
+                      <Typography
+                        variant="body1"
+                        sx={{
+                          color: 'text.primary',
+                          fontWeight: 700,
+                          fontSize: 10,
+                        }}
+                      >
+                        {item?.token?.collection?.floorAskPrice?.amount?.decimal?.toFixed(
+                          2
+                        )}
+                      </Typography>
+                    </Box>
+                  </Box>
+                  <Box
+                    component="div"
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      flexDirection: 'column',
+                    }}
+                  >
+                    <Typography
+                      variant="body1"
+                      sx={{
+                        color: 'text.primary',
+                        fontWeight: 700,
+                        fontSize: 10,
+                      }}
+                    >
+                      Last Sale
+                    </Typography>
+                    <Box
+                      component="div"
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '5px',
+                        // flexDirection: 'column',
+                      }}
+                    >
+                      <img
+                        src="https://marketplace.polycruz.io/eth.svg"
+                        alt="ETH"
+                        style={{ width: '16px', height: '16px' }}
+                      />
+                      <Typography
+                        variant="body1"
+                        sx={{
+                          color: 'text.primary',
+                          fontWeight: 700,
+                          fontSize: 10,
+                          lineHeight: 1.5,
+                        }}
+                      >
+                        {item?.token?.collection?.floorAskPrice?.amount?.decimal?.toFixed(
+                          2
+                        )}
+                      </Typography>
+                    </Box>
+                  </Box>
                 </Box>
-              </CardContent>
-            </Card>
+
+                <Box
+                  className="buy-now-section"
+                  sx={{
+                    display: 'none',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    gap: 2,
+                    p: '0.7rem',
+                    width: '100%',
+                    backgroundColor: 'custom.PrimaryButton',
+                  }}
+                >
+                  <Typography component="p" sx={{ color: '#fff' }}>
+                    Buy Now
+                  </Typography>
+                  <MdOutlineShoppingCart color="#fff" />
+                </Box>
+              </Box>
+            </Box>
           </Link>
         ))}
       </Box>

@@ -295,7 +295,8 @@ const MarketOverview = () => {
                 >
                   {item.value ?? '$'}
                 </Typography>
-              </Box>
+              </div>
+
               <div className="flex flex-1 items-center justify-center">
                 <ProgressCircle
                   value={item.subValue ?? 0}

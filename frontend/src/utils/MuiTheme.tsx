@@ -46,6 +46,7 @@ declare module '@mui/material/styles' {
     ButtonHover: string;
     wallet: string;
     thirdText: string;
+    PrimaryButton: string;
   }
 
   interface Palette {
@@ -132,6 +133,7 @@ const lightTheme = createTheme({
       ButtonHover: '#ffff',
       wallet: '#EDEBFF',
       thirdText: '#6b7280',
+      PrimaryButton: '#6B5FE8',
     },
     text: {
       primary: '#141416',
@@ -224,6 +226,7 @@ const darkTheme = createTheme({
       ButtonHover: '#ffff',
       wallet: '#373549',
       thirdText: '#6b7280',
+      PrimaryButton: '#6B5FE8',
     },
 
     text: {
@@ -231,7 +234,7 @@ const darkTheme = createTheme({
       secondary: '#A49BFF',
     },
   },
- 
+
   fontSize: {
     sm: '0.875rem', // 14px
     md: '1rem', // 16px

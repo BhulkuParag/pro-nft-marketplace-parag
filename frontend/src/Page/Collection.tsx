@@ -11,7 +11,12 @@ import { Box } from '@mui/material';
 import AiValuation from './AiValuation';
 import CollectionActivity from '../Components/CollectionActivity/CollectionActivity';
 
-export type TabKey = 'overview' | 'items' | 'ai_valuation' | 'standout' | 'activity';
+export type TabKey =
+  | 'overview'
+  | 'items'
+  | 'ai_valuation'
+  | 'standout'
+  | 'activity';
 
 interface TabContent {
   label: string;
@@ -77,7 +82,7 @@ const Collection = () => {
       <Box
         sx={{
           width: '100%',
-          padding: { xs: '12px 0px', lg: '32px 20px' },
+          padding: '32px 20px',
         }}
       >
         {tabs[activeTab].content}

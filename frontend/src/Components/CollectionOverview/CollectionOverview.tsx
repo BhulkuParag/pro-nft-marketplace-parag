@@ -4,10 +4,6 @@ import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import CollectionHero from '../CollectionHero/CollectionHero';
-<<<<<<< HEAD
-import { useMemo } from 'react';
-=======
->>>>>>> af36d5eb6a3737e1cef71e40b6fe385502c40abe
 import MarketOverview from './MarketOverview';
 import HolderHistory from './HolderHistory';
 
@@ -156,7 +152,6 @@ const CollectionOverview = () => {
       <Box component="div" sx={{ p: '0.5rem' }}>
         <HolderHistory />
         <Box component="div">
-        
           <MarketOverview />
         </Box>
       </Box>

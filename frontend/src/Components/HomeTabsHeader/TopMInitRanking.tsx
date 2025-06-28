@@ -21,7 +21,7 @@ const TopMInitRanking = () => {
         color="custom.whiteLightO1"
         fontSize={26}
       >
-        Top Trending Collections
+        Top Mint Ranking
       </Typography>
       <ActiveTab />
     </Box>

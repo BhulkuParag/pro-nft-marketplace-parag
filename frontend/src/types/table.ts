@@ -14,7 +14,6 @@ export interface RowData {
   ownerCount?: number;
   mintVolume: number;
   openseaVerificationStatus?: string;
-  mintVolume?: number;
   topBid?: {
     price: {
       amount: {
@@ -661,29 +660,172 @@ export interface ActivityType {
   comment: string;
 }
 export interface TopMintData {
-  id: string; //objectID -- Contract
-  name: string; //name -- Collection
-  mintCount: number; //529  -- Mints
-  ownerCount: number; //53 -- Notable Minters
-  tokenCount: string; //739 -- Total Supply
-  mintVolume: number; // 1.50 -- Mint Volume
-  mintPrice: {
-    //-- Mint Price
-    amount: {
-      usd: number;
-      decimal: number;
-    };
+  id: 'string';
+  image: 'string';
+  banner: 'string';
+  name: 'string';
+  description: 'string';
+  isSpam: true;
+  isMinting: true;
+  onSaleCount: 0;
+  volumeChange: {
+    '1day': 0;
+    '7day': 0;
+    '30day': 0;
   };
   collectionVolume: {
-    '1day': number;
-    '7day': number;
-    '30day': number;
-    allTime: number;
+    '1day': 0;
+    '7day': 0;
+    '30day': 0;
+    allTime: 0;
   };
-
-  volumeChange: {
-    '1day': number;
-    '7day': number;
-    '30day': number;
+  contractKind: 'string';
+  tokenCount: 'string';
+  ownerCount: 0;
+  sampleImages: ['string'];
+  mintType: 'string';
+  mintPrice: {
+    currency: {
+      contract: 'string';
+      name: 'string';
+      symbol: 'string';
+      decimals: 0;
+    };
+    amount: {
+      raw: 'string';
+      decimal: 0;
+      usd: 0;
+      native: 0;
+    };
   };
+  maxSupply: 0;
+  mintStandard: 'string';
+  createdAt: '2025-06-28T07:56:28.678Z';
+  startDate: '2025-06-28T07:56:28.678Z';
+  endDate: '2025-06-28T07:56:28.678Z';
+  mintCount: 0;
+  sixHourCount: 0;
+  oneHourCount: 0;
+  mintVolume: 0;
+  openseaVerificationStatus: 'string';
+  magicedenVerificationStatus: {};
+  mintedTimestamp: 0;
+  lastMintTimestamp: 0;
+  mintStages: [
+    {
+      stage: 'string';
+      kind: 'string';
+      standard: 'string';
+      tokenId: 'string';
+      price: {
+        currency: {
+          contract: 'string';
+          name: 'string';
+          symbol: 'string';
+          decimals: 0;
+        };
+        amount: {
+          raw: 'string';
+          decimal: 0;
+          usd: 0;
+          native: 0;
+        };
+      };
+      pricePerQuantity: {};
+      startTime: 0;
+      endTime: 0;
+      maxMints: 0;
+      maxMintsPerWallet: 0;
+    }
+  ];
+  floorAsk: {
+    id: 'string';
+    sourceDomain: 'string';
+    price: {
+      currency: {
+        contract: 'string';
+        name: 'string';
+        symbol: 'string';
+        decimals: 0;
+      };
+      amount: {
+        raw: 'string';
+        decimal: 0;
+        usd: 0;
+        native: 0;
+      };
+      netAmount: {
+        raw: 'string';
+        decimal: 0;
+        usd: 0;
+        native: 0;
+      };
+    };
+    maker: 'string';
+    validFrom: 0;
+    validUntil: 0;
+    token: {
+      chainId: 0;
+      contract: 'string';
+      tokenId: 'string';
+      name: 'string';
+      description: 'string';
+      image: 'string';
+      imageSmall: 'string';
+      imageLarge: 'string';
+      metadata: {
+        imageOriginal: 'string';
+        imageMimeType: 'string';
+        tokenURI: 'string';
+      };
+      kind: 'string';
+      metadataDisabled: true;
+      lastFlagUpdate: 'string';
+      lastFlagChange: 'string';
+      supply: 'string';
+      remainingSupply: 'string';
+      rarity: 0;
+      rarityRank: 0;
+      collection: {
+        id: 'string';
+        name: 'string';
+        image: 'string';
+        slug: 'string';
+        symbol: 'string';
+        creator: 'string';
+        tokenCount: 0;
+        metadataDisabled: true;
+        floorAskPrice: {
+          currency: {
+            contract: 'string';
+            name: 'string';
+            symbol: 'string';
+            decimals: 0;
+          };
+          amount: {
+            raw: 'string';
+            decimal: 0;
+            usd: 0;
+            native: 0;
+          };
+        };
+      };
+      owner: 'string';
+      mintedAt: 'string';
+      createdAt: 'string';
+      decimals: 0;
+      mintStages: [{}];
+      nsfw: true;
+      spam: true;
+      flagged: true;
+    };
+    source: {
+      id: 'string';
+      domain: 'string';
+      name: 'string';
+      icon: 'string';
+      url: 'string';
+    };
+  };
+  creator: 'string';
 }

@@ -29,7 +29,7 @@ const initialState: CollectionState = {
   activeTab: 'overview',
   itemDetails: {},
   includeMetadata: false,
-  type: '',
+  type: 'mint',
   collection: '0x5af0d9827e0c53e4799bb226655a1de152a425a5',
   sortBy: 'floorAskPrice',
   limit: 40,

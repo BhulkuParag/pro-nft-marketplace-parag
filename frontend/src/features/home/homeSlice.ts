@@ -5,12 +5,7 @@ import type {
   TopSalesT,
   TopMintData,
 } from '../../types/table';
-import type {
-  NftSalesT,
-  RowData,
-  TopSalesT,
-  TopMintData,
-} from '../../types/table';
+
 import {
   CollectionRenderer,
   NormalRenderer,
