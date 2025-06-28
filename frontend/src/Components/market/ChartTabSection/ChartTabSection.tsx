@@ -26,6 +26,7 @@ const ChartTabSection = () => {
   const [pos, setPos] = useState('Sales');
 
   const handleChange = (_: React.SyntheticEvent, newValue: string) => {
+    console.log('pos ', newValue);
     setPos(newValue);
   };
 
@@ -41,7 +42,7 @@ const ChartTabSection = () => {
         borderRadius: '12px',
       }}
     >
-      <CustomTab tabs={homeTabsList} handleChange={handleChange} />
+      <CustomTab tabs={homeTabsList} handleChange={handleChange} selectedTab={pos} />
       {homeTabsList[homeTabsList.findIndex((i) => i.value === pos)].content}
     </Box>
   );

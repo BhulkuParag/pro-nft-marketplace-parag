@@ -20,7 +20,7 @@ const SearchBar: FC<SearchBarProps> = ({
   setSearch,
   handleFocus,
   handleBlur,
-  handleOnClick
+  handleOnClick,
 }) => {
   const handleSearch = (e: any) => {
     setSearch(e.target.value);
@@ -41,7 +41,9 @@ const SearchBar: FC<SearchBarProps> = ({
         backgroundColor: 'custom.secondaryDark',
         transition: 'none',
         width: '100%',
-        mr: 1
+        color: 'custom.lightGrey',
+
+        mr: 1,
       }}
     >
       <div className="relative flex justify-between items-center">
@@ -78,8 +80,7 @@ const SearchBar: FC<SearchBarProps> = ({
             color: 'custom.lightGrey',
             backgroundColor: 'background.default',
 
-            
-            display: { xs: 'none', sm: 'flex' }, 
+            display: { xs: 'none', sm: 'flex' },
           }}
         >
           /

@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import walletLight from '../../../assets/icons/walletWhite.svg';
 import { BarChart } from '@tremor/react';
 import Info from '../../../Components/info/Info';
 import { PieChart, Pie, Sector, Cell } from 'recharts';
+import { Box, Typography } from '@mui/material';
+import ToggleButton from '../../../../@ui-component/Comman/ToggleButton';
+import DateFilter from '../../../../@ui-component/Comman/DateFilter';
 // import GraphFilter from "components/latest/HomeTabs/GraphFilter";
 
 interface BarChartData {
@@ -97,26 +100,39 @@ const holderTraders: graphData[] = [
 
 const PurchasingPower = () => {
   const [activePieIndex, setActivePieIndex] = useState<number>(0);
-  // const [range, setRange] = useState<string>('7d');
-  // const [selectedCrypto, setSelectedCrypto] = useState('eth');
+  const [range, setRange] = useState<string>('7d');
+  const [selectedCrypto, setSelectedCrypto] = useState('ETH');
   // console.log("range =",range);
   // console.log(selectedCrypto , "selectedCrypto");
 
   const filter = [
-    { tabName: 'All Time' },
-    { tabName: '30d' },
-    { tabName: '7d' },
-    { tabName: '24h' },
-    { tabName: '6h' },
-    { tabName: '1h' },
-    { tabName: '30m' },
-    { tabName: '5m' },
-    { tabName: '1m' },
+    { label: 'All Time', value: 'All Time' },
+    { label: '30d', value: '30d' },
+    { label: '7d', value: '7d' },
+    { label: '24h', value: '24h' },
+    { label: '6h', value: '6h' },
+    { label: '1h', value: '1h' },
+    { label: '30m', value: '30m' },
+    { label: '5m', value: '5m' },
+    { label: '1m', value: '1m' },
   ];
-  // const cryptoTabsData = [{ tabName: 'ETH' }, { tabName: 'USD' }];
+  const cryptoTabsData = [
+    { label: 'ETH', value: 'ETH' },
+    { label: 'USD', value: 'USD' },
+  ];
 
+  const handleOnChange = (_: React.SyntheticEvent, value: string) => {
+    setSelectedCrypto(value);
+  };
+  const handleOnChangeForMobile = (value: string) => {
+    setSelectedCrypto(value);
+  };
   const onPieEnter = (_: any, index: number) => {
     setActivePieIndex(index);
+  };
+
+  const handleDateFilterOnChange = (value: string) => {
+    setRange(value);
   };
 
   const renderActivePieShape = (props: any) => {
@@ -194,42 +210,110 @@ const PurchasingPower = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-dark-secondary-dark rounded-xl w-full flex flex-col gap-5 p-3 md:p-6">
+    <Box
+      component={'div'}
+      sx={{
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        borderRadius: 3,
+        gap: '20px',
+        backgroundColor: 'secondary.main',
+        padding: {
+          xs: '12px',
+          md: '24px',
+        },
+      }}
+    >
       {/* Heading section */}
       <div className="flex flex-col lg:flex-row w-full relative gap-[10px] items-start justify-between">
-        <div className="flex flex-col">
-          <div className="flex gap-1 items-center">
-            <span className="font-medium text-xl text-black dark:text-white">
+        <div className="w-full flex flex-col">
+          <div className="w-full flex gap-1 items-center">
+            <Typography fontWeight={500} fontSize={20} color="text.primary">
               Purchasing power
-            </span>
+            </Typography>
             <Info height={5} weight={5} isTooltip={true} />
           </div>
-          <span className="mt-2 w-auto md:w-max text-sm text-grey font-medium">
+          <Typography
+            fontSize={14}
+            fontWeight={500}
+            sx={{
+              width: 'fit-content',
+              marginTop: '8px',
+              color: 'gray',
+            }}
+            // className="mt-2 w-auto md:w-max text-sm text-grey font-medium"
+          >
             adidas Originals: Into the Metaverse (Phase 1) holders have this
             wallet balance & distribution
-          </span>
+          </Typography>
         </div>
 
         <div className="flex w-full justify-end">
-          <div className="rounded-full w-[200px] bg-primary-light bg-opacity-20 flex items-center gap-4 p-1 px-1">
-            <div className="h-12 w-12 flex items-center justify-center rounded-full bg-primary">
+          <Box
+            component={'div'}
+            sx={{
+              width: '200px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '16px',
+              padding: '4px',
+              borderRadius: 10,
+              backgroundColor: 'custom.wallet',
+            }}
+          >
+            <Box
+              component={'div'}
+              sx={{
+                width: '48px',
+                height: '48px',
+                borderRadius: '50%',
+                backgroundColor: 'custom.ButtonPrimary',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
               <img src={walletLight} height={24} width={24} alt="Wallet Icon" />
-            </div>
-            <span className="text-primary-light text-base whitespace-nowrap font-medium">
+            </Box>
+            <Typography
+              fontWeight={500}
+              fontSize={16}
+              whiteSpace={'nowrap'}
+              sx={{
+                color: '#7367f0',
+              }}
+            >
               Wallet Tracker
-            </span>
-          </div>
+            </Typography>
+          </Box>
         </div>
       </div>
 
       <div className="flex flex-col md:flex-row gap-5">
         {/* Pie Chart section */}
-        <div className="flex flex-col p-5 rounded-xl bg-primary-light bg-opacity-20">
+        <Box
+          component={'div'}
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            borderRadius: 3,
+            padding: '20px',
+            backgroundColor: 'custom.wallet',
+          }}
+        >
           <div className="flex flex-col gap-[10px]">
             <div className="flex gap-1 items-center">
-              <span className="text-[18px] font-semibold text-black dark:text-white justify-between">
+              <Typography
+                fontWeight={600}
+                fontSize={18}
+                justifyContent={'space-between'}
+                sx={{
+                  color: 'text.primary',
+                }}
+              >
                 Total buying power
-              </span>
+              </Typography>
               <Info height={5} weight={5} isTooltip={true} />
             </div>
           </div>
@@ -250,7 +334,7 @@ const PurchasingPower = () => {
               >
                 {buyingData?.map((entry, index) => (
                   <Cell
-                    key={`cell-${index}`}
+                    key={entry.value}
                     fill={COLORS[index % COLORS.length]}
                     stroke="transparent"
                   />
@@ -258,16 +342,25 @@ const PurchasingPower = () => {
               </Pie>
             </PieChart>
           </div>
-        </div>
+        </Box>
 
         {/* Bar Chart section */}
         <div className="flex w-full">
-          <div className="p-5 rounded-xl w-full dark:bg-dark-black-light bg-white-light">
+          <Box
+            component={'div'}
+            sx={{
+              padding: '20px',
+              backgroundColor: 'background.default',
+              borderRadius: 3,
+              width: '100%',
+            }}
+            //  className="p-5 rounded-xl w-full dark:bg-dark-black-light bg-white-light"
+          >
             <div className="flex flex-col xl:flex-row flex-wrap gap-5 justify-between">
               <div className="flex flex-col md:flex-row gap-4">
                 {holderTraders?.map((item, i) => (
                   <div
-                    key={i}
+                    key={item.value}
                     className={`pr-[12px] flex flex-col gap-[2px] ${
                       i + 1 != holderTraders?.length
                         ? `md:border-r-[1px] md:border-black01`
@@ -293,27 +386,18 @@ const PurchasingPower = () => {
                 ))}
               </div>
               <div className="flex gap-5 items-center justify-end">
-                {/* <GraphFilter
-                  categories={cryptoTabsData}
-                  shouldApplyBorder
-                  selectedTabRoundedStyle={false}
-                  onTabChange={(option: any) => {
-                    setSelectedCrypto(option.tabName);
-                  }}
-                  placeholder={cryptoTabsData[0]?.tabName}
-                /> */}
+                <ToggleButton
+                  options={cryptoTabsData}
+                  selectedValue={selectedCrypto}
+                  handleOnChange={handleOnChange}
+                  handleOnChangeForMobile={handleOnChangeForMobile}
+                />
                 <div className="flex items-center gap-3 xl:gap-5 w-full justify-end sm:w-auto">
-                  {/* <GraphFilter
-                    categories={filter}
-                    isLeftBorder
-                    selectedTabRoundedStyle={false}
-                    onTabChange={(option: any) => {
-                      setRange(
-                        option?.tabName === 'All Time' ? 'all' : option?.tabName
-                      );
-                    }}
-                    placeholder={filter[0]?.tabName}
-                  /> */}
+                  <DateFilter
+                    timeOptions={filter}
+                    selectedTime={range}
+                    handleChange={handleDateFilterOnChange}
+                  />
                 </div>
               </div>
             </div>
@@ -336,10 +420,10 @@ const PurchasingPower = () => {
                 }}
               />
             </div>
-          </div>
+          </Box>
         </div>
       </div>
-    </div>
+    </Box>
   );
 };
 

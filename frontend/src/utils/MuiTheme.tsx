@@ -11,10 +11,6 @@ import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 import { type Theme } from '@mui/material';
 import '@mui/material/styles';
 
-
-
-
-
 declare module '@mui/material/styles' {
   interface CustomPalette {
     lightPurple: string;
@@ -25,7 +21,7 @@ declare module '@mui/material/styles' {
     whiteLight: string;
     borderblack01: string;
     // borderlight01: string;
-    filterBthBg: string,
+    filterBthBg: string;
     black02: string;
     grey01: string;
     blackLight: string;
@@ -48,6 +44,9 @@ declare module '@mui/material/styles' {
     yellow: string;
     Boarder02: string;
     ButtonHover: string;
+    wallet: string;
+    thirdText: string;
+    PrimaryButton: string;
   }
 
   interface Palette {
@@ -59,13 +58,6 @@ declare module '@mui/material/styles' {
   }
 
   interface Theme {
-    radius: {
-      sm: number;
-      md: number;
-      lg: number;
-      xl: number;
-    };
-
     fontSize: {
       sm: string;
       md: string;
@@ -76,7 +68,6 @@ declare module '@mui/material/styles' {
   }
 
   interface ThemeOptions {
-    radius?: Theme['radius'];
     // shadows?: Theme['shadows'];
     fontSize?: Theme['fontSize'];
   }
@@ -140,6 +131,9 @@ const lightTheme = createTheme({
       yellow: '#FFC155',
       Boarder02: '#777E90',
       ButtonHover: '#ffff',
+      wallet: '#EDEBFF',
+      thirdText: '#6b7280',
+      PrimaryButton: '#6B5FE8',
     },
     text: {
       primary: '#141416',
@@ -147,12 +141,6 @@ const lightTheme = createTheme({
     },
   },
 
-  radius: {
-    sm: 4,
-    md: 8,
-    lg: 16,
-    xl: 24,
-  },
   fontSize: {
     sm: '0.875rem', // 14px
     md: '1rem', // 16px
@@ -213,7 +201,6 @@ const darkTheme = createTheme({
     },
     custom: {
       tableHeading: '#343d55',
-      // borderBlack: '#353945',
       grey01: '#CAC4D0',
       greyDark: '#36343B',
       borderblack01: '#353945',
@@ -221,6 +208,7 @@ const darkTheme = createTheme({
       blackLight: '#141416',
       secondaryDark: '#1C1C1C',
       primaryLight: '#A49BFF',
+      primaryLight100: '#A49BFF',
       primaryDark: '#4130EA',
       filterBthBg: '#19182E',
       // primaryDark01: '#A49BFF33',
@@ -236,6 +224,9 @@ const darkTheme = createTheme({
       yellow: '#FFC155',
       Boarder02: '#e6e8ec',
       ButtonHover: '#ffff',
+      wallet: '#373549',
+      thirdText: '#6b7280',
+      PrimaryButton: '#6B5FE8',
     },
 
     text: {
@@ -243,12 +234,7 @@ const darkTheme = createTheme({
       secondary: '#A49BFF',
     },
   },
-  radius: {
-    sm: 4,
-    md: 8,
-    lg: 16,
-    xl: 24,
-  },
+
   fontSize: {
     sm: '0.875rem', // 14px
     md: '1rem', // 16px

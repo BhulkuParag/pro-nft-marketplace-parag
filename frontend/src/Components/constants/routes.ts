@@ -1,5 +1,4 @@
 import React, { type ComponentType } from 'react';
-import CollectionOverview from '../CollectionOverview/CollectionOverview';
 import CollectionMarket from '../CollectionMarket/CollectionMarket';
 import Activity from '../CollectionActivity/CollectionActivity';
 
@@ -8,6 +7,8 @@ const Screen = React.lazy(() => import('../../Page/Screen'));
 const FeateursCollection = React.lazy(
   () => import('../../Page/FeateursCollection')
 );
+const Collection = React.lazy(() => import('../../Page/Collection'));
+const AiValuation = React.lazy(() => import('../../Page/AiValuation'));
 
 interface RouteConfig {
   path: string;
@@ -24,7 +25,7 @@ export const routes: RouteConfig[] = [
     component: Home,
   },
   {
-    path: '/trendingCollections/assets/buy',
+    path: '/trendingCollections/assets/:id',
     component: Screen,
   },
   {
@@ -38,10 +39,14 @@ export const routes: RouteConfig[] = [
   },
   {
     path: '/trendingCollections/item/:id',
-    component: CollectionOverview,
+    component: Collection,
   },
   {
     path: '/market',
     component: CollectionMarket,
+  },
+  {
+    path: '/aivaluation',
+    component: AiValuation,
   },
 ];

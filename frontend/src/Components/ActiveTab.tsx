@@ -1,25 +1,25 @@
-import {
-  useEffect,
-  // useState
-} from 'react';
-import { AGGridTable } from '../../@ui-component/Comman/AGGridTable';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useMemo } from 'react';
+import AGGridTable from '../../@ui-component/Comman/AGGridTable';
+import { useSelector } from 'react-redux';
 import type { RootState } from '../app/store';
-import {
-  fetchTrendingDataRequest,
-  // setTabData,
-} from '../features/home/homeSlice';
+import {} from '../features/home/homeSlice';
 import { Box } from '@mui/material';
+import Loading from '../../@ui-component/Comman/Loading';
 
 const ActiveTab = () => {
-  const dispatch = useDispatch();
-  const { activeTab, tabData, columnDefsMap, trending_loading } = useSelector(
+  const { activeTab, tabData, columnDefsMap, loading } = useSelector(
     (state: RootState) => state.home
   );
 
+  const columnDefs = useMemo(
+    () => columnDefsMap[activeTab],
+    [columnDefsMap, activeTab]
+  );
+
+  const rowData = useMemo(() => tabData[activeTab] ?? [], [tabData, activeTab]);
+
   //   useEffect(() => {
   //     const socket = io('ws://localhost:8080'); // io
-
   //     // Listen for data updates
   //     socket.on('data-update', (data: any) => {
   //       dispatch(
@@ -29,28 +29,24 @@ const ActiveTab = () => {
   //         })
   //       );
   //     });
-
   //     return () => {
   //       socket.disconnect();
   //     };
   //   }, [activeTab]); // Only re-subscribe when activeTab changes
-  useEffect(() => {
-    dispatch(fetchTrendingDataRequest());
-  }, []);
 
   return (
-    <Box
-      sx={{
-        padding: { xs: '0px', xl: '0px 20px 20px 20px' },
-      }}
-    >
-      <AGGridTable
-        columnDefs={columnDefsMap[activeTab]}
-        rowData={tabData[activeTab] || []}
-        loading={trending_loading}
-      />
+    <Box>
+      {loading ? (
+        <Loading />
+      ) : (
+        <AGGridTable
+          columnDefs={columnDefs}
+          rowData={rowData}
+          // loading={loading}
+        />
+      )}
     </Box>
   );
 };
 
-export default ActiveTab;
+export default React.memo(ActiveTab);

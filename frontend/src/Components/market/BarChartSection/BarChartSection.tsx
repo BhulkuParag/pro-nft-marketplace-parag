@@ -9,19 +9,21 @@ import Info from '../../../Components/info/Info';
 //   SelectValue,
 // } from "@/components/ui/select";
 import { BarChart } from '@tremor/react';
+import { Box, Typography } from '@mui/material';
+import DropDown from '../../../../@ui-component/Comman/DropDown';
 
 interface DropdownOption {
   label: string;
 }
 
-const dropdownOptions: DropdownOption[] = [
-  { label: '5m' },
-  { label: '30m' },
-  { label: '1hr' },
-  { label: '6hr' },
-  { label: '24hr' },
-  { label: '7d' },
-  { label: '30d' },
+const dropdownOptions = [
+  { label: '5m', value: '5m' },
+  { label: '30m', value: '30m' },
+  { label: '1hr', value: '1hr' },
+  { label: '6hr', value: '6hr' },
+  { label: '24hr', value: '24hr' },
+  { label: '7d', value: '7d' },
+  { label: '30d', value: '30d' },
 ];
 
 interface BarData {
@@ -118,16 +120,38 @@ const dataFormatter = (number: number) =>
 const BarChartSection = () => {
   const [selectedValue, setSelectedValue] = useState(dropdownOptions[0]?.label);
 
+  const handleOnChange = (value: string) => {
+    setSelectedValue(value);
+  };
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-      {DataArr?.map((item, index) => (
-        <div
-          key={index}
-          className="bg-white dark:bg-dark-secondary-dark p-3 md:p-6 rounded-xl w-full flex-grow justify-center flex flex-col gap-5 items-center"
+      {DataArr?.map((item) => (
+        <Box
+          component={'div'}
+          key={item.title}
+          sx={{
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            padding: { xs: '12px', sm: '24px' },
+            borderRadius: 3,
+            flexGrow: 1,
+            gap: '20px',
+            backgroundColor: 'secondary.main',
+          }}
         >
           <div className="flex justify-between w-full gap-5">
             <div className="flex items-center gap-2">
-              <span className="text-4 font-semibold">{item?.title}</span>
+              <Typography
+                fontWeight={600}
+                sx={{
+                  color: 'text.primary',
+                }}
+              >
+                {item?.title}
+              </Typography>
               <Info
                 iconType="questionMark"
                 height={5}
@@ -135,27 +159,13 @@ const BarChartSection = () => {
                 isTooltip={true}
               />
             </div>
-            {/* <Select
-              defaultValue={selectedValue}
-              onValueChange={setSelectedValue}
-            >
-              <SelectTrigger className="bg-white dark:bg-dark-secondary-dark">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent
-                className="bg-white dark:bg-dark-secondary-dark"
-                align="end"  // "start" | "center" | "end"
-                alignOffset={0}
-              >
-                <SelectGroup>
-                  {dropdownOptions?.map((option, index) => (
-                    <SelectItem value={option?.label} key={index}>
-                      {option?.label}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select> */}
+            <DropDown
+              options={dropdownOptions}
+              value={selectedValue}
+              onChange={handleOnChange}
+              disableMenuItemTouchRipple
+              disableTouchRipple
+            />
           </div>
           <BarChart
             data={item?.barData}
@@ -174,7 +184,7 @@ const BarChartSection = () => {
               margin: '0 auto',
             }}
           />
-        </div>
+        </Box>
       ))}
     </div>
   );

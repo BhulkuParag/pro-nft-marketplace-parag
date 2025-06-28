@@ -1,11 +1,9 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Box,
   Menu,
   MenuItem,
   Button,
-  ToggleButton,
-  ToggleButtonGroup,
   Divider,
   InputBase,
   useMediaQuery,
@@ -13,39 +11,42 @@ import {
 } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import BarFilterIcon from '../../Components/Icon/BarFilterIcon';
-import DropDown from '../../../@ui-component/Comman/DropDown';
+import ToggleButton from '../../../@ui-component/Comman/ToggleButton';
 import DateFilter from '../../../@ui-component/Comman/DateFilter';
+import { useDispatch, useSelector } from 'react-redux';
+import type { RootState } from '../../app/store';
+import { fetchTrendingDataRequest, setTime, setVolume_sales } from '../../features/home/homeSlice';
 
 const TableFilterBar = () => {
-  const [selectedMetric, setSelectedMetric] = useState<'Volume' | 'Sales'>(
-    'Volume'
-  );
+  const dispatch = useDispatch();
+  const { volume_sales, time, vauleSales, timeOptions } = useSelector((state: RootState) => state.home);
   const theme = useTheme();
   const isMobileOrLaptop = useMediaQuery(theme.breakpoints.down('lg'));
-  const [selectedTime, setSelectedTime] = useState('24h');
   const [anchorElFilter, setAnchorElFilter] = useState<null | HTMLElement>(
     null
   );
 
-  const timeOptions = useMemo(() => {
-    return [
-      { label: '5m', value: '5m' },
-      { label: '10m', value: '10m' },
-      { label: '30m', value: '30m' },
-      { label: '1h', value: '1h' },
-      { label: '6h', value: '6h' },
-      { label: '24h', value: '24h' },
-      { label: '7d', value: '7d' },
-      { label: '30d', value: '30d' },
-    ];
-  }, []);
+  const handleOnChange = useCallback(
+    (_: React.SyntheticEvent, value: string) => {
+      if (volume_sales !== value) dispatch(setVolume_sales(value));
+    },
+    [dispatch, volume_sales]
+  );
 
-  const vauleSales = useMemo(() => {
-    return [
-      { label: 'Volume', value: 'Volume' },
-      { label: 'Sales', value: 'Sales' },
-    ];
-  }, []);
+  const handleOnChangeForMobile = (value: string) => {
+    dispatch(setVolume_sales(value));
+  };
+
+  const handleDateFilterChange = useCallback(
+    (date: string) => {
+      if (time !== date) dispatch(setTime(date));
+    },
+    [dispatch, time]
+  );
+
+    useEffect(() => {
+      dispatch(fetchTrendingDataRequest());
+    }, [time, volume_sales]);
 
   return (
     <Box
@@ -243,145 +244,29 @@ const TableFilterBar = () => {
         alignItems={'center'}
         gap={isMobileOrLaptop ? '14px' : '36px'}
       >
-        {isMobileOrLaptop ? (
-          <DropDown
-            minWidth={93.84}
-            options={vauleSales}
-            value={selectedMetric}
-            disableMenuItemTouchRipple
-            disableTouchRipple
-            onChange={(v) => setSelectedMetric(v as 'Volume' | 'Sales')}
-          />
-        ) : (
-          <ToggleButtonGroup
-            value={selectedMetric}
-            exclusive
-            onChange={(e, value) => {
-              e.preventDefault();
-              if (value !== null) setSelectedMetric(value);
-            }}
-            size="small"
-            sx={{
-              borderRadius: 2,
-              gap: 0.5,
-              p: 0.5,
-              border: '1px solid',
-              borderColor: 'divider',
-              '& .MuiToggleButtonGroup-grouped': {
-                border: 0,
-                borderRadius: 2,
-                color: 'custom.lightGrey',
-                fontFamily: 'Inter, sans-serif',
-                '&:hover': {
-                  backgroundColor: 'transparent',
-                  color: 'text.secondary',
-                },
-              },
-              '& .MuiToggleButton-root.Mui-selected': {
-                color: 'text.secondary',
-                backgroundColor: 'custom.filterBthBg',
-                '&:hover': {
-                  backgroundColor: 'custom.filterBthBg',
-                  color: 'text.secondary',
-                },
-              },
-            }}
-          >
-            <ToggleButton
-              value="Volume"
-              disableTouchRipple
-              sx={{
-                textTransform: 'none',
-                fontSize: 16,
-                fontWeight: '400',
-                paddingBlock: '4px',
-              }}
-            >
-              volume
-            </ToggleButton>
-            <ToggleButton
-              value="Sales"
-              disableTouchRipple
-              sx={{
-                textTransform: 'none',
-                fontSize: 16,
-                fontWeight: '400',
-                paddingBlock: '4px',
-              }}
-            >
-              sales
-            </ToggleButton>
-          </ToggleButtonGroup>
-        )}
+        <ToggleButton
+          options={vauleSales}
+          handleOnChange={handleOnChange}
+          selectedValue={volume_sales}
+          handleOnChangeForMobile={handleOnChangeForMobile}
+        />
 
         <Divider
           flexItem
           orientation="vertical"
           sx={{
             height: '36px',
-            mt: 1,
+            mt: 0.9,
             mr: -1.5,
             borderColor: 'divider',
             display: isMobileOrLaptop ? 'none' : 'block',
           }}
         />
 
-        {/*isMobileOrLaptop ? (
-          <DropDown
-            options={timeOptions}
-            value={selectedTime}
-            onChange={setSelectedTime}
-            disableMenuItemTouchRipple
-            disableTouchRipple
-            minWidth={64}
-            maxHeight={'30vh'}
-            padding="6px 10px"
-          />
-        ) : (
-          <Box display="flex">
-            {timeOptions.map((time) => (
-              <Button
-                key={time.value}
-                disableTouchRipple
-                disableElevation
-                variant={selectedTime === time.value ? 'contained' : 'text'}
-                size="small"
-                onClick={() => setSelectedTime(time.value)}
-                sx={{
-                  minWidth: '35.52px',
-                  height: '36px',
-                  padding: '6px 8px',
-                  color:
-                    selectedTime === time.value
-                      ? 'text.secondary'
-                      : 'custom.lightGrey',
-                  textTransform: 'none',
-                  fontSize: 16,
-                  fontWeight: 400,
-                  borderRadius: 2,
-                  transition: 'none',
-                  backgroundColor:
-                    selectedTime === time.value
-                      ? 'custom.filterBthBg'
-                      : 'transparent',
-                  '&:hover': {
-                    backgroundColor:
-                      selectedTime === time.value
-                        ? 'custom.filterBthBg'
-                        : 'transparent',
-                    color: 'text.secondary',
-                  },
-                }}
-              >
-                {time.label}
-              </Button>
-            ))}
-          </Box>
-        )*/}
         <DateFilter
           timeOptions={timeOptions}
-          selectedTime={selectedTime}
-          handleChange={setSelectedTime}
+          selectedTime={time}
+          handleChange={handleDateFilterChange}
         />
       </Box>
     </Box>
