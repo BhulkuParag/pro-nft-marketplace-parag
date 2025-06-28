@@ -6,6 +6,10 @@ import Tooltip from '@mui/material/Tooltip';
 import CollectionHero from '../CollectionHero/CollectionHero';
 import MarketOverview from './MarketOverview';
 import HolderHistory from './HolderHistory';
+import { useEffect, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchOverviewDetailDataRequest } from '../../features/collection/collectionSlice';
+import type { RootState } from '../../app/store';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -25,60 +29,131 @@ const TitleContainer = styled(Box)(({ theme }) => ({
 }));
 
 const CollectionOverview = () => {
-  const stats = [
-    {
-      title: 'NFT Volume (24H)',
-      value: '119.47',
-      change: '+12.5%',
-      isPositive: true,
-      icon: (
-        <Tooltip title="Info" arrow placement="top">
-          <IconButton>
-            <InfoOutlineIcon sx={{ color: '#777e90' }} />
-          </IconButton>
-        </Tooltip>
-      ),
-    },
-    {
-      title: 'Floor Price',
-      value: '0.45',
-      change: '-2.3%',
-      isPositive: false,
-      icon: (
-        <Tooltip title="Info" arrow placement="top">
-          <IconButton>
-            <InfoOutlineIcon sx={{ color: '#777e90' }} />
-          </IconButton>
-        </Tooltip>
-      ),
-    },
-    {
-      title: 'Items Listed',
-      value: '1,234',
-      change: '+5.2%',
-      isPositive: true,
-      icon: (
-        <Tooltip title="Info" arrow placement="top">
-          <IconButton>
-            <InfoOutlineIcon sx={{ color: '#777e90' }} />
-          </IconButton>
-        </Tooltip>
-      ),
-    },
-    {
-      title: 'Owners',
-      value: '567',
-      change: '+8.1%',
-      isPositive: true,
-      icon: (
-        <Tooltip title="Info" arrow placement="top">
-          <IconButton>
-            <InfoOutlineIcon sx={{ color: '#777e90' }} />
-          </IconButton>
-        </Tooltip>
-      ),
-    },
-  ];
+  const dispatch = useDispatch();
+  const { tabData } = useSelector((state: RootState) => state.collection);
+
+  useEffect(() => {
+    dispatch(fetchOverviewDetailDataRequest());
+  }, []);
+
+  const stats = useMemo(() => {
+    return [
+      {
+        title: 'NFT Volume (24H)',
+        value: tabData?.overview?.volume['_1day'],
+        change: '+12.5%',
+        isPositive: true,
+        icon: (
+          <Tooltip title="Info" arrow placement="top">
+            <IconButton
+              sx={{
+                '& :hover': {
+                  color: 'custom.primaryLight',
+                },
+              }}
+            >
+              <InfoOutlineIcon sx={{ color: '#777e90' }} />
+            </IconButton>
+          </Tooltip>
+        ),
+      },
+      {
+        title: 'NFT Floor Price',
+        value: '0.45',
+        change: '-2.3%',
+        isPositive: false,
+        icon: (
+          <Tooltip title="Info" arrow placement="top">
+            <IconButton
+              sx={{
+                '& :hover': {
+                  color: 'custom.primaryLight',
+                },
+              }}
+            >
+              <InfoOutlineIcon sx={{ color: '#777e90' }} />
+            </IconButton>
+          </Tooltip>
+        ),
+      },
+      {
+        title: 'NFT Floor Sale (24H)',
+        value: tabData?.overview?.floorSale['_1day'],
+        change: '-2.3%',
+        isPositive: false,
+        icon: (
+          <Tooltip title="Info" arrow placement="top">
+            <IconButton
+              sx={{
+                '& :hover': {
+                  color: 'custom.primaryLight',
+                },
+              }}
+            >
+              <InfoOutlineIcon sx={{ color: '#777e90' }} />
+            </IconButton>
+          </Tooltip>
+        ),
+      },
+      {
+        title: 'NFT Supply (24H)',
+        value: tabData?.overview?.remainingSupply,
+        change: '-2.3%',
+        isPositive: false,
+        icon: (
+          <Tooltip title="Info" arrow placement="top">
+            <IconButton
+              sx={{
+                '& :hover': {
+                  color: 'custom.primaryLight',
+                },
+              }}
+            >
+              <InfoOutlineIcon sx={{ color: '#777e90' }} />
+            </IconButton>
+          </Tooltip>
+        ),
+      },
+      {
+        title: 'NFT OnSale (24H)',
+        value: tabData?.overview?.onSaleCount,
+        change: '+5.2%',
+        isPositive: true,
+        icon: (
+          <Tooltip title="Info" arrow placement="top">
+            <IconButton
+              sx={{
+                '& :hover': {
+                  color: 'custom.primaryLight',
+                },
+              }}
+            >
+              <InfoOutlineIcon sx={{ color: '#777e90' }} />
+            </IconButton>
+          </Tooltip>
+        ),
+      },
+      {
+        title: 'NFT Owner (24H)',
+        value: tabData?.overview?.ownerCount,
+        change: '+8.1%',
+        isPositive: true,
+        icon: (
+          <Tooltip title="Info" arrow placement="top">
+            <IconButton
+              sx={{
+                '& :hover': {
+                  color: 'custom.primaryLight',
+                },
+              }}
+            >
+              <InfoOutlineIcon sx={{ color: '#777e90' }} />
+            </IconButton>
+          </Tooltip>
+        ),
+      },
+    ];
+  }, [tabData]);
 
   return (
     <Box
@@ -96,10 +171,10 @@ const CollectionOverview = () => {
         }}
       >
         <CollectionHero
-          image="https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fz9JRSpLYGu7%252BCZoKWtAuAA79K674Y2b4%252F48FTC1v%252BJ4rEwpjEK3D0qjUdzqyInvnSJFH5IaIgEk7pF0NEn6WqgSgbCdGL27rkoWAYjQhV2aH%252F8nBd9uVO2ymg2znWvbXJa379tKUzlm4lW4%252BFvX3Lkybz6boYKjCsVC4GCdwAv31e%252BCSMdhCyyVeL2Un9dcLOA78C2fikkVa0IrHu8NT7ZLNEHOGf3f%252F6Glrmk5hPMQCESBDZgtca2GNwcP7lvjzDJXMS9jKgLqNBZFUSYsb2g%253D%253D%3Fwidth%3D250&w=640&q=75"
-          title="Bored Ape Yacht Club"
-          subtitle="BAYC"
-          description="The Bored Ape Yacht Club is a collection of 10,000 unique Bored Ape NFTs— unique digital collectibles living on the Ethereum blockchain. Your Bored Ape doubles as your Yacht Club membership card, and grants acces, a collection of 10,000 unique Bored Ape NFTs— unique digital collectibles living on the Ethereum blockchain. Your Bored Ape doubles as your Yacht Club membership card, and grants acces."
+          image={tabData?.overview?.image}
+          title={tabData?.overview?.name}
+          subtitle={tabData?.overview?.symbol}
+          description={tabData?.overview?.description}
           onReadMore={() =>
             window.open('https://boredapeyachtclub.com/', '_blank')
           }

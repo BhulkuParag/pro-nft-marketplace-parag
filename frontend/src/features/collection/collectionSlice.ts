@@ -1,7 +1,17 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { ActivityType, ItemDetails, RowData } from '../../types/table';
-import { AddSortIcon, InfoIconSortIcon } from '../../utils/Table/headerRenderer';
-import { AddressCell, CollectionCell, PriceCell, TypeCell } from '../../utils/Table/cellRenderer';
+import type { ActivityType, ItemDetails, OverviewDetailType, RowData } from '../../types/table';
+import {
+  AddSortIcon,
+  InfoIconSortIcon,
+} from '../../utils/Table/headerRenderer';
+import {
+  CollectionCell,
+  NormalRenderer,
+  PriceRenderer,
+  StarRenderer,
+  TypeCell,
+} from '../../utils/Table/cellRenderer';
+import type { ICellRendererParams } from 'ag-grid-community';
 
 interface CollectionState {
   activeTab: string;
@@ -9,6 +19,7 @@ interface CollectionState {
   tabData: { [key: string]: any };
   columnDefsMap: Record<string, any[]>;
   loading: boolean;
+  contract: string;
   collection: string;
   sortBy: 'eventTimestamp' | 'floorAskPrice' | '';
   includeMetadata: boolean;
@@ -28,10 +39,11 @@ interface CollectionState {
 const initialState: CollectionState = {
   activeTab: 'overview',
   itemDetails: {},
-  includeMetadata: false,
-  type: '',
+  includeMetadata: true,
+  type: 'mint',
+  contract: '0x5af0d9827e0c53e4799bb226655a1de152a425a5', 
   collection: '0x5af0d9827e0c53e4799bb226655a1de152a425a5',
-  sortBy: 'floorAskPrice',
+  sortBy: 'eventTimestamp',
   limit: 40,
   tabData: {},
   columnDefsMap: {
@@ -40,69 +52,105 @@ const initialState: CollectionState = {
     ai_valuation: [],
     standout: [],
     activity: [
-        {
-          headerName: 'Collection Name',
-          field: 'name',
-          minWidth: 300,
-          cellRenderer: CollectionCell,
-        },
-        {
-          headerName: 'Type',
-          field: 'type',
-          // width: 180,
-          cellRenderer: TypeCell,
-          headerComponent: AddSortIcon,
-        },
-        {
-          headerName: 'Floor Price',
-          field: 'price',
-          minWidth: 140,
-          cellRenderer: PriceCell,
-          headerComponent: InfoIconSortIcon,
-        },
-        {
-          headerName: 'From',
-          field: 'from',
-          // width: 100,
-          headerComponent: AddSortIcon,
-        },
-        {
-          headerName: 'To',
-          field: 'to',
-          // // width: 140,
-          cellRenderer: AddressCell,
-          headerComponent: AddSortIcon,
-          // cellStyle: { fontWeight: 700, textAlign: 'right' },
-        },
-        {
-          headerName: 'Rarity Score',
-          field: 'RarityScore',
-          // width: 140,
-          headerComponent: AddSortIcon,
-          // cellStyle: { fontWeight: 700, textAlign: 'right' },
-        },
-        {
-          headerName: 'Quantity',
-          field: 'Quantity',
-          // width: 140,
-          headerComponent: AddSortIcon,
-          // cellStyle: { fontWeight: 700, textAlign: 'right' },
-        },
-        {
-          headerName: 'Rarity Rank',
-          field: 'RarityRank',
-          // width: 140,
-          headerComponent: AddSortIcon,
-          // cellStyle: { fontWeight: 700, textAlign: 'right' },
-        },
-        {
-          headerName: 'Time',
-          field: 'time',
-          // width: 140,
-          headerComponent: AddSortIcon,
-          // cellStyle: { fontWeight: 700, textAlign: 'right' },
-        },
-      ],
+      {
+        field: 'id',
+        headerName: '',
+        minWidth: 70,
+        maxWidth: 70,
+        cellRenderer: StarRenderer,
+        valueGetter: (params: ICellRendererParams<ActivityType>) =>
+          params.node?.rowIndex != null ? params.node.rowIndex + 1 : '',
+      },
+      {
+        headerName: 'Collection Name',
+        field: 'name',
+        minWidth: 300,
+        flex: 2,
+        cellRenderer: CollectionCell,
+        valueGetter: (params: ICellRendererParams<ActivityType>) =>
+          params.data?.collection.collectionName ?? '-',
+      },
+      {
+        headerName: 'Type',
+        field: 'type',
+        // width: 180,
+        cellRenderer: TypeCell,
+        headerComponent: AddSortIcon,
+        valueGetter: (params: ICellRendererParams<ActivityType>) =>
+          params.data?.type ?? '-',
+      },
+      {
+        headerName: 'Floor Price',
+        field: 'price',
+        minWidth: 140,
+        cellRenderer: PriceRenderer,
+        headerComponent: InfoIconSortIcon,
+        valueGetter: (params: ICellRendererParams<ActivityType>) =>
+          params.data?.price.amount.decimal ?? '-',
+      },
+      {
+        headerName: 'From',
+        field: 'from',
+        // width: 100,
+        cellRenderer: NormalRenderer,
+        headerComponent: AddSortIcon,
+        valueGetter: (params: ICellRendererParams<ActivityType>) =>
+          params.data?.fromAddress
+            ? params.data?.fromAddress?.slice(0, 4) +
+              '...' +
+              params.data?.fromAddress?.slice(-4)
+            : '-',
+      },
+      {
+        headerName: 'To',
+        field: 'to',
+        // // width: 140,
+        cellRenderer: NormalRenderer,
+        headerComponent: AddSortIcon,
+        valueGetter: (params: ICellRendererParams<ActivityType>) =>
+          params.data?.toAddress
+            ? params.data?.toAddress?.slice(0, 4) +
+              '...' +
+              params.data?.toAddress?.slice(-4)
+            : '-',
+      },
+      {
+        headerName: 'Rarity Score',
+        field: 'RarityScore',
+        // width: 140,
+        headerComponent: AddSortIcon,
+        cellRenderer: NormalRenderer,
+        valueGetter: (params: ICellRendererParams<ActivityType>) =>
+          params.data?.token.rarityScore ?? '-',
+      },
+      {
+        headerName: 'Quantity',
+        field: 'Quantity',
+        // width: 140,
+        cellRenderer: NormalRenderer,
+        headerComponent: AddSortIcon,
+        valueGetter: (params: ICellRendererParams<ActivityType>) =>
+          params.data?.amount ?? '-',
+      },
+      {
+        headerName: 'Rarity Rank',
+        field: 'RarityRank',
+        // width: 140,
+        headerComponent: AddSortIcon,
+        cellRenderer: NormalRenderer,
+        valueGetter: (params: ICellRendererParams<ActivityType>) =>
+          params.data?.token.rarityRank ?? '-',
+      },
+      {
+        headerName: 'Time',
+        field: 'time',
+        // width: 140,
+        cellRenderer: NormalRenderer,
+        headerComponent: AddSortIcon,
+        valueGetter: (params: ICellRendererParams<ActivityType>) =>
+          params.data?.timestamp  ?? '-',
+      },
+    ],
   },
   loading: false,
   error: null,
@@ -155,6 +203,21 @@ const collectionSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    fetchOverviewDetailDataRequest: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    fetchOverviewDetailDataSuccess: (
+      state,
+      action: PayloadAction<OverviewDetailType[]>
+    ) => {
+      state.loading = false;
+      state.tabData = { ...state.tabData, [state.activeTab]: action.payload[0] };
+    },
+    fetchOverviewDetailDataFailure: (state, action: PayloadAction<string>) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
     setActiveTab: (state, action: PayloadAction<string>) => {
       state.activeTab = action.payload;
     },
@@ -182,6 +245,9 @@ export const {
   fetchActivityDataRequest,
   fetchActivityDataSuccess,
   fetchActivityDataFailure,
+  fetchOverviewDetailDataRequest,
+  fetchOverviewDetailDataSuccess,
+  fetchOverviewDetailDataFailure,
   setActiveTab,
   setTabData,
   setCollection,
