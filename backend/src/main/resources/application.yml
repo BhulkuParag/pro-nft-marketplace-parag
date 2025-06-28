@@ -23,6 +23,7 @@ reservoir:
   trendingMints: "https://api.reservoir.tools/collections/trending-mints/v2?period={period}&limit={limit}&sortDirection={sortDirection}&offset={offset}"
   topSales: "https://api.reservoir.tools/sales/v6?startTimestamp={startTimestamp}&sortBy={sortBy}&sortDirection={sortDirection}&limit={limit}&offset={offset}&includeTokenMetadata={includeTokenMetadata}"
   tokenDetailUrl: "https://marketplace.polycruz.io/api/unleash/nft/1/0x5af0d9827e0c53e4799bb226655a1de152a425a5/9099"
+  statsUrl: "https://api-blast.reservoir.tools/chain/stats/v1"
 
 spring:
   jackson:

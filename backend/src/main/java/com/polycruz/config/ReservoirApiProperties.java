@@ -17,4 +17,5 @@ public class ReservoirApiProperties {
     private String trendingMints;
     private String tokenDetailUrl;
     private String apiKey;
+    private String statsUrl;
 }

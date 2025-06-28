@@ -15,6 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.polycruz.config.ReservoirApiProperties;
 import com.polycruz.pojo.ActivityResponse;
+import com.polycruz.pojo.ChainStatsResponse;
 import com.polycruz.pojo.CollectionsV7Response;
 import com.polycruz.pojo.NftSalesResponse;
 import com.polycruz.pojo.SalesApiResponse;
@@ -151,5 +152,15 @@ public class VendorService {
         );
         return response.getBody();
     }
+	
+	public ChainStatsResponse getChainStats() {
+        String url = apiProperties.getStatsUrl();
+
+        Map<String, Object> uriVariables = new HashMap<>();
+     
+
+        return restTemplate.getForObject(url, ChainStatsResponse.class, uriVariables);
+    }
+
 
 }
