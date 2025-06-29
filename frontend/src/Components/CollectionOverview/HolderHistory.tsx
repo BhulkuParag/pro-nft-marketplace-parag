@@ -14,43 +14,59 @@ function HolderHistory() {
   const cardData = [
     {
       name: 'Holder 1',
-      value: data?.holders_tokens_1?.value,
+      // value: data?.holders_tokens_1?.value,
+      value: 4647,
       color: '#3B82F6',
+      percent: '93.61%',
     },
     {
       name: 'Holder 2',
-      value: data?.holders_tokens_2?.value,
+      // value: data?.holders_tokens_2?.value,
+      value: 687,
       color: '#3B82F6',
+      percent: '13.84%',
     },
     {
       name: 'Holder 3 to 5',
-      value: data?.holders_tokens_3_5?.value,
+      // value: data?.holders_tokens_3_5?.value,
+      value: 457,
       color: '#3B82F6',
+      percent: '9.21%',
     },
     {
       name: 'Holder 6 to 9',
-      value: data?.holders_tokens_6_9?.value,
+      // value: data?.holders_tokens_6_9?.value,
+      value: 127,
       color: '#3B82F6',
+      percent: '2.56%',
     },
     {
       name: 'Holder 10 to 15',
-      value: data?.holders_tokens_10_15?.value,
+      // value: data?.holders_tokens_10_15?.value,
+      value: 39,
       color: '#3B82F6',
+      percent: '0.79%',
     },
     {
       name: 'Holder 16 to 25',
-      value: data?.holders_tokens_16_25?.value,
+      // value: data?.holders_tokens_16_25?.value,
+      value: 22,
       color: '#3B82F6',
+      percent: '0.44%',
     },
     {
       name: 'Holder 9 Plus',
-      value: data?.holders_tokens_9plus?.value,
+      // value: data?.holders_tokens_9plus?.value,
+      value: 83,
       color: '#3B82F6',
+      percent: '1.67%',
     },
     {
       name: 'Holder 25 Plus',
-      value: data?.holders_tokens_25plus?.value,
+      // value: data?.holders_tokens_25plus?.value,
+      value: 22,
       color: '#3B82F6',
+      percent: '0.44%',
     },
   ];
 
@@ -114,13 +130,13 @@ function HolderHistory() {
             flexDirection: { xs: 'column', lg: 'row' },
             backgroundColor: 'background.default',
             borderRadius: '0.75rem',
-            p: { lg: '2rem', xs: '1.5rem' },
+            p: { lg: '3rem', xs: '1.5rem' },
           }}
         >
           <Box
             component="div"
             sx={{
-              p: { xs: '1.5rem', lg: '1rem' },
+              p: { xs: '1.5rem', lg: '2rem' },
               width: '100%',
               borderRadius: '1rem',
               display: 'flex',
@@ -169,7 +185,7 @@ function HolderHistory() {
                 {/* <PercentView value={+data?.holders_change?.value} /> */}
                 15%
               </Typography>
-              <Typography component="span" sx={{ color: 'text.primary' }}>
+              <Typography component="span" sx={{ color: 'red' }}>
                 0.00%
               </Typography>
             </Box>
@@ -181,6 +197,7 @@ function HolderHistory() {
               width: '100%',
               display: 'flex',
               flexDirection: 'column',
+
               gap: '10px',
               height: '100%',
               p: { xs: '1.5rem', lg: '1rem' },
@@ -198,9 +215,9 @@ function HolderHistory() {
             </Typography>
             {cardData.map((item, index) => {
               // Calculate percentage (avoid division by zero)
-              const total = data?.holders?.value || 0;
-              const value = item.value || 0;
-              const percent = total > 0 ? (value / total) * 100 : 0;
+              // const total = data?.holders?.value || 0;
+              // const value = item.value || 0;
+              // const percent = total > 0 ? (value / total) * 100 : 0;
               return (
                 <Box
                   key={index}
@@ -229,6 +246,8 @@ function HolderHistory() {
                       component="div"
                       sx={{
                         display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.5rem',
                         // gap: '0.5rem',
                       }}
                     >
@@ -245,12 +264,16 @@ function HolderHistory() {
                       </Typography>
                       <Typography
                         component="span"
-                        sx={{ color: 'custom.thirdText', fontWeight: 500 }}
+                        sx={{
+                          color: 'text.primary',
+                          fontWeight: 500,
+                          fontSize: '0.8rem',
+                        }}
                       >
                         {item.value}
                       </Typography>
                     </Box>
-                    <span>{percent.toFixed(2)}%</span>
+                    <span>{item.percent}</span>
                     {/* <ProgressBar
                           value={percent}
                           //   color={item.color} // or your preferred color

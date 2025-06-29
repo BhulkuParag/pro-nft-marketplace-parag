@@ -17,6 +17,7 @@ const Home = () => {
       <FeateursCollection />
       <HomeCard />
       <SubHeader />
+      <HomeCard />
       <TabsContainer />
       <Footer />
     </Box>
