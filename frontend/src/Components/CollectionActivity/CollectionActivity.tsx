@@ -3,15 +3,11 @@ import {
   Box,
   Typography,
   useTheme,
-  InputBase,
   IconButton,
   Chip,
   Link,
 } from '@mui/material';
-import FilterListIcon from '@mui/icons-material/FilterList';
-import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import AGGridTable from '../../../@ui-component/Comman/AGGridTable';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchActivityDataRequest } from '../../features/collection/collectionSlice';
@@ -19,13 +15,14 @@ import type { RootState } from '../../app/store';
 import Loading from '../../../@ui-component/Comman/Loading';
 import SearchBar from '../ui/SearchBar';
 import liveData from '../../assets/images/gif/live.gif';
+import BarFilterIcon from '../Icon/BarFilterIcon';
 
 // Example filter state
 const FILTERS = [
-  { label: 'Event', value: 'Sale' },
-  { label: 'Event', value: 'List' },
-  { label: 'Event', value: 'Transfer' },
-  { label: 'Event', value: 'Mint' },
+  { label: 'Event', value: 'sale' },
+  { label: 'Event', value: 'list' },
+  { label: 'Event', value: 'transfer' },
+  { label: 'Event', value: 'mint' },
 ];
 
 const CollectionActivity: React.FC = () => {
@@ -85,11 +82,13 @@ const CollectionActivity: React.FC = () => {
               border: `1px solid ${theme.palette.divider}`,
               borderRadius: 2,
               color: 'text.secondary',
-              width: 40,
-              height: 40,
+              mb: 0.2,
             }}
           >
-            <FilterListIcon />
+            {/* <FilterListIcon /> */}
+            <BarFilterIcon
+              className={`w-5 h-5 hover:text-[#A49BFF] fill-[#777E90] }`}
+            />
           </IconButton>
 
           <Box

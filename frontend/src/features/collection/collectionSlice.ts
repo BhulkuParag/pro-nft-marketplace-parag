@@ -29,15 +29,16 @@ interface CollectionState {
   sortBy: 'eventTimestamp' | 'floorAskPrice' | '';
   includeMetadata: boolean;
   limit: number;
-  type:
-    | 'ask_cancel'
-    | 'sale'
-    | 'mint'
-    | 'transfer'
-    | 'ask'
-    | 'bid'
-    | 'bid_cancel'
-    | '';
+  type: string;
+  // type:
+  //   | 'ask_cancel'
+  //   | 'sale'
+  //   | 'mint'
+  //   | 'transfer'
+  //   | 'ask'
+  //   | 'bid'
+  //   | 'bid_cancel'
+  //   | '';
   error: string | null;
 }
 
@@ -242,6 +243,9 @@ const collectionSlice = createSlice({
     setCollection: (state, action: PayloadAction<string>) => {
       state.collection = action.payload;
     },
+    setType: (state, action: PayloadAction<string>) => {
+      state.type = action.payload;
+    },
   },
 });
 
@@ -261,6 +265,7 @@ export const {
   setActiveTab,
   setTabData,
   setCollection,
+  setType,
 } = collectionSlice.actions;
 
 export default collectionSlice.reducer;

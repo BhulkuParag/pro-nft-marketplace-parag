@@ -12,15 +12,18 @@ const SubHeader = () => {
     <Box
       display={'flex'}
       justifyContent={'space-between'}
-      gap={4}
+      flexWrap={'wrap'}
       marginBlock={3}
-      paddingInline={3}
       alignItems={'center'}
+      sx={{
+        padding: { xs: 2, md: 3 },
+        gap: { xs: 2, md: 4 },
+      }}
     >
       <Typography
         component={'h1'}
         sx={{
-          fontSize: '28px',
+          fontSize: { xs: '22px', lg: '28px' },
           fontWeight: 500,
           color: 'text.primary',
         }}
@@ -36,7 +39,6 @@ const SubHeader = () => {
           Cards
         </Typography>
         <Switch
-          variant="ios"
           checked={isCheck}
           handleOnChange={() => dispatch(setIsCardOrTable(!isCheck))}
         />
