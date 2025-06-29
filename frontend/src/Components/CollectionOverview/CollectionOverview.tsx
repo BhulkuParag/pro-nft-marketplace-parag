@@ -10,6 +10,7 @@ import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchOverviewDetailDataRequest } from '../../features/collection/collectionSlice';
 import type { RootState } from '../../app/store';
+import { useParams } from 'react-router-dom';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -29,12 +30,13 @@ const TitleContainer = styled(Box)(({ theme }) => ({
 }));
 
 const CollectionOverview = () => {
+  const params = useParams();
   const dispatch = useDispatch();
   const { tabData } = useSelector((state: RootState) => state.collection);
 
   useEffect(() => {
-    dispatch(fetchOverviewDetailDataRequest());
-  }, []);
+    if (params.id) dispatch(fetchOverviewDetailDataRequest(params?.id));
+  }, [params]);
 
   const stats = useMemo(() => {
     return [
@@ -191,8 +193,8 @@ const CollectionOverview = () => {
             gap: 3,
           }}
         >
-          {stats.map((stat, index) => (
-            <StyledCard key={index} sx={{ width: '100%', height: '100%' }}>
+          {stats.map((stat) => (
+            <StyledCard key={stat.value} sx={{ width: '100%', height: '100%' }}>
               <CardContent>
                 <TitleContainer>
                   <Typography
@@ -209,7 +211,8 @@ const CollectionOverview = () => {
                   <img
                     src="https://marketplace.polycruz.io/eth.svg"
                     alt="ETH"
-                    style={{ width: '16px', height: '16px' }}
+                    width={16}
+                    height={16}
                   />
                   <Typography
                     variant="h6"

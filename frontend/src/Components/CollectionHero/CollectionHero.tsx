@@ -93,9 +93,9 @@ const CollectionHero: React.FC<CollectionHeroProps> = ({
         </Typography>
         {isLong && (
           <Button
-            variant="text"
+            variant='text'
             sx={{
-              color: '#fff',
+              color: '#f3f4f6',
               fontWeight: 500,
               textTransform: 'none',
               mb: 0.5,
@@ -108,7 +108,7 @@ const CollectionHero: React.FC<CollectionHeroProps> = ({
             {expanded ? 'Show Less' : 'Read More'}
           </Button>
         )}
-        <Link to={'#'} className='text-gray-100 underline'>Read More</Link>
+        {/* <Link to={'#'} className='text-gray-100 underline'>Read More</Link> */}
         <Box sx={{ mt: 3 }}>
           <Button
             variant="contained"

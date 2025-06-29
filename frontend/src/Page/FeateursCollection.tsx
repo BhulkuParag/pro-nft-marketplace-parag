@@ -204,8 +204,9 @@ const FeateursCollection: React.FC = () => {
         gap: 3,
         width: '100%',
         flexWrap: { xs: 'wrap', md: 'nowrap' },
-        mt: 2,
+        // mt: 2,
         p: 5,
+        pt: 1,
       }}
     >
       {/* Featured Collections */}

@@ -25,7 +25,7 @@ export const CollectionRenderer = (params: ICellRendererParams<RowData>) => (
       alt={params.data?.name}
       className="w-7 h-7 rounded-full"
     />
-    <Link to={`/trendingCollections/item/${params.data?.id ?? '0xbd3531da5cf5857e7cfaa92426877b022e612cf8'}`}>
+    <Link to={`/trendingCollections/item/${params.data?.id}`}>
       {params.value ?? '-'}
     </Link>
     {params.data?.openseaVerificationStatus === 'verified' && (

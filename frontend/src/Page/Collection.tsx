@@ -54,7 +54,6 @@ const Collection = () => {
       },
     };
   }, []);
-
   const dispatch = useDispatch();
   const activeTab = useSelector(
     (state: RootState) => state.collection.activeTab

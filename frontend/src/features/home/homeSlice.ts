@@ -33,6 +33,7 @@ interface HomeState {
   timeOptions: Options[];
   vauleSales: Options[];
   includeTokenMetadata: boolean;
+  isCardOrTable: boolean;
   error: string | null;
 }
 
@@ -40,7 +41,9 @@ const initialState: HomeState = {
   activeTab: 'trending',
   time: '24h',
   includeTokenMetadata: true,
+  isCardOrTable: false,
   timeOptions: [
+    { label: 'All Time', value: '30d' },
     { label: '5m', value: '5m' },
     { label: '10m', value: '10m' },
     { label: '30m', value: '30m' },
@@ -431,6 +434,9 @@ const homeSlice = createSlice({
     setTime: (state, action: PayloadAction<string>) => {
       state.time = action.payload;
     },
+    setIsCardOrTable: (state, action: PayloadAction<boolean>) => {
+      state.isCardOrTable = action.payload;
+    },
   },
 });
 
@@ -451,6 +457,7 @@ export const {
   setTabData,
   setTime,
   setVolume_sales,
+  setIsCardOrTable,
 } = homeSlice.actions;
 
 export default homeSlice.reducer;

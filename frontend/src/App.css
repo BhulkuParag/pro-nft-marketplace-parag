@@ -2,8 +2,10 @@
 
 * {
   ::-webkit-scrollbar {
-    display: none;
+    /* display: none; */
+    background: transparent;
   }
+  scrollbar-color: #bbb transparent;
 }
 
 .ag-theme-quartz .ag-root-wrapper,

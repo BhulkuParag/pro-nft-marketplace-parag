@@ -30,14 +30,14 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 
 function* handleFetchItemsData() {
   try {
-    const { collection, limit, sortBy } = yield select(
+    const { contract, limit, sortBy } = yield select(
       (state: RootState) => state.collection
     );
     const data: SagaReturnType<typeof fetchItemsData> = yield call(
       fetchItemsData,
       limit,
       sortBy,
-      collection
+      contract
     );
     yield put(fetchItemsDataSuccess(data));
   } catch (error: any) {

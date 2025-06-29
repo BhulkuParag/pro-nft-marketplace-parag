@@ -46,9 +46,9 @@ const initialState: CollectionState = {
   itemDetails: {},
   includeMetadata: true,
   type: 'mint',
-  contract: '0x5af0d9827e0c53e4799bb226655a1de152a425a5',
-  collection: '0x5af0d9827e0c53e4799bb226655a1de152a425a5',
-  sortBy: 'eventTimestamp',
+  contract: '',
+  collection: '',
+  sortBy: 'floorAskPrice',
   limit: 40,
   tabData: {},
   columnDefsMap: {
@@ -180,6 +180,7 @@ const collectionSlice = createSlice({
     fetchItemDetailsDataRequest: (state, action: PayloadAction<string>) => {
       state.loading = true;
       state.error = null;
+      state.contract = action.payload;
     },
     fetchItemDetailsDataSuccess: (
       state,
@@ -208,9 +209,10 @@ const collectionSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    fetchOverviewDetailDataRequest: (state) => {
+    fetchOverviewDetailDataRequest: (state, action: PayloadAction<string>) => {
       state.loading = true;
       state.error = null;
+      state.contract = action.payload;
     },
     fetchOverviewDetailDataSuccess: (
       state,
