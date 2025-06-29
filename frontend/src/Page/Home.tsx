@@ -3,6 +3,7 @@ import SlideCard from '../Components/ui/SlideCard';
 import Footer from '../Components/header/Footer';
 import React from 'react';
 import TabsContainer from '../Components/TabsContainer';
+import HomeCard from '../../@ui-component/Comman/HomeCard';
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
       }}
     >
       <SlideCard />
+      <HomeCard />
       <TabsContainer />
       <Footer />
     </Box>
