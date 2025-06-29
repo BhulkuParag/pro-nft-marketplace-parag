@@ -24,9 +24,9 @@ const CollectionHero: React.FC<CollectionHeroProps> = ({
   const theme = useTheme();
   const [expanded, setExpanded] = useState(false);
 
-  const isLong = description.length > MAX_CHARS;
+  const isLong = description?.length > MAX_CHARS;
   const shownText =
-    expanded || !isLong ? description : description.slice(0, MAX_CHARS) + '...';
+    expanded || !isLong ? description : description?.slice(0, MAX_CHARS) + '...';
 
   return (
     <Box

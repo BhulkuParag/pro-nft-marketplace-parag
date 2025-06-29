@@ -733,6 +733,7 @@ const Collection = () => {
         tabs={Object.values(tabs)}
         handleChange={handleChange}
         selectedTab={activeTab}
+        marginTop={0}
       />
       <Box
         sx={{

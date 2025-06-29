@@ -67,6 +67,7 @@ const TabContainer = () => {
         handleChange={handleChange}
         borderBottom
         selectedTab={activeTab}
+        marginTop={0}
       />
       <Box
         sx={{
