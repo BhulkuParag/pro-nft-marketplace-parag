@@ -32,19 +32,13 @@ const CollectionHero: React.FC<CollectionHeroProps> = ({
     <Box
       sx={{
         background: '#241e70',
-        borderRadius: '18px',
-        p: { xs: 2, md: 4 },
+        borderRadius: '12px',
+        p: { xs: 2 },
         display: 'flex',
         alignItems: 'flex-start',
         gap: { xs: 2, md: 4 },
-        mt: 2,
         mb: 4,
         minHeight: 220,
-        justifyContent: 'center',
-        flexDirection: {
-          xs: 'column',
-          md: 'row',
-        },
       }}
     >
       <Box
@@ -53,7 +47,7 @@ const CollectionHero: React.FC<CollectionHeroProps> = ({
           minHeight: 160,
           width: { xs: 100, md: 212 },
           height: { xs: 100, md: 212 },
-          borderRadius: '50%',
+          borderRadius: '12px',
           overflow: 'hidden',
           display: 'flex',
           alignItems: 'center',
@@ -74,18 +68,7 @@ const CollectionHero: React.FC<CollectionHeroProps> = ({
         />
       </Box>
       <Box sx={{ flex: 1 }}>
-        <Typography
-          variant="h4"
-          sx={{
-            fontWeight: 700,
-            color: '#fff',
-            mb: 1,
-            fontSize: {
-              xs: '30px',
-              md: '34px',
-            },
-          }}
-        >
+        <Typography variant="h4" sx={{ fontWeight: 700, color: '#fff', mb: 1 }}>
           {title}
         </Typography>
         <Typography
@@ -101,9 +84,7 @@ const CollectionHero: React.FC<CollectionHeroProps> = ({
             opacity: 0.9,
             mb: 1,
             display: 'block',
-            maxWidth: {
-              md: expanded ? '100%' : '70%',
-            },
+            maxWidth: expanded ? '100%' : '70%',
             wordBreak: 'break-word',
             fontSize: '14px',
           }}
@@ -112,9 +93,9 @@ const CollectionHero: React.FC<CollectionHeroProps> = ({
         </Typography>
         {isLong && (
           <Button
-            variant="text"
+            variant='text'
             sx={{
-              color: '#fff',
+              color: '#f3f4f6',
               fontWeight: 500,
               textTransform: 'none',
               mb: 0.5,
@@ -127,9 +108,12 @@ const CollectionHero: React.FC<CollectionHeroProps> = ({
             {expanded ? 'Show Less' : 'Read More'}
           </Button>
         )}
+        {/* <Link to={'#'} className='text-gray-100 underline'>Read More</Link> */}
         <Box sx={{ mt: 3 }}>
           <Button
             variant="contained"
+            disableElevation
+            disableTouchRipple
             sx={{
               background: '#191919',
               color: '#fff',

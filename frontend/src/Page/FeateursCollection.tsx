@@ -34,13 +34,13 @@ const CollectionCard: React.FC<
 }) => {
   const theme = useTheme();
   return (
-    <Paper
+    <Box
       sx={{
         borderRadius: 3,
         bgcolor: 'background.default',
         overflow: 'hidden',
         position: 'relative',
-        minHeight: 170,
+        minHeight: 200,
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'flex-end',
@@ -53,7 +53,8 @@ const CollectionCard: React.FC<
       <Box
         sx={{
           width: '100%',
-          height: 110,
+          height: '100%',
+          minHeight: 180,
           background: `url(${image}) center center/cover no-repeat`,
         }}
       />
@@ -113,8 +114,7 @@ const CollectionCard: React.FC<
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mt: 0.5 }}>
           <Typography
             fontSize={14}
-            color="text.secondary"
-            sx={{ fontWeight: 500 }}
+            sx={{ fontWeight: 500, color: 'custom.thirdText' }}
           >
             Floor Price
           </Typography>
@@ -147,7 +147,7 @@ const CollectionCard: React.FC<
           </Typography>
         </Box>
       </Box>
-    </Paper>
+    </Box>
   );
 };
 
@@ -205,7 +205,7 @@ const FeateursCollection: React.FC = () => {
         width: '100%',
         flexWrap: { xs: 'wrap', md: 'nowrap' },
         // mt: 2,
-        p: {xs: 2, xl: 3.5},
+        p: 2,
         pt: 1,
       }}
     >
@@ -217,8 +217,8 @@ const FeateursCollection: React.FC = () => {
         <Typography
           fontWeight={400}
           fontSize={15}
-          color="text.secondary"
           mb={2}
+          sx={{ color: 'custom.thirdText' }}
         >
           This week's curated collections
         </Typography>
@@ -242,8 +242,8 @@ const FeateursCollection: React.FC = () => {
         <Typography
           fontWeight={400}
           fontSize={15}
-          color="text.secondary"
           mb={2}
+          sx={{ color: 'custom.thirdText' }}
         >
           Largest floor price change in the past day
         </Typography>
