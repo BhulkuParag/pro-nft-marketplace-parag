@@ -3,8 +3,7 @@ import Footer from '../Components/header/Footer';
 import React from 'react';
 import TabsContainer from '../Components/TabsContainer';
 import HomeCard from '../../@ui-component/Comman/HomeCard';
-import FeateursCollection from './FeateursCollection';
-import SubHeader from '../Components/home/SubHeader';
+import SlideCard from '../Components/ui/SlideCard';
 
 const Home = () => {
   return (
@@ -14,9 +13,8 @@ const Home = () => {
         position: 'relative',
       }}
     >
-      <FeateursCollection />
+      <SlideCard />
       <HomeCard />
-      <SubHeader />
       <TabsContainer />
       <Footer />
     </Box>
