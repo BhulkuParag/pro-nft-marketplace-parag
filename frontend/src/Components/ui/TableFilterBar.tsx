@@ -252,6 +252,7 @@ const TableFilterBar = () => {
           sx={{
             minWidth: 320,
             maxWidth: 400,
+            display: {xs: 'none', xl: 'block'},
           }}
         >
           <SearchBar placeholder="Search for items" backgroundColor='background.default' />

@@ -29,6 +29,7 @@ import {
   ListItemIcon,
 } from '@mui/material';
 import { menuItems } from '../constants/menuItem';
+import { Link } from 'react-router-dom';
 
 export default function Header(): JSX.Element {
   const [selected, setSelected] = React.useState('eth');
@@ -302,13 +303,13 @@ export default function Header(): JSX.Element {
           marginTop: 2,
         }}
       >
-        <div className="px-3 flex items-center gap-x-3 text-xl font-bold">
+        <Link to={'/home'} className="px-3 flex items-center gap-x-3 text-xl font-bold">
           <img
             src="https://analytic.polycruz.io/_next/static/media/logo.32e9a1fc.svg"
             alt=""
           />
           <span>Polycruz</span>
-        </div>
+        </Link>
 
         {menuItems.map((item) => (
           <ListItem key={item.path} disablePadding>

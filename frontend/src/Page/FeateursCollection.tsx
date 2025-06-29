@@ -205,7 +205,7 @@ const FeateursCollection: React.FC = () => {
         width: '100%',
         flexWrap: { xs: 'wrap', md: 'nowrap' },
         // mt: 2,
-        p: 5,
+        p: {xs: 2, xl: 3.5},
         pt: 1,
       }}
     >

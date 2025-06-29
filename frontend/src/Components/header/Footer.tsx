@@ -7,6 +7,8 @@ import liveData from '../../assets/images/gif/live.gif';
 
 import EthIcon from '../../assets/icons/others/EthIcon';
 import { Box, Divider, Typography } from '@mui/material';
+import DropDown from '../../../@ui-component/Comman/DropDown';
+import ToggleButtonCom from '../../../@ui-component/Comman/ToggleButton';
 // import axios from "axios";
 // import { toFixedValue } from "lib/numbers";
 
@@ -22,7 +24,7 @@ const Footer: FC<FooterProps> = () => {
   const links: LinkItem[] = [
     { text: 'Privacy', url: '/privacy' },
     { text: 'Terms', url: '/terms' },
-    // { text: "Hiring", url: "/hiring" },
+    { text: 'Hiring', url: '/hiring' },
   ];
   const [ethData, setEthData] = useState<any>([]);
   const [gasData, setGasData] = useState<any>([]);
@@ -61,9 +63,9 @@ const Footer: FC<FooterProps> = () => {
       }}
       // className="hidden lg:block"
     >
-      <nav className="mx-auto px-4">
-        <div className="w-full flex items-center justify-between">
-          <ul className="text-xs font-normal flex items-center gap-3 p-3">
+      <nav className="w-full mx-auto px-4">
+        <div className="flex items-center justify-between">
+          <ul className="w-fit text-xs font-normal flex items-center gap-3 p-3">
             <li className="inline-block">
               <Link
                 target="_blank"
@@ -115,7 +117,30 @@ const Footer: FC<FooterProps> = () => {
                 </Typography>
               </div>
             </div>
-            <div className="border-r w-1 h-4 border-[#9DA1AF]"></div>
+            <div className="border-r w-1 h-4 border-[#9DA1AF] hidden md:block"></div>
+            <Box
+              component={'ul'}
+              sx={{
+                display: { xs: 'none', sm: 'inline-flex' },
+                alignItems: 'center',
+                gap: '16px',
+                color: 'custom.lightGrey',
+              }}
+            >
+              {links?.map((link) => (
+                <Box
+                  component={'ol'}
+                  sx={{
+                    color: 'custom.lightGrey',
+                  }}
+                  key={link.url}
+                >
+                  <Link to={link.url}>{link.text}</Link>
+                </Box>
+              ))}
+            </Box>
+          </ul>
+          <div className="w-fit items-center mr-18 gap-3 hidden lg:inline-flex">
             <Box
               component={'div'}
               sx={{
@@ -128,30 +153,37 @@ const Footer: FC<FooterProps> = () => {
               }}
             >
               <GasFeeIcon />
-              {'0.883628002'} GWEI
+              {'10'} GWEI
             </Box>
-          </ul>
-          <Box
-            component={'ul'}
-            sx={{
-              display: { xs: 'none', lg: 'inline-flex' },
-              alignItems: 'center',
-              gap: '16px',
-              // color: 'custom.lightGrey',
-            }}
-          >
-            {links?.map((link) => (
-              <Box
-                component={'ol'}
-                sx={{
-                  color: 'custom.lightGrey',
-                }}
-                key={link.url}
-              >
-                <Link to={link.url}>{link.text}</Link>
-              </Box>
-            ))}
-          </Box>
+            <DropDown
+              value="standard"
+              disableMenuItemTouchRipple
+              disableTouchRipple
+              options={[
+                {
+                  label: 'Standard',
+                  value: 'standard',
+                },
+              ]}
+              onChange={() => {}}
+            />
+            <div className="border-r w-1 h-4 border-[#9DA1AF] hidden md:block mx-1"></div>
+            <ToggleButtonCom
+              selectedValue="investor"
+              options={[
+                {
+                  label: 'Investor',
+                  value: 'investor',
+                },
+                {
+                  label: 'Discover',
+                  value: 'discover',
+                },
+              ]}
+              handleOnChange={() => {}}
+              handleOnChangeForMobile={() => {}}
+            />
+          </div>
         </div>
       </nav>
     </Box>
