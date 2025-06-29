@@ -106,22 +106,25 @@ const CollectionActivity: React.FC = () => {
               maxWidth: 400,
             }}
           >
-            <SearchBar placeholder="Search for items" />
+            <SearchBar
+              placeholder="Search for items"
+              backgroundColor="background.default"
+            />
           </Box>
 
           <div className="justify-center items-center gap-1 inline-flex">
-              <img className="w-5 h-5" alt="Live-data" src={liveData} />
-              <div className="flex-col shrink-0 justify-center items-start inline-flex">
-                <Typography
-                  sx={{
-                    fontSize: 12,
-                    color: 'custom.lightGrey',
-                  }}
-                >
-                  LIVE DATA
-                </Typography>
-              </div>
+            <img className="w-5 h-5" alt="Live-data" src={liveData} />
+            <div className="flex-col shrink-0 justify-center items-start inline-flex">
+              <Typography
+                sx={{
+                  fontSize: 12,
+                  color: 'custom.lightGrey',
+                }}
+              >
+                LIVE DATA
+              </Typography>
             </div>
+          </div>
         </Box>
         <Box
           sx={{

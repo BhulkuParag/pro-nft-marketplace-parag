@@ -57,7 +57,7 @@ export const fetchActivityData = async (
   sortBy: string
 ): Promise<ActivityType[]> => {
   const response = await AXIOS.get<ActivityApiResponse>(
-    `/api/v1/reservoir/activity?sortBy=${sortBy}&includeMetadata=${includeMetadata}&type=${type}`
+    `/api/v1/reservoir/activity?sortBy=${'eventTimestamp'}&includeMetadata=${includeMetadata}&type=${type}`
   );
   return response.data?.data?.activities ?? [];
 };
