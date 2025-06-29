@@ -3,13 +3,14 @@ import { Box, Typography, IconButton } from '@mui/material';
 
 import AddIcon from '@mui/icons-material/Add';
 import CheckIcon from '@mui/icons-material/Check';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchItemsDataRequest } from '../../features/collection/collectionSlice';
 import { MdOutlineShoppingCart } from 'react-icons/md';
 
 import type { RootState } from '../../app/store';
 import { Button } from '@mui/material';
+import Loading from '../../../@ui-component/Comman/Loading';
 
 const items = [
   {
@@ -115,14 +116,16 @@ const ethIcon = 'https://marketplace.polycruz.io/eth.svg';
 const CollectionItems = () => {
   const [selectedIds, setSelectedIds] = React.useState<number[]>([]);
   const dispatch = useDispatch();
-  const { tabData } = useSelector((state: RootState) => state.collection);
-
+  const { tabData, loading } = useSelector(
+    (state: RootState) => state.collection
+  );
   useEffect(() => {
     dispatch(fetchItemsDataRequest());
   }, []);
 
   return (
-    <Box sx={{ background: '#191919', minHeight: '100vh' }}>
+    <Box sx={{ background: 'background.default', minHeight: '100vh' }}>
+      {loading && <Loading />}
       <Box
         sx={{
           display: 'grid',
@@ -153,7 +156,7 @@ const CollectionItems = () => {
 
                 boxShadow: 'none',
                 transition:
-                  'transform 0.3s cubic-bezier(.4,2,.6,1), box-shadow 0.3s cubic-bezier(.4,2,.6,1)',
+                  'all 0.3s cubic-bezier(.4,2,.6,1), box-shadow 0.3s cubic-bezier(.4,2,.6,1)',
                 '&:hover': {
                   transform: 'scale(1.01) translatez(-4px)',
                   boxShadow: 6,
@@ -169,20 +172,25 @@ const CollectionItems = () => {
                   width: '100%',
                   aspectRatio: '1/1',
                   background: '#222',
+                  overflow: 'hidden',
                 }}
               >
-                <Typography 
+                <Typography
                   component="img"
                   className="nft-thumbnail "
                   loading="lazy"
-                  src={item.token.metadata.imageOriginal}
+                  src={item.token.image}
                   alt={`NFT #${item.id}`}
                   sx={{
                     width: '100%',
                     height: '100%',
                     objectFit: 'cover',
                     display: 'block',
-                    transition: 'transform 0.3s cubic-bezier(.4,2,.6,1)',
+                    transition: 'all 0.3s cubic-bezier(.4,2,.6,1)',
+                    ':hover': {
+                      scale: 1.1,
+                    },
+                    //transition: 'transform 0.3s cubic-bezier(.4,2,.6,1)',
                   }}
                 />
                 <IconButton

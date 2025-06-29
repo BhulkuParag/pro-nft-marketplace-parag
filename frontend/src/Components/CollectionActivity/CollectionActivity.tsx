@@ -17,6 +17,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchActivityDataRequest } from '../../features/collection/collectionSlice';
 import type { RootState } from '../../app/store';
 import Loading from '../../../@ui-component/Comman/Loading';
+import SearchBar from '../ui/SearchBar';
+import liveData from '../../assets/images/gif/live.gif';
 
 // Example filter state
 const FILTERS = [
@@ -64,117 +66,122 @@ const CollectionActivity: React.FC = () => {
         sx={{
           display: 'flex',
           alignItems: 'center',
+          justifyContent: 'space-between',
           gap: 2,
           mb: 2,
           bgcolor: 'background.default',
           flexWrap: 'wrap',
         }}
       >
-        {/* Filter Button */}
-        <IconButton
-          sx={{
-            border: `1px solid ${theme.palette.divider}`,
-            borderRadius: 2,
-            color: 'text.secondary',
-            width: 40,
-            height: 40,
-            mr: 1,
-          }}
-        >
-          <FilterListIcon />
-        </IconButton>
-
-        {/* Search Input */}
         <Box
           sx={{
             display: 'flex',
             alignItems: 'center',
-            border: `1px solid ${theme.palette.divider}`,
-            borderRadius: 2,
-            px: 1.5,
-            py: 0.5,
-            minWidth: 320,
-            bgcolor: 'background.default',
-            flex: 1,
-            maxWidth: 400,
+            gap: 1.5,
           }}
         >
-          <SearchIcon sx={{ color: 'text.secondary', mr: 1 }} />
-          <InputBase
-            placeholder="Search for items"
+          <IconButton
             sx={{
-              color: 'text.primary',
-              width: '100%',
-              fontSize: 16,
-            }}
-            inputProps={{ 'aria-label': 'search for items' }}
-          />
-        </Box>
-
-        {/* Live View */}
-        <Box sx={{ display: 'flex', alignItems: 'center', ml: 2, mr: 2 }}>
-          <FiberManualRecordIcon
-            sx={{ color: '#1DE9B6', fontSize: 16, mr: 1 }}
-          />
-          <Typography color="text.secondary" fontWeight={500} fontSize={15}>
-            LIVE VIEW
-          </Typography>
-        </Box>
-
-        {/* Filters */}
-        <Typography
-          color="text.secondary"
-          fontWeight={500}
-          fontSize={16}
-          sx={{ mr: 1 }}
-        >
-          Filter:
-        </Typography>
-        {filters.map((f, idx) => (
-          <Chip
-            key={f.label + f.value}
-            label={
-              <span>
-                <span style={{ opacity: 0.7, fontSize: 13 }}>
-                  {f.label}&nbsp;
-                </span>
-                <span style={{ fontWeight: 600 }}>{f.value}</span>
-              </span>
-            }
-            onDelete={() => handleDelete(idx)}
-            deleteIcon={
-              <CloseIcon sx={{ color: 'text.secondary', fontSize: 18 }} />
-            }
-            sx={{
-              bgcolor: 'background.default',
-              color: 'text.secondary',
-              fontWeight: 600,
-              fontSize: 15,
-              px: 1.5,
-              mr: 1,
-              borderRadius: 2,
               border: `1px solid ${theme.palette.divider}`,
-              '& .MuiChip-deleteIcon': { ml: 0.5 },
+              borderRadius: 2,
+              color: 'text.secondary',
+              width: 40,
+              height: 40,
             }}
-          />
-        ))}
-        {/* Clear */}
-        {filters.length > 0 && (
-          <Link
-            component="button"
-            underline="none"
-            sx={{
-              color: theme.palette.primary.light,
-              fontWeight: 600,
-              fontSize: 16,
-              ml: 1,
-              cursor: 'pointer',
-            }}
-            onClick={handleClear}
           >
-            Clear
-          </Link>
-        )}
+            <FilterListIcon />
+          </IconButton>
+
+          <Box
+            sx={{
+              // display: 'flex',
+              // alignItems: 'center',
+              // border: `1px solid ${theme.palette.divider}`,
+              // borderRadius: 2,
+              // px: 1.5,
+              // py: 0.5,
+              minWidth: 320,
+              // bgcolor: 'background.default',
+              // flex: 1,
+              maxWidth: 400,
+            }}
+          >
+            <SearchBar placeholder="Search for items" />
+          </Box>
+
+          <div className="justify-center items-center gap-1 inline-flex">
+              <img className="w-5 h-5" alt="Live-data" src={liveData} />
+              <div className="flex-col shrink-0 justify-center items-start inline-flex">
+                <Typography
+                  sx={{
+                    fontSize: 12,
+                    color: 'custom.lightGrey',
+                  }}
+                >
+                  LIVE DATA
+                </Typography>
+              </div>
+            </div>
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          <Typography
+            color="text.secondary"
+            fontWeight={500}
+            fontSize={16}
+            sx={{ mr: 1 }}
+          >
+            Filter:
+          </Typography>
+          {filters.map((f, idx) => (
+            <Chip
+              key={f.label + f.value}
+              label={
+                <span>
+                  <span style={{ opacity: 0.7, fontSize: 13 }}>
+                    {f.label}&nbsp;
+                  </span>
+                  <span style={{ fontWeight: 600 }}>{f.value}</span>
+                </span>
+              }
+              onDelete={() => handleDelete(idx)}
+              deleteIcon={
+                <CloseIcon sx={{ color: 'text.secondary', fontSize: 18 }} />
+              }
+              sx={{
+                bgcolor: 'background.default',
+                color: 'text.secondary',
+                fontWeight: 600,
+                fontSize: 15,
+                px: 1.5,
+                mr: 1,
+                borderRadius: 2,
+                border: `1px solid ${theme.palette.divider}`,
+                '& .MuiChip-deleteIcon': { ml: 0.5 },
+              }}
+            />
+          ))}
+          {filters.length > 0 && (
+            <Link
+              component="button"
+              underline="none"
+              sx={{
+                color: 'custom.grey01',
+                fontWeight: 600,
+                fontSize: 16,
+                ml: 1,
+                cursor: 'pointer',
+              }}
+              onClick={handleClear}
+            >
+              Clear
+            </Link>
+          )}
+        </Box>
       </Box>
       {loading ? (
         <Loading />

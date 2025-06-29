@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchItemDetailsDataRequest } from '../features/collection/collectionSlice';
 import { useParams } from 'react-router-dom';
 import type { RootState } from '../app/store';
+import CollectionFooter from '../Components/CollectionFooter/CollectionFooter';
 
 const BlurTypeRenderer = (params: any) => (
   <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
@@ -173,9 +174,9 @@ const traits = [
   { label: 'Hat', value: 'Safari', rarity: '182 (1.8%)' },
   { label: 'Fur', value: 'Golden Brown', rarity: '779 (7.8%)' },
   { label: 'Eyes', value: 'Coins', rarity: '479 (4.8%)' },
-  { label: 'Clothes', value: 'Wool Turtleneck', rarity: '240 (2.4%)' },
-  { label: 'Background', value: 'Blue', rarity: '1242 (12.4%)' },
-  { label: 'APECOIN STAKED', value: '0 - 1 ApeCoin', rarity: '8548 (85.5%)' },
+  // { label: 'Clothes', value: 'Wool Turtleneck', rarity: '240 (2.4%)' },
+  // { label: 'Background', value: 'Blue', rarity: '1242 (12.4%)' },
+  // { label: 'APECOIN STAKED', value: '0 - 1 ApeCoin', rarity: '8548 (85.5%)' },
 ];
 
 const Screen: React.FC = () => {
@@ -204,324 +205,337 @@ const Screen: React.FC = () => {
       { label: 'Token ID', value: ItemDetails.token?.tokenId },
       { label: 'Supply', value: ItemDetails.token?.collection.tokenCount },
     ];
-  }, []);
+  }, [ItemDetails]);
 
   useEffect(() => {
     if (id) dispatch(fetchItemDetailsDataRequest(id));
   }, [id]);
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: { xs: 'column', md: 'row' },
-        gap: { xs: 2, md: 1 },
-        alignItems: { xs: 'stretch', md: 'flex-start' },
-        width: '100%',
-        backgroundColor: 'background.default',
-        p: { xs: 1, md: 2 },
-        minHeight: '100vh',
-      }}
-    >
-      {/* Left: NFT Image */}
+    <div className='w-full h-auto'>
       <Box
         sx={{
-          flex: { xs: 'unset', md: '0 0 480px' },
+          width: '100%',
           display: 'flex',
-          flexDirection: 'column',
-          alignItems: { xs: 'center', md: 'flex-start' },
-          bgcolor: 'background.paper',
-          borderRadius: 4,
+          backgroundColor: 'background.default',
+          flexDirection: { xs: 'column', md: 'row' },
+          alignItems: { xs: 'stretch', md: 'flex-start' },
+          gap: { xs: 2, md: 1 },
           p: { xs: 1, md: 2 },
-          minHeight: { xs: 'auto', md: 600 },
-          width: { xs: '100%', md: 'auto' },
-          mb: { xs: 2, md: 0 },
         }}
       >
-        {/* Badge Row */}
-        <Typography
-          fontSize={24}
-          component={'h1'}
-          sx={{
-            color: 'text.primary',
-          }}
-        >
-          {ItemDetails.token?.collection?.name +
-            ' ' +
-            '#' +
-            ItemDetails.token?.tokenId}
-        </Typography>
+        {/* Left: NFT Image */}
         <Box
           sx={{
+            //flex: { xs: 'unset', md: '0 0 480px' },
             display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            mb: 2,
-          }}
-        >
-          <Avatar
-            src="https://cryptopunks.app/favicon.ico"
-            alt="Collection"
-            sx={{ width: 32, height: 32, mr: 1 }}
-          />
-          <Chip
-            label={ItemDetails.token?.kind}
-            sx={{
-              bgcolor: '#6C63B5',
-              color: '#fff',
-              fontWeight: 700,
-              fontSize: 18,
-              borderRadius: 2,
-              height: 32,
-            }}
-          />
-        </Box>
-
-        <Box
-          component="img"
-          src={ItemDetails?.token?.collection?.image}
-          loading="lazy"
-          alt="NFT"
-          sx={{
-            width: 440,
-            height: 440,
+            flexDirection: 'column',
+            alignItems: { xs: 'center', md: 'flex-start' },
+            bgcolor: 'background.paper',
             borderRadius: 4,
-            objectFit: 'cover',
-            boxShadow: 3,
-          }}
-        />
-        {/* Action Buttons */}
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: { xs: 'column', md: 'row' },
-            gap: 2,
-            mt: 3,
-            width: '100%',
+            p: { xs: 1, md: 2 },
+            paddingLeft: { xs: 0, md: 0 },
+            paddingTop: { xs: 0, md: 0 },
+            minHeight: { xs: 'auto', md: 600 },
+            width: { xs: '100%', md: '34%' },
+            mb: { xs: 2, md: 0 },
           }}
         >
-          {/* Buy Now Button Group */}
-          <Box
-            component="div"
+          {/* Badge Row */}
+          <Typography
+            fontSize={24}
+            component={'h1'}
+            paddingLeft={2}
             sx={{
               color: 'text.primary',
-              fontWeight: 700,
-              borderRadius: 3,
-              border: '2px solid #A6A6B9',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 2,
-              backgroundColor: 'custom.ButtonPrimary',
-              '&:hover': { bgcolor: 'custom.ButtonPrimary' },
-              // justifyContent: 'space-between',
             }}
           >
-            <Button
-              sx={{
-                color: 'text.primary',
-                fontWeight: 700,
-                paddingInline: 3,
-                // fontSize: 20,
-              }}
-            >
-              <span> Buy Now</span>
-              <span style={{ paddingLeft: '2px' }}>
-                <img
-                  src="https://marketplace.polycruz.io/eth.svg"
-                  alt="eth"
-                  height={10}
-                  width={10}
-                />
-              </span>
-              <span style={{ paddingLeft: '15px' }}> 10.99</span>
-            </Button>
-
-            <IconButton>
-              <LocalGroceryStoreIcon />
-            </IconButton>
-          </Box>
-
-          {/* Make Offer Button */}
-          <Button
-            sx={{
-              color: '#fff',
-              fontWeight: 700,
-              fontSize: 20,
-              px: 5,
-              borderRadius: 3,
-              height: 56,
-              bgcolor: 'transparent',
-              border: '2px solid #A6A6B9',
-              textTransform: 'none',
-
-              flex: 1,
-              minWidth: 0,
-              '&:hover': { bgcolor: '#232336' },
-            }}
-          >
-            Make Offer
-          </Button>
-        </Box>
-      </Box>
-      {/* Right: Info, Traits, Activity */}
-      <Box
-        sx={{
-          flex: 1,
-          display: 'flex',
-          flexWrap: 'wrap',
-          flexDirection: 'column',
-          gap: 3,
-        }}
-      >
-        {/* Info Row */}
-        <Paper
-          sx={{
-            bgcolor: 'transparent',
-            borderRadius: 3,
-            p: 0,
-            border: '2px solid #44455A',
-
-            boxShadow: 'none',
-            overflow: 'hidden',
-          }}
-        >
+            {ItemDetails.token?.collection?.name +
+              ' ' +
+              '#' +
+              ItemDetails.token?.tokenId}
+          </Typography>
           <Box
             sx={{
-              display: 'grid',
-              gridTemplateColumns: { xs: '1fr 1fr', md: 'repeat(6, 1fr)' },
+              display: 'flex',
+              flexWrap: 'wrap',
               alignItems: 'center',
+              mb: 4.5,
+              pl: 2,
+            }}
+          >
+            <Avatar
+              src={ItemDetails.token?.collection.image}
+              alt="Collection"
+              sx={{ width: 32, height: 32, mr: 1, borderRadius: 0 }}
+            />
+            <Chip
+              label={ItemDetails.token?.kind}
+              sx={{
+                bgcolor: '#6C63B5',
+                color: '#fff',
+                fontWeight: 700,
+                fontSize: 18,
+                borderRadius: 2,
+                height: 32,
+              }}
+            />
+          </Box>
+
+          <Box
+            component="img"
+            src={ItemDetails?.token?.image}
+            loading="lazy"
+            alt="NFT"
+            sx={{
+              width: '100%',
+              borderRadius: 4,
+              objectFit: 'cover',
+              boxShadow: 3,
+            }}
+          />
+          {/* Action Buttons */}
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: { xs: 'column', md: 'row' },
+              gap: 2,
+              mt: 3,
               width: '100%',
             }}
           >
-            {infoItems.map((item) => (
-              <Box
-                key={item.label}
+            {/* Buy Now Button Group */}
+            <Box
+              component="div"
+              sx={{
+                color: 'text.primary',
+                fontWeight: 700,
+                borderRadius: 3,
+                border: '2px solid #A6A6B9',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 2,
+                backgroundColor: 'custom.ButtonPrimary',
+                '&:hover': { bgcolor: 'custom.ButtonPrimary' },
+                // justifyContent: 'space-between',
+              }}
+            >
+              <Button
                 sx={{
-                  p: 2,
-                  textAlign: 'center',
-
-                  borderRight:
-                    item.label !== 'Supply' ? '1px solid #44455A' : 'none',
+                  color: 'text.primary',
+                  fontWeight: 700,
+                  paddingInline: 3,
+                  // fontSize: 20,
                 }}
               >
-                <Typography color="text.primary" fontSize={12}>
-                  {item.label}
-                </Typography>
-                <Typography
-                  color="text.primary"
-                  fontWeight={700}
-                  fontSize={15}
-                  sx={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: 1,
-                  }}
-                >
-                  {item.label === 'Floor Price'}
-                  {item.value}
-                </Typography>
-              </Box>
-            ))}
-          </Box>
-        </Paper>
+                <span> Buy Now</span>
+                <span style={{ paddingLeft: '2px' }}>
+                  <img
+                    src="https://marketplace.polycruz.io/eth.svg"
+                    alt="eth"
+                    height={10}
+                    width={10}
+                  />
+                </span>
+                <span style={{ paddingLeft: '15px' }}> 10.99</span>
+              </Button>
 
-        {/* Traits Section */}
-        <Paper
+              <IconButton>
+                <LocalGroceryStoreIcon />
+              </IconButton>
+            </Box>
+
+            {/* Make Offer Button */}
+            <Button
+              sx={{
+                color: '#fff',
+                fontWeight: 700,
+                fontSize: 20,
+                px: 5,
+                borderRadius: 3,
+                height: 56,
+                bgcolor: 'transparent',
+                border: '2px solid #A6A6B9',
+                textTransform: 'none',
+
+                flex: 1,
+                minWidth: 0,
+                '&:hover': { bgcolor: '#232336' },
+              }}
+            >
+              Make Offer
+            </Button>
+          </Box>
+        </Box>
+        {/* Right: Info, Traits, Activity */}
+        <Box
           sx={{
-            bgcolor: 'background.paper',
-            borderRadius: 3,
-            p: 3,
-            border: '1px solid',
-            borderColor: 'divider',
+            width: '66%',
+            // flex: 1,
+            display: 'flex',
+            flexWrap: 'wrap',
+            flexDirection: 'column',
+            gap: 2,
           }}
         >
-          <Typography fontWeight={700} fontSize={22} mb={2}>
-            Traits ({traits.length})
-          </Typography>
-          <Box
+          {/* Info Row */}
+          <Paper
             sx={{
-              display: 'grid',
-              gridTemplateColumns: { xs: '1fr ', md: 'repeat(3, 1fr)' },
-              gap: 1,
+              bgcolor: 'transparent',
+              borderRadius: 3,
+              p: 0,
+              border: '2px solid',
+              borderColor: 'divider',
+              boxShadow: 'none',
+              overflow: 'hidden',
             }}
           >
-            {traits.map((trait) => (
-              <Box
-                key={trait.label}
-                sx={{
-                  p: 2,
-                  borderRadius: 2,
-                  bgcolor: 'background.default',
-                  border: '1px solid #44455A',
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  gap: 1,
-                  ':hover': {
-                    borderColor: 'text.primary',
-                  },
-                }}
-              >
-                <Box>
-                  <Typography
-                    color="text.primary"
-                    fontSize={13}
-                    fontWeight={600}
-                  >
-                    {trait.label}
+            <Box
+              sx={{
+                display: 'grid',
+                gridTemplateColumns: { xs: '1fr 1fr', md: 'repeat(6, 1fr)' },
+                alignItems: 'center',
+                width: '100%',
+                bgcolor: 'background.paper',
+              }}
+            >
+              {infoItems.map((item) => (
+                <Box
+                  key={item.label}
+                  sx={{
+                    p: 2,
+                    textAlign: 'center',
+                    bgcolor: 'background.paper',
+                    borderRight:
+                      item.label !== 'Supply' ? '1.9px solid' : 'none',
+                    borderRightColor: 'divider',
+                  }}
+                >
+                  <Typography color="text.primary" fontSize={12}>
+                    {item.label}
                   </Typography>
                   <Typography
-                    fontWeight={700}
-                    fontSize={16}
                     color="text.primary"
+                    fontWeight={700}
+                    fontSize={15}
+                    sx={{
+                      display: 'flex',
+                      flexWrap: 'wrap',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: 1,
+                    }}
                   >
-                    {trait.value}
+                    {item.label === 'Floor Price'}
+                    {item.value}
                   </Typography>
                 </Box>
-                <Box sx={{ textAlign: 'right' }}>
-                  <Typography
-                    color="text.primary"
-                    fontSize={13}
-                    fontWeight={600}
-                  >
-                    RARITY
-                  </Typography>
-                  <Typography
-                    fontWeight={700}
-                    fontSize={16}
-                    color="text.primary"
-                  >
-                    {trait.rarity}
-                  </Typography>
-                </Box>
-              </Box>
-            ))}
-          </Box>
-        </Paper>
+              ))}
+            </Box>
+          </Paper>
 
-        {/* Activity Section */}
-        <Paper
-          sx={{
-            bgcolor: 'background.paper',
-            borderRadius: 3,
-            p: 3,
-            border: '1px solid',
-            borderColor: 'divider',
-          }}
-        >
-          <Typography fontWeight={700} fontSize={22} mb={2}>
-            Activity
-          </Typography>
-          <Box sx={{ maxHeight: 300, overflow: 'auto', display: 'flex' }}>
+          {/* Traits Section */}
+          <Paper
+            sx={{
+              bgcolor: 'background.paper',
+              borderRadius: 3,
+              p: 2,
+              border: '2px solid',
+              borderColor: 'divider',
+            }}
+            elevation={0}
+          >
+            <Typography fontWeight={400} fontSize={20} mb={2}>
+              Traits ({traits.length})
+            </Typography>
+            <Box
+              sx={{
+                display: 'grid',
+                gridTemplateColumns: { xs: '1fr ', md: 'repeat(3, 1fr)' },
+                gap: 1,
+              }}
+            >
+              {traits.map((trait) => (
+                <Box
+                  key={trait.label}
+                  sx={{
+                    py: 1,
+                    px: 2,
+                    borderRadius: 2,
+                    bgcolor: 'background.default',
+                    border: '2px solid',
+                    borderColor: 'divider',
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    gap: 1,
+                    ':hover': {
+                      borderColor: 'text.primary',
+                    },
+                  }}
+                >
+                  <Box>
+                    <Typography
+                      color="text.primary"
+                      fontSize={13}
+                      // fontWeight={600}
+                    >
+                      {trait.label}
+                    </Typography>
+                    <Typography
+                      // fontWeight={700}
+                      fontSize={13}
+                      color="text.primary"
+                    >
+                      {trait.value}
+                    </Typography>
+                  </Box>
+                  <Box sx={{ textAlign: 'right' }}>
+                    <Typography
+                      color="text.primary"
+                      fontSize={13}
+                      // fontWeight={600}
+                    >
+                      RARITY
+                    </Typography>
+                    <Typography
+                      // fontWeight={700}
+                      fontSize={13}
+                      color="text.primary"
+                    >
+                      {trait.rarity}
+                    </Typography>
+                  </Box>
+                </Box>
+              ))}
+            </Box>
+          </Paper>
+
+          {/* Activity Section */}
+          <Paper
+            sx={{
+              bgcolor: 'background.paper',
+              borderRadius: 3,
+              p: 3,
+              border: '2px solid',
+              borderColor: 'divider',
+              maxHeight: 350,
+              overflow: 'auto',
+              scrollbarWidth: 'none',
+            }}
+            elevation={0}
+          >
+            <Typography fontWeight={700} fontSize={22} mb={2}>
+              Activity
+            </Typography>
             <AGGridTable columnDefs={activityColumns} rowData={activityRows} />
-          </Box>
-        </Paper>
+          </Paper>
+        </Box>
       </Box>
-    </Box>
+      <CollectionFooter />
+    </div>
   );
 };
 

@@ -35,17 +35,17 @@ public class CollectionData {
     private TopBid topBid;
     private boolean isNsfw;
 
-    @JsonProperty("collectionId")
+    @JsonProperty("id")
     public String getId() {
         return id;
     }
 
-    @JsonProperty("collectionName")
+    @JsonProperty("name")
     public String getName() {
         return name;
     }
 
-    @JsonProperty("collectionImage")
+    @JsonProperty("image")
     public String getImage() {
         return image;
     }
