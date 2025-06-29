@@ -17,6 +17,7 @@ import com.polycruz.config.ReservoirApiProperties;
 import com.polycruz.pojo.ActivityResponse;
 import com.polycruz.pojo.ChainStatsResponse;
 import com.polycruz.pojo.CollectionsV7Response;
+import com.polycruz.pojo.NftCollectionResponse;
 import com.polycruz.pojo.NftSalesResponse;
 import com.polycruz.pojo.SalesApiResponse;
 import com.polycruz.pojo.TokenDetail;
@@ -160,6 +161,12 @@ public class VendorService {
      
 
         return restTemplate.getForObject(url, ChainStatsResponse.class, uriVariables);
+    }
+	
+	public NftCollectionResponse getAiValuationOnLoad() {
+        String url = apiProperties.getAiValuationonLoad();;
+
+        return restTemplate.getForObject(url, NftCollectionResponse.class);
     }
 
 

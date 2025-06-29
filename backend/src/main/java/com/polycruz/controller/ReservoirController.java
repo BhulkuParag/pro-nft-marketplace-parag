@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.polycruz.pojo.ActivityResponse;
 import com.polycruz.pojo.ChainStatsResponse;
 import com.polycruz.pojo.CollectionsV7Response;
+import com.polycruz.pojo.NftCollectionResponse;
 import com.polycruz.pojo.NftSalesResponse;
 import com.polycruz.pojo.SalesApiResponse;
 import com.polycruz.pojo.TokenDetail;
@@ -135,6 +136,14 @@ public class ReservoirController {
             
      ) {
          return new ResponseEntity<>(transformer.transform(vendorService.getChainStats()), HttpStatus.OK);
+     }
+     
+     @GetMapping("/collection/v1")
+     @Operation(summary = "AI Valuation a. on load")
+     public ResponseEntity<TechResponse<NftCollectionResponse>> getCollectionData(
+            
+     ) {
+    	 return new ResponseEntity<>(transformer.transform(vendorService.getAiValuationOnLoad()), HttpStatus.OK);
      }
 
 }
