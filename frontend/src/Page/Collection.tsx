@@ -52,6 +52,13 @@ const Collection = () => {
   const [copied, setCopied] = useState(false);
   const [refreshed, setRefreshed] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const dispatch = useDispatch();
+  const tabData = useSelector(
+    (state: RootState) => state.collection.tabData
+  );
+  const activeTab = useSelector(
+    (state: RootState) => state.collection.activeTab
+  ) as TabKey;
 
   useEffect(() => {
     if (copied) {
@@ -233,10 +240,6 @@ const Collection = () => {
       },
     };
   }, []);
-  const dispatch = useDispatch();
-  const activeTab = useSelector(
-    (state: RootState) => state.collection.activeTab
-  ) as TabKey;
 
   const handleChange = useCallback(
     (_: React.SyntheticEvent, newValue: string) => {
@@ -256,8 +259,8 @@ const Collection = () => {
       <Box className="banner-section">
         <Box className="banner-thumbnail">
           <img
-            src="https://img.reservoir.tools/images/v2/mainnet/z9JRSpLYGu7%2BCZoKWtAuAEcOUGySakBXk7K81S4M3usl4TSfYfHL%2BlFeG2FU1xA%2FT2O0uFyODPcfGEyTKOBRxR1Vvqel2SiykN8YLzPJob0lRVCJRwf0dlZuyFZqoER381lhyfETGxSzb4xu9S3P03z2rJ9xwQ%2BbVRwbl51tBeaqMzjQYCpZoIlaacibJjyDtPy9wMtrl86k%2FjbTEQThGg%3D%3D"
-            alt="thumbnail"
+            src={tabData?.overview?.banner}
+            alt={tabData?.overview?.name}
             className="banner-image"
           />
         </Box>
@@ -277,8 +280,8 @@ const Collection = () => {
           }}
         >
           <img
-            src="https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fz9JRSpLYGu7%252BCZoKWtAuAL4v83jn3jtpVIO3s%252BzOvztJqa5dvM8sRQqWqJxNeLprZLk7t%252FkKV14mfw6ax5Z%252FAKVk5y7e4bemc5zTfUUG5yDP0SFukSjUsdQGmQKcKezFnGdbphLT3%252Fk9v3OUYIaaEVzHYKUgQoV%252Bq8aKahdtgXphuoQwP84%252FuONfP%252F4i3OUkm%252FpudGx8XstMS9yAZrtbTGKHRxTKwkJCjb7v6qI5VO6ro4nvj0F16%252FRcLaGeY7WqfJS3JVCa%252FacTF0MWbMnllg47eFISdt%252Fu8B7dkR53OO4%253D%3Fwidth%3D250&w=640&q=75"
-            alt="thumbnail"
+          src={tabData?.overview?.banner}
+            alt={tabData?.overview?.name}
             style={{ borderRadius: '100%', width: '96px', height: '96px' }}
             className="banner-logo"
           />
