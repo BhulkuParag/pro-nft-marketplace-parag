@@ -17,10 +17,12 @@ import com.polycruz.config.ReservoirApiProperties;
 import com.polycruz.pojo.ActivityResponse;
 import com.polycruz.pojo.ChainStatsResponse;
 import com.polycruz.pojo.CollectionsV7Response;
+import com.polycruz.pojo.NftCollectionResponse;
 import com.polycruz.pojo.NftSalesResponse;
 import com.polycruz.pojo.SalesApiResponse;
 import com.polycruz.pojo.TokenDetail;
 import com.polycruz.pojo.TokenResponse;
+import com.polycruz.pojo.TopTradersResponse;
 import com.polycruz.pojo.TrendingApiResponse;
 import com.polycruz.pojo.TrendingMintsResponse;
 import org.springframework.web.client.RestTemplate;
@@ -160,6 +162,19 @@ public class VendorService {
      
 
         return restTemplate.getForObject(url, ChainStatsResponse.class, uriVariables);
+    }
+	
+	public NftCollectionResponse getAiValuationOnLoad() {
+        String url = apiProperties.getAiValuationonLoad();;
+
+        return restTemplate.getForObject(url, NftCollectionResponse.class);
+    }
+	
+	public TopTradersResponse fetchTopTraders(String period) {
+        String url = apiProperties.getTopTrader();
+        Map<String, Object> uriVariables = new HashMap<>();
+        uriVariables.put("period", period);
+        return restTemplate.getForObject(url, TopTradersResponse.class,uriVariables);
     }
 
 
