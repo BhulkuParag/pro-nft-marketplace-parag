@@ -36,7 +36,7 @@ export const fetchItemsData = async (
   collection: string
 ): Promise<RowData[]> => {
   const response = await AXIOS.get<ItemsApiResponse>(
-    `/api/v1/reservoir/tokens?collection=${collection}&sortBy=${'floorAskPrice'}&limit=${limit}`
+    `/api/v1/reservoir/tokens?collection=${collection}&sortBy=${'floorAskPrice'}&limit=${100} `
   );
   return response.data?.data?.tokens ?? [];
 };

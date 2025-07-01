@@ -1,131 +1,147 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Box, Typography, IconButton } from '@mui/material';
 
 import AddIcon from '@mui/icons-material/Add';
 import CheckIcon from '@mui/icons-material/Check';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchItemsDataRequest } from '../../features/collection/collectionSlice';
+import {
+  fetchItemsDataRequest,
+  setLimit,
+} from '../../features/collection/collectionSlice';
 import { MdOutlineShoppingCart } from 'react-icons/md';
-
 import type { RootState } from '../../app/store';
-import { Button } from '@mui/material';
 import Loading from '../../../@ui-component/Comman/Loading';
+import { useInView } from 'react-intersection-observer';
 
-const items = [
-  {
-    id: 8360,
-    image:
-      'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
-    price: '11.97964',
-  },
-  {
-    id: 9415,
-    image:
-      'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
-    price: '11.97964',
-  },
-  {
-    id: 5268,
-    image:
-      'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
-    price: '11.97964',
-  },
-  {
-    id: 1001,
-    image:
-      'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
-    price: '11.97964',
-  },
-  {
-    id: 1002,
-    image:
-      'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
-    price: '11.97964',
-  },
-  {
-    id: 1003,
-    image:
-      'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
-    price: '11.97964',
-  },
-  {
-    id: 1004,
-    image:
-      'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
-    price: '11.97964',
-  },
-  {
-    id: 1005,
-    image:
-      'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
-    price: '11.97964',
-  },
-  {
-    id: 1006,
-    image:
-      'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
-    price: '11.97964',
-  },
-  {
-    id: 1007,
-    image:
-      'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
-    price: '11.97964',
-  },
-  {
-    id: 1008,
-    image:
-      'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
-    price: '11.97964',
-  },
-  {
-    id: 1009,
-    image:
-      'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
-    price: '11.97964',
-  },
-  {
-    id: 1010,
-    image:
-      'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
-    price: '11.97964',
-  },
-  {
-    id: 1011,
-    image:
-      'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
-    price: '11.97964',
-  },
-  {
-    id: 1012,
-    image:
-      'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
-    price: '11.97964',
-  },
-  {
-    id: 1013,
-    image:
-      'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
-    price: '11.97964',
-  },
-];
+// const items = [
+//   {
+//     id: 8360,
+//     image:
+//       'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
+//     price: '11.97964',
+//   },
+//   {
+//     id: 9415,
+//     image:
+//       'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
+//     price: '11.97964',
+//   },
+//   {
+//     id: 5268,
+//     image:
+//       'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
+//     price: '11.97964',
+//   },
+//   {
+//     id: 1001,
+//     image:
+//       'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
+//     price: '11.97964',
+//   },
+//   {
+//     id: 1002,
+//     image:
+//       'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
+//     price: '11.97964',
+//   },
+//   {
+//     id: 1003,
+//     image:
+//       'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
+//     price: '11.97964',
+//   },
+//   {
+//     id: 1004,
+//     image:
+//       'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
+//     price: '11.97964',
+//   },
+//   {
+//     id: 1005,
+//     image:
+//       'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
+//     price: '11.97964',
+//   },
+//   {
+//     id: 1006,
+//     image:
+//       'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
+//     price: '11.97964',
+//   },
+//   {
+//     id: 1007,
+//     image:
+//       'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
+//     price: '11.97964',
+//   },
+//   {
+//     id: 1008,
+//     image:
+//       'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
+//     price: '11.97964',
+//   },
+//   {
+//     id: 1009,
+//     image:
+//       'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
+//     price: '11.97964',
+//   },
+//   {
+//     id: 1010,
+//     image:
+//       'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
+//     price: '11.97964',
+//   },
+//   {
+//     id: 1011,
+//     image:
+//       'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
+//     price: '11.97964',
+//   },
+//   {
+//     id: 1012,
+//     image:
+//       'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
+//     price: '11.97964',
+//   },
+//   {
+//     id: 1013,
+//     image:
+//       'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
+//     price: '11.97964',
+//   },
+// ];
 
-const ethIcon = 'https://marketplace.polycruz.io/eth.svg';
+// const ethIcon = 'https://marketplace.polycruz.io/eth.svg';
 
-const CollectionItems = () => {
-  const [selectedIds, setSelectedIds] = React.useState<number[]>([]);
-  const dispatch = useDispatch();
-  const { tabData, loading } = useSelector(
+type Props = {
+  allItems: any[];
+};
+
+const CollectionItems: React.FC<Props> = () => {
+  const { loading, tabData, limit } = useSelector(
     (state: RootState) => state.collection
   );
-  useEffect(() => {
-    dispatch(fetchItemsDataRequest());
-  }, []);
+  const [selectedIds, setSelectedIds] = React.useState<number[]>([]);
+  const dispatch = useDispatch();
+  const { ref, inView } = useInView({
+    threshold: 0,
+  });
 
+  useEffect(() => {
+    dispatch(fetchItemsDataRequest(limit));
+    console.log(`Fetching items with limit: ${limit}`);
+  }, [dispatch, limit]);
+
+  useEffect(() => {
+    if (inView && !loading && tabData['items']?.length === limit) {
+      dispatch(setLimit(limit + 50));
+      console.log(`Fetching more items, current limit: ${limit}`);
+    }
+  }, [inView, loading, limit, dispatch]);
   return (
     <Box sx={{ background: 'background.default', minHeight: '100vh' }}>
-      {loading && <Loading />}
       <Box
         sx={{
           display: 'grid',
@@ -147,16 +163,12 @@ const CollectionItems = () => {
           >
             <Box
               sx={{
-                // borderRadius: '16px',
                 borderRadius: '12px',
                 overflow: 'hidden',
                 background: '#232323',
                 position: 'relative',
                 cursor: 'pointer',
-
-                boxShadow: 'none',
-                transition:
-                  'all 0.3s cubic-bezier(.4,2,.6,1), box-shadow 0.3s cubic-bezier(.4,2,.6,1)',
+                transition: 'opacity 0.6s ease-out, transform 0.6s ease-out',
                 '&:hover': {
                   transform: 'scale(1.01) translatez(-4px)',
                   boxShadow: 6,
@@ -385,6 +397,8 @@ const CollectionItems = () => {
           </Link>
         ))}
       </Box>
+      {loading && <Loading />}
+      <div ref={ref} style={{ height: 1 }} />
     </Box>
   );
 };
