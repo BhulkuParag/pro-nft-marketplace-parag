@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Typography, IconButton } from '@mui/material';
+import { Box, Typography, IconButton, useTheme } from '@mui/material';
 
 import AddIcon from '@mui/icons-material/Add';
 import CheckIcon from '@mui/icons-material/Check';
@@ -11,6 +11,8 @@ import { MdOutlineShoppingCart } from 'react-icons/md';
 import type { RootState } from '../../app/store';
 import { Button } from '@mui/material';
 import Loading from '../../../@ui-component/Comman/Loading';
+import SearchBar from '../ui/SearchBar';
+import BarFilterIcon from '../Icon/BarFilterIcon';
 
 const items = [
   {
@@ -111,9 +113,8 @@ const items = [
   },
 ];
 
-const ethIcon = 'https://marketplace.polycruz.io/eth.svg';
-
 const CollectionItems = () => {
+    const theme = useTheme();
   const [selectedIds, setSelectedIds] = React.useState<number[]>([]);
   const dispatch = useDispatch();
   const { tabData, loading } = useSelector(
@@ -124,7 +125,76 @@ const CollectionItems = () => {
   }, []);
 
   return (
-    <Box sx={{ background: 'background.default', minHeight: '100vh' }}>
+    <Box sx={{ background: 'background.default' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: 2,
+          mb: 3,
+          bgcolor: 'background.default',
+          flexWrap: 'wrap',
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1.5,
+          }}
+        >
+          <IconButton
+            sx={{
+              border: `1px solid`,
+              borderColor: 'divider',
+              borderRadius: 2,
+              color: 'text.secondary',
+              mb: 0.2,
+            }}
+            className='group'
+          >
+            {/* <FilterListIcon /> */}
+            <BarFilterIcon
+              className={`w-5 h-5 group-hover:fill-[#A49BFF] fill-[#777E90] }`}
+            />
+          </IconButton>
+
+          <Box
+            sx={{
+              // display: 'flex',
+              // alignItems: 'center',
+              // border: `1px solid ${theme.palette.divider}`,
+              // borderRadius: 2,
+              // px: 1.5,
+              // py: 0.5,
+              minWidth: 320,
+              // bgcolor: 'background.default',
+              // flex: 1,
+              maxWidth: 400,
+            }}
+          >
+            <SearchBar
+              placeholder="Search for items"
+              backgroundColor="background.default"
+            />
+          </Box>
+
+          <div className="justify-center items-center gap-1 inline-flex">
+            {/* <img className="w-5 h-5" alt="Live-data" src={liveData} />
+                  <div className="flex-col shrink-0 justify-center items-start inline-flex">
+                    <Typography
+                      sx={{
+                        fontSize: 12,
+                        color: 'custom.lightGrey',
+                      }}
+                    >
+                      LIVE DATA
+                    </Typography>
+                  </div> */}
+          </div>
+        </Box>
+      </Box>
       {loading && <Loading />}
       <Box
         sx={{

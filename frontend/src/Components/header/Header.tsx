@@ -35,7 +35,7 @@ export default function Header(): JSX.Element {
   const [selected, setSelected] = React.useState('eth');
   const { mode, toggleTheme } = useThemeMode();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [open, setOpen] = React.useState(false);
 
@@ -367,7 +367,7 @@ export default function Header(): JSX.Element {
           borderBottom: '1px solid',
           borderColor: 'divider',
           color: 'text.primary',
-          paddingLeft: { md: '70px', xs: 0 },
+          paddingLeft: { lg: '70px', xs: 0 },
         }}
       >
         <Toolbar

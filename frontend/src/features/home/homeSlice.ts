@@ -21,6 +21,7 @@ import type { ICellRendererParams } from 'ag-grid-community';
 interface Options {
   label: string;
   value: string;
+  icon?: React.ReactNode;
 }
 
 interface HomeState {
@@ -34,6 +35,7 @@ interface HomeState {
   vauleSales: Options[];
   includeTokenMetadata: boolean;
   isCardOrTable: boolean;
+  selectedToggleValue: string;
   error: string | null;
 }
 
@@ -41,6 +43,7 @@ const initialState: HomeState = {
   activeTab: 'trending',
   time: '24h',
   includeTokenMetadata: true,
+  selectedToggleValue: '0',
   isCardOrTable: false,
   timeOptions: [
     { label: 'All Time', value: '30d' },
@@ -437,6 +440,9 @@ const homeSlice = createSlice({
     setIsCardOrTable: (state, action: PayloadAction<boolean>) => {
       state.isCardOrTable = action.payload;
     },
+    setSelectedToggleValue: (state, action: PayloadAction<string>) => {
+      state.selectedToggleValue = action.payload;
+    },
   },
 });
 
@@ -458,6 +464,7 @@ export const {
   setTime,
   setVolume_sales,
   setIsCardOrTable,
+  setSelectedToggleValue,
 } = homeSlice.actions;
 
 export default homeSlice.reducer;

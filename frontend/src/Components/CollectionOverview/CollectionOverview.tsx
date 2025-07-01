@@ -32,7 +32,9 @@ const TitleContainer = styled(Box)(({ theme }) => ({
 const CollectionOverview = () => {
   const params = useParams();
   const dispatch = useDispatch();
-  const { tabData } = useSelector((state: RootState) => state.collection);
+  const { tabData } = useSelector(
+    (state: RootState) => state.collection
+  );
 
   useEffect(() => {
     if (params.id) dispatch(fetchOverviewDetailDataRequest(params?.id));
@@ -158,82 +160,86 @@ const CollectionOverview = () => {
   }, [tabData]);
 
   return (
-    <Box
-      sx={{
-        width: '100%',
-        // minHeight: '100vh',
-        backgroundColor: 'background.default',
-        position: 'relative',
-      }}
-    >
       <Box
         sx={{
-          //   paddingInline: '80px',
           width: '100%',
+          height: 'fit-content',
+          // minHeight: '100vh',
+          backgroundColor: 'background.default',
+          position: 'relative',
         }}
       >
-        <CollectionHero
-          image={tabData?.overview?.image}
-          title={tabData?.overview?.name}
-          subtitle={tabData?.overview?.symbol}
-          description={tabData?.overview?.description}
-          onReadMore={() =>
-            window.open('https://boredapeyachtclub.com/', '_blank')
-          }
-          onViewAll={() => alert('View All Collections clicked!')}
-        />
         <Box
           sx={{
-            display: 'grid',
-            gridTemplateColumns: {
-              xs: '1fr',
-              sm: 'repeat(2, 1fr)',
-              md: 'repeat(3, 1fr)',
-            },
-            gap: 3,
+            //   paddingInline: '80px',
+            width: '100%',
           }}
         >
-          {stats.map((stat) => (
-            <StyledCard key={stat.value} sx={{ width: '100%', height: '100%' }}>
-              <CardContent>
-                <TitleContainer>
-                  <Typography
-                    variant="subtitle2"
-                    color="text.primary"
-                    sx={{ fontSize: '18px' }}
-                  >
-                    {stat.title}
-                  </Typography>
-                  {stat.icon}
-                </TitleContainer>
+          <CollectionHero
+            image={tabData?.overview?.image}
+            title={tabData?.overview?.name}
+            subtitle={tabData?.overview?.symbol}
+            description={tabData?.overview?.description}
+            onReadMore={() =>
+              window.open('https://boredapeyachtclub.com/', '_blank')
+            }
+            onViewAll={() => alert('View All Collections clicked!')}
+          />
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: {
+                xs: '1fr',
+                sm: 'repeat(2, 1fr)',
+                md: 'repeat(3, 1fr)',
+              },
+              gap: 3,
+            }}
+          >
+            {stats.map((stat) => (
+              <StyledCard
+                key={stat.value}
+                sx={{ width: '100%', height: '100%' }}
+              >
+                <CardContent>
+                  <TitleContainer>
+                    <Typography
+                      variant="subtitle2"
+                      color="text.primary"
+                      sx={{ fontSize: '18px' }}
+                    >
+                      {stat.title}
+                    </Typography>
+                    {stat.icon}
+                  </TitleContainer>
 
-                <StatValue>
-                  <img
-                    src="https://marketplace.polycruz.io/eth.svg"
-                    alt="ETH"
-                    width={16}
-                    height={16}
-                  />
-                  <Typography
-                    variant="h6"
-                    component="h6"
-                    sx={{ fontWeight: 'bold' }}
-                  >
-                    {stat.value}
-                  </Typography>
-                </StatValue>
-              </CardContent>
-            </StyledCard>
-          ))}
+                  <StatValue>
+                    <img
+                      src="https://marketplace.polycruz.io/eth.svg"
+                      alt="ETH"
+                      width={16}
+                      height={16}
+                    />
+                    <Typography
+                      variant="h6"
+                      component="h6"
+                      sx={{ fontWeight: 'bold' }}
+                    >
+                      {stat.value}
+                    </Typography>
+                  </StatValue>
+                </CardContent>
+              </StyledCard>
+            ))}
+          </Box>
+        </Box>
+        <Box component="div" sx={{ p: { xs: '0px', lg: '0.5rem' } }}>
+          <HolderHistory />
+          <Box component="div">
+            <MarketOverview />
+          </Box>
         </Box>
       </Box>
-      <Box component="div" sx={{ p: '0.5rem' }}>
-        <HolderHistory />
-        <Box component="div">
-          <MarketOverview />
-        </Box>
-      </Box>
-    </Box>
   );
 };
 

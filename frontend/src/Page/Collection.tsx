@@ -1,12 +1,24 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { lazy, useCallback, useEffect, useMemo, useState } from 'react';
 import CustomTab from '../../@ui-component/Comman/Tab';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActiveTab } from '../features/collection/collectionSlice';
 import type { RootState } from '../app/store';
-import CollectionOverview from '../Components/CollectionOverview/CollectionOverview';
-import CollectionItems from '../Components/CollectionItems/CollectionItems';
-import CollectionFooter from '../Components/CollectionFooter/CollectionFooter';
-import CollectionStandout from '../Components/CollectionStandout/CollectionStandout';
+const CollectionOverview = lazy(
+  () => import('../Components/CollectionOverview/CollectionOverview')
+);
+const CollectionItems = lazy(
+  () => import('../Components/CollectionItems/CollectionItems')
+);
+const CollectionStandout = lazy(
+  () => import('../Components/CollectionStandout/CollectionStandout')
+);
+const AiValuation = lazy(() => import('./AiValuation'));
+const CollectionActivity = lazy(
+  () => import('../Components/CollectionActivity/CollectionActivity')
+);
+const CollectionFooter = lazy(
+  () => import('../Components/CollectionFooter/CollectionFooter')
+);
 import {
   Box,
   IconButton,
@@ -15,8 +27,6 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
-import AiValuation from './AiValuation';
-import CollectionActivity from '../Components/CollectionActivity/CollectionActivity';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import KeyboardArrowDownSharpIcon from '@mui/icons-material/KeyboardArrowDownSharp';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -32,6 +42,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import ChatIcon from '@mui/icons-material/Chat';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import '../Components/CollectionOverview/CollectionBanner.css';
+import { FaDiscord } from "react-icons/fa6";
 
 export type TabKey =
   | 'overview'
@@ -53,9 +64,7 @@ const Collection = () => {
   const [refreshed, setRefreshed] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const dispatch = useDispatch();
-  const tabData = useSelector(
-    (state: RootState) => state.collection.tabData
-  );
+  const tabData = useSelector((state: RootState) => state.collection.tabData);
   const activeTab = useSelector(
     (state: RootState) => state.collection.activeTab
   ) as TabKey;
@@ -84,133 +93,144 @@ const Collection = () => {
 
   const open = Boolean(anchorEl);
 
-  const bannerDetails = [
-    {
-      title: 'Mutant Ape Yacht Club',
-      likes: '467',
-      icon: (
-        <VerifiedIcon
-          sx={{
-            color: '#7367f0',
-            width: '20px',
-            height: '20px',
-          }}
-        />
-      ),
-      rank: 1,
-      contractKind: 'erc721',
-      onSale: 577,
-      owner: 11828,
-      totalSupply: 19697,
-      floorPrice: 1.825,
-      topBid: 5.08,
-    },
-  ];
-  const dropdownItems = [
-    {
-      label: 'Floor Price',
-      value: `${bannerDetails[0].floorPrice}`,
-      icon: (
-        <img
-          src="https://marketplace.polycruz.io/eth.svg"
-          alt="ETH"
-          style={{
-            width: 10,
-            height: 10,
-            verticalAlign: 'middle',
-            marginLeft: 4,
-          }}
-        />
-      ),
-    },
-    {
-      label: 'Top Bid',
-      value: `${bannerDetails[0].topBid}`,
-      icon: (
-        <img
-          src="https://marketplace.polycruz.io/eth.svg"
-          alt="ETH"
-          style={{
-            width: 10,
-            height: 10,
-            verticalAlign: 'middle',
-            marginLeft: 4,
-          }}
-        />
-      ),
-    },
-    {
-      label: 'Best Offer',
-      value: '3.27',
-      icon: (
-        <img
-          src="https://marketplace.polycruz.io/eth.svg"
-          alt="ETH"
-          style={{
-            width: 10,
-            height: 10,
-            verticalAlign: 'middle',
-            marginLeft: 4,
-          }}
-        />
-      ),
-    },
-    {
-      label: 'Contract Type',
-      value: bannerDetails[0].contractKind,
-      icon: (
-        <img
-          src="https://marketplace.polycruz.io/eth.svg"
-          alt="ETH"
-          style={{
-            width: 10,
-            height: 10,
-            verticalAlign: 'middle',
-            marginLeft: 4,
-          }}
-        />
-      ),
-    },
-    {
-      label: 'Total Vol',
-      value: '57.97651',
-      extra: (
-        <span
-          style={{
-            color: '#1bc47d',
-            fontWeight: 500,
-            fontSize: 14,
-            marginLeft: 10,
-          }}
-        >
-          1.01%
-        </span>
-      ),
-    },
-    { label: 'Market Cap', value: '30.69K' },
-    { label: 'Owners', value: bannerDetails[0].owner },
-    { label: 'Supply', value: '19551' },
-    { label: 'Rank', value: bannerDetails[0].rank },
-    { label: 'Holders', value: '3,537' },
-    { label: 'Royalty', value: '5%' },
-    {
-      label: 'Floor Sale',
-      value: '1.79',
-      extra: (
-        <span
-          style={{
-            color: '#1bc47d',
-            fontWeight: 500,
-            fontSize: 13,
-            marginLeft: 4,
-          }}
-        >
-          1.02%
-        </span>
-      ),
-    },
-    { label: 'Minted Time', value: '7 months ago' },
-  ];
+  const bannerDetails = useMemo(() => {
+    return [
+      {
+        title: tabData?.overview?.name,
+        likes: '467',
+        icon: tabData?.overview?.openseaVerificationStatus ? (
+          <VerifiedIcon
+            sx={{
+              color: '#7367f0',
+              width: '20px',
+              height: '20px',
+            }}
+          />
+        ) : (
+          ''
+        ),
+        rank: tabData?.overview?.rank?._1day,
+        contractKind: tabData?.overview?.contractKind,
+        onSale: tabData?.overview?.onSaleCount,
+        owner: tabData?.overview?.ownerCount,
+        totalSupply: tabData?.overview?.supply,
+        floorPrice: tabData?.overview?.floorAsk?.price?.amount?.decimal,
+        topBid: tabData?.overview?.topBid?.price?.currency?.decimals,
+        floorSale: tabData?.overview?.floorSale?._1day,
+        floorSaleChange: tabData?.overview?.floorSaleChange?._1day,
+        royalties: tabData?.overview?.royalties?.bps,
+      },
+    ];
+  }, [tabData]);
+
+  const dropdownItems = useMemo(() => {
+    return [
+      {
+        label: 'Floor Price',
+        value: `${bannerDetails[0].floorPrice}`,
+        icon: (
+          <img
+            src="https://marketplace.polycruz.io/eth.svg"
+            alt="ETH"
+            style={{
+              width: 10,
+              height: 10,
+              verticalAlign: 'middle',
+              marginLeft: 4,
+            }}
+          />
+        ),
+      },
+      {
+        label: 'Top Bid',
+        value: `${bannerDetails[0].topBid}`,
+        icon: (
+          <img
+            src="https://marketplace.polycruz.io/eth.svg"
+            alt="ETH"
+            style={{
+              width: 10,
+              height: 10,
+              verticalAlign: 'middle',
+              marginLeft: 4,
+            }}
+          />
+        ),
+      },
+      {
+        label: 'Best Offer',
+        value: '3.27',
+        icon: (
+          <img
+            src="https://marketplace.polycruz.io/eth.svg"
+            alt="ETH"
+            style={{
+              width: 10,
+              height: 10,
+              verticalAlign: 'middle',
+              marginLeft: 4,
+            }}
+          />
+        ),
+      },
+      {
+        label: 'Contract Type',
+        value: bannerDetails[0].contractKind,
+        icon: (
+          <img
+            src="https://marketplace.polycruz.io/eth.svg"
+            alt="ETH"
+            style={{
+              width: 10,
+              height: 10,
+              verticalAlign: 'middle',
+              marginLeft: 4,
+            }}
+          />
+        ),
+      },
+      {
+        label: 'Total Vol',
+        value: '57.97651',
+        extra: (
+          <span
+            style={{
+              color: '#1bc47d',
+              fontWeight: 500,
+              fontSize: 14,
+              marginLeft: 10,
+            }}
+          >
+            1.01%
+          </span>
+        ),
+      },
+      { label: 'Market Cap', value: '30.69K' },
+      { label: 'Owners', value: bannerDetails[0].owner },
+      { label: 'Supply', value: bannerDetails[0].totalSupply },
+      { label: 'Rank', value: bannerDetails[0].rank },
+      { label: 'Holders', value: '3,537' },
+      { label: 'Royalty', value: `${bannerDetails[0].royalties}` },
+      {
+        label: 'Floor Sales',
+        value: bannerDetails[0].floorSale,
+        extra: (
+          <span
+            style={{
+              color: '#1bc47d',
+              fontWeight: 500,
+              fontSize: 13,
+              marginLeft: 4,
+            }}
+          >
+            {bannerDetails[0].floorSaleChange}%
+          </span>
+        ),
+      },
+      { label: 'Minted Time', value: '7 months ago' },
+    ];
+  }, []);
+
   const tabs = useMemo<Record<TabKey, TabContent>>(() => {
     return {
       overview: {
@@ -280,10 +300,9 @@ const Collection = () => {
           }}
         >
           <img
-          src={tabData?.overview?.banner}
+            src={tabData?.overview?.image}
             alt={tabData?.overview?.name}
-            style={{ borderRadius: '100%', width: '96px', height: '96px' }}
-            className="banner-logo"
+            className="w-24 h-24 rounded-full absolute -top-[50px] left-[20px]"
           />
           <Box
             sx={{
@@ -444,16 +463,16 @@ const Collection = () => {
                   </IconButton>
                 </Tooltip>
                 <Tooltip title="Website" arrow placement="top">
-                  <IconButton size="small">
+                  <IconButton size="small" target='_blank' href={tabData?.overview?.externalUrl}>
                     <LanguageIcon sx={{ color: theme.palette.text.primary }} />
                   </IconButton>
                 </Tooltip>
                 <Tooltip title="Discord" arrow placement="top">
-                  <IconButton size="small">
-                    <ChatIcon sx={{ color: theme.palette.text.primary }} />
+                  <IconButton size="small" target='_blank' href={tabData?.overview?.discordUrl}>
+                    <FaDiscord className='text-2xl' />
                   </IconButton>
                 </Tooltip>
-                <Tooltip title="Twitter" arrow placement="top">
+                {/* <Tooltip title="Twitter" arrow placement="top">
                   <IconButton size="small">
                     <TwitterIcon sx={{ color: theme.palette.text.primary }} />
                   </IconButton>
@@ -462,7 +481,7 @@ const Collection = () => {
                   <IconButton size="small">
                     <InstagramIcon sx={{ color: theme.palette.text.primary }} />
                   </IconButton>
-                </Tooltip>
+                </Tooltip> */}
                 <Box
                   sx={{
                     borderLeft: `1px solid ${theme.palette.custom.thirdText}`,
@@ -498,7 +517,7 @@ const Collection = () => {
                 }}
               >
                 <Box
-                  className="data-item"
+                  // className="data-item"
                   sx={{
                     display: 'flex',
                     alignItems: 'center',
