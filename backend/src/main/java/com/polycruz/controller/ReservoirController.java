@@ -15,6 +15,7 @@ import com.polycruz.pojo.NftSalesResponse;
 import com.polycruz.pojo.SalesApiResponse;
 import com.polycruz.pojo.TokenDetail;
 import com.polycruz.pojo.TokenResponse;
+import com.polycruz.pojo.TopTradersResponse;
 import com.polycruz.pojo.TrendingApiResponse;
 import com.polycruz.pojo.TrendingMintsResponse;
 import com.polycruz.service.VendorService;
@@ -144,6 +145,16 @@ public class ReservoirController {
             
      ) {
     	 return new ResponseEntity<>(transformer.transform(vendorService.getAiValuationOnLoad()), HttpStatus.OK);
+     }
+     
+     @GetMapping("/top-traders")
+     @Operation( summary = "AI Valuation 2) standard a) Holders")
+     public ResponseEntity<TechResponse<TopTradersResponse>> getTopTraders(
+     		  @RequestParam(defaultValue = "7d") String period
+     	       
+     		) {
+         return new ResponseEntity<>(transformer.transform(vendorService.fetchTopTraders(period)),
+                 HttpStatus.OK);
      }
 
 }

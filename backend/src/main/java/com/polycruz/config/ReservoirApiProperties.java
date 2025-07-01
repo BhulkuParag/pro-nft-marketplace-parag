@@ -19,4 +19,5 @@ public class ReservoirApiProperties {
     private String apiKey;
     private String statsUrl;
     private String aiValuationonLoad;
+    private String topTrader;
 }
