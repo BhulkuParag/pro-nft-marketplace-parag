@@ -1,5 +1,5 @@
 import { Box, Stack, Typography } from '@mui/material';
-import React from 'react';
+import React, { useCallback } from 'react';
 import Switch from '../../../@ui-component/Comman/Switch';
 import { setIsCardOrTable } from '../../features/home/homeSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,6 +8,11 @@ import type { RootState } from '../../app/store';
 const SubHeader = () => {
   const dispatch = useDispatch();
   const isCheck = useSelector((state: RootState) => state.home.isCardOrTable);
+
+  const handleSwitchOnChange = useCallback(() => {
+    dispatch(setIsCardOrTable(!isCheck));
+  }, [isCheck]);
+
   return (
     <Box
       display={'flex'}
@@ -38,10 +43,7 @@ const SubHeader = () => {
         >
           Cards
         </Typography>
-        <Switch
-          checked={isCheck}
-          handleOnChange={() => dispatch(setIsCardOrTable(!isCheck))}
-        />
+        <Switch checked={isCheck} handleOnChange={handleSwitchOnChange} />
         <Typography
           sx={{
             color: 'custom.grey01',

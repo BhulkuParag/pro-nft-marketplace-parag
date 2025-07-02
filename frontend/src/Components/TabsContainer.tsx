@@ -1,11 +1,11 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { lazy, useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../app/store';
 import { Box } from '@mui/material';
-import Trending from './HomeTabsHeader/Trending';
-import NftSales from './HomeTabsHeader/NftSales';
-import TopSales from './HomeTabsHeader/TopSales';
-import TopMInitRanking from './HomeTabsHeader/TopMInitRanking';
+const Trending = lazy(() => import('./HomeTabsHeader/Trending'));
+const NftSales = lazy(() => import('./HomeTabsHeader/NftSales'));
+const TopSales = lazy(() => import('./HomeTabsHeader/TopSales'));
+const TopMInitRanking = lazy(() => import('./HomeTabsHeader/TopMInitRanking'));
 import {
   setActiveTab,
   setSelectedToggleValue,
@@ -15,8 +15,8 @@ import { CiGrid2H } from 'react-icons/ci';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import { BsCollection } from 'react-icons/bs';
 // import TrendingIcon from '../assets/icons/Trending.svg'
-import { IoIosTrendingUp } from "react-icons/io";
-import { IoMdHeartEmpty } from "react-icons/io";
+// import { IoMdHeartEmpty } from 'react-icons/io';
+import { IoIosTrendingUp } from 'react-icons/io';
 type TabKey = 'trending' | 'nft_sales' | 'top_sales' | 'top_mint_ranking';
 
 const TabContainer = () => {
@@ -32,7 +32,7 @@ const TabContainer = () => {
         label: 'NFT Sales',
         value: 'nft_sales',
         content: <NftSales />,
-        icon: <IoIosTrendingUp className="text-2xl"/>
+        icon: <IoIosTrendingUp className="text-2xl" />,
         // icon: <img src={TrendingIcon} alt='trending icon' width={25} height={25} className="text-xl" />,
       },
       top_sales: {
@@ -79,13 +79,18 @@ const TabContainer = () => {
     [dispatch]
   );
 
-  const handleToggleOnChange = (_: React.SyntheticEvent, newValue: string) => {
-    dispatch(setSelectedToggleValue(newValue));
-  };
+  const handleToggleOnChange = useCallback(
+    (_: React.SyntheticEvent, newValue: string) => {
+      if (!newValue) return;
+      dispatch(setSelectedToggleValue(newValue));
+    },
+    []
+  );
 
-  const handleToggleOnChangeForMobile = (newValue: string) => {
+  const handleToggleOnChangeForMobile = useCallback((newValue: string) => {
+    if (!newValue) return;
     dispatch(setSelectedToggleValue(newValue));
-  };
+  }, []);
 
   return (
     <Box

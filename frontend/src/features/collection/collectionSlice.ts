@@ -29,6 +29,7 @@ interface CollectionState {
   sortBy: 'eventTimestamp' | 'floorAskPrice' | '';
   includeMetadata: boolean;
   limit: number;
+  grid: string;
   type: string;
   // type:
   //   | 'ask_cancel'
@@ -51,6 +52,7 @@ const initialState: CollectionState = {
   collection: '',
   sortBy: 'floorAskPrice',
   limit: 40,
+  grid: '8',
   tabData: {},
   columnDefsMap: {
     overview: [],
@@ -166,8 +168,9 @@ const collectionSlice = createSlice({
   name: 'collection',
   initialState,
   reducers: {
-    fetchItemsDataRequest: (state) => {
+    fetchItemsDataRequest: (state,action: PayloadAction<string>) => {
       state.loading = true;
+      state.contract = action.payload;
       state.error = null;
     },
     fetchItemsDataSuccess: (state, action: PayloadAction<RowData[]>) => {
@@ -246,6 +249,9 @@ const collectionSlice = createSlice({
     setType: (state, action: PayloadAction<string>) => {
       state.type = action.payload;
     },
+    setGrid: (state, action: PayloadAction<string>) => {
+      state.grid = action.payload;
+    },
   },
 });
 
@@ -266,6 +272,7 @@ export const {
   setTabData,
   setCollection,
   setType,
+  setGrid,
 } = collectionSlice.actions;
 
 export default collectionSlice.reducer;

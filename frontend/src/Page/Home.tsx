@@ -1,6 +1,5 @@
 import { Box } from '@mui/material';
 import Footer from '../Components/header/Footer';
-import React from 'react';
 import TabsContainer from '../Components/TabsContainer';
 import HomeCard from '../../@ui-component/Comman/HomeCard';
 import FeateursCollection from './FeateursCollection';
@@ -23,4 +22,4 @@ const Home = () => {
   );
 };
 
-export default React.memo(Home);
+export default Home;

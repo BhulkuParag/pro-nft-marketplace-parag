@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchOverviewDetailDataRequest } from '../../features/collection/collectionSlice';
 import type { RootState } from '../../app/store';
 import { useParams } from 'react-router-dom';
+import '../../Components/CollectionOverview/CollectionBanner.css';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,

@@ -1,128 +1,55 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Typography, IconButton, useTheme } from '@mui/material';
-
+import React, { useEffect, useMemo } from 'react';
+import { Box, Typography, IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import CheckIcon from '@mui/icons-material/Check';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchItemsDataRequest } from '../../features/collection/collectionSlice';
 import { MdOutlineShoppingCart } from 'react-icons/md';
-
 import type { RootState } from '../../app/store';
-import { Button } from '@mui/material';
 import Loading from '../../../@ui-component/Comman/Loading';
 import SearchBar from '../ui/SearchBar';
 import BarFilterIcon from '../Icon/BarFilterIcon';
-
-const items = [
-  {
-    id: 8360,
-    image:
-      'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
-    price: '11.97964',
-  },
-  {
-    id: 9415,
-    image:
-      'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
-    price: '11.97964',
-  },
-  {
-    id: 5268,
-    image:
-      'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
-    price: '11.97964',
-  },
-  {
-    id: 1001,
-    image:
-      'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
-    price: '11.97964',
-  },
-  {
-    id: 1002,
-    image:
-      'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
-    price: '11.97964',
-  },
-  {
-    id: 1003,
-    image:
-      'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
-    price: '11.97964',
-  },
-  {
-    id: 1004,
-    image:
-      'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
-    price: '11.97964',
-  },
-  {
-    id: 1005,
-    image:
-      'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
-    price: '11.97964',
-  },
-  {
-    id: 1006,
-    image:
-      'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
-    price: '11.97964',
-  },
-  {
-    id: 1007,
-    image:
-      'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
-    price: '11.97964',
-  },
-  {
-    id: 1008,
-    image:
-      'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
-    price: '11.97964',
-  },
-  {
-    id: 1009,
-    image:
-      'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
-    price: '11.97964',
-  },
-  {
-    id: 1010,
-    image:
-      'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
-    price: '11.97964',
-  },
-  {
-    id: 1011,
-    image:
-      'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
-    price: '11.97964',
-  },
-  {
-    id: 1012,
-    image:
-      'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
-    price: '11.97964',
-  },
-  {
-    id: 1013,
-    image:
-      'https://marketplace.polycruz.io/_next/image?url=https%3A%2F%2Fimg.reservoir.tools%2Fimages%2Fv2%2Fmainnet%2Fi9YO%252F4yHXUdJsWcTqhqvf%252BVwE2FetTNFc0%252F9Ruh5ZoWFf7RD7wBWS9mR2n6vsFyzI8UHVCGQrFV4POt8qANXUW25MG%252F%252BVFdKnHXkr3nQR90%253D.png%3Fwidth%3D512&w=828&q=75',
-    price: '11.97964',
-  },
-];
+import DropDown from '../../../@ui-component/Comman/DropDown';
 
 const CollectionItems = () => {
-    const theme = useTheme();
   const [selectedIds, setSelectedIds] = React.useState<number[]>([]);
   const dispatch = useDispatch();
-  const { tabData, loading } = useSelector(
+  const params = useParams();
+  const itemsFilter = useMemo(() => {
+    return [
+      {
+        label: 'Price: Low to High',
+        // value: '&sortDirection=asc&includeLastSale=true',
+        value: 'Price: Low to High',
+      },
+      {
+        label: 'Price: High to Low',
+        // value: '&sortDirection=desc&includeLastSale=true',
+        value: 'Price: High to Low',
+      },
+      {
+        label: 'Rear to Common',
+        // value: '&sortDirection=asc&includeLastSale=true', // sortBy=rarity
+        value: 'Rear to Common', // sortBy=rarity
+      },
+      {
+        label: 'Common to Rear',
+        // value: '&sortDirection=desc&includeLastSale=true', // sortBy=rarity
+        value: 'Common to Rear', // sortBy=rarity
+      },
+    ];
+  }, []);
+
+  const handleonChange = (newValue: string) => {};
+
+  const { tabData, loading, grid } = useSelector(
     (state: RootState) => state.collection
   );
+
   useEffect(() => {
-    dispatch(fetchItemsDataRequest());
-  }, []);
+    if (params.id) dispatch(fetchItemsDataRequest(params.id));
+  }, [params.id]);
 
   return (
     <Box sx={{ background: 'background.default' }}>
@@ -152,7 +79,7 @@ const CollectionItems = () => {
               color: 'text.secondary',
               mb: 0.2,
             }}
-            className='group'
+            className="group"
           >
             {/* <FilterListIcon /> */}
             <BarFilterIcon
@@ -168,7 +95,7 @@ const CollectionItems = () => {
               // borderRadius: 2,
               // px: 1.5,
               // py: 0.5,
-              minWidth: 320,
+              minWidth: 'fit-content',
               // bgcolor: 'background.default',
               // flex: 1,
               maxWidth: 400,
@@ -179,21 +106,17 @@ const CollectionItems = () => {
               backgroundColor="background.default"
             />
           </Box>
-
-          <div className="justify-center items-center gap-1 inline-flex">
-            {/* <img className="w-5 h-5" alt="Live-data" src={liveData} />
-                  <div className="flex-col shrink-0 justify-center items-start inline-flex">
-                    <Typography
-                      sx={{
-                        fontSize: 12,
-                        color: 'custom.lightGrey',
-                      }}
-                    >
-                      LIVE DATA
-                    </Typography>
-                  </div> */}
-          </div>
+          <Typography className="text-white">
+            {tabData?.overview?.onSaleCount} listed
+          </Typography>
         </Box>
+        <DropDown
+          options={itemsFilter}
+          value="Price: Low to High"
+          disableMenuItemTouchRipple
+          disableTouchRipple
+          onChange={handleonChange}
+        />
       </Box>
       {loading && <Loading />}
       <Box
@@ -204,7 +127,7 @@ const CollectionItems = () => {
             xs: 'repeat(2, minmax(0, 1fr))',
             sm: 'repeat(4, minmax(0, 1fr))',
             md: 'repeat(6, minmax(0, 1fr))',
-            lg: 'repeat(8, minmax(0, 1fr))',
+            lg: `repeat(${grid}, minmax(0, 1fr))`,
           },
           gap: 1.5,
         }}
