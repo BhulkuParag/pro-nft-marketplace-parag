@@ -21,4 +21,5 @@ public class ReservoirApiProperties {
     private String aiValuationonLoad;
     private String topTrader;
     private String collectionActivity;
+    private String collectionSearch;
 }
