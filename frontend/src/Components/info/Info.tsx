@@ -18,7 +18,7 @@ const Info: FC<InfoProps> = ({
   iconType,
   iconColor,
 }) => {
-  const [isInfo] = useState(false);
+  const [isInfo, setIsInfo] = useState(false);
 
   return (
     <div className="flex w-max">

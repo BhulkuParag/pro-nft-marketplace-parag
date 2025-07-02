@@ -1,20 +1,28 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Box, Typography, IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import CheckIcon from '@mui/icons-material/Check';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchItemsDataRequest } from '../../features/collection/collectionSlice';
+import {
+  fetchItemsDataRequest,
+  setLimit,
+} from '../../features/collection/collectionSlice';
 import { MdOutlineShoppingCart } from 'react-icons/md';
 import type { RootState } from '../../app/store';
 import Loading from '../../../@ui-component/Comman/Loading';
-import SearchBar from '../ui/SearchBar';
-import BarFilterIcon from '../Icon/BarFilterIcon';
-import DropDown from '../../../@ui-component/Comman/DropDown';
+import { useInView } from 'react-intersection-observer';
 
 const CollectionItems = () => {
+  const { loading, tabData, limit } = useSelector(
+    (state: RootState) => state.collection
+  );
   const [selectedIds, setSelectedIds] = React.useState<number[]>([]);
   const dispatch = useDispatch();
+  const { ref, inView } = useInView({
+    threshold: 0,
+  });
+
   const params = useParams();
   const itemsFilter = useMemo(() => {
     return [
@@ -43,81 +51,19 @@ const CollectionItems = () => {
 
   const handleonChange = (newValue: string) => {};
 
-  const { tabData, loading, grid } = useSelector(
-    (state: RootState) => state.collection
-  );
+  useEffect(() => {
+    if (params.id) dispatch(fetchItemsDataRequest(params.id, limit));
+    console.log(`Fetching items with limit: ${limit}`);
+  }, [params.id, dispatch, limit]);
 
   useEffect(() => {
-    if (params.id) dispatch(fetchItemsDataRequest(params.id));
-  }, [params.id]);
-
+    if (inView && !loading && tabData['items']?.length === limit) {
+      dispatch(setLimit(limit + 50));
+      console.log(`Fetching more items, current limit: ${limit}`);
+    }
+  }, [inView, loading, limit, dispatch]);
   return (
-    <Box sx={{ background: 'background.default' }}>
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: 2,
-          mb: 3,
-          bgcolor: 'background.default',
-          flexWrap: 'wrap',
-        }}
-      >
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 1.5,
-          }}
-        >
-          <IconButton
-            sx={{
-              border: `1px solid`,
-              borderColor: 'divider',
-              borderRadius: 2,
-              color: 'text.secondary',
-              mb: 0.2,
-            }}
-            className="group"
-          >
-            {/* <FilterListIcon /> */}
-            <BarFilterIcon
-              className={`w-5 h-5 group-hover:fill-[#A49BFF] fill-[#777E90] }`}
-            />
-          </IconButton>
-
-          <Box
-            sx={{
-              // display: 'flex',
-              // alignItems: 'center',
-              // border: `1px solid ${theme.palette.divider}`,
-              // borderRadius: 2,
-              // px: 1.5,
-              // py: 0.5,
-              minWidth: 'fit-content',
-              // bgcolor: 'background.default',
-              // flex: 1,
-              maxWidth: 400,
-            }}
-          >
-            <SearchBar
-              placeholder="Search for items"
-              backgroundColor="background.default"
-            />
-          </Box>
-          <Typography className="text-white">
-            {tabData?.overview?.onSaleCount} listed
-          </Typography>
-        </Box>
-        <DropDown
-          options={itemsFilter}
-          value="Price: Low to High"
-          disableMenuItemTouchRipple
-          disableTouchRipple
-          onChange={handleonChange}
-        />
-      </Box>
+    <Box sx={{ background: 'background.default', minHeight: '100vh' }}>
       {loading && <Loading />}
       <Box
         sx={{
@@ -140,16 +86,12 @@ const CollectionItems = () => {
           >
             <Box
               sx={{
-                // borderRadius: '16px',
                 borderRadius: '12px',
                 overflow: 'hidden',
                 background: '#232323',
                 position: 'relative',
                 cursor: 'pointer',
-
-                boxShadow: 'none',
-                transition:
-                  'all 0.3s cubic-bezier(.4,2,.6,1), box-shadow 0.3s cubic-bezier(.4,2,.6,1)',
+                transition: 'opacity 0.6s ease-out, transform 0.6s ease-out',
                 '&:hover': {
                   transform: 'scale(1.01) translatez(-4px)',
                   boxShadow: 6,
@@ -378,6 +320,8 @@ const CollectionItems = () => {
           </Link>
         ))}
       </Box>
+      {loading && <Loading />}
+      <div ref={ref} style={{ height: 1 }} />
     </Box>
   );
 };

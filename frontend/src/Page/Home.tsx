@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import Footer from '../Components/header/Footer';
 import TabsContainer from '../Components/TabsContainer';
-import HomeCard from '../../@ui-component/Comman/HomeCard';
+import HomeCard from '../Components/home/HomeCard';
 import FeateursCollection from './FeateursCollection';
 import SubHeader from '../Components/home/SubHeader';
 

@@ -41,7 +41,7 @@ export const fetchItemsData = async (
   return response.data?.data?.tokens ?? [];
 };
 
-export const fetchItemDetailData = async (
+export const fetchItemDetailData = async  (
   token: string,
   sortBy: string
 ): Promise<ItemDetails[]> => {
