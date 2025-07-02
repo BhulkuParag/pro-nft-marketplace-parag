@@ -96,7 +96,7 @@ const Footer: FC<FooterProps> = () => {
                 <Typography
                   sx={{
                     fontSize: 12,
-                    color: 'custom.lightGrey',
+                    color: 'text.primary',
                   }}
                 >
                   LIVE DATA

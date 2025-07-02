@@ -15,8 +15,8 @@ export const AddSortIcon: React.FC<IHeaderParams> = (props) => {
       className="flex items-center cursor-pointer justify-end w-fit h-full"
     >
       <div className="flex items-center justify-end gap-2">
-        <span className="text-sm font-medium">{props.displayName}</span>
         <PiCaretUpDown className="text-[#CAC4D0]" />
+        <span className="text-sm font-medium">{props.displayName}</span>
       </div>
     </Box>
   );

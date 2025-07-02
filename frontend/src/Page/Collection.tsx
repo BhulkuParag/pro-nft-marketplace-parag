@@ -1,12 +1,11 @@
-import React, { lazy, useCallback, useMemo, useState } from 'react';
+import React, { lazy, useCallback, useMemo } from 'react';
 import CustomTab from '../../@ui-component/Comman/Tab';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActiveTab, setGrid } from '../features/collection/collectionSlice';
 import type { RootState } from '../app/store';
 import { Box } from '@mui/material';
 import BannerSection from '../Components/CollectionOverview/BannerSection';
-import { BsGrid } from 'react-icons/bs';
-import { BsGrid3X3Gap } from 'react-icons/bs';
+import { BsGrid, BsGrid3X3Gap } from 'react-icons/bs';
 const CollectionOverview = lazy(
   () => import('../Components/CollectionOverview/CollectionOverview')
 );

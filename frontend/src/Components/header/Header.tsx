@@ -30,6 +30,7 @@ import {
 } from '@mui/material';
 import { menuItems } from '../constants/menuItem';
 import { Link } from 'react-router-dom';
+import { ConnectWalletButton } from '../ConnectWalletButton';
 
 export default function Header(): JSX.Element {
   const [selected, setSelected] = React.useState('eth');
@@ -303,7 +304,10 @@ export default function Header(): JSX.Element {
           marginTop: 2,
         }}
       >
-        <Link to={'/home'} className="px-3 flex items-center gap-x-3 text-xl font-bold">
+        <Link
+          to={'/home'}
+          className="px-3 flex items-center gap-x-3 text-xl font-bold"
+        >
           <img
             src="https://analytic.polycruz.io/_next/static/media/logo.32e9a1fc.svg"
             alt=""
@@ -539,7 +543,7 @@ export default function Header(): JSX.Element {
                     <NotificationsIcon />
                   </Badge>
                 </IconButton>
-                <Button
+                {/* <Button
                   variant="contained"
                   disableElevation
                   disableTouchRipple
@@ -555,7 +559,10 @@ export default function Header(): JSX.Element {
                   }}
                 >
                   Connect
-                </Button>
+                </Button> */}
+                <div className="justify-start items-center gap-2.5 hidden lg:flex w-[165px]">
+                  <ConnectWalletButton />
+                </div>
                 <IconButton
                   size="large"
                   edge="end"

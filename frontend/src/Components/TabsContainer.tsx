@@ -70,7 +70,9 @@ const TabContainer = () => {
   const activeTab = useSelector(
     (state: RootState) => state.home.activeTab
   ) as TabKey;
-  const { selectedToggleValue } = useSelector((state: RootState) => state.home);
+  const selectedToggleValue = useSelector(
+    (state: RootState) => state.home.selectedToggleValue
+  );
 
   const handleChange = useCallback(
     (_: React.SyntheticEvent, newValue: string) => {
