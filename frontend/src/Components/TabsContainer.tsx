@@ -1,46 +1,68 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { lazy, useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../app/store';
 import { Box } from '@mui/material';
-import Trending from './HomeTabsHeader/Trending';
-import NftSales from './HomeTabsHeader/NftSales';
-import TopSales from './HomeTabsHeader/TopSales';
-import TopMInitRanking from './HomeTabsHeader/TopMInitRanking';
-import { setActiveTab } from '../features/home/homeSlice';
-import CustomTab from '../../@ui-component/Comman/Tab';
-
+const Trending = lazy(() => import('./HomeTabsHeader/Trending'));
+const NftSales = lazy(() => import('./HomeTabsHeader/NftSales'));
+const TopSales = lazy(() => import('./HomeTabsHeader/TopSales'));
+const TopMInitRanking = lazy(() => import('./HomeTabsHeader/TopMInitRanking'));
+import {
+  setActiveTab,
+  setSelectedToggleValue,
+} from '../features/home/homeSlice';
+import CustomTab, { type TabItem } from '../../@ui-component/Comman/Tab';
+import { CiGrid2H } from 'react-icons/ci';
+import { TfiMenuAlt } from 'react-icons/tfi';
+import { BsCollection } from 'react-icons/bs';
+// import TrendingIcon from '../assets/icons/Trending.svg'
+// import { IoMdHeartEmpty } from 'react-icons/io';
+import { IoIosTrendingUp } from 'react-icons/io';
 type TabKey = 'trending' | 'nft_sales' | 'top_sales' | 'top_mint_ranking';
 
-interface TabContent {
-  label: string;
-  value: TabKey;
-  content?: React.ReactNode;
-}
-
 const TabContainer = () => {
-  const tabs = useMemo<Record<TabKey, TabContent>>(() => {
+  const tabs = useMemo<Record<TabKey, TabItem>>(() => {
     return {
       trending: {
         label: 'Trending',
         value: 'trending',
         content: <Trending />,
+        icon: <BsCollection className="text-xl" />,
       },
       nft_sales: {
         label: 'NFT Sales',
         value: 'nft_sales',
         content: <NftSales />,
+        icon: <IoIosTrendingUp className="text-2xl" />,
+        // icon: <img src={TrendingIcon} alt='trending icon' width={25} height={25} className="text-xl" />,
       },
       top_sales: {
         label: 'Top Sales',
         value: 'top_sales',
         content: <TopSales />,
+        // icon: <IoMdHeartEmpty className="text-xl" />,
       },
       top_mint_ranking: {
         label: 'Mint Ranking',
         value: 'top_mint_ranking',
         content: <TopMInitRanking />,
+        // icon: <BsCollection className="text-xl" />,
       },
     };
+  }, []);
+
+  const toggleOptions = useMemo(() => {
+    return [
+      {
+        label: '',
+        value: '0',
+        icon: <TfiMenuAlt className="text-xl" />,
+      },
+      {
+        label: '',
+        value: '1',
+        icon: <CiGrid2H className="text-xl" />,
+      },
+    ];
   }, []);
 
   const dispatch = useDispatch();
@@ -48,6 +70,7 @@ const TabContainer = () => {
   const activeTab = useSelector(
     (state: RootState) => state.home.activeTab
   ) as TabKey;
+  const { selectedToggleValue } = useSelector((state: RootState) => state.home);
 
   const handleChange = useCallback(
     (_: React.SyntheticEvent, newValue: string) => {
@@ -55,6 +78,19 @@ const TabContainer = () => {
     },
     [dispatch]
   );
+
+  const handleToggleOnChange = useCallback(
+    (_: React.SyntheticEvent, newValue: string) => {
+      if (!newValue) return;
+      dispatch(setSelectedToggleValue(newValue));
+    },
+    []
+  );
+
+  const handleToggleOnChangeForMobile = useCallback((newValue: string) => {
+    if (!newValue) return;
+    dispatch(setSelectedToggleValue(newValue));
+  }, []);
 
   return (
     <Box
@@ -67,6 +103,13 @@ const TabContainer = () => {
         handleChange={handleChange}
         borderBottom
         selectedTab={activeTab}
+        marginTop={0}
+        wantToggleButton
+        variant="standard"
+        toggleOptions={toggleOptions}
+        selectedToggleValue={selectedToggleValue}
+        handleToggleOnChange={handleToggleOnChange}
+        handleToggleOnChangeForMobile={handleToggleOnChangeForMobile}
       />
       <Box
         sx={{

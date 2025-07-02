@@ -29,15 +29,17 @@ interface CollectionState {
   sortBy: 'eventTimestamp' | 'floorAskPrice' | '';
   includeMetadata: boolean;
   limit: number;
-  type:
-    | 'ask_cancel'
-    | 'sale'
-    | 'mint'
-    | 'transfer'
-    | 'ask'
-    | 'bid'
-    | 'bid_cancel'
-    | '';
+  grid: string;
+  type: string;
+  // type:
+  //   | 'ask_cancel'
+  //   | 'sale'
+  //   | 'mint'
+  //   | 'transfer'
+  //   | 'ask'
+  //   | 'bid'
+  //   | 'bid_cancel'
+  //   | '';
   error: string | null;
 }
 
@@ -50,6 +52,8 @@ const initialState: CollectionState = {
   collection: '',
   sortBy: 'floorAskPrice',
   limit: 50,
+  limit: 40,
+  grid: '8',
   tabData: {},
   columnDefsMap: {
     overview: [],
@@ -167,6 +171,7 @@ const collectionSlice = createSlice({
   reducers: {
     fetchItemsDataRequest: (state, action: PayloadAction<number>) => {
       state.loading = true;
+      state.contract = action.payload;
       state.error = null;
       state.limit = action.payload;
     },
@@ -243,6 +248,12 @@ const collectionSlice = createSlice({
     setCollection: (state, action: PayloadAction<string>) => {
       state.collection = action.payload;
     },
+    setType: (state, action: PayloadAction<string>) => {
+      state.type = action.payload;
+    },
+    setGrid: (state, action: PayloadAction<string>) => {
+      state.grid = action.payload;
+    },
     setLimit: (state, action: PayloadAction<number>) => {
       state.limit = action.payload;
     },
@@ -265,6 +276,8 @@ export const {
   setActiveTab,
   setTabData,
   setCollection,
+  setType,
+  setGrid,
   setLimit,
 } = collectionSlice.actions;
 

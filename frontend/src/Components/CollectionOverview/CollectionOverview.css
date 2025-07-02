@@ -14,12 +14,6 @@
     min-height: 100px;
 }
 
-.banner-logo {
-    position: absolute;
-    top: -50px;
-    left: 20px;
-}
-
 .data-list::after {
     content: '';
     height: 50px;

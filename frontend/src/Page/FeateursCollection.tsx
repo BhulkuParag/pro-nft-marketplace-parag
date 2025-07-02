@@ -82,7 +82,7 @@ const CollectionCard: React.FC<
           sx={{
             position: 'absolute',
             top: '50%',
-            right: 8,
+            right: -12,
             transform: 'translateY(-50%)',
             bgcolor: 'rgba(20,20,22,0.5)',
             color: 'white',
@@ -206,7 +206,7 @@ const FeateursCollection: React.FC = () => {
         flexWrap: { xs: 'wrap', md: 'nowrap' },
         // mt: 2,
         p: 2,
-        pt: 1,
+        px: { xs: 2, lg: 3 },
       }}
     >
       {/* Featured Collections */}

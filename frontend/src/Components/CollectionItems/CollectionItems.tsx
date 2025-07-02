@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Box, Typography, IconButton } from '@mui/material';
-
 import AddIcon from '@mui/icons-material/Add';
 import CheckIcon from '@mui/icons-material/Check';
 import { Link } from 'react-router-dom';
@@ -12,6 +11,11 @@ import {
 import { MdOutlineShoppingCart } from 'react-icons/md';
 import type { RootState } from '../../app/store';
 import Loading from '../../../@ui-component/Comman/Loading';
+import SearchBar from '../ui/SearchBar';
+import BarFilterIcon from '../Icon/BarFilterIcon';
+import DropDown from '../../../@ui-component/Comman/DropDown';
+
+const CollectionItems = () => {
 import { useInView } from 'react-intersection-observer';
 
 
@@ -29,6 +33,38 @@ const CollectionItems: React.FC<Props> = () => {
     threshold: 0,
   });
 
+  const params = useParams();
+  const itemsFilter = useMemo(() => {
+    return [
+      {
+        label: 'Price: Low to High',
+        // value: '&sortDirection=asc&includeLastSale=true',
+        value: 'Price: Low to High',
+      },
+      {
+        label: 'Price: High to Low',
+        // value: '&sortDirection=desc&includeLastSale=true',
+        value: 'Price: High to Low',
+      },
+      {
+        label: 'Rear to Common',
+        // value: '&sortDirection=asc&includeLastSale=true', // sortBy=rarity
+        value: 'Rear to Common', // sortBy=rarity
+      },
+      {
+        label: 'Common to Rear',
+        // value: '&sortDirection=desc&includeLastSale=true', // sortBy=rarity
+        value: 'Common to Rear', // sortBy=rarity
+      },
+    ];
+  }, []);
+
+  const handleonChange = (newValue: string) => {};
+
+  const { tabData, loading, grid } = useSelector(
+    (state: RootState) => state.collection
+  );
+
   useEffect(() => {
     dispatch(fetchItemsDataRequest(limit));
     console.log(`Fetching items with limit: ${limit}`);
@@ -41,7 +77,73 @@ const CollectionItems: React.FC<Props> = () => {
     }
   }, [inView, loading, limit, dispatch]);
   return (
-    <Box sx={{ background: 'background.default', minHeight: '100vh' }}>
+    <Box sx={{ background: 'background.default' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: 2,
+          mb: 3,
+          bgcolor: 'background.default',
+          flexWrap: 'wrap',
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1.5,
+          }}
+        >
+          <IconButton
+            sx={{
+              border: `1px solid`,
+              borderColor: 'divider',
+              borderRadius: 2,
+              color: 'text.secondary',
+              mb: 0.2,
+            }}
+            className="group"
+          >
+            {/* <FilterListIcon /> */}
+            <BarFilterIcon
+              className={`w-5 h-5 group-hover:fill-[#A49BFF] fill-[#777E90] }`}
+            />
+          </IconButton>
+
+          <Box
+            sx={{
+              // display: 'flex',
+              // alignItems: 'center',
+              // border: `1px solid ${theme.palette.divider}`,
+              // borderRadius: 2,
+              // px: 1.5,
+              // py: 0.5,
+              minWidth: 'fit-content',
+              // bgcolor: 'background.default',
+              // flex: 1,
+              maxWidth: 400,
+            }}
+          >
+            <SearchBar
+              placeholder="Search for items"
+              backgroundColor="background.default"
+            />
+          </Box>
+          <Typography className="text-white">
+            {tabData?.overview?.onSaleCount} listed
+          </Typography>
+        </Box>
+        <DropDown
+          options={itemsFilter}
+          value="Price: Low to High"
+          disableMenuItemTouchRipple
+          disableTouchRipple
+          onChange={handleonChange}
+        />
+      </Box>
+      {loading && <Loading />}
       <Box
         sx={{
           display: 'grid',
@@ -50,7 +152,7 @@ const CollectionItems: React.FC<Props> = () => {
             xs: 'repeat(2, minmax(0, 1fr))',
             sm: 'repeat(4, minmax(0, 1fr))',
             md: 'repeat(6, minmax(0, 1fr))',
-            lg: 'repeat(8, minmax(0, 1fr))',
+            lg: `repeat(${grid}, minmax(0, 1fr))`,
           },
           gap: 1.5,
         }}

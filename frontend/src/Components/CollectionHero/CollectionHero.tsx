@@ -26,7 +26,9 @@ const CollectionHero: React.FC<CollectionHeroProps> = ({
 
   const isLong = description?.length > MAX_CHARS;
   const shownText =
-    expanded || !isLong ? description : description.slice(0, MAX_CHARS) + '...';
+    expanded || !isLong
+      ? description
+      : description?.slice(0, MAX_CHARS) + '...';
 
   return (
     <Box
@@ -35,18 +37,21 @@ const CollectionHero: React.FC<CollectionHeroProps> = ({
         borderRadius: '12px',
         p: { xs: 2 },
         display: 'flex',
+        flexWrap: { xs: 'wrap', sm: 'nowrap' },
         alignItems: 'flex-start',
-        gap: { xs: 2, md: 4 },
+        gap: { xs: 2, sm: 4, md: 4 },
         mb: 4,
         minHeight: 220,
       }}
     >
       <Box
         sx={{
-          minWidth: 160,
-          minHeight: 160,
-          width: { xs: 100, md: 212 },
-          height: { xs: 100, md: 212 },
+          // minWidth: 160,
+          // minHeight: 160,
+          width: { xs: '100%', sm: 212 },
+          // height: { xs: 100, md: 212 },
+          // width: '100%',
+          height: '100%',
           borderRadius: '12px',
           overflow: 'hidden',
           display: 'flex',
@@ -68,7 +73,7 @@ const CollectionHero: React.FC<CollectionHeroProps> = ({
         />
       </Box>
       <Box sx={{ flex: 1 }}>
-        <Typography variant="h4" sx={{ fontWeight: 700, color: '#fff', mb: 1 }}>
+        <Typography variant="h4" sx={{ fontWeight: 700, color: '#fff' }}>
           {title}
         </Typography>
         <Typography
@@ -93,12 +98,12 @@ const CollectionHero: React.FC<CollectionHeroProps> = ({
         </Typography>
         {isLong && (
           <Button
-            variant='text'
+            variant="text"
             sx={{
               color: '#f3f4f6',
               fontWeight: 500,
               textTransform: 'none',
-              mb: 0.5,
+              mb: 1,
               p: 0,
               minWidth: 0,
               textDecoration: 'underline',
@@ -109,7 +114,7 @@ const CollectionHero: React.FC<CollectionHeroProps> = ({
           </Button>
         )}
         {/* <Link to={'#'} className='text-gray-100 underline'>Read More</Link> */}
-        <Box sx={{ mt: 3 }}>
+        <Box>
           <Button
             variant="contained"
             disableElevation
