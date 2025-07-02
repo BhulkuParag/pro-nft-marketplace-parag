@@ -14,8 +14,13 @@ import {
   SupplyRenderer,
   VolumeRenderer,
   HoverRenderer,
+  ChipRenderer,
 } from '../../utils/Table/cellRenderer';
-import { AddSortIcon, InfoIcon } from '../../utils/Table/headerRenderer';
+import {
+  AddSortIcon,
+  InfoIcon,
+  InfoIconSortIcon,
+} from '../../utils/Table/headerRenderer';
 import type { ICellRendererParams } from 'ag-grid-community';
 
 interface Options {
@@ -84,16 +89,18 @@ const initialState: HomeState = {
       {
         field: 'floorAsk',
         headerName: 'Floor Price (24H)',
-        cellRenderer: PriceRenderer,
-        headerComponent: InfoIcon,
-        minWidth: 160,
+        cellRenderer: ChipRenderer,
+        headerComponent: InfoIconSortIcon,
+        minWidth: 190,
         valueGetter: (params: ICellRendererParams<RowData>) =>
           params.data?.floorAsk?.price?.amount?.decimal.toFixed(2) ?? '',
       },
       {
         field: 'topBid',
         headerName: `Top Bid (24H)`,
-        cellRenderer: PriceRenderer,
+        cellRenderer: ChipRenderer,
+        headerComponent: InfoIconSortIcon,
+        // cellRenderer: PriceRenderer,
         // minWidth: 110,
         valueGetter: (params: ICellRendererParams<RowData>) =>
           params.data?.topBid?.price?.amount?.decimal.toFixed(2) ?? '',

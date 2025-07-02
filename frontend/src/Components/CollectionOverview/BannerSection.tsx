@@ -190,7 +190,7 @@ const BannerSection = () => {
       },
       { label: 'Minted Time', value: '7 months ago' },
     ];
-  }, []);
+  }, [bannerDetails]);
 
   return (
     <Box className="banner-section">

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Box, Typography, IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import CheckIcon from '@mui/icons-material/Check';
@@ -12,9 +12,13 @@ import { MdOutlineShoppingCart } from 'react-icons/md';
 import type { RootState } from '../../app/store';
 import Loading from '../../../@ui-component/Comman/Loading';
 import { useInView } from 'react-intersection-observer';
+import SearchBar from '../ui/SearchBar';
+import DropDown from '../../../@ui-component/Comman/DropDown';
+import BarFilterIcon from '../Icon/BarFilterIcon';
 
 const CollectionItems = () => {
-  const { loading, tabData, limit } = useSelector(
+  const param = useParams();
+  const { loading, tabData, limit, grid } = useSelector(
     (state: RootState) => state.collection
   );
   const [selectedIds, setSelectedIds] = React.useState<number[]>([]);
@@ -23,7 +27,6 @@ const CollectionItems = () => {
     threshold: 0,
   });
 
-  const params = useParams();
   const itemsFilter = useMemo(() => {
     return [
       {
@@ -52,9 +55,10 @@ const CollectionItems = () => {
   const handleonChange = (newValue: string) => {};
 
   useEffect(() => {
-    if (params.id) dispatch(fetchItemsDataRequest(params.id, limit));
+    if (param.id)
+      dispatch(fetchItemsDataRequest({ contract: param.id, limit }));
     console.log(`Fetching items with limit: ${limit}`);
-  }, [params.id, dispatch, limit]);
+  }, [param.id, limit]);
 
   useEffect(() => {
     if (inView && !loading && tabData['items']?.length === limit) {
@@ -62,8 +66,74 @@ const CollectionItems = () => {
       console.log(`Fetching more items, current limit: ${limit}`);
     }
   }, [inView, loading, limit, dispatch]);
+
   return (
     <Box sx={{ background: 'background.default', minHeight: '100vh' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: 2,
+          mb: 3,
+          bgcolor: 'background.default',
+          flexWrap: 'wrap',
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1.5,
+          }}
+        >
+          <IconButton
+            sx={{
+              border: `1px solid`,
+              borderColor: 'divider',
+              borderRadius: 2,
+              color: 'text.secondary',
+              mb: 0.2,
+            }}
+            className="group"
+          >
+            {/* <FilterListIcon /> */}
+            <BarFilterIcon
+              className={`w-5 h-5 group-hover:fill-[#A49BFF] fill-[#777E90] }`}
+            />
+          </IconButton>
+
+          <Box
+            sx={{
+              // display: 'flex',
+              // alignItems: 'center',
+              // border: `1px solid ${theme.palette.divider}`,
+              // borderRadius: 2,
+              // px: 1.5,
+              // py: 0.5,
+              minWidth: 'fit-content',
+              // bgcolor: 'background.default',
+              // flex: 1,
+              maxWidth: 400,
+            }}
+          >
+            <SearchBar
+              placeholder="Search for items"
+              backgroundColor="background.default"
+            />
+          </Box>
+          <Typography className="text-white">
+            {tabData?.overview?.onSaleCount} listed
+          </Typography>
+        </Box>
+        <DropDown
+          options={itemsFilter}
+          value="Price: Low to High"
+          disableMenuItemTouchRipple
+          disableTouchRipple
+          onChange={handleonChange}
+        />
+      </Box>
       {loading && <Loading />}
       <Box
         sx={{
@@ -80,7 +150,7 @@ const CollectionItems = () => {
       >
         {tabData['items']?.map((item: any) => (
           <Link
-            className="rounded-xl"
+            className="rounded-xl group"
             to={`/trendingCollections/assets/${item?.token?.collection?.id}:${item?.token?.tokenId}`}
             key={item?.token?.id}
           >
@@ -112,7 +182,11 @@ const CollectionItems = () => {
               >
                 <Typography
                   component="img"
-                  className="nft-thumbnail "
+                  className={`nft-thumbnail ${
+                    grid === '8'
+                      ? `group-hover:scale-110`
+                      : `group-hover:scale-105`
+                  }`}
                   loading="lazy"
                   src={item.token.image}
                   alt={`NFT #${item.id}`}
@@ -122,9 +196,9 @@ const CollectionItems = () => {
                     objectFit: 'cover',
                     display: 'block',
                     transition: 'all 0.3s cubic-bezier(.4,2,.6,1)',
-                    ':hover': {
-                      scale: 1.1,
-                    },
+                    // ':hover': {
+                    //   scale: 1.1,
+                    // },
                     //transition: 'transform 0.3s cubic-bezier(.4,2,.6,1)',
                   }}
                 />

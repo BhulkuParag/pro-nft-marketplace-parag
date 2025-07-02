@@ -84,10 +84,11 @@ const CollectionActivity: React.FC = () => {
               color: 'text.secondary',
               mb: 0.2,
             }}
+            className="group"
           >
             {/* <FilterListIcon /> */}
             <BarFilterIcon
-              className={`w-5 h-5 hover:text-[#A49BFF] fill-[#777E90] }`}
+              className={`w-5 h-5 group-hover:fill-[#A49BFF] fill-[#777E90] }`}
             />
           </IconButton>
 

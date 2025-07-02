@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setActiveTab, setGrid } from '../features/collection/collectionSlice';
 import type { RootState } from '../app/store';
 import { Box } from '@mui/material';
-import BannerSection from '../Components/CollectionOverview/BannerSection';
+const BannerSection = lazy(
+  () => import('../Components/CollectionOverview/BannerSection')
+);
 import { BsGrid, BsGrid3X3Gap } from 'react-icons/bs';
 const CollectionOverview = lazy(
   () => import('../Components/CollectionOverview/CollectionOverview')
