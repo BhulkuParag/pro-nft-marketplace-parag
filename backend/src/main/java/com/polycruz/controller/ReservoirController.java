@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.polycruz.pojo.ActivityResponse;
 import com.polycruz.pojo.ChainStatsResponse;
+import com.polycruz.pojo.CollectionSearchResponse;
 import com.polycruz.pojo.CollectionsV7Response;
 import com.polycruz.pojo.NftCollectionResponse;
 import com.polycruz.pojo.NftSalesResponse;
@@ -158,13 +159,24 @@ public class ReservoirController {
      }
      
      @GetMapping("/collection/activity")
-     @Operation( summary = "AI Valuation 2) standard b) Top sales")
+     @Operation( summary = "AI Valuation 2) standard b) Top sales c) listing d) transfer")
      public ResponseEntity<TechResponse<ActivityResponse>> fetchActivities(
      		  @RequestParam(defaultValue = "0xbd3531da5cf5857e7cfaa92426877b022e612cf8") String collection,
      		 @RequestParam(defaultValue = "sale") String type
      	       
      		) {
          return new ResponseEntity<>(transformer.transform(vendorService.fetchActivities(collection,type)),
+                 HttpStatus.OK);
+     }
+     
+     @GetMapping("/collection/search")
+     @Operation( summary = "AI Valuation 3) Main Search API a) onChange (search input) ")
+     public ResponseEntity<TechResponse<CollectionSearchResponse>> fetchCollectionsSearch(
+     		  @RequestParam(defaultValue = "1") String chains,
+     		 @RequestParam(defaultValue = "pudgy") String prefix
+     	       
+     		) {
+         return new ResponseEntity<>(transformer.transform(vendorService.fetchCollectionsSearch(Integer.valueOf(chains), prefix)),
                  HttpStatus.OK);
      }
 

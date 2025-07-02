@@ -16,6 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.polycruz.config.ReservoirApiProperties;
 import com.polycruz.pojo.ActivityResponse;
 import com.polycruz.pojo.ChainStatsResponse;
+import com.polycruz.pojo.CollectionSearchResponse;
 import com.polycruz.pojo.CollectionsV7Response;
 import com.polycruz.pojo.NftCollectionResponse;
 import com.polycruz.pojo.NftSalesResponse;
@@ -191,5 +192,21 @@ public class VendorService {
 
 	    return restTemplate.getForObject(uri, ActivityResponse.class);
 	}
+	
+	public CollectionSearchResponse fetchCollectionsSearch(Integer chains,String prefix) {
+		  String url = apiProperties.getCollectionSearch(); // e.g., https://api.reservoir.tools/collections/activity/v6
+
+		    URI uri = UriComponentsBuilder.fromHttpUrl(url)
+		        .queryParam("chains", chains)
+		        .queryParam("prefix", prefix)
+		        .build()
+		        .encode()
+		        .toUri();
+
+		    System.out.println("uri "+uri);
+		    
+		return restTemplate.getForObject(uri, CollectionSearchResponse.class);
+	}
+
 
 }
