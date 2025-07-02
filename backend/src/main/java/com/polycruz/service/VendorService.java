@@ -176,6 +176,20 @@ public class VendorService {
         uriVariables.put("period", period);
         return restTemplate.getForObject(url, TopTradersResponse.class,uriVariables);
     }
+	
+	public ActivityResponse fetchActivities(String collection, String sale) {
+	    String url = apiProperties.getCollectionActivity(); // e.g., https://api.reservoir.tools/collections/activity/v6
 
+	    URI uri = UriComponentsBuilder.fromHttpUrl(url)
+	        .queryParam("collection", collection)
+	        .queryParam("types", sale)
+	        .build()
+	        .encode()
+	        .toUri();
+
+	    System.out.println("Final URI: " + uri);
+
+	    return restTemplate.getForObject(uri, ActivityResponse.class);
+	}
 
 }
