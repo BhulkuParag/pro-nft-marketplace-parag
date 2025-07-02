@@ -156,6 +156,17 @@ public class ReservoirController {
          return new ResponseEntity<>(transformer.transform(vendorService.fetchTopTraders(period)),
                  HttpStatus.OK);
      }
+     
+     @GetMapping("/collection/activity")
+     @Operation( summary = "AI Valuation 2) standard b) Top sales")
+     public ResponseEntity<TechResponse<ActivityResponse>> fetchActivities(
+     		  @RequestParam(defaultValue = "0xbd3531da5cf5857e7cfaa92426877b022e612cf8") String collection,
+     		 @RequestParam(defaultValue = "sale") String type
+     	       
+     		) {
+         return new ResponseEntity<>(transformer.transform(vendorService.fetchActivities(collection,type)),
+                 HttpStatus.OK);
+     }
 
 }
 
