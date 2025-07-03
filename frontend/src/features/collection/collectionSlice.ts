@@ -52,7 +52,7 @@ const initialState: CollectionState = {
   collection: '',
   sortBy: 'floorAskPrice',
   limit: 50,
-  limit: 40,
+
   grid: '8',
   tabData: {},
   columnDefsMap: {
@@ -169,11 +169,14 @@ const collectionSlice = createSlice({
   name: 'collection',
   initialState,
   reducers: {
-    fetchItemsDataRequest: (state, action: PayloadAction<number>) => {
+    fetchItemsDataRequest: (
+      state,
+      action: PayloadAction<{ contract: string; limit: number }>
+    ) => {
       state.loading = true;
-      state.contract = action.payload;
+      state.contract = action.payload.contract;
       state.error = null;
-      state.limit = action.payload;
+      state.limit = action.payload.limit;
     },
     fetchItemsDataSuccess: (state, action: PayloadAction<RowData[]>) => {
       state.loading = false;

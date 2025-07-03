@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo } from 'react';
-import { Box, Typography, IconButton } from '@mui/material';
+import { Box, Typography, IconButton, Chip } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import CheckIcon from '@mui/icons-material/Check';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchItemsDataRequest,
@@ -14,19 +14,9 @@ import Loading from '../../../@ui-component/Comman/Loading';
 import SearchBar from '../ui/SearchBar';
 import BarFilterIcon from '../Icon/BarFilterIcon';
 import DropDown from '../../../@ui-component/Comman/DropDown';
-
-const CollectionItems = () => {
 import { useInView } from 'react-intersection-observer';
 
-
-type Props = {
-  allItems: any[];
-};
-
-const CollectionItems: React.FC<Props> = () => {
-  const { loading, tabData, limit } = useSelector(
-    (state: RootState) => state.collection
-  );
+const CollectionItems = () => {
   const [selectedIds, setSelectedIds] = React.useState<number[]>([]);
   const dispatch = useDispatch();
   const { ref, inView } = useInView({
@@ -61,14 +51,16 @@ const CollectionItems: React.FC<Props> = () => {
 
   const handleonChange = (newValue: string) => {};
 
-  const { tabData, loading, grid } = useSelector(
+  const { tabData, loading, grid, limit } = useSelector(
     (state: RootState) => state.collection
   );
 
   useEffect(() => {
-    dispatch(fetchItemsDataRequest(limit));
-    console.log(`Fetching items with limit: ${limit}`);
-  }, [dispatch, limit]);
+    if (params.id) {
+      dispatch(fetchItemsDataRequest({ contract: params.id, limit }));
+      console.log(`Fetching items with limit: ${limit}`);
+    }
+  }, [limit, params.id]);
 
   useEffect(() => {
     if (inView && !loading && tabData['items']?.length === limit) {
@@ -191,11 +183,12 @@ const CollectionItems: React.FC<Props> = () => {
               >
                 <Typography
                   component="img"
-                  className="nft-thumbnail "
                   loading="lazy"
                   src={item.token.image}
                   alt={`NFT #${item.id}`}
                   sx={{
+                    // borderBottomLeftRadius: '0px',
+                    // borderTopRightRadius: '12px',
                     width: '100%',
                     height: '100%',
                     objectFit: 'cover',
@@ -207,6 +200,50 @@ const CollectionItems: React.FC<Props> = () => {
                     //transition: 'transform 0.3s cubic-bezier(.4,2,.6,1)',
                   }}
                 />
+
+                <Box
+                  // sx={{ position: 'absolute', bottom: 10, left: 15 }}
+
+                  sx={{
+                    position: 'absolute',
+                    bottom: '0.5rem',
+                    left: '0.5rem',
+                    color: '#fff',
+
+                    backgroundColor: '#0006',
+                    backdropFilter: 'blur(2px)',
+                    borderRadius: '16px',
+                  }}
+                >
+                  <Chip
+                    // label={item.token.name}
+                    label={
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.2rem',
+                        }}
+                      >
+                        <Box
+                          component="img"
+                          src="https://analytic.polycruz.io/icons/rarity.svg"
+                        />
+                        <Typography
+                          variant="body1"
+                          color="custom.primary"
+                          sx={{
+                            fontSize: '0.7rem',
+                          }}
+                        >
+                          {item.token.rarityRank}
+                        </Typography>
+                      </Box>
+                    }
+
+                    // variant="outlined"
+                  />
+                </Box>
                 <IconButton
                   onClick={(e) => {
                     e.preventDefault();
@@ -238,10 +275,12 @@ const CollectionItems: React.FC<Props> = () => {
                   {selectedIds.includes(item.id) ? <CheckIcon /> : <AddIcon />}
                 </IconButton>
               </Box>
+
               <Box
                 sx={{
                   backgroundColor: 'secondary.main',
-                  border: '1px solid rgb(53, 57, 69)',
+                  border: '1px solid',
+                  borderColor: 'divider',
                   color: '#fff',
                   borderBottomLeftRadius: '12px',
                   borderBottomRightRadius: '12px',
@@ -399,8 +438,7 @@ const CollectionItems: React.FC<Props> = () => {
           </Link>
         ))}
       </Box>
-      {loading && <Loading />}
-      <div ref={ref} style={{ height: 1 }} />
+      <Box component="div" ref={ref} sx={{ height: 1 }} />
     </Box>
   );
 };

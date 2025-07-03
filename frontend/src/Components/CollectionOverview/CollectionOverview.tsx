@@ -33,9 +33,7 @@ const TitleContainer = styled(Box)(({ theme }) => ({
 const CollectionOverview = () => {
   const params = useParams();
   const dispatch = useDispatch();
-  const { tabData } = useSelector(
-    (state: RootState) => state.collection
-  );
+  const { tabData } = useSelector((state: RootState) => state.collection);
 
   useEffect(() => {
     if (params.id) dispatch(fetchOverviewDetailDataRequest(params?.id));
@@ -52,6 +50,9 @@ const CollectionOverview = () => {
           <Tooltip title="Info" arrow placement="top">
             <IconButton
               sx={{
+                width: '1.25rem',
+                height: '1.25rem',
+                p: 0,
                 '& :hover': {
                   color: 'custom.primaryLight',
                 },
@@ -71,6 +72,9 @@ const CollectionOverview = () => {
           <Tooltip title="Info" arrow placement="top">
             <IconButton
               sx={{
+                width: '1.25rem',
+                height: '1.25rem',
+                p: 0,
                 '& :hover': {
                   color: 'custom.primaryLight',
                 },
@@ -90,6 +94,9 @@ const CollectionOverview = () => {
           <Tooltip title="Info" arrow placement="top">
             <IconButton
               sx={{
+                width: '1.25rem',
+                height: '1.25rem',
+                p: 0,
                 '& :hover': {
                   color: 'custom.primaryLight',
                 },
@@ -109,6 +116,9 @@ const CollectionOverview = () => {
           <Tooltip title="Info" arrow placement="top">
             <IconButton
               sx={{
+                width: '1.25rem',
+                height: '1.25rem',
+                p: 0,
                 '& :hover': {
                   color: 'custom.primaryLight',
                 },
@@ -128,6 +138,9 @@ const CollectionOverview = () => {
           <Tooltip title="Info" arrow placement="top">
             <IconButton
               sx={{
+                width: '1.25rem',
+                height: '1.25rem',
+                p: 0,
                 '& :hover': {
                   color: 'custom.primaryLight',
                 },
@@ -147,6 +160,9 @@ const CollectionOverview = () => {
           <Tooltip title="Info" arrow placement="top">
             <IconButton
               sx={{
+                width: '1.25rem',
+                height: '1.25rem',
+                p: 0,
                 '& :hover': {
                   color: 'custom.primaryLight',
                 },
@@ -161,86 +177,95 @@ const CollectionOverview = () => {
   }, [tabData]);
 
   return (
+    <Box
+      sx={{
+        width: '100%',
+        height: 'fit-content',
+        // minHeight: '100vh',
+        backgroundColor: 'background.default',
+        position: 'relative',
+      }}
+    >
       <Box
         sx={{
+          //   paddingInline: '80px',
           width: '100%',
-          height: 'fit-content',
-          // minHeight: '100vh',
-          backgroundColor: 'background.default',
-          position: 'relative',
         }}
       >
+        <CollectionHero
+          image={tabData?.overview?.image}
+          title={tabData?.overview?.name}
+          subtitle={tabData?.overview?.symbol}
+          description={tabData?.overview?.description}
+          onReadMore={() =>
+            window.open('https://boredapeyachtclub.com/', '_blank')
+          }
+          onViewAll={() => alert('View All Collections clicked!')}
+        />
         <Box
           sx={{
-            //   paddingInline: '80px',
-            width: '100%',
+            display: 'grid',
+            gridTemplateColumns: {
+              xs: 'repeat(2, 1fr)',
+              sm: 'repeat(2, 1fr)',
+              md: 'repeat(3, 1fr)',
+            },
+            gap: 3,
           }}
         >
-          <CollectionHero
-            image={tabData?.overview?.image}
-            title={tabData?.overview?.name}
-            subtitle={tabData?.overview?.symbol}
-            description={tabData?.overview?.description}
-            onReadMore={() =>
-              window.open('https://boredapeyachtclub.com/', '_blank')
-            }
-            onViewAll={() => alert('View All Collections clicked!')}
-          />
-          <Box
-            sx={{
-              display: 'grid',
-              gridTemplateColumns: {
-                xs: '1fr',
-                sm: 'repeat(2, 1fr)',
-                md: 'repeat(3, 1fr)',
-              },
-              gap: 3,
-            }}
-          >
-            {stats.map((stat) => (
-              <StyledCard
-                key={stat.value}
-                sx={{ width: '100%', height: '100%' }}
+          {stats.map((stat) => (
+            <StyledCard
+              key={stat.value}
+              sx={{
+                width: '100%',
+                height: '100%',
+              }}
+            >
+              <Box
+                component="div"
+                sx={{
+                  display: 'flex',
+                  padding: '1.25rem',
+                  flexDirection: 'column',
+                  gap: 1,
+                }}
               >
-                <CardContent>
-                  <TitleContainer>
-                    <Typography
-                      variant="subtitle2"
-                      color="text.primary"
-                      sx={{ fontSize: '18px' }}
-                    >
-                      {stat.title}
-                    </Typography>
-                    {stat.icon}
-                  </TitleContainer>
+                <TitleContainer>
+                  <Typography
+                    variant="body1"
+                    color="text.primary"
+                    sx={{ fontSize: '1rem', lineHeight: '1.25rem' }}
+                  >
+                    {stat.title}
+                  </Typography>
+                  {stat.icon}
+                </TitleContainer>
 
-                  <StatValue>
-                    <img
-                      src="https://marketplace.polycruz.io/eth.svg"
-                      alt="ETH"
-                      width={16}
-                      height={16}
-                    />
-                    <Typography
-                      variant="h6"
-                      component="h6"
-                      sx={{ fontWeight: 'bold' }}
-                    >
-                      {stat.value}
-                    </Typography>
-                  </StatValue>
-                </CardContent>
-              </StyledCard>
-            ))}
-          </Box>
-        </Box>
-        <Box component="div" sx={{ p: { xs: '0px', lg: '0.5rem' } }}>
-          <HolderHistory />
-          <Box component="div">
-            <MarketOverview />
-          </Box>
+                <StatValue>
+                  <img
+                    src="https://marketplace.polycruz.io/eth.svg"
+                    alt="ETH"
+                    width={16}
+                    height={16}
+                  />
+                  <Typography
+                    variant="h6"
+                    component="h6"
+                    sx={{ fontWeight: 'bold' }}
+                  >
+                    {stat.value}
+                  </Typography>
+                </StatValue>
+              </Box>
+            </StyledCard>
+          ))}
         </Box>
       </Box>
+      <Box component="div" sx={{ p: { xs: '0px', lg: '0.5rem' } }}>
+        {/* <HolderHistory /> */}
+        <Box component="div">{/* <MarketOverview /> */}</Box>
+      </Box>
+    </Box>
   );
 };
 

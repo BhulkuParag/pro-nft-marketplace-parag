@@ -280,7 +280,7 @@ const Screen: React.FC = () => {
             >
               <Chip
                 label={ItemDetails.token?.kind}
-                size='small'
+                size="small"
                 sx={{
                   bgcolor: '#6C63B5',
                   color: '#fff',
@@ -295,7 +295,7 @@ const Screen: React.FC = () => {
           </Box>
 
           <Box
-            component="img" 
+            component="img"
             src={ItemDetails?.token?.image}
             loading="lazy"
             alt="NFT"
@@ -309,7 +309,7 @@ const Screen: React.FC = () => {
           <Box
             sx={{
               display: 'flex',
-              flexDirection: { xs: 'column', md: 'row' },
+              flexDirection: 'column',
               flexWrap: 'wrap',
               gap: 2,
               mt: 3,

@@ -303,7 +303,10 @@ export default function Header(): JSX.Element {
           marginTop: 2,
         }}
       >
-        <Link to={'/home'} className="px-3 flex items-center gap-x-3 text-xl font-bold">
+        <Link
+          to={'/home'}
+          className="px-3 flex items-center gap-x-3 text-xl font-bold"
+        >
           <img
             src="https://analytic.polycruz.io/_next/static/media/logo.32e9a1fc.svg"
             alt=""
@@ -473,7 +476,7 @@ export default function Header(): JSX.Element {
                     <NotificationsIcon />
                   </Badge>
                 </IconButton>
-                <IconButton
+                {/* <IconButton
                   size="large"
                   edge="end"
                   aria-label="shopping cart"
@@ -484,7 +487,7 @@ export default function Header(): JSX.Element {
                   sx={{ padding: '5px' }}
                 >
                   <LocalGroceryStoreIcon />
-                </IconButton>
+                </IconButton> */}
               </Box>
             </Box>
           )}
