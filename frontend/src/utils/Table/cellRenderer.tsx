@@ -1,7 +1,6 @@
 import type { ICellRendererParams } from 'ag-grid-community';
 import type {
   ActivityType,
-  ItemDetailActivity,
   RowData,
   TopMintData,
 } from '../../types/table';
@@ -50,11 +49,11 @@ export const PriceRenderer = (params: ICellRendererParams<RowData>) => {
   } else if (field === 'topBid') {
     usdValue = params.data?.topBid?.price?.amount?.usd;
   } else if (field === 'mintPrice') {
-    usdValue = params.data?.mintPrice.amount.usd;
+    usdValue = params.data?.mintPrice?.amount?.usd;
   } else if (field === 'mintVolume') {
     usdValue = params.data?.mintVolume;
   } else if (field === 'price') {
-    usdValue = params.data?.price?.amount.usd;
+    usdValue = params.data?.price?.amount?.usd;
   }
 
   return (
@@ -116,7 +115,7 @@ export const HoverRenderer = (params: ICellRendererParams<TopMintData>) => {
 };
 
 export const TypeCell = (row: ICellRendererParams<ActivityType>) => (
-  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, height: '100%' }}>
+  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'end', gap: 1, height: '100%' }}>
     {row.data?.type === 'bid' && (
       <Avatar
         src={
@@ -177,14 +176,32 @@ export const CollectionCell = (params: ICellRendererParams<ActivityType>) => (
 
 export const ChipRenderer = (params: ICellRendererParams<RowData>) => (
   <div className="w-auto flex h-full items-center justify-end">
-    <span
-      className={`h-[26px] rounded-full flex items-center justify-center p-1.5 px-2.5 ${
-        params.colDef?.field === 'topBid'
-          ? `bg-green-950/70 text-[#10DAB6]`
-          : `bg-red-950/50 text-[#FE749B]`
-      }`}
+    <Box
+      component={'span'}
+      sx={{
+        height: '26px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 5,
+        paddingBlock: '6px',
+        paddingInline: '10px',
+        backgroundColor:
+          params.value === '-'
+            ? ''
+            : params.colDef?.field !== 'topBid'
+            ? 'custom.redDark'
+            : 'custom.greenDark',
+        color:
+          params.value === '-'
+            ? ''
+            : params.colDef?.field === 'topBid'
+            ? 'custom.green'
+            : 'custom.red',
+      }}
+      // className='bg-red-400/30'
     >
-      {params.value ?? '-'}
-    </span>
+      {params.value}
+    </Box>
   </div>
 );

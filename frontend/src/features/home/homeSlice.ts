@@ -18,10 +18,10 @@ import {
 } from '../../utils/Table/cellRenderer';
 import {
   AddSortIcon,
-  InfoIcon,
   InfoIconSortIcon,
 } from '../../utils/Table/headerRenderer';
 import type { ICellRendererParams } from 'ag-grid-community';
+import type { GlobalSearchT } from '../../types/home';
 
 interface Options {
   label: string;
@@ -41,12 +41,18 @@ interface HomeState {
   includeTokenMetadata: boolean;
   isCardOrTable: boolean;
   selectedToggleValue: string;
+  chainId: number;
+  globalSearchValue: string;
+  globalSearchData: GlobalSearchT[];
   error: string | null;
 }
 
 const initialState: HomeState = {
   activeTab: 'trending',
   time: '24h',
+  chainId: 1, // Default to Ethereum mainnet
+  globalSearchValue: '',
+  globalSearchData: [],
   includeTokenMetadata: true,
   selectedToggleValue: '0',
   isCardOrTable: false,
@@ -103,7 +109,7 @@ const initialState: HomeState = {
         // cellRenderer: PriceRenderer,
         // minWidth: 110,
         valueGetter: (params: ICellRendererParams<RowData>) =>
-          params.data?.topBid?.price?.amount?.decimal.toFixed(2) ?? '',
+          params.data?.topBid?.price?.amount?.decimal.toFixed(2) ?? '-',
       },
       {
         field: 'volume',
@@ -316,7 +322,7 @@ const initialState: HomeState = {
         flex: 2,
         minWidth: 300,
         valueGetter: (params: ICellRendererParams<TopMintData>) =>
-          params.data?.name.toString(),
+          params.data?.name?.toString(),
       },
       {
         field: 'id',
@@ -324,7 +330,7 @@ const initialState: HomeState = {
         cellRenderer: HoverRenderer,
         // minWidth: 160,
         valueGetter: (params: ICellRendererParams<TopMintData>) =>
-          params.data?.id.slice(0, 6) + '...' + params.data?.id.slice(-4),
+          params.data?.id?.slice(0, 6) + '...' + params.data?.id?.slice(-4),
       },
       {
         field: 'mintCount',
@@ -333,7 +339,7 @@ const initialState: HomeState = {
         cellRenderer: PriceRenderer,
         // minWidth: 110,
         valueGetter: (params: ICellRendererParams<TopMintData>) =>
-          params.data?.mintCount.toFixed(0) ?? '',
+          params.data?.mintCount?.toFixed(0) ?? '',
       },
       {
         field: 'ownerCount',
@@ -341,7 +347,7 @@ const initialState: HomeState = {
         headerComponent: AddSortIcon,
         cellRenderer: NormalRenderer,
         valueGetter: (params: ICellRendererParams<TopMintData>) =>
-          params.data?.ownerCount.toFixed(0) ?? '',
+          params.data?.ownerCount?.toFixed(0) ?? '',
       },
       {
         field: 'mintPrice',
@@ -349,7 +355,7 @@ const initialState: HomeState = {
         headerComponent: AddSortIcon,
         cellRenderer: PriceRenderer,
         valueGetter: (params: ICellRendererParams<TopMintData>) =>
-          params.data?.mintPrice.amount.decimal.toFixed(2) ?? '',
+          params.data?.mintPrice?.amount?.decimal?.toFixed(2) ?? '',
       },
       {
         field: 'tokenCount',
@@ -357,7 +363,7 @@ const initialState: HomeState = {
         headerComponent: AddSortIcon,
         cellRenderer: NormalRenderer,
         valueGetter: (params: ICellRendererParams<TopMintData>) =>
-          params.data?.tokenCount.toString() ?? '',
+          params.data?.tokenCount?.toString() ?? '',
       },
       {
         field: 'mintVolume',
@@ -365,7 +371,7 @@ const initialState: HomeState = {
         headerComponent: AddSortIcon,
         cellRenderer: PriceRenderer,
         valueGetter: (params: ICellRendererParams<TopMintData>) =>
-          params.data?.mintVolume.toFixed(2) ?? '',
+          params.data?.mintVolume?.toFixed(2) ?? '',
       },
     ],
   },
@@ -418,12 +424,27 @@ const homeSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
-
     fetchTopMintDataSuccess: (state, action: PayloadAction<TopMintData[]>) => {
       state.loading = false;
       state.tabData = { ...state.tabData, [state.activeTab]: action.payload };
     },
     fetchTopMintDataFailure: (state, action: PayloadAction<string>) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    fetchGlobalSearchDataRequest: (state, action: PayloadAction<string>) => {
+      state.loading = true;
+      state.error = null;
+      // state.globalSearchValue = action.payload;
+    },
+    fetchGlobalSearchDataSuccess: (
+      state,
+      action: PayloadAction<GlobalSearchT[]>
+    ) => {
+      state.loading = false;
+      state.globalSearchData = action.payload;
+    },
+    fetchGlobalSearchDataFailure: (state, action: PayloadAction<string>) => {
       state.loading = false;
       state.error = action.payload;
     },
@@ -444,11 +465,17 @@ const homeSlice = createSlice({
     setTime: (state, action: PayloadAction<string>) => {
       state.time = action.payload;
     },
-    setIsCardOrTable: (state, action: PayloadAction<boolean>) => {
-      state.isCardOrTable = action.payload;
+    setIsCardOrTable: (state) => {
+      state.isCardOrTable = !state.isCardOrTable;
     },
     setSelectedToggleValue: (state, action: PayloadAction<string>) => {
       state.selectedToggleValue = action.payload;
+    },
+    setGlobalSearchValue: (state, action: PayloadAction<string>) => {
+      state.globalSearchValue = action.payload;
+    },
+    setChainId: (state, action: PayloadAction<number>) => {
+      state.chainId = action.payload;
     },
   },
 });
@@ -466,12 +493,17 @@ export const {
   fetchTopMintDataRequest,
   fetchTopMintDataSuccess,
   fetchTopMintDataFailure,
+  fetchGlobalSearchDataRequest,
+  fetchGlobalSearchDataSuccess,
+  fetchGlobalSearchDataFailure,
   setActiveTab,
   setTabData,
   setTime,
   setVolume_sales,
   setIsCardOrTable,
   setSelectedToggleValue,
+  setGlobalSearchValue,
+  setChainId,
 } = homeSlice.actions;
 
 export default homeSlice.reducer;

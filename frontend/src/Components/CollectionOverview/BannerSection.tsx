@@ -1,12 +1,13 @@
 import {
   Box,
+  Chip,
   IconButton,
   Popover,
   Tooltip,
   Typography,
   useTheme,
 } from '@mui/material';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { FaDiscord } from 'react-icons/fa';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import KeyboardArrowDownSharpIcon from '@mui/icons-material/KeyboardArrowDownSharp';
@@ -22,6 +23,7 @@ import type { RootState } from '../../app/store';
 import { useSelector } from 'react-redux';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import '../../Components/CollectionOverview/CollectionBanner.css';
+import EthIcon from '../../assets/icons/others/EthIcon';
 
 const BannerSection = () => {
   const theme = useTheme();
@@ -30,7 +32,7 @@ const BannerSection = () => {
   const [refreshed, setRefreshed] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const { tabData } = useSelector((state: RootState) => state.collection);
+  const tabData = useSelector((state: RootState) => state.collection.tabData);
 
   const bannerDetails = useMemo(() => {
     return [
@@ -76,13 +78,16 @@ const BannerSection = () => {
     }
   }, [refreshed]);
 
-  const handleDropdownOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const handleDropdownOpen = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      setAnchorEl(event.currentTarget);
+    },
+    []
+  );
 
-  const handleDropdownClose = () => {
+  const handleDropdownClose = useCallback(() => {
     setAnchorEl(null);
-  };
+  }, []);
 
   const dropdownItems = useMemo(() => {
     return [
@@ -196,6 +201,7 @@ const BannerSection = () => {
     <Box className="banner-section">
       <Box className="banner-thumbnail">
         <img
+          loading="eager"
           src={tabData?.overview?.banner}
           alt={tabData?.overview?.name}
           className="banner-image"
@@ -217,6 +223,7 @@ const BannerSection = () => {
         }}
       >
         <img
+          loading="eager"
           src={tabData?.overview?.image}
           alt={tabData?.overview?.name}
           className="w-24 h-24 rounded-full absolute -top-[50px] left-[20px]"
@@ -448,7 +455,7 @@ const BannerSection = () => {
                   alignItems: 'center',
                   gap: '10px',
                   padding: '4px 8px',
-                  borderRadius: '20px',
+                  borderRadius: 3,
                   backgroundColor: theme.palette.custom.borderblack01,
                 }}
               >
@@ -474,7 +481,7 @@ const BannerSection = () => {
                   alignItems: 'center',
                   gap: '10px',
                   padding: '4px 8px',
-                  borderRadius: '20px',
+                  borderRadius: 3,
                   backgroundColor: theme.palette.custom.borderblack01,
                 }}
               >
@@ -500,7 +507,7 @@ const BannerSection = () => {
                   alignItems: 'center',
                   gap: '10px',
                   padding: '4px 8px',
-                  borderRadius: '20px',
+                  borderRadius: 3,
                   backgroundColor: theme.palette.custom.borderblack01,
                 }}
               >
@@ -526,7 +533,7 @@ const BannerSection = () => {
                   alignItems: 'center',
                   gap: '10px',
                   padding: '4px 8px',
-                  borderRadius: '20px',
+                  borderRadius: 3,
                   backgroundColor: theme.palette.custom.borderblack01,
                 }}
               >
@@ -545,32 +552,45 @@ const BannerSection = () => {
                   {bannerDetails[0].owner}
                 </Typography>
               </Box>
-              <Box
-                className="data-item"
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  padding: '4px 8px',
-                  borderRadius: '20px',
-                  backgroundColor: theme.palette.custom.borderblack01,
+              <Chip
+                label={
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '10px',
+                      // backgroundColor: theme.palette.custom.borderblack01,
+                    }}
+                  >
+                    <Typography
+                      variant="subtitle2"
+                      color="custom.thirdText"
+                      sx={{ fontSize: '12px' }}
+                    >
+                      Total Supply
+                    </Typography>
+                    <Typography
+                      variant="subtitle2"
+                      color="text.primary"
+                      sx={{ fontSize: '12px' }}
+                    >
+                      {bannerDetails[0].totalSupply}
+                    </Typography>
+                  </Box>
+                }
+                slotProps={{
+                  root: {
+                    sx: {
+                      height: '26px',
+                      paddingBlock: 0.8,
+                      backgroundColor: theme.palette.custom.borderblack01,
+                      ':hover': {
+                        backgroundColor: theme.palette.custom.greyDark,
+                      },
+                    },
+                  },
                 }}
-              >
-                <Typography
-                  variant="subtitle2"
-                  color="custom.thirdText"
-                  sx={{ fontSize: '12px' }}
-                >
-                  Total Supply
-                </Typography>
-                <Typography
-                  variant="subtitle2"
-                  color="text.primary"
-                  sx={{ fontSize: '12px' }}
-                >
-                  {bannerDetails[0].totalSupply}
-                </Typography>
-              </Box>
+              />
             </Box>
             {/* Floor Price & Top Bid Section */}
             <Box
@@ -594,13 +614,7 @@ const BannerSection = () => {
               >
                 {bannerDetails[0].floorPrice}
               </Typography>
-              <img
-                src="https://marketplace.polycruz.io/eth.svg"
-                alt="ETH"
-                width={12}
-                height={12}
-                className="mr-[12px]"
-              />
+              <EthIcon className="fill-[#777E90] w-4 h-4" />
               <Typography
                 variant="subtitle2"
                 sx={{ color: 'custom.thirdText', fontWeight: 500 }}
@@ -613,26 +627,19 @@ const BannerSection = () => {
               >
                 {bannerDetails[0].topBid}
               </Typography>
-              <img
-                src="https://marketplace.polycruz.io/eth.svg"
-                alt="ETH"
-                width={12}
-                height={12}
-                className="mr-[12px]"
-              />
+              <EthIcon className="fill-[#777E90] w-4 h-4" />
               <IconButton
+                disableTouchRipple
                 sx={{
-                  border: '1px solid #bdbdbd',
                   backgroundColor: theme.palette.custom.borderblack01,
                   borderRadius: 2,
-                  width: 36,
-                  height: 36,
+                  padding: '5px 14px',
                   ml: 1,
                 }}
                 onClick={handleDropdownOpen}
               >
                 <KeyboardArrowDownSharpIcon
-                  sx={{ color: theme.palette.custom.lightPurple }}
+                  sx={{ color: theme.palette.custom.lightGrey }}
                 />
               </IconButton>
               <Popover

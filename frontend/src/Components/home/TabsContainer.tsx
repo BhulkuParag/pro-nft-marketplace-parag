@@ -1,25 +1,37 @@
-import React, { lazy, useCallback, useMemo } from 'react';
+import React, { lazy, Suspense, useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import type { RootState } from '../app/store';
+import type { RootState } from '../../app/store';
 import { Box } from '@mui/material';
-const Trending = lazy(() => import('./HomeTabsHeader/Trending'));
-const NftSales = lazy(() => import('./HomeTabsHeader/NftSales'));
-const TopSales = lazy(() => import('./HomeTabsHeader/TopSales'));
-const TopMInitRanking = lazy(() => import('./HomeTabsHeader/TopMInitRanking'));
+const Trending = lazy(() => import('./../HomeTabsHeader/Trending'));
+const NftSales = lazy(() => import('./../HomeTabsHeader/NftSales'));
+const TopSales = lazy(() => import('./../HomeTabsHeader/TopSales'));
+const TopMInitRanking = lazy(
+  () => import('./../HomeTabsHeader/TopMInitRanking')
+);
 import {
   setActiveTab,
   setSelectedToggleValue,
-} from '../features/home/homeSlice';
-import CustomTab, { type TabItem } from '../../@ui-component/Comman/Tab';
+} from '../../features/home/homeSlice';
+import CustomTab, { type TabItem } from '../../../@ui-component/Comman/Tab';
 import { CiGrid2H } from 'react-icons/ci';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import { BsCollection } from 'react-icons/bs';
 // import TrendingIcon from '../assets/icons/Trending.svg'
 // import { IoMdHeartEmpty } from 'react-icons/io';
 import { IoIosTrendingUp } from 'react-icons/io';
+import Loading from '../../../@ui-component/Comman/Loading';
 type TabKey = 'trending' | 'nft_sales' | 'top_sales' | 'top_mint_ranking';
 
 const TabContainer = () => {
+  const dispatch = useDispatch();
+
+  const activeTab = useSelector(
+    (state: RootState) => state.home.activeTab
+  ) as TabKey;
+  const selectedToggleValue = useSelector(
+    (state: RootState) => state.home.selectedToggleValue
+  );
+
   const tabs = useMemo<Record<TabKey, TabItem>>(() => {
     return {
       trending: {
@@ -64,15 +76,6 @@ const TabContainer = () => {
       },
     ];
   }, []);
-
-  const dispatch = useDispatch();
-
-  const activeTab = useSelector(
-    (state: RootState) => state.home.activeTab
-  ) as TabKey;
-  const selectedToggleValue = useSelector(
-    (state: RootState) => state.home.selectedToggleValue
-  );
 
   const handleChange = useCallback(
     (_: React.SyntheticEvent, newValue: string) => {
@@ -119,7 +122,9 @@ const TabContainer = () => {
           padding: '20px',
         }}
       >
-        {tabs[activeTab].content}
+        <Suspense fallback={<Loading />}>
+          {tabs[activeTab].content ?? null}
+        </Suspense>
       </Box>
     </Box>
   );

@@ -31,6 +31,7 @@ import {
 import { menuItems } from '../constants/menuItem';
 import { Link } from 'react-router-dom';
 import { ConnectWalletButton } from '../ConnectWalletButton';
+import SearchContainer from '../home/SearchContainer';
 
 export default function Header(): JSX.Element {
   const [selected, setSelected] = React.useState('eth');
@@ -452,7 +453,7 @@ export default function Header(): JSX.Element {
                   justifyContent: 'Center',
                 }}
               >
-                <CustomSearch />
+                <SearchContainer />
               </Box>
               {/* Icons */}
               <Box sx={{ display: 'flex', gap: 1 }}>
@@ -511,7 +512,7 @@ export default function Header(): JSX.Element {
                 />
               </Box>
               <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-                <CustomSearch />
+                <SearchContainer />
                 <IconButton
                   size="large"
                   aria-label="toggle theme"

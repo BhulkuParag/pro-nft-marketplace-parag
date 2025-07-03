@@ -52,13 +52,14 @@ const CollectionItems = () => {
     ];
   }, []);
 
-  const handleonChange = (newValue: string) => {};
+  const handleonChange = (newValue: string) => {
+    console.log(newValue);
+  };
 
   useEffect(() => {
     if (param.id)
       dispatch(fetchItemsDataRequest({ contract: param.id, limit }));
-    console.log(`Fetching items with limit: ${limit}`);
-  }, [param.id, limit]);
+  }, [param, limit]);
 
   useEffect(() => {
     if (inView && !loading && tabData['items']?.length === limit) {
@@ -182,11 +183,7 @@ const CollectionItems = () => {
               >
                 <Typography
                   component="img"
-                  className={`nft-thumbnail ${
-                    grid === '8'
-                      ? `group-hover:scale-110`
-                      : `group-hover:scale-105`
-                  }`}
+                  className={`nft-thumbnail group-hover:scale-110`}
                   loading="lazy"
                   src={item.token.image}
                   alt={`NFT #${item.id}`}
@@ -394,8 +391,7 @@ const CollectionItems = () => {
           </Link>
         ))}
       </Box>
-      {loading && <Loading />}
-      <div ref={ref} style={{ height: 1 }} />
+      <Box ref={ref} sx={{ height: 1 }}></Box>
     </Box>
   );
 };
