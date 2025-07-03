@@ -24,10 +24,16 @@ reservoir:
   topSales: "https://api.reservoir.tools/sales/v6?startTimestamp={startTimestamp}&sortBy={sortBy}&sortDirection={sortDirection}&limit={limit}&offset={offset}&includeTokenMetadata={includeTokenMetadata}"
   tokenDetailUrl: "https://marketplace.polycruz.io/api/unleash/nft/1/0x5af0d9827e0c53e4799bb226655a1de152a425a5/9099"
   statsUrl: "https://api-blast.reservoir.tools/chain/stats/v1"
+  collectionActivity: "https://api.reservoir.tools/collections/activity/v6"
+  collectionSearch: "https://api.reservoir.tools/collections/search/v1"
+  topTrader: "https://api.reservoir.tools/collections/0xbd3531da5cf5857e7cfaa92426877b022e612cf8/top-traders/v1" 
+  aiValuationonLoad : "https://analytic.polycruz.io/api/unleash/collection/1/0xbd3531da5cf5857e7cfaa92426877b022e612cf8"
 
 spring:
   jackson:
     default-property-inclusion: NON_NULL
+    deserialization:
+      adjust-dates-to-context-time-zone: false
 
 
 springdoc:

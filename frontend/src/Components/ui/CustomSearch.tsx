@@ -3,111 +3,30 @@ import {
   Box,
   Dialog,
   DialogContent,
-  Chip,
-  Typography,
   Paper,
   useTheme,
   useMediaQuery,
   IconButton,
   Fade,
 } from '@mui/material';
-import WhatshotIcon from '@mui/icons-material/Whatshot';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import SearchBar from './SearchBar';
 import Search from '../../assets/icons/search.svg';
-import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
-import SearchListCard from './SearchListCard';
-const mockSuggestions = ['Axie Infinity', 'Azuki', 'Cool Cats', 'CryptoPunks'];
 
-const SearchContent = () => (
-  <Box
-    sx={{
-      width: '100%',
-      height: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: 2,
-    }}
-  >
-    <Box
-      sx={{
-        display: 'flex',
-        gap: 1,
-        px: 1.5,
-        alignItems: 'center',
-        overflowX: 'scroll',
-        scrollbarWidth: 'none',
-        scrollBehavior: 'smooth',
-      }}
-    >
-      {mockSuggestions.map((label) => (
-        <Chip
-          key={label}
-          label={label}
-          size="small"
-          variant="outlined"
-          sx={{
-            color: 'custom.whiteLight',
-            borderColor: 'divider',
-            backgroundColor: 'background.default',
-            fontSize: 13,
-            alignItems: 'center',
-            cursor: 'pointer',
-            px: 0.5,
-            opacity: 0.7,
-            py: 2,
-            borderRadius: 2,
-            '& .MuiChip-label': { px: 1 },
-            '&:hover': {
-              opacity: 1,
-            },
-          }}
-          icon={
-            <ArrowOutwardIcon
-              sx={{
-                width: '20px',
-                height: '20px',
-                color: 'custom.lightGrey',
-              }}
-            />
-          }
-        />
-      ))}
-    </Box>
-    <Box
-      sx={{
-        width: '100%',
-        display: 'flex',
-        justifyContent: 'space-between',
-        borderTop: '1px solid',
-        borderColor: 'divider',
-        p: 1,
-        px: 1.5,
-        pb: 0,
-        fontSize: 13,
-        color: 'custom.lightGrey',
-      }}
-    >
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-        <WhatshotIcon sx={{ fontSize: 16, color: '#FF6B00' }} />
-        <Typography fontSize={13}>Trending Search</Typography>
-      </Box>
-      <Typography fontSize={13}>Floor</Typography>
-    </Box>
-    <Box component={'div'} display={'flex'} flexDirection={'column'} gap={0}>
-      <SearchListCard />
-      <SearchListCard />
-      <SearchListCard />
-      <SearchListCard />
-    </Box>
-  </Box>
-);
+interface SearchContentProps {
+  search: string;
+  handleSearchOnChange: (value: string) => void;
+  children?: React.ReactNode;
+}
 
-const CustomSearch: React.FC = () => {
+const CustomSearch: React.FC<SearchContentProps> = ({
+  search = '',
+  handleSearchOnChange,
+  children,
+}) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [search, setSearch] = useState('');
   const [isFocused, setIsFocused] = useState(false);
 
   const handleFocus = () => {
@@ -183,15 +102,13 @@ const CustomSearch: React.FC = () => {
                 <SearchBar
                   placeholder="Search by collection, NFT, and user"
                   search={search}
-                  setSearch={setSearch}
+                  setSearch={handleSearchOnChange}
                   handleFocus={() => {}}
                   handleBlur={() => {}}
                 />
               </Box>
             </Box>
-            <DialogContent sx={{ pt: 2, pl: 2 }}>
-              <SearchContent />
-            </DialogContent>
+            <DialogContent sx={{ pt: 2, pl: 2 }}>{children}</DialogContent>
           </Dialog>
         </>
       ) : (
@@ -200,7 +117,7 @@ const CustomSearch: React.FC = () => {
             placeholder="Search by collection, NFT, and user"
             hasSplash
             search={search}
-            setSearch={setSearch}
+            setSearch={handleSearchOnChange}
             // handleOnClick={handleOpenDialog}
             handleFocus={handleFocus}
             handleBlur={handleBlur}
@@ -260,7 +177,7 @@ const CustomSearch: React.FC = () => {
                 zIndex: 1000,
               }}
             >
-              <SearchContent />
+              {children}
             </Paper>
           </Fade>
         </Box>

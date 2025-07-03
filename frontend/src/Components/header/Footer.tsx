@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import liveData from '../../assets/images/gif/live.gif';
 
 import EthIcon from '../../assets/icons/others/EthIcon';
-import { Box, Divider, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import DropDown from '../../../@ui-component/Comman/DropDown';
 import ToggleButtonCom from '../../../@ui-component/Comman/ToggleButton';
 // import axios from "axios";
@@ -96,7 +96,7 @@ const Footer: FC<FooterProps> = () => {
                 <Typography
                   sx={{
                     fontSize: 12,
-                    color: 'custom.lightGrey',
+                    color: 'text.primary',
                   }}
                 >
                   LIVE DATA

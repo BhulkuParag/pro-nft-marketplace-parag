@@ -16,11 +16,14 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.polycruz.config.ReservoirApiProperties;
 import com.polycruz.pojo.ActivityResponse;
 import com.polycruz.pojo.ChainStatsResponse;
+import com.polycruz.pojo.CollectionSearchResponse;
 import com.polycruz.pojo.CollectionsV7Response;
+import com.polycruz.pojo.NftCollectionResponse;
 import com.polycruz.pojo.NftSalesResponse;
 import com.polycruz.pojo.SalesApiResponse;
 import com.polycruz.pojo.TokenDetail;
 import com.polycruz.pojo.TokenResponse;
+import com.polycruz.pojo.TopTradersResponse;
 import com.polycruz.pojo.TrendingApiResponse;
 import com.polycruz.pojo.TrendingMintsResponse;
 import org.springframework.web.client.RestTemplate;
@@ -161,6 +164,49 @@ public class VendorService {
 
         return restTemplate.getForObject(url, ChainStatsResponse.class, uriVariables);
     }
+	
+	public NftCollectionResponse getAiValuationOnLoad() {
+        String url = apiProperties.getAiValuationonLoad();;
+
+        return restTemplate.getForObject(url, NftCollectionResponse.class);
+    }
+	
+	public TopTradersResponse fetchTopTraders(String period) {
+        String url = apiProperties.getTopTrader();
+        Map<String, Object> uriVariables = new HashMap<>();
+        uriVariables.put("period", period);
+        return restTemplate.getForObject(url, TopTradersResponse.class,uriVariables);
+    }
+	
+	public ActivityResponse fetchActivities(String collection, String sale) {
+	    String url = apiProperties.getCollectionActivity(); // e.g., https://api.reservoir.tools/collections/activity/v6
+
+	    URI uri = UriComponentsBuilder.fromHttpUrl(url)
+	        .queryParam("collection", collection)
+	        .queryParam("types", sale)
+	        .build()
+	        .encode()
+	        .toUri();
+
+	    System.out.println("Final URI: " + uri);
+
+	    return restTemplate.getForObject(uri, ActivityResponse.class);
+	}
+	
+	public CollectionSearchResponse fetchCollectionsSearch(Integer chains,String prefix) {
+		  String url = apiProperties.getCollectionSearch(); // e.g., https://api.reservoir.tools/collections/activity/v6
+
+		    URI uri = UriComponentsBuilder.fromHttpUrl(url)
+		        .queryParam("chains", chains)
+		        .queryParam("prefix", prefix)
+		        .build()
+		        .encode()
+		        .toUri();
+
+		    System.out.println("uri "+uri);
+		    
+		return restTemplate.getForObject(uri, CollectionSearchResponse.class);
+	}
 
 
 }

@@ -18,4 +18,8 @@ public class ReservoirApiProperties {
     private String tokenDetailUrl;
     private String apiKey;
     private String statsUrl;
+    private String aiValuationonLoad;
+    private String topTrader;
+    private String collectionActivity;
+    private String collectionSearch;
 }

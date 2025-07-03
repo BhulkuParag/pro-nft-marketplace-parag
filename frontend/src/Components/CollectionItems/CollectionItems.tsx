@@ -11,19 +11,22 @@ import {
 import { MdOutlineShoppingCart } from 'react-icons/md';
 import type { RootState } from '../../app/store';
 import Loading from '../../../@ui-component/Comman/Loading';
-import SearchBar from '../ui/SearchBar';
-import BarFilterIcon from '../Icon/BarFilterIcon';
-import DropDown from '../../../@ui-component/Comman/DropDown';
 import { useInView } from 'react-intersection-observer';
+import SearchBar from '../ui/SearchBar';
+import DropDown from '../../../@ui-component/Comman/DropDown';
+import BarFilterIcon from '../Icon/BarFilterIcon';
 
 const CollectionItems = () => {
+  const param = useParams();
+  const { loading, tabData, limit, grid } = useSelector(
+    (state: RootState) => state.collection
+  );
   const [selectedIds, setSelectedIds] = React.useState<number[]>([]);
   const dispatch = useDispatch();
   const { ref, inView } = useInView({
     threshold: 0,
   });
 
-  const params = useParams();
   const itemsFilter = useMemo(() => {
     return [
       {
@@ -49,18 +52,14 @@ const CollectionItems = () => {
     ];
   }, []);
 
-  const handleonChange = (newValue: string) => {};
-
-  const { tabData, loading, grid, limit } = useSelector(
-    (state: RootState) => state.collection
-  );
+  const handleonChange = (newValue: string) => {
+    console.log(newValue);
+  };
 
   useEffect(() => {
-    if (params.id) {
-      dispatch(fetchItemsDataRequest({ contract: params.id, limit }));
-      console.log(`Fetching items with limit: ${limit}`);
-    }
-  }, [limit, params.id]);
+    if (param.id)
+      dispatch(fetchItemsDataRequest({ contract: param.id, limit }));
+  }, [param, limit]);
 
   useEffect(() => {
     if (inView && !loading && tabData['items']?.length === limit) {
@@ -68,8 +67,9 @@ const CollectionItems = () => {
       console.log(`Fetching more items, current limit: ${limit}`);
     }
   }, [inView, loading, limit, dispatch]);
+
   return (
-    <Box sx={{ background: 'background.default' }}>
+    <Box sx={{ background: 'background.default', minHeight: '100vh' }}>
       <Box
         sx={{
           display: 'flex',
@@ -151,7 +151,7 @@ const CollectionItems = () => {
       >
         {tabData['items']?.map((item: any) => (
           <Link
-            className="rounded-xl"
+            className="rounded-xl group"
             to={`/trendingCollections/assets/${item?.token?.collection?.id}:${item?.token?.tokenId}`}
             key={item?.token?.id}
           >
@@ -183,6 +183,7 @@ const CollectionItems = () => {
               >
                 <Typography
                   component="img"
+                  className={`nft-thumbnail group-hover:scale-110`}
                   loading="lazy"
                   src={item.token.image}
                   alt={`NFT #${item.id}`}
@@ -194,9 +195,9 @@ const CollectionItems = () => {
                     objectFit: 'cover',
                     display: 'block',
                     transition: 'all 0.3s cubic-bezier(.4,2,.6,1)',
-                    ':hover': {
-                      scale: 1.1,
-                    },
+                    // ':hover': {
+                    //   scale: 1.1,
+                    // },
                     //transition: 'transform 0.3s cubic-bezier(.4,2,.6,1)',
                   }}
                 />
@@ -438,7 +439,7 @@ const CollectionItems = () => {
           </Link>
         ))}
       </Box>
-      <Box component="div" ref={ref} sx={{ height: 1 }} />
+      <Box ref={ref} sx={{ height: 1 }}></Box>
     </Box>
   );
 };

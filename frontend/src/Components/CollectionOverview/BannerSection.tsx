@@ -1,15 +1,15 @@
 import {
   Box,
+  Chip,
   IconButton,
   Popover,
   Tooltip,
   Typography,
   useTheme,
   useMediaQuery,
-  Chip,
   Divider,
 } from '@mui/material';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { FaDiscord } from 'react-icons/fa';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import KeyboardArrowDownSharpIcon from '@mui/icons-material/KeyboardArrowDownSharp';
@@ -25,6 +25,7 @@ import type { RootState } from '../../app/store';
 import { useSelector } from 'react-redux';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import '../../Components/CollectionOverview/CollectionBanner.css';
+import EthIcon from '../../assets/icons/others/EthIcon';
 
 const BannerSection = () => {
   const theme = useTheme();
@@ -34,7 +35,7 @@ const BannerSection = () => {
   const [refreshed, setRefreshed] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const { tabData } = useSelector((state: RootState) => state.collection);
+  const tabData = useSelector((state: RootState) => state.collection.tabData);
 
   const bannerDetails = useMemo(() => {
     return [
@@ -80,13 +81,16 @@ const BannerSection = () => {
     }
   }, [refreshed]);
 
-  const handleDropdownOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const handleDropdownOpen = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      setAnchorEl(event.currentTarget);
+    },
+    []
+  );
 
-  const handleDropdownClose = () => {
+  const handleDropdownClose = useCallback(() => {
     setAnchorEl(null);
-  };
+  }, []);
 
   const dropdownItems = useMemo(() => {
     return [
@@ -176,7 +180,7 @@ const BannerSection = () => {
       },
       { label: 'Minted Time', value: '7 months ago' },
     ];
-  }, []);
+  }, [bannerDetails]);
 
   const chip = useMemo(() => {
     return [

@@ -16,12 +16,16 @@ import {
   fetchTopMintDataRequest,
   fetchTopMintDataSuccess,
   fetchTopMintDataFailure,
+  fetchGlobalSearchDataSuccess,
+  fetchGlobalSearchDataFailure,
+  fetchGlobalSearchDataRequest,
 } from './homeSlice';
 import {
   fetchNftSalesData,
   fetchTopSalesData,
   fetchTrendingData,
   fetchMintRankingData,
+  fetchGlobalSearchData,
 } from '../../api/home';
 import type { RootState } from '../../app/store';
 
@@ -95,9 +99,27 @@ function* handleMintRankingData() {
   }
 }
 
+function* handleGlobalSearchData() {
+  try {
+    const search: string = yield select((state: RootState) => state.home.globalSearchData);
+    const chainId: number = yield select(
+      (state: RootState) => state.home.chainId
+    );
+    const data: SagaReturnType<typeof fetchGlobalSearchData> = yield call(
+      fetchGlobalSearchData,
+      chainId,
+      search
+    );
+    yield put(fetchGlobalSearchDataSuccess(data));
+  } catch (error: any) {
+    yield put(fetchGlobalSearchDataFailure(error.message ?? 'Something went wrong'));
+  }
+}
+
 export function* homeSaga() {
   yield takeLatest(fetchTrendingDataRequest.type, handleFetchTrendingData);
   yield takeLatest(fetchNftSalesDataRequest.type, handleFetchNftSalesData);
   yield takeLatest(fetchTopSalesDataRequest.type, handleFetchTopSalesData);
   yield takeLatest(fetchTopMintDataRequest.type, handleMintRankingData);
+  yield takeLatest(fetchGlobalSearchDataRequest.type, handleGlobalSearchData);
 }

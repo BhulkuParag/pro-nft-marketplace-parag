@@ -1,13 +1,13 @@
 import type { ICellRendererParams } from 'ag-grid-community';
 import type {
   ActivityType,
-  ItemDetailActivity,
   RowData,
   TopMintData,
 } from '../../types/table';
 import { Avatar, Box, Tooltip, Typography } from '@mui/material';
 import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
 import { Link } from 'react-router-dom';
+import EthIcon from '../../assets/icons/others/EthIcon';
 
 export const StarRenderer = (params: ICellRendererParams<RowData>) => (
   <div className="w-auto flex h-full items-center cursor-pointer">
@@ -49,22 +49,15 @@ export const PriceRenderer = (params: ICellRendererParams<RowData>) => {
   } else if (field === 'topBid') {
     usdValue = params.data?.topBid?.price?.amount?.usd;
   } else if (field === 'mintPrice') {
-    usdValue = params.data?.mintPrice.amount.usd;
+    usdValue = params.data?.mintPrice?.amount?.usd;
   } else if (field === 'mintVolume') {
     usdValue = params.data?.mintVolume;
   } else if (field === 'price') {
-    usdValue = params.data?.price?.amount.usd;
+    usdValue = params.data?.price?.amount?.usd;
   }
 
   return (
-    <div className="w-auto flex h-full items-center cursor-pointer justify-end">
-      <img
-        src="https://marketplace.polycruz.io/eth.svg"
-        width={8}
-        height={13}
-        alt="eth"
-        className="text-gray-400"
-      />
+    <div className="w-auto flex h-full items-center cursor-pointer justify-end gap-1">
       <Tooltip
         title={
           usdValue !== undefined
@@ -78,6 +71,7 @@ export const PriceRenderer = (params: ICellRendererParams<RowData>) => {
       >
         <span className="ml-1">{params.value}</span>
       </Tooltip>
+      <EthIcon className="fill-[#777E90] w-4 h-4" />
     </div>
   );
 };
@@ -121,7 +115,7 @@ export const HoverRenderer = (params: ICellRendererParams<TopMintData>) => {
 };
 
 export const TypeCell = (row: ICellRendererParams<ActivityType>) => (
-  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, height: '100%' }}>
+  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'end', gap: 1, height: '100%' }}>
     {row.data?.type === 'bid' && (
       <Avatar
         src={
@@ -132,9 +126,7 @@ export const TypeCell = (row: ICellRendererParams<ActivityType>) => (
         variant="rounded"
       />
     )}
-    <span>
-      {row.value}
-    </span>
+    <span>{row.value}</span>
   </Box>
 );
 
@@ -179,5 +171,37 @@ export const CollectionCell = (params: ICellRendererParams<ActivityType>) => (
     >
       <path d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
     </svg>
+  </div>
+);
+
+export const ChipRenderer = (params: ICellRendererParams<RowData>) => (
+  <div className="w-auto flex h-full items-center justify-end">
+    <Box
+      component={'span'}
+      sx={{
+        height: '26px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 5,
+        paddingBlock: '6px',
+        paddingInline: '10px',
+        backgroundColor:
+          params.value === '-'
+            ? ''
+            : params.colDef?.field !== 'topBid'
+            ? 'custom.redDark'
+            : 'custom.greenDark',
+        color:
+          params.value === '-'
+            ? ''
+            : params.colDef?.field === 'topBid'
+            ? 'custom.green'
+            : 'custom.red',
+      }}
+      // className='bg-red-400/30'
+    >
+      {params.value}
+    </Box>
   </div>
 );

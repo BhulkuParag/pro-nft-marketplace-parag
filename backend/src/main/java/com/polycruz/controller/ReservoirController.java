@@ -6,11 +6,14 @@ import org.springframework.web.bind.annotation.*;
 
 import com.polycruz.pojo.ActivityResponse;
 import com.polycruz.pojo.ChainStatsResponse;
+import com.polycruz.pojo.CollectionSearchResponse;
 import com.polycruz.pojo.CollectionsV7Response;
+import com.polycruz.pojo.NftCollectionResponse;
 import com.polycruz.pojo.NftSalesResponse;
 import com.polycruz.pojo.SalesApiResponse;
 import com.polycruz.pojo.TokenDetail;
 import com.polycruz.pojo.TokenResponse;
+import com.polycruz.pojo.TopTradersResponse;
 import com.polycruz.pojo.TrendingApiResponse;
 import com.polycruz.pojo.TrendingMintsResponse;
 import com.polycruz.service.VendorService;
@@ -132,6 +135,46 @@ public class ReservoirController {
             
      ) {
          return new ResponseEntity<>(transformer.transform(vendorService.getChainStats()), HttpStatus.OK);
+     }
+     
+     @GetMapping("/collection/v1")
+     @Operation(summary = "AI Valuation a. on load")
+     public ResponseEntity<TechResponse<NftCollectionResponse>> getCollectionData(
+            
+     ) {
+    	 return new ResponseEntity<>(transformer.transform(vendorService.getAiValuationOnLoad()), HttpStatus.OK);
+     }
+     
+     @GetMapping("/top-traders")
+     @Operation( summary = "AI Valuation 2) standard a) Holders")
+     public ResponseEntity<TechResponse<TopTradersResponse>> getTopTraders(
+     		  @RequestParam(defaultValue = "7d") String period
+     	       
+     		) {
+         return new ResponseEntity<>(transformer.transform(vendorService.fetchTopTraders(period)),
+                 HttpStatus.OK);
+     }
+     
+     @GetMapping("/collection/activity")
+     @Operation( summary = "AI Valuation 2) standard b) Top sales c) listing d) transfer")
+     public ResponseEntity<TechResponse<ActivityResponse>> fetchActivities(
+     		  @RequestParam(defaultValue = "0xbd3531da5cf5857e7cfaa92426877b022e612cf8") String collection,
+     		 @RequestParam(defaultValue = "sale") String type
+     	       
+     		) {
+         return new ResponseEntity<>(transformer.transform(vendorService.fetchActivities(collection,type)),
+                 HttpStatus.OK);
+     }
+     
+     @GetMapping("/collection/search")
+     @Operation( summary = "AI Valuation 3) Main Search API a) onChange (search input) ")
+     public ResponseEntity<TechResponse<CollectionSearchResponse>> fetchCollectionsSearch(
+     		  @RequestParam(defaultValue = "1") String chains,
+     		 @RequestParam(defaultValue = "pudgy") String prefix
+     	       
+     		) {
+         return new ResponseEntity<>(transformer.transform(vendorService.fetchCollectionsSearch(Integer.valueOf(chains), prefix)),
+                 HttpStatus.OK);
      }
 
 }

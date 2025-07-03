@@ -51,9 +51,8 @@ const initialState: CollectionState = {
   contract: '',
   collection: '',
   sortBy: 'floorAskPrice',
-  limit: 50,
-
   grid: '8',
+  limit: 50,
   tabData: {},
   columnDefsMap: {
     overview: [],
