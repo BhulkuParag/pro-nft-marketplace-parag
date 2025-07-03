@@ -54,4 +54,8 @@ public class CollectionInfo {
      private List<Object> mintStages;
      private String supply;
      private String remainingSupply;
+     private String contract;
+     private String allTimeVolume;
+     private Double floorAskPrice; 
+     
 }
