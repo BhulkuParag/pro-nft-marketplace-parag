@@ -61,7 +61,7 @@ const SearchListCard = ({ data }: SearchListCardProps) => {
                 width={9}
                 height={9}
               />
-              1.73M
+              {data?.allTimeVolume}k
             </Typography>
           </div>
         </div>
