@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.polycruz.ReservoirChain;
 import com.polycruz.pojo.ActivityResponse;
 import com.polycruz.pojo.ChainStatsResponse;
 import com.polycruz.pojo.CollectionSearchResponse;
@@ -35,13 +36,16 @@ public class ReservoirController {
     private final VendorService vendorService;
     private final ResponseTransformer transformer;
 
+    
+    
     @GetMapping("/trending-api")
     @Operation( summary = "1.Listing Table a.Trending Collections")
     public ResponseEntity<TechResponse<TrendingApiResponse>> getTrendingCollections(
+    		@RequestParam ReservoirChain chain,
     		  @RequestParam(defaultValue = "24h") String period,
     	        @RequestParam(defaultValue = "volume") String sortBy
     		) {
-        return new ResponseEntity<>(transformer.transform(vendorService.getTrendingCollections(period, sortBy)),
+        return new ResponseEntity<>(transformer.transform(vendorService.getTrendingCollections(chain,period, sortBy)),
                 HttpStatus.OK);
     }
     

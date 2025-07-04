@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.polycruz.ReservoirChain;
 import com.polycruz.config.ReservoirApiProperties;
 import com.polycruz.pojo.ActivityResponse;
 import com.polycruz.pojo.ChainStatsResponse;
@@ -44,8 +45,9 @@ public class VendorService {
 	private final ReservoirApiProperties apiProperties;
 	
 	
-	public TrendingApiResponse getTrendingCollections(String period, String sortBy) {
-		String url = apiProperties.getTrendingApi();
+	public TrendingApiResponse getTrendingCollections(ReservoirChain chain,String period, String sortBy) {
+		System.out.println("chain.getBaseUrl() "+chain.getBaseUrl());
+		String url = chain.getBaseUrl()+ apiProperties.getTrendingApi();
 		Map<String, String> params = new HashMap<>();
 		params.put("period", period);
 		params.put("sortBy", sortBy);
