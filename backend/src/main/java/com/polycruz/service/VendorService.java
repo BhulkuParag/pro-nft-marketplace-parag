@@ -9,9 +9,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
@@ -45,6 +43,8 @@ import lombok.RequiredArgsConstructor;
 @Retryable(value = { HttpServerErrorException.GatewayTimeout.class }, maxAttempts = 3, backoff = @Backoff(delay = 2000))
 public class VendorService {
 
+	private static final String API_KEY = "tuF8lxipeseroFej7cowemOsaplfripoCugaKesosPa";
+	private static final String BASE_URL = "https://api.unleashnfts.com/api/v2/";
 	private final RestTemplate restTemplate;
 	private final ReservoirApiProperties apiProperties;
 
@@ -274,6 +274,30 @@ public class VendorService {
 	public List<String> fetchChain() {
 		return Arrays.stream(ReservoirChain.values()).map(Enum::name).collect(Collectors.toList());
 
+	}
+
+	public String callUnleashApi(String cleanPath, Map<String, String> queryParams) {
+		String url = BASE_URL + cleanPath;
+
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
+		if (queryParams != null) {
+			queryParams.forEach(builder::queryParam);
+		}
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("X-API-KEY", API_KEY);
+		headers.setContentType(MediaType.APPLICATION_JSON);
+
+		HttpEntity<?> entity = new HttpEntity<>(headers);
+
+		ResponseEntity<String> response = restTemplate.exchange(
+				builder.toUriString(),
+				HttpMethod.GET,
+				entity,
+				String.class
+		);
+
+		return response.getBody();
 	}
 
 

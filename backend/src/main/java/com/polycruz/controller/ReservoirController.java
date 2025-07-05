@@ -30,6 +30,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/reservoir")
@@ -203,6 +204,16 @@ public class ReservoirController {
 
         return new ResponseEntity<>(transformer.transform(vendorService.fetchChain()),
                 HttpStatus.OK);
+    }
+
+    @GetMapping("/call")
+    @Operation(summary = "Call Unleash API dynamically")
+    public ResponseEntity<TechResponse<String>> callUnleashApi(
+            @RequestParam String cleanPath,
+            @RequestParam(required = false) Map<String, String> queryParams) {
+
+        String result = vendorService.callUnleashApi(cleanPath, queryParams);
+        return new ResponseEntity<>(transformer.transform(result), HttpStatus.OK);
     }
 
 }
