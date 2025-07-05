@@ -22,13 +22,13 @@ import {
 } from '../../utils/Table/headerRenderer';
 import type { ICellRendererParams } from 'ag-grid-community';
 import type { GlobalSearchT } from '../../types/home';
+import type { AiValuationLoad } from '../../types/collection';
 
 interface Options {
   label: string;
   value: string;
   icon?: React.ReactNode;
 }
-
 interface HomeState {
   activeTab: string;
   tabData: { [key: string]: any };
@@ -36,28 +36,119 @@ interface HomeState {
   volume_sales: string;
   loading: boolean;
   time: string;
+  chainId: string;
+  timeCompare: string;
   timeOptions: Options[];
+  timeOptionsCompare: Options[];
   vauleSales: Options[];
   includeTokenMetadata: boolean;
   isCardOrTable: boolean;
   selectedToggleValue: string;
-  chainId: number;
   globalSearchValue: string;
   globalSearchData: GlobalSearchT[];
+  compareList: any[];
   error: string | null;
 }
 
 const initialState: HomeState = {
   activeTab: 'trending',
   time: '24h',
-  chainId: 1, // Default to Ethereum mainnet
+  timeCompare: '24h',
+  chainId: 'ETHEREUM', // Default to Ethereum mainnet
   globalSearchValue: '',
   globalSearchData: [],
+  compareList: [
+    {
+      volume: 215.87998,
+      volumePercentChange: 179.94,
+      count: 22,
+      countPercentChange: 214,
+      sampleImages: [
+        'https://img.reservoir.tools/images/v2/mainnet/i9YO%2F4yHXUdJsWcTqhqvf2sE%2BcsbkeVl%2B4W8jWCuUkuov0PzHyR9IJ1xIZwBbFfEA%2Bwbk8y%2FqPIB7%2Bl8cd71OsX1l0QES%2BRo2FLGNDZ26xbIyg93P8%2BhYRL6To8RefaZmGKv3Fe%2BrxltP949wGMNRA%3D%3D',
+        'https://img.reservoir.tools/images/v2/mainnet/i9YO%2F4yHXUdJsWcTqhqvf2sE%2BcsbkeVl%2B4W8jWCuUkuov0PzHyR9IJ1xIZwBbFfEA%2Bwbk8y%2FqPIB7%2Bl8cd71Op7urpdq%2FLVIo5lwstA%2FIEX%2FjN7zmEiLrUBmzR3hn%2BqYjgHmRotB2gBMtrDS8ftK1g%3D%3D',
+        'https://img.reservoir.tools/images/v2/mainnet/i9YO%2F4yHXUdJsWcTqhqvf2sE%2BcsbkeVl%2B4W8jWCuUkuov0PzHyR9IJ1xIZwBbFfEA%2Bwbk8y%2FqPIB7%2Bl8cd71OrktXopFUi0MEWS3mYS652pMk%2F%2BMdeBFvMFTkCVNPKlNmlmCosikFbR%2F58FFDtgAFA%3D%3D',
+        'https://img.reservoir.tools/images/v2/mainnet/i9YO%2F4yHXUdJsWcTqhqvf2sE%2BcsbkeVl%2B4W8jWCuUkuov0PzHyR9IJ1xIZwBbFfEA%2Bwbk8y%2FqPIB7%2Bl8cd71OjrMqPaC0mArrsn0zMc1HkQPNx8cKRk%2BXgVvlP%2BVEa8puGKUmqWuk3m44ScmT%2FhJ%2BQ%3D%3D',
+      ],
+      openseaVerificationStatus: 'verified',
+      onSaleCount: 271,
+      volumeChange: {
+        '1day': 1.084885246638226,
+        '7day': 1.068445525935246,
+        '30day': 0.6555621576892184,
+      },
+      collectionVolume: {
+        '1day': 215.87998,
+        '7day': 1018.04451,
+        '30day': 3710.42629,
+        allTime: 535858.00198,
+      },
+      floorAskPercentChange: -0.7236860882856014,
+      tokenCount: 8888,
+      ownerCount: 4957,
+      banner:
+        'https://i.seadn.io/gcs/files/8a26e3de0f309089cbb1e5ab969fc0bc.png?w=500&auto=format',
+      description:
+        'Pudgy Penguins is a collection of 8,888 NFT’s, accelerating Web3 innovation through IP utilization and community empowerment. Embodying love, empathy, & compassion, the Pudgy Penguins are a beacon of good vibes & positivity for everyone. Each holder receives exclusive access to experiences, events, IP licensing opportunities and more. Let’s break through the boundaries of Web3 together.',
+      floorAsk: {
+        id: '0x661df9b56dd323228d507dba7813d978bf0089eb7aea2dd5cb69dfdc175739e8',
+        sourceDomain: 'blur.io',
+        price: {
+          currency: {
+            contract: '0x0000000000000000000000000000000000000000',
+            name: 'Ether',
+            symbol: 'ETH',
+            decimals: 18,
+          },
+          amount: {
+            raw: '9599999700000000000',
+            decimal: 9.6,
+            usd: 24711.04932,
+            native: 9.6,
+          },
+        },
+        validFrom: 0,
+        validUntil: 0,
+      },
+      topBid: {
+        id: '0xb493473aca5f1c885ef592701ce8f3ec7f9bc234ca34f543557a821570b4df61',
+        sourceDomain: 'blur.io',
+        price: {
+          currency: {
+            contract: '0x0000000000a39bb272e79075ade125fd351887ac',
+            name: 'Blur ETH',
+            symbol: 'BETH',
+            decimals: 18,
+          },
+          amount: {
+            raw: '9310000000000000000',
+            decimal: 9.31,
+            usd: 23943.35956,
+            native: 9.31,
+          },
+          netAmount: {
+            raw: '9310000000000000000',
+            decimal: 9.31,
+            usd: 23943.35956,
+            native: 9.31,
+          },
+        },
+        maker: '0x0000000000a39bb272e79075ade125fd351887ac',
+        validUntil: 0,
+        validFrom: 0,
+      },
+      nsfw: false,
+      spam: false,
+      id: '0xbd3531da5cf5857e7cfaa92426877b022e612cf8',
+      image:
+        'https://img.reservoir.tools/images/v2/mainnet/rDrYz8pfL2FIiB4lkmFIWl2YJIbVYWi1ij0Ztqa%2B%2B5xQBB8%2BAV2STTiGPskKJRMyUQds%2FnSbhlmkVB6H2mqtG%2BBQTwYXZNKjFtZUa2zBWeCQZVZpzRWkoBa0Di7wsnh2cVSpQoImNHdfUiLIAqFBaA%3D%3D?width=250',
+      name: 'Pudgy Penguins',
+    },
+  ],
   includeTokenMetadata: true,
   selectedToggleValue: '0',
   isCardOrTable: false,
   timeOptions: [
-    { label: 'All Time', value: '30d' },
+    { label: 'All Time', value: 'all_time' },
     { label: '5m', value: '5m' },
     { label: '10m', value: '10m' },
     { label: '30m', value: '30m' },
@@ -66,6 +157,12 @@ const initialState: HomeState = {
     { label: '24h', value: '24h' },
     { label: '7d', value: '7d' },
     { label: '30d', value: '30d' },
+  ],
+  timeOptionsCompare: [
+    { label: '24h', value: '24h' },
+    { label: '30d', value: '30d' },
+    { label: '90d', value: '90d' },
+    { label: 'All Time', value: 'all_time' },
   ],
   vauleSales: [
     { label: 'Volume', value: 'volume' },
@@ -435,7 +532,7 @@ const homeSlice = createSlice({
     fetchGlobalSearchDataRequest: (state, action: PayloadAction<string>) => {
       state.loading = true;
       state.error = null;
-      // state.globalSearchValue = action.payload;
+      state.globalSearchValue = action.payload;
     },
     fetchGlobalSearchDataSuccess: (
       state,
@@ -448,6 +545,7 @@ const homeSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+
     setActiveTab: (state, action: PayloadAction<string>) => {
       state.activeTab = action.payload;
     },
@@ -465,6 +563,9 @@ const homeSlice = createSlice({
     setTime: (state, action: PayloadAction<string>) => {
       state.time = action.payload;
     },
+    setTimeComapre: (state, action: PayloadAction<string>) => {
+      state.timeCompare = action.payload;
+    },
     setIsCardOrTable: (state) => {
       state.isCardOrTable = !state.isCardOrTable;
     },
@@ -474,8 +575,11 @@ const homeSlice = createSlice({
     setGlobalSearchValue: (state, action: PayloadAction<string>) => {
       state.globalSearchValue = action.payload;
     },
-    setChainId: (state, action: PayloadAction<number>) => {
+    setChainId: (state, action: PayloadAction<string>) => {
       state.chainId = action.payload;
+    },
+    setCompareList: (state, action: PayloadAction<any[]>) => {
+      state.compareList = action.payload;
     },
   },
 });
@@ -504,6 +608,8 @@ export const {
   setSelectedToggleValue,
   setGlobalSearchValue,
   setChainId,
+  setCompareList,
+  setTimeComapre
 } = homeSlice.actions;
 
 export default homeSlice.reducer;

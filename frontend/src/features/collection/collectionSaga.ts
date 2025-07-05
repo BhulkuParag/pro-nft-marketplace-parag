@@ -18,12 +18,16 @@ import {
   fetchOverviewDetailDataRequest,
   fetchOverviewDetailDataSuccess,
   fetchOverviewDetailDataFailure,
+  fetchAiValuationLoadDataSuccess,
+  fetchAiValuationLoadDataFailure,
+  fetchAiValuationLoadDataRequest,
 } from './collectionSlice';
 import {
   fetchItemDetailData,
   fetchItemsData,
   fetchActivityData,
   fetchOverviewDetailData,
+  fetchAiValuationLoadData,
 } from '../../api/collection';
 import type { RootState } from '../../app/store';
 import type { PayloadAction } from '@reduxjs/toolkit';
@@ -83,8 +87,8 @@ function* handleFetchActivityData() {
 
 function* handleFetchOverviewDetailData() {
   try {
-    const { contract } = yield select(
-      (state: RootState) => state.collection
+    const contract: string = yield select(
+      (state: RootState) => state.collection.contract
     );
     const data: SagaReturnType<typeof fetchOverviewDetailData> = yield call(
       fetchOverviewDetailData,
@@ -94,6 +98,21 @@ function* handleFetchOverviewDetailData() {
   } catch (error: any) {
     yield put(
       fetchOverviewDetailDataFailure(error.message ?? 'Something went wrong')
+    );
+  }
+}
+
+function* handleAiValuationLoadData() {
+  try {
+    
+    const chainId: string = yield select(
+      (state: RootState) => state.home.chainId
+    );
+    const data: SagaReturnType<typeof fetchAiValuationLoadData> = yield call(fetchAiValuationLoadData, chainId);
+    yield put(fetchAiValuationLoadDataSuccess(data));
+  } catch (error: any) {
+    yield put(
+      fetchAiValuationLoadDataFailure(error.message ?? 'Something went wrong')
     );
   }
 }
@@ -112,5 +131,9 @@ export function* collectionSaga() {
   yield takeLatest(
     fetchOverviewDetailDataRequest.type,
     handleFetchOverviewDetailData
+  );
+    yield takeLatest(
+    fetchAiValuationLoadDataRequest.type,
+    handleAiValuationLoadData
   );
 }

@@ -17,6 +17,7 @@ import {
   TypeCell,
 } from '../../utils/Table/cellRenderer';
 import type { ICellRendererParams } from 'ag-grid-community';
+import type { AiValuationLoad } from '../../types/collection';
 
 interface CollectionState {
   activeTab: string;
@@ -31,6 +32,7 @@ interface CollectionState {
   limit: number;
   grid: string;
   type: string;
+  aiValuationLoad: AiValuationLoad;
   // type:
   //   | 'ask_cancel'
   //   | 'sale'
@@ -53,6 +55,7 @@ const initialState: CollectionState = {
   sortBy: 'floorAskPrice',
   grid: '8',
   limit: 50,
+  aiValuationLoad: {},
   tabData: {},
   columnDefsMap: {
     overview: [],
@@ -168,7 +171,10 @@ const collectionSlice = createSlice({
   name: 'collection',
   initialState,
   reducers: {
-    fetchItemsDataRequest: (state, action: PayloadAction<{contract: string,limit:number}>) => {
+    fetchItemsDataRequest: (
+      state,
+      action: PayloadAction<{ contract: string; limit: number }>
+    ) => {
       state.loading = true;
       state.contract = action.payload.contract;
       state.error = null;
@@ -233,6 +239,22 @@ const collectionSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    fetchAiValuationLoadDataRequest: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    fetchAiValuationLoadDataSuccess: (
+      state,
+      action: PayloadAction<AiValuationLoad>
+    ) => {
+      console.log('action.payload', action.payload);
+      state.loading = false;
+      state.aiValuationLoad = action.payload;
+    },
+    fetchAiValuationLoadDataFailure: (state, action: PayloadAction<string>) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
     setActiveTab: (state, action: PayloadAction<string>) => {
       state.activeTab = action.payload;
     },
@@ -272,6 +294,9 @@ export const {
   fetchOverviewDetailDataRequest,
   fetchOverviewDetailDataSuccess,
   fetchOverviewDetailDataFailure,
+  fetchAiValuationLoadDataRequest,
+  fetchAiValuationLoadDataSuccess,
+  fetchAiValuationLoadDataFailure,
   setActiveTab,
   setTabData,
   setCollection,

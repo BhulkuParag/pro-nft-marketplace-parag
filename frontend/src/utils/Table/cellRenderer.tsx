@@ -1,22 +1,47 @@
 import type { ICellRendererParams } from 'ag-grid-community';
-import type {
-  ActivityType,
-  RowData,
-  TopMintData,
-} from '../../types/table';
+import type { ActivityType, RowData, TopMintData } from '../../types/table';
 import { Avatar, Box, Tooltip, Typography } from '@mui/material';
 import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
+import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import { Link } from 'react-router-dom';
 import EthIcon from '../../assets/icons/others/EthIcon';
+import { useDispatch, useSelector } from 'react-redux';
+import type { RootState } from '../../app/store';
+import { setCompareList } from '../../features/home/homeSlice';
 
-export const StarRenderer = (params: ICellRendererParams<RowData>) => (
-  <div className="w-auto flex h-full items-center cursor-pointer">
-    <Tooltip title="Add to Compare" placement="top" arrow={true}>
-      <StarBorderRoundedIcon className="text-gray-500" />
-    </Tooltip>
-    <span className="ml-2">{params.value}</span>
-  </div>
-);
+export const StarRenderer = (params: ICellRendererParams<RowData>) => {
+  const dispatch = useDispatch();
+  const list = useSelector((state: RootState) => state.home.compareList);
+  const rowData = params.data;
+  const handleOnClick = (_: React.SyntheticEvent) => {
+    if (list.length > 0 && list?.some((item) => item?.id === rowData?.id)) {
+      // If already in compare list, remove it
+      const updatedList = list?.filter((item) => item.id !== rowData?.id);
+      dispatch(setCompareList(updatedList));
+      return;
+    }
+    dispatch(setCompareList([{ ...list, ...rowData }]));
+  };
+  // console.log(list.includes(params.data?.id));
+
+  return (
+    <div className="w-auto flex h-full items-center cursor-pointer">
+      <Tooltip
+        title="Add to Compare"
+        placement="top"
+        arrow={true}
+        onClick={handleOnClick}
+      >
+        {list?.includes(params.data?.id) ? (
+          <StarRoundedIcon className="text-gray-500" />
+        ) : (
+          <StarBorderRoundedIcon className="text-gray-500" />
+        )}
+      </Tooltip>
+      <span className="ml-2">{params.value}</span>
+    </div>
+  );
+};
 
 export const CollectionRenderer = (params: ICellRendererParams<RowData>) => (
   <div className="w-auto flex h-full items-center gap-2 justify-start">
@@ -115,7 +140,15 @@ export const HoverRenderer = (params: ICellRendererParams<TopMintData>) => {
 };
 
 export const TypeCell = (row: ICellRendererParams<ActivityType>) => (
-  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'end', gap: 1, height: '100%' }}>
+  <Box
+    sx={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'end',
+      gap: 1,
+      height: '100%',
+    }}
+  >
     {row.data?.type === 'bid' && (
       <Avatar
         src={

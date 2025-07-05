@@ -1,5 +1,6 @@
 import type { GlobalSearchT } from '../types/home';
 import type { NftSalesT, RowData, TopMintData } from '../types/table';
+import { API_CONFIG, buildApiUrl } from './api_config';
 import AXIOS from './axios';
 
 // Define the expected response shapes
@@ -34,45 +35,55 @@ interface GlobalSearchApiResponse {
 
 export const fetchTrendingData = async (
   period: string,
-  sortBy: string
+  sortBy: string,
+  chainId?: string
 ): Promise<RowData[]> => {
-  const response = await AXIOS.get<TrendingApiResponse>(
-    `/api/v1/reservoir/trending-api?period=${period}&sortBy=${sortBy}`
-  );
+  const url = buildApiUrl(API_CONFIG.ENDPOINTS.TRENDING, chainId, {
+    period,
+    sortBy: 'floorAskPrice',
+  });
+  const response = await AXIOS.get<TrendingApiResponse>(url);
   return response.data?.data?.collections ?? [];
 };
 
 export const fetchNftSalesData = async (
-  includeTokenMetadata: boolean
+  includeTokenMetadata: boolean,
+  chainId?: string
 ): Promise<any[]> => {
-  const response = await AXIOS.get<NftSalesApiResponse>(
-    `/api/v1/reservoir/nft-sales?includeTokenMetadata=${includeTokenMetadata}`
-  );
+  const url = buildApiUrl(API_CONFIG.ENDPOINTS.NFT_SALES, chainId, {
+    includeTokenMetadata,
+  });
+  const response = await AXIOS.get<NftSalesApiResponse>(url);
   return response.data?.data?.sales ?? [];
 };
 
 export const fetchTopSalesData = async (
-  includeTokenMetadata: boolean
+  includeTokenMetadata: boolean,
+  chainId?: string
 ): Promise<any[]> => {
-  const response = await AXIOS.get<TopSalesApiResponse>(
-    `/api/v1/reservoir/top-sales?startTimestamp=1749689257&sortBy=price&sortDirection=desc&limit=10&offset=0&includeTokenMetadata=${includeTokenMetadata}`
-  );
+  const url = buildApiUrl(API_CONFIG.ENDPOINTS.TOP_SALES, chainId, {
+    includeTokenMetadata,
+  });
+  const response = await AXIOS.get<TopSalesApiResponse>(url);
   return response.data?.data?.sales ?? [];
 };
 
 export const fetchMintRankingData = async (
   period: string,
-  sortBy: string
+  sortBy: string,
+  chainId?: string
 ): Promise<TopMintData[]> => {
-  const response = await AXIOS.get<MintRankingApiResponse>(
-    `/api/v1/reservoir/trending-mints?period=${period}&sortBy=${sortBy}`
-  );
+  const url = buildApiUrl(API_CONFIG.ENDPOINTS.TRENDING_MINTS, chainId, {
+    period,
+    sortBy,
+  });
+  const response = await AXIOS.get<MintRankingApiResponse>(url);
   return response.data?.data?.mints ?? [];
 };
 
 export const fetchGlobalSearchData = async (
   chain: number,
-  gloabalSearchValue: string,
+  gloabalSearchValue: string
 ): Promise<GlobalSearchT[]> => {
   const response = await AXIOS.get<GlobalSearchApiResponse>(
     `/api/v1/reservoir/collection/search?chainId=${chain}&prefix=${gloabalSearchValue}`

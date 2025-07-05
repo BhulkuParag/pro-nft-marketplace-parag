@@ -1,9 +1,11 @@
+import type { AiValuationLoad } from '../types/collection';
 import type {
   ActivityType,
   ItemDetails,
   OverviewDetailType,
   RowData,
 } from '../types/table';
+import { API_CONFIG, buildApiUrl } from './api_config';
 import AXIOS from './axios';
 
 interface ItemsApiResponse {
@@ -29,44 +31,69 @@ interface OverviewDetailApiResponse {
     collections?: OverviewDetailType[];
   };
 }
+interface AiValuationLoadApiResponse {
+  data?: AiValuationLoad;
+}
 
 export const fetchItemsData = async (
   limit: number,
   sortBy: string,
-  collection: string
+  collection: string,
+  chainId?: string
 ): Promise<RowData[]> => {
-  const response = await AXIOS.get<ItemsApiResponse>(
-    `/api/v1/reservoir/tokens?collection=${collection}&sortBy=${'floorAskPrice'}&limit=${limit}`
-  );
+  const url = buildApiUrl(API_CONFIG.ENDPOINTS.TOKENS, chainId, {
+    collection,
+    sortBy: 'floorAskPrice',
+    limit,
+  });
+  const response = await AXIOS.get<ItemsApiResponse>(url);
   return response.data?.data?.tokens ?? [];
 };
 
-export const fetchItemDetailData = async  (
+export const fetchItemDetailData = async (
   token: string,
-  sortBy: string
+  sortBy: string,
+  chainId?: string
 ): Promise<ItemDetails[]> => {
-  const response = await AXIOS.get<ItemDetailApiResponse>(
-    `/api/v1/reservoir/tokens/item-details?tokens=${token}&sortBy=${sortBy}`
-  );
+  const url = buildApiUrl(API_CONFIG.ENDPOINTS.ITEM_DETAILS, chainId, {
+    tokens: token,
+    sortBy,
+  });
+  const response = await AXIOS.get<ItemDetailApiResponse>(url);
   return response.data?.data?.tokens ?? [];
 };
 
 export const fetchActivityData = async (
   includeMetadata: boolean,
   type: string,
-  sortBy: string
+  sortBy: string,
+  chainId?: string
 ): Promise<ActivityType[]> => {
-  const response = await AXIOS.get<ActivityApiResponse>(
-    `/api/v1/reservoir/activity?sortBy=${'eventTimestamp'}&includeMetadata=${includeMetadata}&type=${type}`
-  );
+  const url = buildApiUrl(API_CONFIG.ENDPOINTS.ACTIVITY, chainId, {
+    sortBy: 'eventTimestamp',
+    includeMetadata,
+    type,
+  });
+  const response = await AXIOS.get<ActivityApiResponse>(url);
   return response.data?.data?.activities ?? [];
 };
 
 export const fetchOverviewDetailData = async (
-  contract: string
+  contract: string,
+  chainId?: string
 ): Promise<OverviewDetailType[]> => {
-  const response = await AXIOS.get<OverviewDetailApiResponse>(
-    `/api/v1/reservoir/collections/v7?contract=${contract}`
-  );
+  const url = buildApiUrl(API_CONFIG.ENDPOINTS.COLLECTIONS_V7, chainId, {
+    contract,
+  });
+  const response = await AXIOS.get<OverviewDetailApiResponse>(url);
   return response.data?.data?.collections ?? [];
+};
+
+export const fetchAiValuationLoadData = async (
+  chainId?: string
+): Promise<AiValuationLoad> => {
+  const response = await AXIOS.get<AiValuationLoadApiResponse>(
+    `/api/v1/reservoir/collection/v1?chain=${chainId}`
+  );
+  return response.data?.data ?? {};
 };

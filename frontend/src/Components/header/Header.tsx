@@ -10,7 +10,6 @@ import Polygon from '../Icon/crypto-icon/Polygon';
 import BNBChain from '../Icon/crypto-icon/BNB_chain';
 import Avalanche from '../Icon/crypto-icon/Avalanche';
 import CustomDropdown from '../../../@ui-component/Comman/DropDown';
-import CustomSearch from '../ui/CustomSearch';
 import MenuIcon from '@mui/icons-material/Menu';
 import {
   Box,

@@ -302,6 +302,7 @@ const TableFilterBar = () => {
           timeOptions={timeOptions}
           selectedTime={time}
           handleChange={handleDateFilterChange}
+          wantBorder
         />
       </Box>
     </Box>

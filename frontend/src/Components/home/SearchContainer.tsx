@@ -6,7 +6,7 @@ import {
   setGlobalSearchValue,
 } from '../../features/home/homeSlice';
 import GlobalSearchContent from './GlobalSearchContent';
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 
 const SearchContainer = () => {
   const dispatch = useDispatch();
@@ -18,13 +18,10 @@ const SearchContainer = () => {
     (value: string) => {
       console.log(value);
       dispatch(setGlobalSearchValue(value));
+      dispatch(fetchGlobalSearchDataRequest(value));
     },
     [globalSearchValue]
   );
-
-  useEffect(() => {
-    dispatch(fetchGlobalSearchDataRequest(globalSearchValue));
-  }, [globalSearchValue]);
 
   return (
     <CustomSearch

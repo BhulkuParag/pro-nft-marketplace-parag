@@ -19,12 +19,12 @@ const collapsedWidth = '4.6rem';
 const menuItems = [
   {
     lable: 'Home',
-    path: '/home',
+    path: '/Home',
     icon: HomeIcon,
   },
   {
     lable: 'Compare',
-    path: '/compare',
+    path: '/Compare',
     icon: CompareArrowsIcon,
   },
 ];

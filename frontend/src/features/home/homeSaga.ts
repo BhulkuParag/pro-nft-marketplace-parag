@@ -101,7 +101,9 @@ function* handleMintRankingData() {
 
 function* handleGlobalSearchData() {
   try {
-    const search: string = yield select((state: RootState) => state.home.globalSearchData);
+    const search: string = yield select(
+      (state: RootState) => state.home.globalSearchValue
+    );
     const chainId: number = yield select(
       (state: RootState) => state.home.chainId
     );
@@ -112,7 +114,9 @@ function* handleGlobalSearchData() {
     );
     yield put(fetchGlobalSearchDataSuccess(data));
   } catch (error: any) {
-    yield put(fetchGlobalSearchDataFailure(error.message ?? 'Something went wrong'));
+    yield put(
+      fetchGlobalSearchDataFailure(error.message ?? 'Something went wrong')
+    );
   }
 }
 
