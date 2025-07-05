@@ -1,8 +1,12 @@
 package com.polycruz.service;
 
+import java.lang.reflect.Array;
 import java.net.URI;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -266,5 +270,11 @@ public class VendorService {
 
 		return restTemplate.getForObject(uri, CollectionSearchResponse.class);
 	}
+
+	public List<String> fetchChain() {
+		return Arrays.stream(ReservoirChain.values()).map(Enum::name).collect(Collectors.toList());
+
+	}
+
 
 }

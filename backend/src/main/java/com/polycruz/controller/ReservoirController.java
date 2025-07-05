@@ -29,6 +29,8 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/reservoir")
 @RequiredArgsConstructor 
@@ -194,6 +196,14 @@ public class ReservoirController {
          return new ResponseEntity<>(transformer.transform(vendorService.fetchCollectionsSearch(chain,Integer.valueOf(chains), prefix)),
                  HttpStatus.OK);
      }
+
+    @GetMapping("/collection/list")
+    @Operation(summary = "Fetch all supported reservoir chains dynamically")
+    public ResponseEntity<TechResponse<List<String>>> fetchChains() {
+
+        return new ResponseEntity<>(transformer.transform(vendorService.fetchChain()),
+                HttpStatus.OK);
+    }
 
 }
 
