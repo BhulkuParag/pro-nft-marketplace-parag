@@ -7,6 +7,8 @@ import liveData from '../../assets/images/gif/live.gif';
 
 import EthIcon from '../../assets/icons/others/EthIcon';
 import { Box, Divider, Typography } from '@mui/material';
+import DropDown from '../../../@ui-component/Comman/DropDown';
+import ToggleButtonCom from '../../../@ui-component/Comman/ToggleButton';
 // import axios from "axios";
 // import { toFixedValue } from "lib/numbers";
 
@@ -22,7 +24,7 @@ const Footer: FC<FooterProps> = () => {
   const links: LinkItem[] = [
     { text: 'Privacy', url: '/privacy' },
     { text: 'Terms', url: '/terms' },
-    // { text: "Hiring", url: "/hiring" },
+    { text: 'Hiring', url: '/hiring' },
   ];
   const [ethData, setEthData] = useState<any>([]);
   const [gasData, setGasData] = useState<any>([]);
@@ -50,28 +52,27 @@ const Footer: FC<FooterProps> = () => {
     <Box
       component={'footer'}
       sx={{
+        width: '100%',
         backgroundColor: 'background.default',
         color: 'inherit',
-        position: 'sticky',
+        position: 'fixed',
         bottom: 0,
-        // left: 0,
-        right: 0,
         borderTop: '1px solid',
         borderColor: 'divider',
         zIndex: 1000,
       }}
       // className="hidden lg:block"
     >
-      <nav className="mx-auto px-4">
-        <div className="w-full flex items-center justify-between">
-          <ul className="text-xs font-normal flex items-center gap-3 p-3">
+      <nav className="w-full mx-auto px-4">
+        <div className="flex items-center justify-between">
+          <ul className="w-fit text-xs font-normal flex items-center gap-3 p-3">
             <li className="inline-block">
               <Link
                 target="_blank"
                 rel="noopener noreferrer"
                 to="https://discord.com/invite/aJzSfPPrkg"
               >
-                <DiscordIcon className="w-4 h-4 fill-grey hover:fill-light-primary-light dark:hover:fill-dark-primary-light" />
+                <DiscordIcon className="w-4 h-4 fill-[#777E90] hover:fill-[#6B5FE8] dark:hover:fill-[#A49BFF]" />
               </Link>
             </li>
             <li className="inline-block">
@@ -80,7 +81,7 @@ const Footer: FC<FooterProps> = () => {
                 rel="noopener noreferrer"
                 to="https://x.com/Polycruzz"
               >
-                <XIcon className="fill-grey hover:fill-light-primary-light dark:hover:fill-dark-primary-light" />
+                <XIcon className="fill-[#777E90] hover:fill-[#6B5FE8] dark:hover:fill-[#A49BFF]" />
               </Link>
             </li>
             {/* <li className="inline-block">
@@ -88,7 +89,7 @@ const Footer: FC<FooterProps> = () => {
                 <Telegram  className="fill-grey hover:fill-light-primary-light dark:hover:fill-dark-primary-light" width="14" height="13" />
               </Link>
             </li> */}
-            <div className="border-r w-1 h-4 border-light-black-01 dark:border-dark-black-01"></div>
+            <div className="border-r w-1 h-4 border-[#9DA1AF]"></div>
             <div className="justify-center items-center gap-1 inline-flex">
               <img className="w-5 h-5" alt="Live-data" src={liveData} />
               <div className="flex-col shrink-0 justify-center items-start inline-flex">
@@ -104,7 +105,7 @@ const Footer: FC<FooterProps> = () => {
             </div>
             <div className="border-r w-1 h-4 border-[#9DA1AF]"></div>
             <div className="justify-center items-center gap-1 inline-flex">
-              <EthIcon className="fill-grey w-5 h-5" />
+              <EthIcon className="fill-[#777E90] hover:fill-[#6B5FE8] w-5 h-5" />
               <div className="flex-col justify-center items-start inline-flex">
                 <Typography
                   sx={{
@@ -116,7 +117,30 @@ const Footer: FC<FooterProps> = () => {
                 </Typography>
               </div>
             </div>
-            <div className="border-r w-1 h-4 border-[#9DA1AF]"></div>
+            <div className="border-r w-1 h-4 border-[#9DA1AF] hidden md:block"></div>
+            <Box
+              component={'ul'}
+              sx={{
+                display: { xs: 'none', sm: 'inline-flex' },
+                alignItems: 'center',
+                gap: '16px',
+                color: 'custom.lightGrey',
+              }}
+            >
+              {links?.map((link) => (
+                <Box
+                  component={'ol'}
+                  sx={{
+                    color: 'custom.lightGrey',
+                  }}
+                  key={link.url}
+                >
+                  <Link to={link.url}>{link.text}</Link>
+                </Box>
+              ))}
+            </Box>
+          </ul>
+          <div className="w-fit items-center mr-18 gap-3 hidden lg:inline-flex">
             <Box
               component={'div'}
               sx={{
@@ -129,16 +153,37 @@ const Footer: FC<FooterProps> = () => {
               }}
             >
               <GasFeeIcon />
-              {'0.883628002'} GWEI
+              {'10'} GWEI
             </Box>
-          </ul>
-          <ul className="flex items-center gap-4 hidden lg:block">
-            {links?.map((link) => (
-              <li key={link.url} className="inline-block">
-                <Link to={link.url}>{link.text}</Link>
-              </li>
-            ))}
-          </ul>
+            <DropDown
+              value="standard"
+              disableMenuItemTouchRipple
+              disableTouchRipple
+              options={[
+                {
+                  label: 'Standard',
+                  value: 'standard',
+                },
+              ]}
+              onChange={() => {}}
+            />
+            <div className="border-r w-1 h-4 border-[#9DA1AF] hidden md:block mx-1"></div>
+            <ToggleButtonCom
+              selectedValue="investor"
+              options={[
+                {
+                  label: 'Investor',
+                  value: 'investor',
+                },
+                {
+                  label: 'Discover',
+                  value: 'discover',
+                },
+              ]}
+              handleOnChange={() => {}}
+              handleOnChangeForMobile={() => {}}
+            />
+          </div>
         </div>
       </nav>
     </Box>

@@ -2,8 +2,10 @@
 
 * {
   ::-webkit-scrollbar {
-    display: none;
+    /* display: none; */
+    background: transparent;
   }
+  scrollbar-color: #bbb transparent;
 }
 
 .ag-theme-quartz .ag-root-wrapper,
@@ -30,10 +32,14 @@
 .ag-theme-quartz .ag-header,
 .ag-theme-quartz-dark .ag-header {
   background-color: transparent;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
 }
 
 .ag-row {
   font-family: 'Inter', sans-serif !important;
+  align-items: flex-end !important;
 }
 
 .ag-theme-quartz-dark .ag-row {
@@ -55,7 +61,8 @@
 .swiper-slide img {
   width: 100%;
   height: 100%;
-  max-height: 400px; /* Adjust this value based on your needs */
+  max-height: 400px;
+  /* Adjust this value based on your needs */
   object-fit: cover;
   border-radius: 10px;
 }

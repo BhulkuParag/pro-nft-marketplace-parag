@@ -6,6 +6,7 @@ type SearchBarProps = {
   placeholder: string;
   hasSplash?: boolean;
   className?: string;
+  backgroundColor?: string;
   search?: any;
   setSearch?: any;
   handleFocus?: FocusEventHandler<HTMLInputElement>;
@@ -20,7 +21,8 @@ const SearchBar: FC<SearchBarProps> = ({
   setSearch,
   handleFocus,
   handleBlur,
-  handleOnClick
+  handleOnClick,
+  backgroundColor = 'custom.secondaryDark'
 }) => {
   const handleSearch = (e: any) => {
     setSearch(e.target.value);
@@ -38,10 +40,11 @@ const SearchBar: FC<SearchBarProps> = ({
         borderRadius: '8px',
         border: '1px solid',
         borderColor: 'divider',
-        backgroundColor: 'custom.secondaryDark',
+        backgroundColor: backgroundColor,
         transition: 'none',
         width: '100%',
-        mr: 1
+        color: 'custom.lightGrey',
+        mr: 1,
       }}
     >
       <div className="relative flex justify-between items-center">
@@ -55,7 +58,7 @@ const SearchBar: FC<SearchBarProps> = ({
       </div>
       <input
         className="w-full flex-1 bg-transparent focus:outline-none text-sm text-grey border-0 focus:border-0 focus:bg-transparent focus:ring-0"
-        type="search"
+        type="text"
         placeholder={placeholder}
         value={search}
         onChange={handleSearch}
@@ -78,8 +81,7 @@ const SearchBar: FC<SearchBarProps> = ({
             color: 'custom.lightGrey',
             backgroundColor: 'background.default',
 
-            
-            display: { xs: 'none', sm: 'flex' }, 
+            display: { xs: 'none', sm: 'flex' },
           }}
         >
           /

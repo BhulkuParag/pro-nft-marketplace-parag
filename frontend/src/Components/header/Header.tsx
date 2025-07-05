@@ -29,6 +29,7 @@ import {
   ListItemIcon,
 } from '@mui/material';
 import { menuItems } from '../constants/menuItem';
+import { Link } from 'react-router-dom';
 
 export default function Header(): JSX.Element {
   const [selected, setSelected] = React.useState('eth');
@@ -46,8 +47,8 @@ export default function Header(): JSX.Element {
       chainId: 1,
       icon: (
         <Ethereum
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fill-[#141416]"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -58,8 +59,8 @@ export default function Header(): JSX.Element {
       chainId: 137,
       icon: (
         <Polygon
-          backgroundClass="dark:bg-dark-black-light bg-light-black-light w-7 h-7"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:bg-[#141416] bg-[#141416] w-7 h-7"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
         />
       ),
       value: 'matic',
@@ -69,8 +70,8 @@ export default function Header(): JSX.Element {
       chainId: 1101,
       icon: (
         <Polygon
-          backgroundClass="dark:bg-dark-black-light bg-light-black-light w-7 h-7"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:bg-[#141416] bg-[#141416] w-7 h-7"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
         />
       ),
       value: 'zkevm',
@@ -80,8 +81,8 @@ export default function Header(): JSX.Element {
       chainId: 8453,
       icon: (
         <Ethereum
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fill-[#141416]"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -92,8 +93,8 @@ export default function Header(): JSX.Element {
       chainId: 43114,
       icon: (
         <Avalanche
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fill-[#141416]"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -104,8 +105,8 @@ export default function Header(): JSX.Element {
       chainId: 56,
       icon: (
         <BNBChain
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fil[#141416]-light"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -116,8 +117,8 @@ export default function Header(): JSX.Element {
       chainId: 42161,
       icon: (
         <Ethereum
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fil[#141416]-light"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -128,8 +129,8 @@ export default function Header(): JSX.Element {
       chainId: 42170,
       icon: (
         <Ethereum
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fil[#141416]-light"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -140,8 +141,8 @@ export default function Header(): JSX.Element {
       chainId: 59144,
       icon: (
         <Ethereum
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fil[#141416]-light"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -152,8 +153,8 @@ export default function Header(): JSX.Element {
       chainId: 10,
       icon: (
         <Ethereum
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fil[#141416]-light"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -164,8 +165,8 @@ export default function Header(): JSX.Element {
       chainId: 16350,
       icon: (
         <Ethereum
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fil[#141416]-light"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -176,8 +177,8 @@ export default function Header(): JSX.Element {
       chainId: 592,
       icon: (
         <Ethereum
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fil[#141416]-light"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -188,8 +189,8 @@ export default function Header(): JSX.Element {
       chainId: 81457,
       icon: (
         <Ethereum
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fil[#141416]-light"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -200,8 +201,8 @@ export default function Header(): JSX.Element {
       chainId: 1,
       icon: (
         <Ethereum
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fil[#141416]-light"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -212,8 +213,8 @@ export default function Header(): JSX.Element {
       chainId: 713715,
       icon: (
         <Ethereum
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fil[#141416]-light"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -224,8 +225,8 @@ export default function Header(): JSX.Element {
       chainId: 7777777,
       icon: (
         <Ethereum
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fil[#141416]-light"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -236,8 +237,8 @@ export default function Header(): JSX.Element {
       chainId: 324,
       icon: (
         <Ethereum
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fil[#141416]-light"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -248,8 +249,8 @@ export default function Header(): JSX.Element {
       chainId: 303,
       icon: (
         <Ethereum
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fil[#141416]-light"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -260,8 +261,8 @@ export default function Header(): JSX.Element {
       chainId: 313,
       icon: (
         <Ethereum
-          backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-          iconClass="fill-light-primary-light dark:fill-dark-primary-light"
+          backgroundClass="dark:fill-[#141416] fil[#141416]-light"
+          iconClass="fill-[#A49BFF] dark:fill-[#A49BFF]"
           className="w-7 h-7"
         />
       ),
@@ -302,13 +303,13 @@ export default function Header(): JSX.Element {
           marginTop: 2,
         }}
       >
-        <div className="px-3 flex items-center gap-x-3 text-xl font-bold">
+        <Link to={'/home'} className="px-3 flex items-center gap-x-3 text-xl font-bold">
           <img
             src="https://analytic.polycruz.io/_next/static/media/logo.32e9a1fc.svg"
             alt=""
           />
           <span>Polycruz</span>
-        </div>
+        </Link>
 
         {menuItems.map((item) => (
           <ListItem key={item.path} disablePadding>
@@ -386,6 +387,7 @@ export default function Header(): JSX.Element {
                 gap: 1,
               }}
             >
+              {/* Hamburger Menu */}
               <IconButton
                 edge="start"
                 color="inherit"
@@ -414,6 +416,7 @@ export default function Header(): JSX.Element {
               >
                 {drawerContent}
               </Drawer>
+              {/* Logo */}
               <Box
                 component="div"
                 sx={{
@@ -425,20 +428,30 @@ export default function Header(): JSX.Element {
                 <img
                   src="https://analytic.polycruz.io/_next/static/media/logo.32e9a1fc.svg"
                   alt=""
-                  height={32}
+                  style={{ height: 32 }}
                 />
               </Box>
+              {/* Dropdown */}
               <Box sx={{ width: '100%' }}>
                 <CustomDropdown
                   options={options}
                   value={selected}
                   onChange={setSelected}
-                  disableMenuItemTouchRipple={true}
-                  disableTouchRipple={true}
                 />
               </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              {/* Search */}
+              <Box
+                sx={{
+                  flexGrow: 1,
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'Center',
+                }}
+              >
                 <CustomSearch />
+              </Box>
+              {/* Icons */}
+              <Box sx={{ display: 'flex', gap: 1 }}>
                 <IconButton
                   size="large"
                   aria-label="toggle theme"
@@ -475,77 +488,94 @@ export default function Header(): JSX.Element {
               </Box>
             </Box>
           )}
-          <Box
-            sx={{
-              display: { xs: 'none', lg: 'flex' },
-              alignItems: 'center',
-              width: '100%',
-              gap: 2,
-            }}
-          >
-            <Box sx={{ width: '100%' }}>
-              <CustomDropdown
-                options={options}
-                value={selected}
-                onChange={setSelected}
-                disableMenuItemTouchRipple={true}
-                disableTouchRipple={true}
-              />
+          {!isMobile && (
+            <Box
+              sx={{
+                display: { xs: 'none', lg: 'flex' },
+                alignItems: 'center',
+                width: '100%',
+                gap: 2,
+              }}
+            >
+              <Box sx={{ width: '100%' }}>
+                <CustomDropdown
+                  options={options}
+                  value={selected}
+                  onChange={setSelected}
+                  disableMenuItemTouchRipple={true}
+                  disableTouchRipple={true}
+                />
+              </Box>
+              <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+                <CustomSearch />
+                <IconButton
+                  size="large"
+                  aria-label="toggle theme"
+                  onClick={toggleTheme}
+                  sx={{
+                    color: 'custom.lightGrey',
+                    '& :hover': {
+                      color: 'custom.primaryLight',
+                    },
+                  }}
+                  // sx={{ padding: '5px' }}
+                >
+                  <Badge color="error">
+                    {mode === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
+                  </Badge>
+                </IconButton>
+                <IconButton
+                  size="large"
+                  aria-label="show notifications"
+                  sx={{
+                    color: 'custom.lightGrey',
+                    '& :hover': {
+                      color: 'custom.primaryLight',
+                    },
+                  }}
+                  // sx={{ padding: '5px' }}
+                >
+                  <Badge color="error">
+                    <NotificationsIcon />
+                  </Badge>
+                </IconButton>
+                <Button
+                  variant="contained"
+                  disableElevation
+                  disableTouchRipple
+                  sx={{
+                    fontSize: 16,
+                    width: '165px',
+                    backgroundColor: '#FFFFFF',
+                    color: 'black',
+                    borderRadius: 2,
+                    textTransform: 'none',
+                    border: '1px solid',
+                    borderColor: 'divider',
+                  }}
+                >
+                  Connect
+                </Button>
+                <IconButton
+                  size="large"
+                  edge="end"
+                  aria-label="shopping cart"
+                  aria-controls={menuId}
+                  aria-haspopup="true"
+                  onClick={handleProfileMenuOpen}
+                  sx={{
+                    color: 'custom.lightGrey',
+                    '& :hover': {
+                      color: 'custom.primaryLight',
+                    },
+                  }}
+                  // sx={{ padding: '5px' }}
+                >
+                  <LocalGroceryStoreIcon />
+                </IconButton>
+              </Box>
             </Box>
-            <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-              <CustomSearch />
-              <IconButton
-                size="large"
-                aria-label="toggle theme"
-                color="inherit"
-                onClick={toggleTheme}
-                sx={{ padding: '5px' }}
-              >
-                <Badge color="error">
-                  {mode === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
-                </Badge>
-              </IconButton>
-              <IconButton
-                size="large"
-                aria-label="show notifications"
-                color="inherit"
-                sx={{ padding: '5px' }}
-              >
-                <Badge color="error">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
-              <Button
-                variant="contained"
-                disableElevation
-                disableTouchRipple
-                sx={{
-                  fontSize: 16,
-                  width: '165px',
-                  backgroundColor: '#FFFFFF',
-                  color: 'black',
-                  borderRadius: '10px',
-                  textTransform: 'none',
-                  border: '1px solid',
-                  borderColor: 'divider',
-                }}
-              >
-                Connect
-              </Button>
-              <IconButton
-                size="large"
-                edge="end"
-                aria-label="shopping cart"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
-                color="inherit"
-                sx={{ padding: '5px' }}
-              >
-                <LocalGroceryStoreIcon />
-              </IconButton>
-            </Box>
-          </Box>
+          )}
         </Toolbar>
       </AppBar>
     </Box>
