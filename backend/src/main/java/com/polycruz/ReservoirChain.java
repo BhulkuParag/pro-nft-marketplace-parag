@@ -1,7 +1,7 @@
 package com.polycruz;
 
 public enum ReservoirChain {
-	NULL("null","https://api.reservoir.tools"),
+
     ETHEREUM("ethereum", "https://api.reservoir.tools"),
     BNB("bnb", "https://api-bsc.reservoir.tools"),
     POLYGON("polygon", "https://api-polygon.reservoir.tools"),
