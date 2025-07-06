@@ -1,22 +1,11 @@
 package com.polycruz.controller;
 
+import com.polycruz.pojo.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.polycruz.ReservoirChain;
-import com.polycruz.pojo.ActivityResponse;
-import com.polycruz.pojo.ChainStatsResponse;
-import com.polycruz.pojo.CollectionSearchResponse;
-import com.polycruz.pojo.CollectionsV7Response;
-import com.polycruz.pojo.NftCollectionResponse;
-import com.polycruz.pojo.NftSalesResponse;
-import com.polycruz.pojo.SalesApiResponse;
-import com.polycruz.pojo.TokenDetail;
-import com.polycruz.pojo.TokenResponse;
-import com.polycruz.pojo.TopTradersResponse;
-import com.polycruz.pojo.TrendingApiResponse;
-import com.polycruz.pojo.TrendingMintsResponse;
 import com.polycruz.service.VendorService;
 import com.polycruz.utils.ResponseTransformer;
 import com.polycruz.utils.TechResponse;
@@ -211,6 +200,18 @@ public class ReservoirController {
         String result = vendorService.callUnleashApi(cleanPath, queryParams);
         return new ResponseEntity<>(transformer.transform(result), HttpStatus.OK);
     }
+
+    @GetMapping("/nft/price-estimate")
+    @Operation(summary = "Fetch NFT price estimate from Unleash API")
+    public ResponseEntity<TechResponse<NftPriceEstimateResponse>> getNftPriceEstimate(
+            @RequestParam String blockchain,
+            @RequestParam String address,
+            @RequestParam String tokenId) {
+
+        NftPriceEstimateResponse estimate = vendorService.getNftPriceEstimate(blockchain, address, tokenId);
+        return new ResponseEntity<>(transformer.transform(estimate), HttpStatus.OK);
+    }
+
 
 }
 
