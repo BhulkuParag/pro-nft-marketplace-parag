@@ -259,12 +259,14 @@ public class VendorService {
 		return restTemplate.getForObject(uri, ActivityResponse.class);
 	}
 
-	public CollectionSearchResponse fetchCollectionsSearch(ReservoirChain chain, Integer chains, String prefix) {
+	public CollectionSearchResponse fetchCollectionsSearch(ReservoirChain chain, String prefix) {
 		String url = chain.getBaseUrl() + apiProperties.getCollectionSearch(); // e.g.,
 																				// https://api.reservoir.tools/collections/activity/v6
-
-		URI uri = UriComponentsBuilder.fromHttpUrl(url).queryParam("chains", chains).queryParam("prefix", prefix)
+		chain.getChainId();
+		
+		URI uri = UriComponentsBuilder.fromHttpUrl(url).queryParam("chains", chain.getChainId()).queryParam("prefix", prefix)
 				.build().encode().toUri();
+	
 
 		System.out.println("uri " + uri);
 

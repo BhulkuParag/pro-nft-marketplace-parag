@@ -190,11 +190,10 @@ public class ReservoirController {
      @Operation( summary = "AI Valuation 3) Main Search API a) onChange (search input) ")
      public ResponseEntity<TechResponse<CollectionSearchResponse>> fetchCollectionsSearch(
     		 @RequestParam ReservoirChain chain,
-     		  @RequestParam(defaultValue = "1") String chains,
      		 @RequestParam(defaultValue = "pudgy") String prefix
      	       
      		) {
-         return new ResponseEntity<>(transformer.transform(vendorService.fetchCollectionsSearch(chain,Integer.valueOf(chains), prefix)),
+         return new ResponseEntity<>(transformer.transform(vendorService.fetchCollectionsSearch(chain, prefix)),
                  HttpStatus.OK);
      }
 
