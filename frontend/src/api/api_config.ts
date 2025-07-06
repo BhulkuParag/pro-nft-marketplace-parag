@@ -8,6 +8,8 @@ export const API_CONFIG = {
     TOKENS: '/api/v1/reservoir/tokens',
     ITEM_DETAILS: '/api/v1/reservoir/tokens/item-details',
     ACTIVITY: '/api/v1/reservoir/activity',
+    STANDOUT: '/api/v1/reservoir/collection/activity',
+    STANDOUT_HOLDERS: '/api/v1/reservoir/top-traders',
     COLLECTIONS_V7: '/api/v1/reservoir/collections/v7',
     
     // Home APIs

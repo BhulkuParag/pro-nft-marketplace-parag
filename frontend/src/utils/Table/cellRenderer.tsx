@@ -8,6 +8,7 @@ import EthIcon from '../../assets/icons/others/EthIcon';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../app/store';
 import { setCompareList } from '../../features/home/homeSlice';
+import { formatDistanceToNow } from 'date-fns';
 
 export const StarRenderer = (params: ICellRendererParams<RowData>) => {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ export const StarRenderer = (params: ICellRendererParams<RowData>) => {
       dispatch(setCompareList(updatedList));
       return;
     }
-    dispatch(setCompareList([{ ...list, ...rowData }]));
+    dispatch(setCompareList([{ ...list, id: rowData?.id }]));
   };
   // console.log(list.includes(params.data?.id));
 
@@ -113,11 +114,12 @@ export const SupplyRenderer = (params: ICellRendererParams<RowData>) => (
   </div>
 );
 
-export const NormalRenderer = (params: ICellRendererParams<RowData>) => (
+export const NormalRenderer = (params: ICellRendererParams<RowData>) => { 
+  return (
   <div className="w-auto flex h-full items-center justify-end">
     <span>{params.value ?? '-'}</span>
   </div>
-);
+)};
 
 export const HoverRenderer = (params: ICellRendererParams<TopMintData>) => {
   let hover: string | undefined;

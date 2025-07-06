@@ -32,7 +32,9 @@ const BannerSection = () => {
   const [refreshed, setRefreshed] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const tabData = useSelector((state: RootState) => state.collection.tabData);
+  const tabData = useSelector(
+    (state: RootState) => state.collection.tabData
+  );
 
   const bannerDetails = useMemo(() => {
     return [
@@ -201,7 +203,7 @@ const BannerSection = () => {
     <Box className="banner-section">
       <Box className="banner-thumbnail">
         <img
-          loading="eager"
+          loading="lazy"
           src={tabData?.overview?.banner}
           alt={tabData?.overview?.name}
           className="banner-image"

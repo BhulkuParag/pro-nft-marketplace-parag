@@ -17,7 +17,7 @@ import {
   TypeCell,
 } from '../../utils/Table/cellRenderer';
 import type { ICellRendererParams } from 'ag-grid-community';
-import type { AiValuationLoad } from '../../types/collection';
+import type { AiValuationLoad, HoldersT, StandoutT } from '../../types/collection';
 
 interface CollectionState {
   activeTab: string;
@@ -32,6 +32,7 @@ interface CollectionState {
   limit: number;
   grid: string;
   type: string;
+  standoutType: string;
   aiValuationLoad: AiValuationLoad;
   // type:
   //   | 'ask_cancel'
@@ -50,6 +51,7 @@ const initialState: CollectionState = {
   itemDetails: {},
   includeMetadata: true,
   type: 'mint',
+  standoutType: 'sale',
   contract: '',
   collection: '',
   sortBy: 'floorAskPrice',
@@ -255,6 +257,126 @@ const collectionSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    fetchStandoutSaleDataRequest: (
+      state,
+      action: PayloadAction<{ contract: string; type: string }>
+    ) => {
+      state.loading = true;
+      state.error = null;
+      state.standoutType = action.payload.type;
+      state.collection = action.payload?.contract;
+    },
+    fetchStandoutSaleDataSuccess: (state, action: PayloadAction<StandoutT>) => {
+      state.loading = false;
+      state.tabData = {
+        ...state.tabData,
+        [state.activeTab]: { sale: action.payload },
+      };
+    },
+    fetchStandoutSaleDataFailure: (state, action: PayloadAction<string>) => {
+      state.loading = false;
+      state.error = action.payload;
+      state.tabData = {
+        ...state.tabData,
+        [state.activeTab]: { sale: {} },
+      };
+    },
+    fetchStandoutListingDataRequest: (
+      state,
+      action: PayloadAction<{ contract: string; type: string }>
+    ) => {
+      state.loading = true;
+      state.error = null;
+      state.standoutType = action.payload.type;
+      state.collection = action.payload?.contract;
+    },
+    fetchStandoutListingDataSuccess: (
+      state,
+      action: PayloadAction<StandoutT>
+    ) => {
+      state.loading = false;
+      state.tabData = {
+        ...state.tabData,
+        [state.activeTab]: {
+          ...state.tabData[state.activeTab],
+          listing: action.payload,
+        },
+      };
+    },
+    fetchStandoutListingDataFailure: (state, action: PayloadAction<string>) => {
+      state.loading = false;
+      state.error = action.payload;
+      state.tabData = {
+        ...state.tabData,
+        [state.activeTab]: { listing: {} },
+      };
+    },
+    fetchStandoutTransferDataRequest: (
+      state,
+      action: PayloadAction<{ contract: string; type: string }>
+    ) => {
+      state.loading = true;
+      state.error = null;
+      state.standoutType = action.payload.type;
+      state.collection = action.payload?.contract;
+    },
+    fetchStandoutTransferDataSuccess: (
+      state,
+      action: PayloadAction<StandoutT>
+    ) => {
+      state.loading = false;
+      state.tabData = {
+        ...state.tabData,
+        [state.activeTab]: {
+          ...state.tabData[state.activeTab],
+          transfer: action.payload,
+        },
+      };
+    },
+    fetchStandoutTransferDataFailure: (
+      state,
+      action: PayloadAction<string>
+    ) => {
+      state.loading = false;
+      state.error = action.payload;
+      state.tabData = {
+        ...state.tabData,
+        [state.activeTab]: { transfer: {} },
+      };
+    },
+    fetchStandoutHoldersDataRequest: (
+      state,
+      action: PayloadAction<{ contract: string; type: string }>
+    ) => {
+      state.loading = true;
+      state.error = null;
+      state.standoutType = action.payload.type;
+      state.collection = action.payload?.contract;
+    },
+    fetchStandoutHoldersDataSuccess: (
+      state,
+      action: PayloadAction<HoldersT>
+    ) => {
+      state.loading = false;
+      state.tabData = {
+        ...state.tabData,
+        [state.activeTab]: {
+          ...state.tabData[state.activeTab],
+          holders: action.payload,
+        },
+      };
+    },
+    fetchStandoutHoldersDataFailure: (
+      state,
+      action: PayloadAction<string>
+    ) => {
+      state.loading = false;
+      state.error = action.payload;
+      state.tabData = {
+        ...state.tabData,
+        [state.activeTab]: { holders: {} },
+      };
+    },
     setActiveTab: (state, action: PayloadAction<string>) => {
       state.activeTab = action.payload;
     },
@@ -297,6 +419,18 @@ export const {
   fetchAiValuationLoadDataRequest,
   fetchAiValuationLoadDataSuccess,
   fetchAiValuationLoadDataFailure,
+  fetchStandoutSaleDataRequest,
+  fetchStandoutSaleDataSuccess,
+  fetchStandoutSaleDataFailure,
+  fetchStandoutListingDataRequest,
+  fetchStandoutListingDataSuccess,
+  fetchStandoutListingDataFailure,
+  fetchStandoutTransferDataRequest,
+  fetchStandoutTransferDataSuccess,
+  fetchStandoutTransferDataFailure,
+  fetchStandoutHoldersDataRequest,
+  fetchStandoutHoldersDataSuccess,
+  fetchStandoutHoldersDataFailure,
   setActiveTab,
   setTabData,
   setCollection,

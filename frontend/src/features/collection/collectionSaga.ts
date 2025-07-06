@@ -21,6 +21,18 @@ import {
   fetchAiValuationLoadDataSuccess,
   fetchAiValuationLoadDataFailure,
   fetchAiValuationLoadDataRequest,
+  fetchStandoutSaleDataSuccess,
+  fetchStandoutSaleDataFailure,
+  fetchStandoutSaleDataRequest,
+  fetchStandoutListingDataSuccess,
+  fetchStandoutListingDataFailure,
+  fetchStandoutListingDataRequest,
+  fetchStandoutTransferDataSuccess,
+  fetchStandoutTransferDataFailure,
+  fetchStandoutTransferDataRequest,
+  fetchStandoutHoldersDataSuccess,
+  fetchStandoutHoldersDataFailure,
+  fetchStandoutHoldersDataRequest,
 } from './collectionSlice';
 import {
   fetchItemDetailData,
@@ -28,6 +40,8 @@ import {
   fetchActivityData,
   fetchOverviewDetailData,
   fetchAiValuationLoadData,
+  fetchStandoutData,
+  fetchStandoutHoldersData,
 } from '../../api/collection';
 import type { RootState } from '../../app/store';
 import type { PayloadAction } from '@reduxjs/toolkit';
@@ -37,11 +51,15 @@ function* handleFetchItemsData() {
     const { contract, limit, sortBy } = yield select(
       (state: RootState) => state.collection
     );
+    const chainId: string = yield select(
+      (state: RootState) => state.home.chainId
+    );
     const data: SagaReturnType<typeof fetchItemsData> = yield call(
       fetchItemsData,
       limit,
       sortBy,
-      contract
+      contract,
+      chainId
     );
     yield put(fetchItemsDataSuccess(data));
   } catch (error: any) {
@@ -52,11 +70,17 @@ function* handleFetchItemsData() {
 function* handleFetchItemsDetailData(action: PayloadAction<string>) {
   const token = action.payload;
   try {
-    const { sortBy } = yield select((state: RootState) => state.collection);
+    const chainId: string = yield select(
+      (state: RootState) => state.home.chainId
+    );
+    const sortBy: string = yield select(
+      (state: RootState) => state.collection.sortBy
+    );
     const data: SagaReturnType<typeof fetchItemDetailData> = yield call(
       fetchItemDetailData,
       token,
-      sortBy
+      sortBy,
+      chainId
     );
     yield put(fetchItemDetailsDataSuccess(data));
   } catch (error: any) {
@@ -68,6 +92,9 @@ function* handleFetchItemsDetailData(action: PayloadAction<string>) {
 
 function* handleFetchActivityData() {
   try {
+    const chainId: string = yield select(
+      (state: RootState) => state.home.chainId
+    );
     const { type, sortBy, includeMetadata } = yield select(
       (state: RootState) => state.collection
     );
@@ -75,7 +102,8 @@ function* handleFetchActivityData() {
       fetchActivityData,
       includeMetadata,
       type,
-      sortBy
+      sortBy,
+      chainId
     );
     yield put(fetchActivityDataSuccess(data));
   } catch (error: any) {
@@ -87,12 +115,16 @@ function* handleFetchActivityData() {
 
 function* handleFetchOverviewDetailData() {
   try {
+    const chainId: string = yield select(
+      (state: RootState) => state.home.chainId
+    );
     const contract: string = yield select(
       (state: RootState) => state.collection.contract
     );
     const data: SagaReturnType<typeof fetchOverviewDetailData> = yield call(
       fetchOverviewDetailData,
-      contract
+      contract,
+      chainId
     );
     yield put(fetchOverviewDetailDataSuccess(data));
   } catch (error: any) {
@@ -104,16 +136,79 @@ function* handleFetchOverviewDetailData() {
 
 function* handleAiValuationLoadData() {
   try {
-    
     const chainId: string = yield select(
       (state: RootState) => state.home.chainId
     );
-    const data: SagaReturnType<typeof fetchAiValuationLoadData> = yield call(fetchAiValuationLoadData, chainId);
+    const data: SagaReturnType<typeof fetchAiValuationLoadData> = yield call(
+      fetchAiValuationLoadData,
+      chainId
+    );
     yield put(fetchAiValuationLoadDataSuccess(data));
   } catch (error: any) {
     yield put(
       fetchAiValuationLoadDataFailure(error.message ?? 'Something went wrong')
     );
+  }
+}
+
+function* handleStandoutSaleData(action: PayloadAction<{ contract: string; type: string }>) {
+  try {
+    const chainId: string = yield select((state: RootState) => state.home.chainId);
+    const data: SagaReturnType<typeof fetchStandoutData> = yield call(
+      fetchStandoutData,
+      action.payload.contract,
+      action.payload.type,
+      chainId
+    );
+    yield put(fetchStandoutSaleDataSuccess(data));
+  } catch (error: any) {
+    yield put(fetchStandoutSaleDataFailure(error.message ?? 'Something went wrong'));
+  }
+}
+
+function* handleStandoutListingData(action: PayloadAction<{ contract: string; type: string }>) {
+  try {
+    const chainId: string = yield select((state: RootState) => state.home.chainId);
+    const data: SagaReturnType<typeof fetchStandoutData> = yield call(
+      fetchStandoutData,
+      action.payload.contract,
+      action.payload.type,
+      chainId
+    );
+    yield put(fetchStandoutListingDataSuccess(data));
+  } catch (error: any) {
+    yield put(fetchStandoutListingDataFailure(error.message ?? 'Something went wrong'));
+  }
+}
+
+function* handleStandoutTransferData(action: PayloadAction<{ contract: string; type: string }>) {
+  try {
+    const chainId: string = yield select((state: RootState) => state.home.chainId);
+    const data: SagaReturnType<typeof fetchStandoutData> = yield call(
+      fetchStandoutData,
+      action.payload.contract,
+      action.payload.type,
+      chainId
+    );
+    yield put(fetchStandoutTransferDataSuccess(data));
+  } catch (error: any) {
+    yield put(fetchStandoutTransferDataFailure(error.message ?? 'Something went wrong'));
+  }
+}
+
+function* handleStandoutHoldersData(action: PayloadAction<{ contract: string; type: string }>) {
+  try {
+    const chainId: string = yield select((state: RootState) => state.home.chainId);
+    const data: SagaReturnType<typeof fetchStandoutHoldersData> = yield call(
+      fetchStandoutHoldersData,
+      action.payload.contract,
+      action.payload.type,
+      '7d',
+      chainId
+    );
+    yield put(fetchStandoutHoldersDataSuccess(data));
+  } catch (error: any) {
+    yield put(fetchStandoutHoldersDataFailure(error.message ?? 'Something went wrong'));
   }
 }
 
@@ -132,8 +227,12 @@ export function* collectionSaga() {
     fetchOverviewDetailDataRequest.type,
     handleFetchOverviewDetailData
   );
-    yield takeLatest(
+  yield takeLatest(
     fetchAiValuationLoadDataRequest.type,
     handleAiValuationLoadData
   );
+  yield takeLatest(fetchStandoutSaleDataRequest.type, handleStandoutSaleData);
+  yield takeLatest(fetchStandoutListingDataRequest.type, handleStandoutListingData);
+  yield takeLatest(fetchStandoutTransferDataRequest.type, handleStandoutTransferData);
+  yield takeLatest(fetchStandoutHoldersDataRequest.type, handleStandoutHoldersData);
 }

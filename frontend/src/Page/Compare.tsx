@@ -156,6 +156,7 @@ const Compare = () => {
           Comparison Of NFT Collections
         </Typography>
         <DateFilter
+          wantBorder
           timeOptions={timeOptionsCompare}
           selectedTime={timeCompare}
           handleChange={handleDateFilterChange}
@@ -211,7 +212,12 @@ const Compare = () => {
                         component={'img'}
                         src={col.image}
                         alt={col.name}
-                        sx={{ width: 40, height: 40, mr: 1, objectFit: 'cover' }}
+                        sx={{
+                          width: 40,
+                          height: 40,
+                          mr: 1,
+                          objectFit: 'cover',
+                        }}
                       />
                       <Typography
                         variant="subtitle1"

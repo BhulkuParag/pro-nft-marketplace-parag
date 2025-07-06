@@ -26,7 +26,7 @@ import SearchBar from './SearchBar';
 
 const TableFilterBar = () => {
   const dispatch = useDispatch();
-  const { volume_sales, time, vauleSales, timeOptions } = useSelector(
+  const { volume_sales, time, chainId, timeOptions } = useSelector(
     (state: RootState) => state.home
   );
   const theme = useTheme();
@@ -69,13 +69,14 @@ const TableFilterBar = () => {
     >
       <Box display="flex" alignItems="center" gap={2}>
         <Button
+          className="group"
           variant="outlined"
           disableTouchRipple
           disableElevation
           onClick={(e) => setAnchorElFilter(e.currentTarget)}
           startIcon={
             <BarFilterIcon
-              className={`w-5 h-5 hover:text-[#A49BFF] fill-[#777E90] }`}
+              className={`w-5 h-5 group-hover:fill-[#A49BFF] fill-[#777E90] }`}
             />
           }
           // endIcon={
@@ -252,10 +253,13 @@ const TableFilterBar = () => {
           sx={{
             minWidth: 320,
             maxWidth: 400,
-            display: {xs: 'none', xl: 'block'},
+            display: { xs: 'none', xl: 'block' },
           }}
         >
-          <SearchBar placeholder="Search for items" backgroundColor='background.default' />
+          <SearchBar
+            placeholder="Search for items"
+            backgroundColor="background.default"
+          />
         </Box>
 
         <div className="justify-center items-center gap-1 inline-flex">

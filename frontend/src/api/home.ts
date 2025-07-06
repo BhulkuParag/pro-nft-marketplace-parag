@@ -40,7 +40,7 @@ export const fetchTrendingData = async (
 ): Promise<RowData[]> => {
   const url = buildApiUrl(API_CONFIG.ENDPOINTS.TRENDING, chainId, {
     period,
-    sortBy: 'floorAskPrice',
+    sortBy,
   });
   const response = await AXIOS.get<TrendingApiResponse>(url);
   return response.data?.data?.collections ?? [];
@@ -82,11 +82,12 @@ export const fetchMintRankingData = async (
 };
 
 export const fetchGlobalSearchData = async (
-  chain: number,
-  gloabalSearchValue: string
+  gloabalSearchValue: string,
+  chainId?: string
 ): Promise<GlobalSearchT[]> => {
-  const response = await AXIOS.get<GlobalSearchApiResponse>(
-    `/api/v1/reservoir/collection/search?chainId=${chain}&prefix=${gloabalSearchValue}`
-  );
+  const url = buildApiUrl(API_CONFIG.ENDPOINTS.COLLECTION_SEARCH, chainId, {
+    search: gloabalSearchValue,
+  });
+  const response = await AXIOS.get<GlobalSearchApiResponse>(url);
   return response.data?.data?.collections ?? [];
 };

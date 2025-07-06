@@ -1,4 +1,4 @@
-import type { AiValuationLoad } from '../types/collection';
+import type { AiValuationLoad, HoldersT, StandoutT } from '../types/collection';
 import type {
   ActivityType,
   ItemDetails,
@@ -31,18 +31,27 @@ interface OverviewDetailApiResponse {
     collections?: OverviewDetailType[];
   };
 }
+
 interface AiValuationLoadApiResponse {
   data?: AiValuationLoad;
+}
+
+interface StandoutApiResponse {
+  data?: StandoutT;
+}
+
+interface HoldersApiResponse {
+  data?: HoldersT;
 }
 
 export const fetchItemsData = async (
   limit: number,
   sortBy: string,
-  collection: string,
+  contract: string,
   chainId?: string
 ): Promise<RowData[]> => {
   const url = buildApiUrl(API_CONFIG.ENDPOINTS.TOKENS, chainId, {
-    collection,
+    contract,
     sortBy: 'floorAskPrice',
     limit,
   });
@@ -95,5 +104,33 @@ export const fetchAiValuationLoadData = async (
   const response = await AXIOS.get<AiValuationLoadApiResponse>(
     `/api/v1/reservoir/collection/v1?chain=${chainId}`
   );
+  return response.data?.data ?? {};
+};
+
+export const fetchStandoutData = async (
+  collection: string,
+  type: string,
+  chainId?: string
+): Promise<StandoutT> => {
+  const url = buildApiUrl(API_CONFIG.ENDPOINTS.STANDOUT, chainId, {
+    collection,
+    type,
+  });
+  const response = await AXIOS.get<StandoutApiResponse>(url);
+  return response.data?.data ?? {};
+};
+
+export const fetchStandoutHoldersData = async (
+  collection: string,
+  type: string,
+  period: string = '7d', // Default period is 7 days
+  chainId?: string
+): Promise<HoldersT> => {
+  const url = buildApiUrl(API_CONFIG.ENDPOINTS.STANDOUT_HOLDERS, chainId, {
+    collection,
+    type,
+    period
+  });
+  const response = await AXIOS.get<HoldersApiResponse>(url);
   return response.data?.data ?? {};
 };
