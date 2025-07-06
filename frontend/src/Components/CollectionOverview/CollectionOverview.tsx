@@ -51,6 +51,9 @@ const CollectionOverview = () => {
           <Tooltip title="Info" arrow placement="top">
             <IconButton
               sx={{
+                width: '1.25rem',
+                height: '1.25rem',
+                p: 0,
                 '& :hover': {
                   color: 'custom.primaryLight',
                 },
@@ -71,6 +74,9 @@ const CollectionOverview = () => {
           <Tooltip title="Info" arrow placement="top">
             <IconButton
               sx={{
+                width: '1.25rem',
+                height: '1.25rem',
+                p: 0,
                 '& :hover': {
                   color: 'custom.primaryLight',
                 },
@@ -91,6 +97,9 @@ const CollectionOverview = () => {
           <Tooltip title="Info" arrow placement="top">
             <IconButton
               sx={{
+                width: '1.25rem',
+                height: '1.25rem',
+                p: 0,
                 '& :hover': {
                   color: 'custom.primaryLight',
                 },
@@ -110,6 +119,9 @@ const CollectionOverview = () => {
           <Tooltip title="Info" arrow placement="top">
             <IconButton
               sx={{
+                width: '1.25rem',
+                height: '1.25rem',
+                p: 0,
                 '& :hover': {
                   color: 'custom.primaryLight',
                 },
@@ -129,6 +141,9 @@ const CollectionOverview = () => {
           <Tooltip title="Info" arrow placement="top">
             <IconButton
               sx={{
+                width: '1.25rem',
+                height: '1.25rem',
+                p: 0,
                 '& :hover': {
                   color: 'custom.primaryLight',
                 },
@@ -148,6 +163,9 @@ const CollectionOverview = () => {
           <Tooltip title="Info" arrow placement="top">
             <IconButton
               sx={{
+                width: '1.25rem',
+                height: '1.25rem',
+                p: 0,
                 '& :hover': {
                   color: 'custom.primaryLight',
                 },
@@ -191,7 +209,7 @@ const CollectionOverview = () => {
           sx={{
             display: 'grid',
             gridTemplateColumns: {
-              xs: '1fr',
+              xs: 'repeat(2, 1fr)',
               sm: 'repeat(2, 1fr)',
               md: 'repeat(3, 1fr)',
             },
@@ -199,13 +217,27 @@ const CollectionOverview = () => {
           }}
         >
           {stats.map((stat) => (
-            <StyledCard key={stat.value} sx={{ width: '100%', height: '100%' }}>
-              <CardContent>
+            <StyledCard
+              key={stat.value}
+              sx={{
+                width: '100%',
+                height: '100%',
+              }}
+            >
+              <Box
+                component="div"
+                sx={{
+                  display: 'flex',
+                  padding: '1.25rem',
+                  flexDirection: 'column',
+                  gap: 1,
+                }}
+              >
                 <TitleContainer>
                   <Typography
-                    variant="subtitle2"
+                    variant="body1"
                     color="text.primary"
-                    sx={{ fontSize: '18px' }}
+                    sx={{ fontSize: '1rem', lineHeight: '1.25rem' }}
                   >
                     {stat.title}
                   </Typography>
@@ -229,16 +261,14 @@ const CollectionOverview = () => {
                     {stat.value}
                   </Typography>
                 </StatValue>
-              </CardContent>
+              </Box>
             </StyledCard>
           ))}
         </Box>
       </Box>
       <Box component="div" sx={{ p: { xs: '0px', lg: '0.5rem' } }}>
-        <HolderHistory />
-        <Box component="div">
-          <MarketOverview />
-        </Box>
+        {/* <HolderHistory /> */}
+        <Box component="div">{/* <MarketOverview /> */}</Box>
       </Box>
     </Box>
   );

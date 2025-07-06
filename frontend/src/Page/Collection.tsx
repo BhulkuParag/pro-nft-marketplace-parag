@@ -1,5 +1,6 @@
 import { Box } from '@mui/material';
 import { lazy } from 'react';
+
 const TabContainer = lazy(
   () => import('../Components/collection/TabContainer')
 );

@@ -75,7 +75,7 @@ const AiValuation = () => {
           <Box
             sx={{
               height: { xs: '36px', sm: '40px' },
-              padding: { xs: '6px', sm: '9px' },
+              padding: { xs: 0, sm: '9px' },
               position: 'relative',
               display: 'flex',
               alignItems: 'center',
@@ -122,14 +122,14 @@ const AiValuation = () => {
                 <Box
                   component="div"
                   sx={{
-                    width: '50%',
+                    width: { xs: '75%', lg: '50%' },
                     minHeight: 190,
                     backgroundColor: ` ${theme.palette.secondary.main}`,
                     borderRadius: 3,
                     display: 'flex',
-                    flexDirection: 'row',
+                    flexDirection: { xs: 'column', lg: 'row' },
                     alignItems: 'center',
-                    p: 3,
+                    p: { xs: 2, lg: 3 },
                     // mb: 4,
                     gap: 3,
                   }}
@@ -183,7 +183,10 @@ const AiValuation = () => {
                     width: '100%',
                     // mt: 4,
                     display: 'grid',
-                    gridTemplateColumns: { xs: '1fr', md: 'repeat(4, 1fr)' },
+                    gridTemplateColumns: {
+                      xs: 'repeat(2, 1fr)',
+                      md: 'repeat(4, 1fr)',
+                    },
                     gap: 3,
                   }}
                 >
@@ -194,11 +197,11 @@ const AiValuation = () => {
                         backgroundColor: ` ${theme.palette.secondary.main}`,
 
                         borderRadius: 2,
-                        p: 3,
+                        p: { xs: 2, lg: 3 },
                         minHeight: 100,
                         display: 'flex',
                         flexDirection: 'column',
-                        justifyContent: 'center',
+                        justifyContent: { xs: 'space-between', lg: 'center' },
                         border: `0.5px solid ${theme.palette.custom.borderblack01} `,
                       }}
                     >

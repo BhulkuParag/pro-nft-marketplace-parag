@@ -130,27 +130,51 @@ const CollectionActivity: React.FC = () => {
           sx={{
             display: 'flex',
             alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: 1,
           }}
         >
           <Typography
-            color="text.secondary"
+            color="text.primary"
             fontWeight={500}
             fontSize={16}
             sx={{ mr: 1 }}
           >
             Filter:
           </Typography>
+
           {filters.map((f, idx) => (
             <Chip
+              variant="outlined"
               key={f.label + f.value}
               label={
-                <span>
-                  <span style={{ opacity: 0.7, fontSize: 13 }}>
+                <Box component="span">
+                  <Box
+                    component="span"
+                    sx={{ opacity: 0.7, fontSize: 13, color: 'text.primary' }}
+                  >
                     {f.label}&nbsp;
-                  </span>
-                  <span style={{ fontWeight: 600 }}>{f.value}</span>
-                </span>
+                  </Box>
+                  <Box
+                    component="span"
+                    sx={{ fontWeight: 600, color: 'text.primary' }}
+                  >
+                    {f.value}
+                  </Box>
+                </Box>
               }
+              slotProps={{
+                root: {
+                  sx: {
+                    height: '26px',
+                    paddingBlock: 0.8,
+                    backgroundColor: '#353945',
+                    ':hover': {
+                      backgroundColor: theme.palette.custom.greyDark,
+                    },
+                  },
+                },
+              }}
               onDelete={() => handleDelete(idx)}
               deleteIcon={
                 <CloseIcon sx={{ color: 'text.secondary', fontSize: 18 }} />
@@ -168,6 +192,7 @@ const CollectionActivity: React.FC = () => {
               }}
             />
           ))}
+
           {filters.length > 0 && (
             <Link
               component="button"

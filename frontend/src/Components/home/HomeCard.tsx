@@ -91,7 +91,9 @@ function HomeCard() {
           sm: 'x mandatory',
           md: 'none',
         },
-        paddingInline: 2,
+        paddingInline: { sx: 1, lg: 2 },
+        // marginInline: { sx: 1 },
+
         WebkitOverflowScrolling: 'touch',
         gap: { sm: 0.5, lg: 1.5 },
         gridTemplateColumns: {
@@ -101,17 +103,29 @@ function HomeCard() {
       }}
     >
       {cards.map((card) => (
-        <Card
+        <Box
+          component="div"
           key={card.id}
-          id={card.id}
-          title={card.title}
-          helpIcon={card.helpIcon}
-          coinIcon={card.coinIcon}
-          price={card.price}
-          Subprice={card.Subprice}
-          PNL={card.PNL}
-          GrowthIcon={card.GrowthIcon}
-        />
+          sx={{
+            minWidth: { xs: 100, md: 'unset' },
+            // maxWidth: { xs: 260, md: 'unset' },
+            flex: { xs: '0 0 auto', sm: '0 0 auto', md: 'unset' },
+            scrollSnapAlign: { xs: 'start', sm: 'start', md: 'none' },
+            borderRadius: '0.75rem',
+            backgroundColor: 'palette.secondary',
+          }}
+        >
+          <Card
+            id={card.id}
+            title={card.title}
+            helpIcon={card.helpIcon}
+            coinIcon={card.coinIcon}
+            price={card.price}
+            Subprice={card.Subprice}
+            PNL={card.PNL}
+            GrowthIcon={card.GrowthIcon}
+          />
+        </Box>
       ))}
     </Box>
   );

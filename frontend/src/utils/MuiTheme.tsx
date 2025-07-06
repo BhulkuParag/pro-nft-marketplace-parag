@@ -159,11 +159,14 @@ const lightTheme = createTheme({
     MuiTab: {
       styleOverrides: {
         root: {
+          disableTouchRipple: false,
           color: '#777E90',
           backgroundColor: '#FFFFFF',
           minHeight: '48px',
+          transition: 'none',
+          textTransform: 'initial',
           '&.Mui-selected': {
-            color: '#141416',
+            color: '#A49BFF',
             // backgroundColor: '#F2F2F2',
           },
           '&:hover': {
@@ -176,7 +179,11 @@ const lightTheme = createTheme({
     MuiTabs: {
       styleOverrides: {
         root: {
+          variant: 'scrollable',
+          allowScrollButtonsMobile: true,
           backgroundColor: '#FFFFFF',
+          transition: 'none',
+          textTransform: 'initial',
           minHeight: '48px',
           '& .MuiTabs-indicator': {
             backgroundColor: '#A49BFF',
@@ -255,12 +262,15 @@ const darkTheme = createTheme({
     MuiTab: {
       styleOverrides: {
         root: {
+          disableTouchRipple: false,
+
           color: '#9DA1AF',
           backgroundColor: '#1C1C1C',
           minHeight: '48px',
+          textTransform: 'initial',
           // padding: '12px 24px',
           '&.Mui-selected': {
-            color: '#FFFFFF',
+            color: '#A49BFF',
             // backgroundColor: '#353945',
           },
           '&:hover': {
@@ -273,6 +283,8 @@ const darkTheme = createTheme({
     MuiTabs: {
       styleOverrides: {
         root: {
+          variant: 'scrollable',
+          allowScrollButtonsMobile: true,
           backgroundColor: '#1C1C1C',
           minHeight: '48px',
           '& .MuiTabs-indicator': {

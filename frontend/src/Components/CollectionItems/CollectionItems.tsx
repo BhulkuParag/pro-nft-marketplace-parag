@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from 'react';
-import { Box, Typography, IconButton } from '@mui/material';
+import { Box, Typography, IconButton, Chip } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import CheckIcon from '@mui/icons-material/Check';
 import { Link, useParams } from 'react-router-dom';
@@ -188,6 +188,8 @@ const CollectionItems = () => {
                   src={item.token.image}
                   alt={`NFT #${item.id}`}
                   sx={{
+                    // borderBottomLeftRadius: '0px',
+                    // borderTopRightRadius: '12px',
                     width: '100%',
                     height: '100%',
                     objectFit: 'cover',
@@ -199,6 +201,50 @@ const CollectionItems = () => {
                     //transition: 'transform 0.3s cubic-bezier(.4,2,.6,1)',
                   }}
                 />
+
+                <Box
+                  // sx={{ position: 'absolute', bottom: 10, left: 15 }}
+
+                  sx={{
+                    position: 'absolute',
+                    bottom: '0.5rem',
+                    left: '0.5rem',
+                    color: '#fff',
+
+                    backgroundColor: '#0006',
+                    backdropFilter: 'blur(2px)',
+                    borderRadius: '16px',
+                  }}
+                >
+                  <Chip
+                    // label={item.token.name}
+                    label={
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.2rem',
+                        }}
+                      >
+                        <Box
+                          component="img"
+                          src="https://analytic.polycruz.io/icons/rarity.svg"
+                        />
+                        <Typography
+                          variant="body1"
+                          color="custom.primary"
+                          sx={{
+                            fontSize: '0.7rem',
+                          }}
+                        >
+                          {item.token.rarityRank}
+                        </Typography>
+                      </Box>
+                    }
+
+                    // variant="outlined"
+                  />
+                </Box>
                 <IconButton
                   onClick={(e) => {
                     e.preventDefault();
@@ -230,10 +276,12 @@ const CollectionItems = () => {
                   {selectedIds.includes(item.id) ? <CheckIcon /> : <AddIcon />}
                 </IconButton>
               </Box>
+
               <Box
                 sx={{
                   backgroundColor: 'secondary.main',
-                  border: '1px solid rgb(53, 57, 69)',
+                  border: '1px solid',
+                  borderColor: 'divider',
                   color: '#fff',
                   borderBottomLeftRadius: '12px',
                   borderBottomRightRadius: '12px',

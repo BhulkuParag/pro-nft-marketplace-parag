@@ -488,7 +488,7 @@ export default function Header(): JSX.Element {
                     <NotificationsIcon />
                   </Badge>
                 </IconButton>
-                <IconButton
+                {/* <IconButton
                   size="large"
                   edge="end"
                   aria-label="shopping cart"
@@ -499,7 +499,7 @@ export default function Header(): JSX.Element {
                   sx={{ padding: '5px' }}
                 >
                   <LocalGroceryStoreIcon />
-                </IconButton>
+                </IconButton> */}
               </Box>
             </Box>
           )}
