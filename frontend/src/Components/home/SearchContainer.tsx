@@ -26,6 +26,7 @@ const SearchContainer = () => {
   return (
     <CustomSearch
       search={globalSearchValue}
+      placeholder='Search by collection, NFT, and user'
       handleSearchOnChange={handleSearchOnChange}
     >
       <GlobalSearchContent data={globalSearchData} />

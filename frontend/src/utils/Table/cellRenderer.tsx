@@ -1,5 +1,10 @@
 import type { ICellRendererParams } from 'ag-grid-community';
-import type { ActivityType, RowData, TopMintData } from '../../types/table';
+import type {
+  ActivityType,
+  NftSalesT,
+  RowData,
+  TopMintData,
+} from '../../types/table';
 import { Avatar, Box, Tooltip, Typography } from '@mui/material';
 import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
@@ -9,32 +14,46 @@ import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../app/store';
 import { setCompareList } from '../../features/home/homeSlice';
 import { formatDistanceToNow } from 'date-fns';
+import { useCallback } from 'react';
 
 export const StarRenderer = (params: ICellRendererParams<RowData>) => {
   const dispatch = useDispatch();
   const list = useSelector((state: RootState) => state.home.compareList);
   const rowData = params.data;
-  const handleOnClick = (_: React.SyntheticEvent) => {
-    if (list.length > 0 && list?.some((item) => item?.id === rowData?.id)) {
-      // If already in compare list, remove it
-      const updatedList = list?.filter((item) => item.id !== rowData?.id);
-      dispatch(setCompareList(updatedList));
-      return;
-    }
-    dispatch(setCompareList([{ ...list, id: rowData?.id }]));
-  };
-  // console.log(list.includes(params.data?.id));
+  const isCompared = list.some((item) => item?.id === rowData?.id);
+
+  const handleOnClick = useCallback(
+    (_: React.SyntheticEvent) => {
+      if (isCompared) {
+        const updatedList = list.filter((item) => item.id !== rowData?.id);
+        dispatch(setCompareList(updatedList));
+        return;
+      }
+      if (list.length >= 5) {
+        // Optionally show a message/toast here
+        return;
+      }
+      dispatch(setCompareList([...list, rowData]));
+    },
+    [dispatch, isCompared, list, rowData]
+  );
 
   return (
     <div className="w-auto flex h-full items-center cursor-pointer">
       <Tooltip
-        title="Add to Compare"
+        title={
+          isCompared
+            ? 'Remove from Compare'
+            : list.length >= 5
+            ? 'You can only compare 5 collections'
+            : 'Add to Compare'
+        }
         placement="top"
         arrow={true}
         onClick={handleOnClick}
       >
-        {list?.includes(params.data?.id) ? (
-          <StarRoundedIcon className="text-gray-500" />
+        {isCompared ? (
+          <StarRoundedIcon className="text-yellow-500" />
         ) : (
           <StarBorderRoundedIcon className="text-gray-500" />
         )}
@@ -44,27 +63,33 @@ export const StarRenderer = (params: ICellRendererParams<RowData>) => {
   );
 };
 
-export const CollectionRenderer = (params: ICellRendererParams<RowData>) => (
-  <div className="w-auto flex h-full items-center gap-2 justify-start">
-    <img
-      src={params.data?.image}
-      alt={params.data?.name}
-      className="w-7 h-7 rounded-full"
-    />
-    <Link to={`/trendingCollections/item/${params.data?.id}`}>
-      {params.value ?? '-'}
-    </Link>
-    {params.data?.openseaVerificationStatus === 'verified' && (
-      <svg
-        className="max-w-4 max-h-4 text-[#A49BFF]"
-        viewBox="0 0 20 20"
-        fill="currentColor"
-      >
-        <path d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
-      </svg>
-    )}
-  </div>
-);
+export const CollectionRenderer = (params: ICellRendererParams<any>) => {
+  return (
+    <div className="w-auto flex h-full items-center gap-2 justify-start">
+      <img
+        src={
+          params.colDef?.field === 'nft_name'
+            ? params.data?.token?.image
+            : params.data?.image
+        }
+        alt={params.data?.name}
+        className="w-7 h-7 rounded-full"
+      />
+      <Link to={`/trendingCollections/item/${params.data?.id}`}>
+        {params.value ?? '-'}
+      </Link>
+      {params.data?.openseaVerificationStatus === 'verified' && (
+        <svg
+          className="max-w-4 max-h-4 text-[#A49BFF]"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
+        </svg>
+      )}
+    </div>
+  );
+};
 
 export const PriceRenderer = (params: ICellRendererParams<RowData>) => {
   let usdValue: number | undefined;
@@ -95,7 +120,7 @@ export const PriceRenderer = (params: ICellRendererParams<RowData>) => {
         placement="top"
         arrow={true}
       >
-        <span className="ml-1">{params.value}</span>
+        <span className="ml-1">{params.value ?? '-'}</span>
       </Tooltip>
       <EthIcon className="fill-[#777E90] w-4 h-4" />
     </div>
@@ -110,16 +135,17 @@ export const VolumeRenderer = (params: ICellRendererParams<RowData>) => (
 
 export const SupplyRenderer = (params: ICellRendererParams<RowData>) => (
   <div className="w-auto flex h-full items-center justify-end">
-    <span>{params.value ?? 0}k</span>
+    <span>{params.value ?? 0}</span>
   </div>
 );
 
-export const NormalRenderer = (params: ICellRendererParams<RowData>) => { 
+export const NormalRenderer = (params: ICellRendererParams<RowData>) => {
   return (
-  <div className="w-auto flex h-full items-center justify-end">
-    <span>{params.value ?? '-'}</span>
-  </div>
-)};
+    <div className="w-auto flex h-full items-center justify-end">
+      <span>{params.value ?? '-'}</span>
+    </div>
+  );
+};
 
 export const HoverRenderer = (params: ICellRendererParams<TopMintData>) => {
   let hover: string | undefined;

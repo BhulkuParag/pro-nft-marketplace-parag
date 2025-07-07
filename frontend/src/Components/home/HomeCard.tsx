@@ -91,11 +91,11 @@ function HomeCard() {
           sm: 'x mandatory',
           md: 'none',
         },
-        paddingInline: { sx: 1, lg: 2 },
+        paddingInline: { xs: 2, md: 3 },
         // marginInline: { sx: 1 },
 
         WebkitOverflowScrolling: 'touch',
-        gap: { sm: 0.5, lg: 1.5 },
+        gap: { xs: 1.5, lg: 1.5 },
         gridTemplateColumns: {
           //   md: 'repeat(auto-fill, minmax(220px, 1fr))',
           lg: 'repeat(auto-fill, minmax(220px, 1fr))',

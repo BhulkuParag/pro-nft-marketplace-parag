@@ -23,6 +23,13 @@ import {
 import type { ICellRendererParams } from 'ag-grid-community';
 import type { GlobalSearchT } from '../../types/home';
 
+export const formatK = (num: number): string => {
+  if (num >= 1000) {
+    return (num / 1000)?.toFixed(2)?.replace(/\.00$/, '') + 'k';
+  }
+  return num.toString();
+};
+
 interface Options {
   label: string;
   value: string;
@@ -176,6 +183,8 @@ const initialState: HomeState = {
         cellRenderer: SupplyRenderer,
         headerComponent: AddSortIcon,
         // minWidth: 120,
+        valueGetter: (params: ICellRendererParams<RowData>) =>
+          params.data?.tokenCount ? formatK(params.data?.tokenCount) : '',
       },
     ],
     nft_sales: [
@@ -189,7 +198,7 @@ const initialState: HomeState = {
           params.node?.rowIndex != null ? params.node.rowIndex + 1 : '',
       },
       {
-        field: 'name',
+        field: 'nft_name',
         headerName: 'Collection Name',
         cellRenderer: CollectionRenderer,
         headerComponent: AddSortIcon,
@@ -205,7 +214,11 @@ const initialState: HomeState = {
         cellRenderer: NormalRenderer,
         // minWidth: 110,
         valueGetter: (params: ICellRendererParams<NftSalesT>) =>
-          params.data?.token.contract ?? '',
+          params.data?.token.contract
+            ? params.data?.token.contract.slice(0, 4) +
+              '...' +
+              params.data?.token.contract.slice(-4)
+            : '',
       },
       {
         field: 'tokenId',
@@ -230,7 +243,9 @@ const initialState: HomeState = {
         cellRenderer: NormalRenderer,
         // minWidth: 110,
         valueGetter: (params: ICellRendererParams<NftSalesT>) =>
-          params.data?.price.amount.usd.toFixed(0) ?? '',
+          params.data?.price?.amount?.usd?.toFixed(2)
+            ? '$' + params.data?.price?.amount?.usd?.toFixed(2)
+            : '',
       },
       {
         field: 'washTradingScore',
@@ -327,7 +342,7 @@ const initialState: HomeState = {
       },
       {
         field: 'name',
-        headerName: 'Collection',
+        headerName: 'Collection Name',
         cellRenderer: CollectionRenderer,
         flex: 2,
         minWidth: 300,
@@ -492,7 +507,7 @@ const homeSlice = createSlice({
       state.chainId = action.payload;
     },
     setCompareList: (state, action: PayloadAction<any[]>) => {
-      state.compareList = action.payload;
+      state.compareList = action.payload.slice(0, 5);
     },
   },
 });

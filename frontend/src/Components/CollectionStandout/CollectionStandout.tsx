@@ -128,13 +128,13 @@ const CollectionStandout = () => {
                 alignItems: 'flex-end',
               }}
             >
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <Typography
                   sx={{ color: 'text.primary', fontWeight: 500, fontSize: 14 }}
                 >
                   {item?.volume}
                 </Typography>
-                <img src={ethIcon} alt="ETH" width={14} height={14} />
+                <img src={ethIcon} alt="ETH" width={9} height={9} />
               </Box>
               <Typography sx={{ color: '#bfc3d0', fontSize: 12 }}>
                 {item?.count}
@@ -190,13 +190,13 @@ const CollectionStandout = () => {
                 alignItems: 'flex-end',
               }}
             >
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <Typography
                   sx={{ color: 'text.primary', fontWeight: 500, fontSize: 14 }}
                 >
                   {item?.price?.amount?.decimal}
                 </Typography>
-                <img src={ethIcon} alt="ETH" width={14} height={14} />
+                <img src={ethIcon} alt="ETH" width={9} height={9} />
               </Box>
               <Typography sx={{ color: '#bfc3d0', fontSize: 12 }}>
                 {item?.timestamp
@@ -250,13 +250,13 @@ const CollectionStandout = () => {
                 alignItems: 'flex-end',
               }}
             >
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <Typography
                   sx={{ color: 'text.primary', fontWeight: 500, fontSize: 14 }}
                 >
                   {item?.price?.amount?.decimal}
                 </Typography>
-                <img src={ethIcon} alt="ETH" width={14} height={14} />
+                <img src={ethIcon} alt="ETH" width={9} height={9} />
               </Box>
               <Typography sx={{ color: '#bfc3d0', fontSize: 12 }}>
                 {item?.timestamp
@@ -310,13 +310,13 @@ const CollectionStandout = () => {
                 alignItems: 'flex-end',
               }}
             >
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <Typography
                   sx={{ color: 'text.primary', fontWeight: 500, fontSize: 14 }}
                 >
                   {item?.price?.amount?.decimal}
                 </Typography>
-                <img src={ethIcon} alt="ETH" width={14} height={14} />
+                <img src={ethIcon} alt="ETH" width={9} height={9} />
               </Box>
               <Typography sx={{ color: '#bfc3d0', fontSize: 12 }}>
                 {item?.timestamp

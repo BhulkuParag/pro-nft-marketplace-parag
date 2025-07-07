@@ -257,7 +257,7 @@ const TableFilterBar = () => {
           }}
         >
           <SearchBar
-            placeholder="Search for items"
+            placeholder="Search Collection"
             backgroundColor="background.default"
           />
         </Box>

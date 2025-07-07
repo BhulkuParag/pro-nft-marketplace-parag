@@ -1,7 +1,7 @@
 import DateFilter from '../../@ui-component/Comman/DateFilter';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../app/store';
-import { setTimeComapre } from '../features/home/homeSlice';
+import { setCompareList, setTimeComapre } from '../features/home/homeSlice';
 import { useCallback } from 'react';
 import {
   Table,
@@ -18,31 +18,9 @@ import {
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-type StatLabel =
-  | 'Average price'
-  | 'Marketcap'
-  | 'Volume'
-  | 'Sales'
-  | 'Traders'
-  | 'Buyers'
-  | 'Sellers'
-  | 'Holders'
-  | 'Holder 1'
-  | 'Holder 2'
-  | 'Holder 3 to 5'
-  | 'Holder 6 to 9'
-  | 'Holder 10 to 15'
-  | 'Holder 16 to 25';
-
-interface Collection {
-  name: string;
-  image: string;
-  stats: Record<StatLabel, string>;
-}
-
 const Compare = () => {
   const dispatch = useDispatch();
-  const { timeOptionsCompare, timeCompare } = useSelector(
+  const { timeOptionsCompare, timeCompare, compareList } = useSelector(
     (state: RootState) => state.home
   );
   const handleDateFilterChange = useCallback(
@@ -52,94 +30,35 @@ const Compare = () => {
     [dispatch, timeCompare]
   );
 
-  // Dummy data for demonstration
-  const collections: Collection[] = [
-    {
-      name: 'Pudgy Penguins',
-      image:
-        'https://i.seadn.io/gcs/files/8a26e3de0f309089cbb1e5ab969fc0bc.png?w=500&auto=format',
-      stats: {
-        'Average price': 'Ξ 0.00',
-        Marketcap: '$0.00',
-        Volume: '$0.00',
-        Sales: '0.00',
-        Traders: '0.00',
-        Buyers: '0.00',
-        Sellers: '0.00',
-        Holders: '9.00',
-        'Holder 1': '5.00',
-        'Holder 2': '0.00',
-        'Holder 3 to 5': '0.00',
-        'Holder 6 to 9': '0.00',
-        'Holder 10 to 15': '0.00',
-        'Holder 16 to 25': '0.00',
-      },
-    },
-    {
-      name: 'Pudgy Penguins',
-      image:
-        'https://i.seadn.io/gcs/files/8a26e3de0f309089cbb1e5ab969fc0bc.png?w=500&auto=format',
-      stats: {
-        'Average price': 'Ξ 0.00',
-        Marketcap: '$0.00',
-        Volume: '$0.00',
-        Sales: '0.00',
-        Traders: '0.00',
-        Buyers: '0.00',
-        Sellers: '0.00',
-        Holders: '9.00',
-        'Holder 1': '5.00',
-        'Holder 2': '0.00',
-        'Holder 3 to 5': '0.00',
-        'Holder 6 to 9': '0.00',
-        'Holder 10 to 15': '0.00',
-        'Holder 16 to 25': '0.00',
-      },
-    },
-    {
-      name: 'CryptoPunks',
-      image:
-        'https://www.larvalabs.com/public/images/cryptopunks/punk-variety-2x.png',
-      stats: {
-        'Average price': 'Ξ 0.00',
-        Marketcap: '$0.00',
-        Volume: '$314.03k',
-        Sales: '3.00',
-        Traders: '5.00',
-        Buyers: '3.00',
-        Sellers: '3.00',
-        Holders: '3.84k',
-        'Holder 1': '3.19k',
-        'Holder 2': '516.00',
-        'Holder 3 to 5': '337.00',
-        'Holder 6 to 9': '78.00',
-        'Holder 10 to 15': '46.00',
-        'Holder 16 to 25': '27.00',
-      },
-    },
+  const statLabels = [
+    { label: 'Average price', name: 'Average price' },
+    { label: 'Marketcap', name: 'Marketcap' },
+    { label: 'Volume', name: 'volume' },
+    { label: 'Sales', name: 'sales' },
+    { label: 'Traders', name: 'traders' },
+    { label: 'Buyers', name: 'buyers' },
+    { label: 'Sellers', name: 'sellers' },
+    { label: 'Holders', name: 'holders' },
+    { label: 'Holder 1', name: 'holder 1' },
+    { label: 'Holder 2', name: 'holder 2' },
+    { label: 'Holder 3 to 5', name: 'holder 3 to 5' },
+    { label: 'Holder 6 to 9', name: 'holder 6 to 9' },
+    { label: 'Holder 10 to 15', name: 'holder 10 to 15' },
+    { label: 'Holder 16 to 25', name: 'holder 16 to 25' },
   ];
 
-  const statLabels: StatLabel[] = [
-    'Average price',
-    'Marketcap',
-    'Volume',
-    'Sales',
-    'Traders',
-    'Buyers',
-    'Sellers',
-    'Holders',
-    'Holder 1',
-    'Holder 2',
-    'Holder 3 to 5',
-    'Holder 6 to 9',
-    'Holder 10 to 15',
-    'Holder 16 to 25',
-  ];
+  const handleDelete = useCallback(
+    (name: string) => {
+      dispatch(setCompareList(compareList.filter((col) => col.name !== name)));
+    },
+    [dispatch, compareList]
+  );
 
   return (
     <Box sx={{ width: '100%', p: 3 }}>
       <Box
         sx={{
+          height: '100%',
           display: 'flex',
           flexWrap: 'wrap',
           justifyContent: 'space-between',
@@ -151,7 +70,7 @@ const Compare = () => {
         <Typography
           fontWeight={600}
           variant="h4"
-          sx={{ mb: 2, fontSize: '26px', color: 'text.primary' }}
+          sx={{ fontSize: '26px', color: 'text.primary' }}
         >
           Comparison Of NFT Collections
         </Typography>
@@ -194,9 +113,9 @@ const Compare = () => {
                 >
                   Collection Name
                 </TableCell>
-                {collections.map((col) => (
+                {compareList?.map((col) => (
                   <TableCell
-                    key={col.name}
+                    key={col?.name}
                     align="center"
                     sx={{ color: 'text.primary', fontWeight: 600, border: 0 }}
                   >
@@ -210,8 +129,8 @@ const Compare = () => {
                     >
                       <Box
                         component={'img'}
-                        src={col.image}
-                        alt={col.name}
+                        src={col?.image}
+                        alt={col?.name}
                         sx={{
                           width: 40,
                           height: 40,
@@ -223,9 +142,10 @@ const Compare = () => {
                         variant="subtitle1"
                         sx={{ color: 'text.primary', fontWeight: 600 }}
                       >
-                        {col.name}
+                        {col?.name}
                       </Typography>
                       <IconButton
+                        onClick={() => handleDelete(col?.name)}
                         size="small"
                         sx={{ ml: 1, color: 'text.secondary' }}
                       >
@@ -237,9 +157,9 @@ const Compare = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {statLabels.map((label) => (
+              {statLabels.map((item) => (
                 <TableRow
-                  key={label}
+                  key={item.name}
                   sx={{
                     borderBottom: '1px solid',
                     borderColor: 'divider',
@@ -248,15 +168,15 @@ const Compare = () => {
                   <TableCell
                     sx={{ color: 'custom.grey01', fontWeight: 500, border: 0 }}
                   >
-                    {label}
+                    {item.label}
                   </TableCell>
-                  {collections.map((col, idx) => (
+                  {compareList?.map((col, idx) => (
                     <TableCell
-                      key={col.name + idx}
+                      key={col?.name + idx}
                       align="center"
                       sx={{ color: 'text.primary', border: 0 }}
                     >
-                      {col.stats[label]}
+                      {col[item.name] ?? ''}
                     </TableCell>
                   ))}
                 </TableRow>

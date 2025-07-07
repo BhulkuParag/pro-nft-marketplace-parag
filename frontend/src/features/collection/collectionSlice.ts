@@ -17,7 +17,12 @@ import {
   TypeCell,
 } from '../../utils/Table/cellRenderer';
 import type { ICellRendererParams } from 'ag-grid-community';
-import type { AiValuationLoad, HoldersT, StandoutT } from '../../types/collection';
+import type {
+  AiValuationLoad,
+  HoldersT,
+  StandoutT,
+} from '../../types/collection';
+import { formatDistanceToNow } from 'date-fns';
 
 interface CollectionState {
   activeTab: string;
@@ -34,6 +39,8 @@ interface CollectionState {
   type: string;
   standoutType: string;
   aiValuationLoad: AiValuationLoad;
+  itemSearchValue: string;
+  itemSearchData: any[];
   // type:
   //   | 'ask_cancel'
   //   | 'sale'
@@ -54,6 +61,8 @@ const initialState: CollectionState = {
   standoutType: 'sale',
   contract: '',
   collection: '',
+  itemSearchValue: '',
+  itemSearchData: [],
   sortBy: 'floorAskPrice',
   grid: '8',
   limit: 50,
@@ -161,7 +170,11 @@ const initialState: CollectionState = {
         cellRenderer: NormalRenderer,
         headerComponent: AddSortIcon,
         valueGetter: (params: ICellRendererParams<ActivityType>) =>
-          params.data?.timestamp ?? '-',
+          params.data?.timestamp
+            ? formatDistanceToNow(new Date(params.data.timestamp * 1000), {
+                addSuffix: true,
+              })
+            : '-',
       },
     ],
   },
@@ -366,10 +379,7 @@ const collectionSlice = createSlice({
         },
       };
     },
-    fetchStandoutHoldersDataFailure: (
-      state,
-      action: PayloadAction<string>
-    ) => {
+    fetchStandoutHoldersDataFailure: (state, action: PayloadAction<string>) => {
       state.loading = false;
       state.error = action.payload;
       state.tabData = {
@@ -399,6 +409,12 @@ const collectionSlice = createSlice({
     },
     setLimit: (state, action: PayloadAction<number>) => {
       state.limit = action.payload;
+    },
+    setItemSearchValue: (state, action: PayloadAction<string>) => {
+      state.itemSearchValue = action.payload;
+    },
+    setItemSearchData: (state, action: PayloadAction<any[]>) => {
+      state.itemSearchData = action.payload;
     },
   },
 });
@@ -437,6 +453,8 @@ export const {
   setType,
   setGrid,
   setLimit,
+  setItemSearchValue,
+  setItemSearchData
 } = collectionSlice.actions;
 
 export default collectionSlice.reducer;

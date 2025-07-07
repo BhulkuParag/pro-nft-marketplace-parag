@@ -35,9 +35,7 @@ const BannerSection = () => {
   const [refreshed, setRefreshed] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const tabData = useSelector(
-    (state: RootState) => state.collection.tabData
-  );
+  const tabData = useSelector((state: RootState) => state.collection.tabData);
 
   const bannerDetails = useMemo(() => {
     return [
@@ -835,10 +833,10 @@ const BannerSection = () => {
                     flexWrap: 'wrap',
                   }}
                 >
-                  {chip.map((item, index) => {
+                  {chip.map((item) => {
                     return (
                       <Chip
-                        key={index}
+                        key={item.value}
                         label={
                           <Box
                             sx={{
@@ -930,18 +928,17 @@ const BannerSection = () => {
                     className="mr-[12px]"
                   />
                   <IconButton
+                    disableTouchRipple
                     sx={{
-                      border: '0.5px solid ',
-                      borderColor: '#bdbdbd',
                       backgroundColor: theme.palette.custom.borderblack01,
                       borderRadius: 2,
-                      width: 36,
-                      height: 30,
+                      padding: '5px 14px',
+                      ml: 1,
                     }}
                     onClick={handleDropdownOpen}
                   >
                     <KeyboardArrowDownSharpIcon
-                      sx={{ color: theme.palette.custom.lightPurple }}
+                      sx={{ color: theme.palette.custom.lightGrey }}
                     />
                   </IconButton>
                   <Popover
@@ -951,7 +948,7 @@ const BannerSection = () => {
                     anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                     transformOrigin={{ vertical: 'top', horizontal: 'right' }}
                   >
-                    <Box sx={{ p: 2, bgcolor: 'red' }}>
+                    <Box sx={{ p: 2 }}>
                       {dropdownItems.map((item, idx) => (
                         <Box
                           key={item.label}

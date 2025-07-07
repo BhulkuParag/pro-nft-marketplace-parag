@@ -17,12 +17,20 @@ interface SearchContentProps {
   search: string;
   handleSearchOnChange: (value: string) => void;
   children?: React.ReactNode;
+  placeholder?: string;
+  backgroundColor?: string;
+  dropDownBgColor?: string;
+  hasSplash?: boolean;
 }
 
 const CustomSearch: React.FC<SearchContentProps> = ({
   search = '',
   handleSearchOnChange,
   children,
+  placeholder = "Search by collection, NFT, and user",
+  hasSplash = false,
+  backgroundColor = 'custom.secondaryDark',
+  dropDownBgColor = 'custom.secondaryDark',
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -93,16 +101,18 @@ const CustomSearch: React.FC<SearchContentProps> = ({
                 onClick={handleCloseDialog}
                 sx={{
                   color: 'custom.whiteLight',
-                  mr: 1,
+                  // mr: 1,
+                  ml: -1,
                 }}
               >
                 <ArrowBackIcon />
               </IconButton>
               <Box sx={{ flex: 1 }}>
                 <SearchBar
-                  placeholder="Search by collection, NFT, and user"
+                  placeholder={placeholder}
                   search={search}
                   setSearch={handleSearchOnChange}
+                  backgroundColor={backgroundColor}
                   handleFocus={() => {}}
                   handleBlur={() => {}}
                 />
@@ -114,10 +124,11 @@ const CustomSearch: React.FC<SearchContentProps> = ({
       ) : (
         <Box sx={{ position: 'relative' }}>
           <SearchBar
-            placeholder="Search by collection, NFT, and user"
-            hasSplash
+            placeholder={placeholder}
+            hasSplash={hasSplash}
             search={search}
             setSearch={handleSearchOnChange}
+            backgroundColor={backgroundColor}
             // handleOnClick={handleOpenDialog}
             handleFocus={handleFocus}
             handleBlur={handleBlur}
@@ -159,16 +170,16 @@ const CustomSearch: React.FC<SearchContentProps> = ({
             </DialogContent>
           </Dialog> */}
           <Fade in={isFocused} timeout={300}>
-            <Paper
+            <Box
               sx={{
-                width: 400,
+                // width: 400,
                 position: 'absolute',
                 top: '100%',
                 left: 0,
                 right: 0,
                 mt: 0.5,
                 borderRadius: 2,
-                backgroundColor: 'background.secondaryDark',
+                backgroundColor: dropDownBgColor,
                 color: 'white',
                 height: 'auto',
                 py: 2,
@@ -178,7 +189,7 @@ const CustomSearch: React.FC<SearchContentProps> = ({
               }}
             >
               {children}
-            </Paper>
+            </Box>
           </Fade>
         </Box>
       )}
@@ -186,4 +197,4 @@ const CustomSearch: React.FC<SearchContentProps> = ({
   );
 };
 
-export default CustomSearch;
+export default React.memo(CustomSearch);
