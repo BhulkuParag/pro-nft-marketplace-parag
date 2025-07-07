@@ -1,22 +1,82 @@
-import { Button, Typography } from '@mui/material';
 import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import { Box } from '@mui/material';
+import { routes } from './Components/constants/routes';
+import Header from './Components/header/Header';
+import Sidebar from './Components/header/Sidebar';
+import { Suspense } from 'react';
+import Loading from '../@ui-component/Comman/Loading';
 
-function App() {
+const App = () => {
   return (
-    <div className="p-8 bg-gray-100 min-h-screen">
-      <Typography variant="h4" className="mb-4">
-        MUI + Tailwind + Vite + TypeScript 🚀
-      </Typography>
+    <Box
+      sx={{
+        width: '100%',
+        height: '100vh',
+        backgroundColor: 'background.default',
+      }}
+    >
+      <Box
+        sx={{
+          backgroundColor: 'background.default',
+        }}
+      >
+        <Box
+          sx={{ 
+            backgroundColor: 'background.default',
+          }}
+        >
+          <Sidebar />
+        </Box>
 
-      <Button variant="contained" color="primary">
-        MUI Button
-      </Button>
-
-      <div className="mt-4 p-4 bg-white rounded shadow">
-        <p className="text-gray-700">This box uses Tailwind styling.</p>
-      </div>
-    </div>
+        <Box
+          sx={{
+            backgroundColor: 'background.default',
+          }}
+        >
+          <Header />
+          <Suspense
+            fallback={
+              <Box
+                sx={{
+                  backgroundColor: 'background.default',
+                  width: '100vw',
+                  height: 'calc(100vh - 64px)',
+                  overflowY: 'scroll',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <Loading />
+              </Box>
+            }
+          >
+            <Box
+              sx={{
+                height: 'calc(100vh - 108px)',
+                overflowY: 'scroll',
+                overflowX: 'hidden',
+                scrollbarWidth: 'thin',
+                paddingTop: '10px',
+                paddingLeft: { xs: '0px', lg: '70px' },
+              }}
+            >
+              <Routes>
+                {routes.map((route) => (
+                  <Route
+                    key={route.path}
+                    path={route.path}
+                    element={<route.component />}
+                  />
+                ))}
+              </Routes>
+            </Box>
+          </Suspense>
+        </Box>
+      </Box>
+    </Box>
   );
-}
+};
 
 export default App;

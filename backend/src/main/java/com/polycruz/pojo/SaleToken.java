@@ -12,10 +12,10 @@ public class SaleToken {
     @JsonProperty("tokenId")
     private String tokenId;
 
-    @JsonProperty("tokenName")
+//    @JsonProperty("tokenName")
     private String name;
 
-    @JsonProperty("tokenImage")
+//    @JsonProperty("tokenImage")
     private String image;
     private TokenMetadata metadata;
     private boolean isSpam;
