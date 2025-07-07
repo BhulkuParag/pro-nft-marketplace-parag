@@ -35,9 +35,5 @@ public class Token {
 	    private String createdAt;
 	    private Integer decimals;
 	    private List<Object> mintStages;
-	    private String tokenName;
-	    private String tokenImage;
-	    private double rarityScore;
-	    
 
 }
