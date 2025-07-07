@@ -26,6 +26,9 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/v1/reservoir")
 @RequiredArgsConstructor 
@@ -184,13 +187,30 @@ public class ReservoirController {
      @Operation( summary = "AI Valuation 3) Main Search API a) onChange (search input) ")
      public ResponseEntity<TechResponse<CollectionSearchResponse>> fetchCollectionsSearch(
     		 @RequestParam ReservoirChain chain,
-     		  @RequestParam(defaultValue = "1") String chains,
      		 @RequestParam(defaultValue = "pudgy") String prefix
      	       
      		) {
-         return new ResponseEntity<>(transformer.transform(vendorService.fetchCollectionsSearch(chain,Integer.valueOf(chains), prefix)),
+         return new ResponseEntity<>(transformer.transform(vendorService.fetchCollectionsSearch(chain, prefix)),
                  HttpStatus.OK);
      }
+
+    @GetMapping("/collection/list")
+    @Operation(summary = "Fetch all supported reservoir chains dynamically")
+    public ResponseEntity<TechResponse<List<String>>> fetchChains() {
+
+        return new ResponseEntity<>(transformer.transform(vendorService.fetchChain()),
+                HttpStatus.OK);
+    }
+
+    @GetMapping("/call")
+    @Operation(summary = "Call Unleash API dynamically")
+    public ResponseEntity<TechResponse<String>> callUnleashApi(
+            @RequestParam String cleanPath,
+            @RequestParam(required = false) Map<String, String> queryParams) {
+
+        String result = vendorService.callUnleashApi(cleanPath, queryParams);
+        return new ResponseEntity<>(transformer.transform(result), HttpStatus.OK);
+    }
 
 }
 
