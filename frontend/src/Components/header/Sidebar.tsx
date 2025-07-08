@@ -10,24 +10,10 @@ import {
   Typography,
 } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
-import HomeIcon from '@mui/icons-material/Home';
-import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
+import { menuItems } from '../constants/menuItem';
 
 const drawerWidth = 200;
 const collapsedWidth = '4.6rem';
-
-const menuItems = [
-  {
-    lable: 'Home',
-    path: '/Home',
-    icon: HomeIcon,
-  },
-  {
-    lable: 'Compare',
-    path: '/Compare',
-    icon: CompareArrowsIcon,
-  },
-];
 
 const Sidebar: React.FC = () => {
   const [open, setOpen] = React.useState(false);
@@ -71,7 +57,7 @@ const Sidebar: React.FC = () => {
             fontSize={26}
             fontWeight={600}
             display={open ? 'block' : 'none'}
-            color={isActive('/home') ? 'text.primary' : 'text.primary'}
+            color={isActive('/home') ? 'text.primary' : 'transparent'}
             sx={{ transition: 'color 0.2s' }}
           >
             Polycruz
@@ -92,13 +78,15 @@ const Sidebar: React.FC = () => {
                   gap: '10px',
                   justifyContent: open ? 'initial' : 'center',
                   px: 2.5,
-                  bgcolor: active ? 'primary.main' : 'transparent', //
+                  bgcolor: active ? 'custom.borderblack01' : 'transparent', //
                   color: active ? '#fff' : 'text.primary',
                   '&:hover': {
                     bgcolor: 'primary.light',
                     color: '#fff',
                   },
-                  borderRadius: 2,
+                  // borderRadius: 2,
+                  borderRight: '1px solid ',
+                  borderColor: active ? 'custom.SideBar' : 'transparent',
                   transition: 'all 0.2s',
                 }}
               >
@@ -109,7 +97,7 @@ const Sidebar: React.FC = () => {
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: active ? 'text.primary' : 'text.primary',
+                    color: active ? 'text.primary' : '',
                     transition: 'color 0.2s',
                   }}
                 >
@@ -122,7 +110,7 @@ const Sidebar: React.FC = () => {
                     '& .MuiTypography-root': {
                       fontSize: '14px',
                       fontWeight: 500,
-                      color: active ? 'text.primary' : 'text.primary',
+                      color: active ? 'text.primary' : '',
                       transition: 'color 0.2s',
                     },
                   }}
