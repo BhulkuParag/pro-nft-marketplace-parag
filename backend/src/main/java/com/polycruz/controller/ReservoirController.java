@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -133,13 +134,30 @@ public class ReservoirController {
         return new ResponseEntity<>(transformer.transform(vendorService.fetchTokenDetails(chain,currency)), HttpStatus.OK);
     }
      
-     @GetMapping("/stats")
-     @Operation(summary = "chain stats v1")
-     public ResponseEntity<TechResponse<ChainStatsResponse>> getChainStats(@RequestParam ReservoirChain chain
-            
-     ) {
-         return new ResponseEntity<>(transformer.transform(vendorService.getChainStats(chain)), HttpStatus.OK);
-     }
+//     @GetMapping("/stats")
+//     @Operation(summary = "chain stats v1")
+//     public ResponseEntity<TechResponse<ChainStatsResponse>> getChainStats(@RequestParam ReservoirChain chain
+//
+//     ) {
+//         return new ResponseEntity<>(transformer.transform(vendorService.getChainStats(chain)), HttpStatus.OK);
+//     }
+
+    @GetMapping("/stats")
+    @Operation(summary = "Fetch chain stats")
+    public ResponseEntity<TechResponse<StatesApiRawResponse>> getChainStats(
+            @RequestParam ReservoirChain chain) {
+
+        StatesApiResponse original = vendorService.getStatesStats(chain);
+        StatesApiRawResponse transformed = vendorService.transformStatsToListFormat(original);
+
+        TechResponse<StatesApiRawResponse> response = new TechResponse<>();
+        response.setData(transformed);
+        response.setStatusCode("success");
+        response.setMessage("Request successful");
+        response.setTimestamp(LocalDateTime.now());
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
      
      @GetMapping("/collection/v1")
      @Operation(summary = "AI Valuation a. on load")

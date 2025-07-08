@@ -1,6 +1,7 @@
 package com.polycruz.service;
 
 import java.lang.reflect.Array;
+import java.lang.reflect.Field;
 import java.net.URI;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -190,12 +191,57 @@ public class VendorService {
 		}
 	}
 
-	public ChainStatsResponse getChainStats(ReservoirChain chain) {
+//	public ChainStatsResponse getChainStats(ReservoirChain chain) {
+//		String url = chain.getBaseUrl() + apiProperties.getStatsUrl();
+//
+//		Map<String, Object> uriVariables = new HashMap<>();
+//
+//		return restTemplate.getForObject(url, ChainStatsResponse.class, uriVariables);
+//	}
+
+	public StatesApiResponse getStatesStats(ReservoirChain chain) {
 		String url = chain.getBaseUrl() + apiProperties.getStatsUrl();
+		return restTemplate.getForObject(url, StatesApiResponse.class);
+	}
 
-		Map<String, Object> uriVariables = new HashMap<>();
+	public StatesApiRawResponse transformStatsToListFormat(StatesApiResponse input) {
+		Map<String, TimeFrame> originalStats = input.getData().getStats();
+		Map<String, List<StatesApiRawResponse.StatItem>> transformedStats = new HashMap<>();
 
-		return restTemplate.getForObject(url, ChainStatsResponse.class, uriVariables);
+		for (Map.Entry<String, TimeFrame> entry : originalStats.entrySet()) {
+			List<StatesApiRawResponse.StatItem> items = new ArrayList<>();
+			Field[] fields = entry.getValue().getClass().getDeclaredFields();
+
+			for (Field field : fields) {
+				field.setAccessible(true);
+				try {
+					Object value = field.get(entry.getValue());
+					String name = field.getName();
+					String label = toLabel(name);
+					items.add(new StatesApiRawResponse.StatItem(label, name, value));
+				} catch (IllegalAccessException e) {
+					e.printStackTrace();
+				}
+			}
+
+			transformedStats.put(entry.getKey(), items);
+		}
+
+		StatesApiRawResponse raw = new StatesApiRawResponse();
+		StatesApiRawResponse.StatsWrapper wrapper = new StatesApiRawResponse.StatsWrapper();
+		wrapper.setStats(transformedStats);
+		raw.setData(wrapper);
+		return raw;
+	}
+
+	private String toLabel(String name) {
+		StringBuilder label = new StringBuilder();
+		for (char c : name.toCharArray()) {
+			if (Character.isUpperCase(c)) label.append(" ");
+			label.append(c);
+		}
+		String result = label.toString().trim();
+		return Character.toUpperCase(result.charAt(0)) + result.substring(1);
 	}
 
 //	public NftCollectionResponse getAiValuationOnLoad(ReservoirChain chain) {
