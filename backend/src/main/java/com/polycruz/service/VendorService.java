@@ -3,7 +3,10 @@ package com.polycruz.service;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
+import com.polycruz.pojo.*;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -23,24 +26,19 @@ import com.polycruz.pojo.TokenDetail;
 import com.polycruz.pojo.TokenResponse;
 import com.polycruz.pojo.TrendingApiResponse;
 import com.polycruz.pojo.TrendingMintsResponse;
+import com.polycruz.exception.PolycruzSystemException;
 import org.springframework.web.client.RestTemplate;
-
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-@Retryable(
-	    value = { HttpServerErrorException.GatewayTimeout.class },
-	    maxAttempts = 3,
-	    backoff = @Backoff(delay = 2000)
-	)
+@Retryable(value = { HttpServerErrorException.GatewayTimeout.class }, maxAttempts = 3, backoff = @Backoff(delay = 2000))
 public class VendorService {
 
 	private final RestTemplate restTemplate;
 	private final ReservoirApiProperties apiProperties;
-	
-	
+
 	public TrendingApiResponse getTrendingCollections(String period, String sortBy) {
 		String url = apiProperties.getTrendingApi();
 		Map<String, String> params = new HashMap<>();
@@ -50,8 +48,8 @@ public class VendorService {
 		return restTemplate.getForObject(url, TrendingApiResponse.class, params);
 	}
 
-
-	public SalesApiResponse getSalesData(long startTimestamp, String sortBy, String sortDirection, int limit, int offset,
+	public SalesApiResponse getSalesData(long startTimestamp, String sortBy, String sortDirection, int limit,
+			int offset,
 			boolean includeTokenMetadata) {
 		String url = apiProperties.getTopSales();
 
@@ -67,16 +65,16 @@ public class VendorService {
 	}
 
 	public TrendingMintsResponse getTrendingMints(String period, int limit, String sortDirection, int offset) {
-        String url = apiProperties.getTrendingMints();
+		String url = apiProperties.getTrendingMints();
 
-        Map<String, Object> uriVariables = new HashMap<>();
-        uriVariables.put("period", period);
-        uriVariables.put("limit", limit);
-        uriVariables.put("sortDirection", sortDirection);
-        uriVariables.put("offset", offset);
+		Map<String, Object> uriVariables = new HashMap<>();
+		uriVariables.put("period", period);
+		uriVariables.put("limit", limit);
+		uriVariables.put("sortDirection", sortDirection);
+		uriVariables.put("offset", offset);
 
-        return restTemplate.getForObject(url, TrendingMintsResponse.class, uriVariables);
-    }
+		return restTemplate.getForObject(url, TrendingMintsResponse.class, uriVariables);
+	}
 
 	public CollectionsV7Response fetchCollections(String contract) {
 		URI uri = UriComponentsBuilder.fromHttpUrl(apiProperties.getCollectionsV7Url()).queryParam("contract", contract)
@@ -104,7 +102,7 @@ public class VendorService {
 
 		URI uri = UriComponentsBuilder.fromHttpUrl(baseUrl).queryParam("includeTokenMetadata", includeTokenMetadata)
 				.build().toUri();
-		
+
 		ResponseEntity<NftSalesResponse> response = restTemplate.exchange(uri, HttpMethod.GET, null,
 				new ParameterizedTypeReference<>() {
 				});
@@ -127,7 +125,7 @@ public class VendorService {
 		}
 
 		URI uri = builder.build().toUri();
-		
+
 		ResponseEntity<ActivityResponse> response = restTemplate.exchange(uri, HttpMethod.GET, null,
 				new ParameterizedTypeReference<>() {
 				});
@@ -135,32 +133,50 @@ public class VendorService {
 	}
 
 	public TokenDetail fetchTokenDetails(String currency) {
-        String baseUrl = apiProperties.getTokenDetailUrl();
+		String baseUrl = apiProperties.getTokenDetailUrl();
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(baseUrl);
-        if (currency != null && !currency.isBlank()) {
-            builder.queryParam("currency", currency);
-        }
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(baseUrl);
+		if (currency != null && !currency.isBlank()) {
+			builder.queryParam("currency", currency);
+		}
 
-        URI uri = builder.build().toUri();
-        
-        ResponseEntity<TokenDetail> response = restTemplate.exchange(
-                uri,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<>() {}
-        );
-        return response.getBody();
-    }
-	
+		URI uri = builder.build().toUri();
+
+		ResponseEntity<TokenDetail> response = restTemplate.exchange(
+				uri,
+				HttpMethod.GET,
+				null,
+				new ParameterizedTypeReference<>() {
+				});
+		return response.getBody();
+	}
+
 	public ChainStatsResponse getChainStats() {
-        String url = apiProperties.getStatsUrl();
+		String url = apiProperties.getStatsUrl();
 
-        Map<String, Object> uriVariables = new HashMap<>();
-     
+		Map<String, Object> uriVariables = new HashMap<>();
 
-        return restTemplate.getForObject(url, ChainStatsResponse.class, uriVariables);
-    }
+		return restTemplate.getForObject(url, ChainStatsResponse.class, uriVariables);
+	}
 
+	public NftPriceEstimateResponse getNftPriceEstimate(String blockchain, String address, String tokenId) {
+		String url = String.format(
+				"https://api.unleashnfts.com/api/v1/nft/%s/%s/%s/price-estimate",
+				blockchain, address, tokenId);
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("x-api-key", "tuF8lxipeseroFej7cowemOsaplfripoCugaKesosPa");
+		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+
+		HttpEntity<Void> entity = new HttpEntity<>(headers);
+
+		ResponseEntity<NftPriceEstimateResponse> response = restTemplate.exchange(
+				url,
+				HttpMethod.GET,
+				entity,
+				NftPriceEstimateResponse.class);
+
+		return response.getBody();
+	}
 
 }
