@@ -26,7 +26,7 @@ const FilterSidebar = () => {
 
   const handleChange = (value: string) => {
     let newFilters: string[];
-    if (selectedActivityFilter.includes(value)) {
+    if (selectedActivityFilter.includes(value) && value !== 'sale') {
       newFilters = selectedActivityFilter.filter((v) => v !== value);
     } else {
       newFilters = [...selectedActivityFilter, value];

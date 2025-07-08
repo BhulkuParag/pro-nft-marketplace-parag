@@ -33,6 +33,9 @@ import {
   fetchStandoutHoldersDataSuccess,
   fetchStandoutHoldersDataFailure,
   fetchStandoutHoldersDataRequest,
+  fetchTraitsDataSuccess,
+  fetchTraitsDataFailure,
+  fetchTraitsDataRequest,
 } from './collectionSlice';
 import {
   fetchItemDetailData,
@@ -42,6 +45,7 @@ import {
   fetchAiValuationLoadData,
   fetchStandoutData,
   fetchStandoutHoldersData,
+  fetchTraitsDataData,
 } from '../../api/collection';
 import type { RootState } from '../../app/store';
 import type { PayloadAction } from '@reduxjs/toolkit';
@@ -236,6 +240,21 @@ function* handleStandoutHoldersData(
   }
 }
 
+function* handleTraitsDataData() {
+  try {
+    const chainId: string = yield select(
+      (state: RootState) => state.home.chainId
+    );
+    const data: SagaReturnType<typeof fetchTraitsDataData> = yield call(
+      fetchTraitsDataData,
+      chainId
+    );
+    yield put(fetchTraitsDataSuccess(data));
+  } catch (error: any) {
+    yield put(fetchTraitsDataFailure(error.message ?? 'Something went wrong'));
+  }
+}
+
 export function* collectionSaga() {
   yield takeLatest(fetchItemsDataRequest.type, handleFetchItemsData);
   yield takeLatest(
@@ -268,4 +287,5 @@ export function* collectionSaga() {
     fetchStandoutHoldersDataRequest.type,
     handleStandoutHoldersData
   );
+  yield takeLatest(fetchTraitsDataRequest.type, handleTraitsDataData);
 }

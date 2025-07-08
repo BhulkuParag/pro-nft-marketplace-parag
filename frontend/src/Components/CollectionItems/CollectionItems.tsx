@@ -15,8 +15,15 @@ import FilterSidebar from './FilterSidebar';
 
 const CollectionItems = () => {
   const param = useParams();
-  const { loading, tabData, limit, grid, itemSearchValue, itemSearchData, itemFilterOpen } =
-    useSelector((state: RootState) => state.collection);
+  const {
+    loading,
+    tabData,
+    limit,
+    grid,
+    itemSearchValue,
+    itemSearchData,
+    itemFilterOpen,
+  } = useSelector((state: RootState) => state.collection);
   const dispatch = useDispatch();
   const { ref, inView } = useInView({
     threshold: 0,
@@ -55,40 +62,39 @@ const CollectionItems = () => {
         }}
       >
         {itemFilterOpen && <FilterSidebar />}
-        {loading ? (
+        <div className="w-full">
           <Box
             sx={{
-              width: '100%',
-              height: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
+              display: 'grid',
+              //justifyContent: 'space-between',
+              gridTemplateColumns: {
+                xs: 'repeat(2, minmax(0, 1fr))',
+                sm: 'repeat(4, minmax(0, 1fr))',
+                md: 'repeat(6, minmax(0, 1fr))',
+                lg: `repeat(${grid}, minmax(0, 1fr))`,
+              },
+              gap: 1.5,
             }}
           >
-            <Loading />
+            {itemsToShow?.map((item: any) => (
+              <ItemCard item={item} key={item?.token?.id} />
+            ))}
           </Box>
-        ) : (
-          <div className='w-full'>
+          <Box ref={ref} sx={{ height: 1 }}></Box>
+          {loading && (
             <Box
               sx={{
-                display: 'grid',
-                //justifyContent: 'space-between',
-                gridTemplateColumns: {
-                  xs: 'repeat(2, minmax(0, 1fr))',
-                  sm: 'repeat(4, minmax(0, 1fr))',
-                  md: 'repeat(6, minmax(0, 1fr))',
-                  lg: `repeat(${grid}, minmax(0, 1fr))`,
-                },
-                gap: 1.5,
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
-              {itemsToShow?.map((item: any) => (
-                <ItemCard item={item} key={item?.token?.id} />
-              ))}
+              <Loading />
             </Box>
-            <Box ref={ref} sx={{ height: 1 }}></Box>
-          </div>
-        )}
+          )}
+        </div>
       </Box>
     </Box>
   );

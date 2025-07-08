@@ -35,7 +35,7 @@ const Sidebar: React.FC = () => {
         }}
       >
         <Link
-          to="/home"
+          to="/Home"
           className="px-3 flex items-center gap-x-3 text-xl font-bold"
           style={{
             textDecoration: 'none',
@@ -57,8 +57,8 @@ const Sidebar: React.FC = () => {
             fontSize={26}
             fontWeight={600}
             display={open ? 'block' : 'none'}
-            color={isActive('/home') ? 'text.primary' : 'transparent'}
-            sx={{ transition: 'color 0.2s' }}
+            // color={isActive('/home') ? 'text.primary' : 'transparent'}
+            sx={{ transition: 'color 0.2s', color: 'text.primary' }}
           >
             Polycruz
           </Typography>
@@ -85,7 +85,7 @@ const Sidebar: React.FC = () => {
                     color: '#fff',
                   },
                   // borderRadius: 2,
-                  borderRight: '1px solid ',
+                  borderRight: '2px solid',
                   borderColor: active ? 'custom.SideBar' : 'transparent',
                   transition: 'all 0.2s',
                 }}
@@ -97,7 +97,7 @@ const Sidebar: React.FC = () => {
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: active ? 'text.primary' : '',
+                    color: active ? '#A49BFF' : '',
                     transition: 'color 0.2s',
                   }}
                 >

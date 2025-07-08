@@ -9,7 +9,13 @@ import {
   useMediaQuery,
   Divider,
 } from '@mui/material';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { FaDiscord } from 'react-icons/fa';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import KeyboardArrowDownSharpIcon from '@mui/icons-material/KeyboardArrowDownSharp';
@@ -22,13 +28,17 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import LanguageIcon from '@mui/icons-material/Language';
 import ShareIcon from '@mui/icons-material/Share';
 import type { RootState } from '../../app/store';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import '../../Components/CollectionOverview/CollectionBanner.css';
-import EthIcon from '../../assets/icons/others/EthIcon';
+import { fetchOverviewDetailDataRequest } from '../../features/collection/collectionSlice';
+import { useParams } from 'react-router-dom';
+// import EthIcon from '../../assets/icons/others/EthIcon';
 
 const BannerSection = () => {
   const theme = useTheme();
+  const param = useParams();
+  const dispatch = useDispatch();
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   const [liked, setLiked] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -36,6 +46,21 @@ const BannerSection = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const tabData = useSelector((state: RootState) => state.collection.tabData);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(tabData?.overview?.id);
+      setCopied(true);
+    } catch (err) {
+      console.error('Failed to copy text:', err);
+    }
+  };
+
+  const handleFullRefresh = () => {
+    window.location.reload();
+    setRefreshed(true);
+    // dispatch(fetchOverviewDetailDataRequest(param?.id as string));
+  };
 
   const bannerDetails = useMemo(() => {
     return [
@@ -65,7 +90,7 @@ const BannerSection = () => {
         royalties: tabData?.overview?.royalties?.bps,
       },
     ];
-  }, [tabData]);
+  }, [tabData.overview]);
 
   useEffect(() => {
     if (copied) {
@@ -319,7 +344,7 @@ const BannerSection = () => {
 
                   <Tooltip title="Click to Copy Address" arrow placement="top">
                     <IconButton
-                      onClick={() => setCopied(true)}
+                      onClick={handleCopy}
                       size="small"
                       style={{ padding: 0 }}
                     >
@@ -343,7 +368,7 @@ const BannerSection = () => {
                     </IconButton>
                   </Tooltip>
                   <Tooltip title="Refresh Metadata" arrow placement="top">
-                    <IconButton onClick={() => setRefreshed(true)} size="small">
+                    <IconButton onClick={handleFullRefresh} size="small">
                       {refreshed ? (
                         <CheckIcon
                           sx={{
@@ -700,7 +725,7 @@ const BannerSection = () => {
 
                   <Tooltip title="Click to Copy Address" arrow placement="top">
                     <IconButton
-                      onClick={() => setCopied(true)}
+                      onClick={handleCopy}
                       size="small"
                       style={{ padding: 0 }}
                     >
@@ -724,7 +749,7 @@ const BannerSection = () => {
                     </IconButton>
                   </Tooltip>
                   <Tooltip title="Refresh Metadata" arrow placement="top">
-                    <IconButton onClick={() => setRefreshed(true)} size="small">
+                    <IconButton onClick={handleFullRefresh} size="small">
                       {refreshed ? (
                         <CheckIcon
                           sx={{

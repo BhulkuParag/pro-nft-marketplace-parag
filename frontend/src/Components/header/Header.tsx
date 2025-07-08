@@ -571,7 +571,7 @@ export default function Header(): JSX.Element {
                 >
                   Connect
                 </Button> */}
-                <div className="justify-start items-center gap-2.5 hidden lg:flex w-[165px]">
+                <div className="justify-start items-center gap-2.5 hidden lg:flex w-[165px] h-">
                   <ConnectWalletButton />
                 </div>
                 <IconButton

@@ -165,7 +165,7 @@ const CollectionActivity = () => {
             Filter:
           </Typography>
 
-          {filters.map((f, idx) => (
+          {filters.map((f) => (
             <Chip
               variant="outlined"
               key={f.label + f.value}

@@ -49,7 +49,12 @@ const Compare = () => {
 
   const handleDelete = useCallback(
     (name: string) => {
-      dispatch(setCompareList(compareList.filter((col) => col.name !== name)));
+      if (compareList.length === 1) {
+        dispatch(setCompareList([]));
+      } else
+        dispatch(
+          setCompareList(compareList.filter((col) => col.name !== name))
+        );
     },
     [dispatch, compareList]
   );
@@ -82,109 +87,125 @@ const Compare = () => {
         />
       </Box>
 
-      <Box
-        sx={{
-          width: '100%',
-          overflowX: 'auto',
-          bgcolor: 'background.default',
-          borderRadius: 2,
-        }}
-      >
-        <TableContainer
-          component={Paper}
-          sx={{ bgcolor: 'background.default', boxShadow: 'none' }}
+      {compareList.length > 1 ? (
+        <Box
+          sx={{
+            width: '100%',
+            overflowX: 'auto',
+            bgcolor: 'background.default',
+            borderRadius: 2,
+          }}
         >
-          <Table>
-            <TableHead
-              sx={{
-                bgcolor: 'divider',
-                borderBottom: '1px solid',
-                borderColor: 'divider',
-              }}
-            >
-              <TableRow>
-                <TableCell
-                  sx={{
-                    color: 'text.primary',
-                    fontWeight: 600,
-                    minWidth: 180,
-                    border: 0,
-                  }}
-                >
-                  Collection Name
-                </TableCell>
-                {compareList?.map((col) => (
+          <TableContainer
+            component={Paper}
+            sx={{ bgcolor: 'background.default', boxShadow: 'none' }}
+          >
+            <Table>
+              <TableHead
+                sx={{
+                  bgcolor: 'divider',
+                  borderBottom: '1px solid',
+                  borderColor: 'divider',
+                }}
+              >
+                <TableRow>
                   <TableCell
-                    key={col?.name}
-                    align="center"
-                    sx={{ color: 'text.primary', fontWeight: 600, border: 0 }}
+                    sx={{
+                      color: 'text.primary',
+                      fontWeight: 600,
+                      minWidth: 180,
+                      border: 0,
+                    }}
                   >
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: 1,
-                      }}
+                    Collection Name
+                  </TableCell>
+                  {compareList?.map((col) => (
+                    <TableCell
+                      key={col?.name}
+                      align="center"
+                      sx={{ color: 'text.primary', fontWeight: 600, border: 0 }}
                     >
                       <Box
-                        component={'img'}
-                        src={col?.image}
-                        alt={col?.name}
                         sx={{
-                          width: 40,
-                          height: 40,
-                          mr: 1,
-                          objectFit: 'cover',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: 1,
                         }}
-                      />
-                      <Typography
-                        variant="subtitle1"
-                        sx={{ color: 'text.primary', fontWeight: 600 }}
                       >
-                        {col?.name}
-                      </Typography>
-                      <IconButton
-                        onClick={() => handleDelete(col?.name)}
-                        size="small"
-                        sx={{ ml: 1, color: 'text.secondary' }}
-                      >
-                        <DeleteIcon fontSize="small" />
-                      </IconButton>
-                    </Box>
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {statLabels.map((item) => (
-                <TableRow
-                  key={item.name}
-                  sx={{
-                    borderBottom: '1px solid',
-                    borderColor: 'divider',
-                  }}
-                >
-                  <TableCell
-                    sx={{ color: 'custom.grey01', fontWeight: 500, border: 0 }}
-                  >
-                    {item.label}
-                  </TableCell>
-                  {compareList?.map((col, idx) => (
-                    <TableCell
-                      key={col?.name + idx}
-                      align="center"
-                      sx={{ color: 'text.primary', border: 0 }}
-                    >
-                      {col[item.name] ?? ''}
+                        <Box
+                          component={'img'}
+                          src={col?.image}
+                          alt={col?.name}
+                          sx={{
+                            width: 40,
+                            height: 40,
+                            mr: 1,
+                            objectFit: 'cover',
+                          }}
+                        />
+                        <Typography
+                          variant="subtitle1"
+                          sx={{ color: 'text.primary', fontWeight: 600 }}
+                        >
+                          {col?.name}
+                        </Typography>
+                        <IconButton
+                          onClick={() => handleDelete(col?.name)}
+                          size="small"
+                          sx={{ ml: 1, color: 'text.secondary' }}
+                        >
+                          <DeleteIcon fontSize="small" />
+                        </IconButton>
+                      </Box>
                     </TableCell>
                   ))}
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Box>
+              </TableHead>
+              <TableBody>
+                {statLabels.map((item) => (
+                  <TableRow
+                    key={item.name}
+                    sx={{
+                      borderBottom: '1px solid',
+                      borderColor: 'divider',
+                    }}
+                  >
+                    <TableCell
+                      sx={{
+                        color: 'custom.grey01',
+                        fontWeight: 500,
+                        border: 0,
+                      }}
+                    >
+                      {item.label}
+                    </TableCell>
+                    {compareList?.map((col, idx) => (
+                      <TableCell
+                        key={col?.name + idx}
+                        align="center"
+                        sx={{ color: 'text.primary', border: 0 }}
+                      >
+                        {col[item.name] ?? ''}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
+      ) : (
+        <div className="w-full flex justify-center items-center">
+          <Typography
+            sx={{
+              color: 'text.primary',
+            }}
+          >
+            For comparison, Add minimum 2 Collection and maximum 5 Collection
+          </Typography>
+        </div>
+      )}
     </Box>
   );
 };

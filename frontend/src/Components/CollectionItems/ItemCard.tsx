@@ -222,6 +222,8 @@ const ItemCard = ({ item }: ItemCardProps) => {
                 >
                   {item?.token?.collection?.floorAskPrice?.amount?.decimal?.toFixed(
                     2
+                  ) || item?.token?.collection?.price?.amount?.decimal?.toFixed(
+                    2
                   )}
                 </Typography>
               </Box>

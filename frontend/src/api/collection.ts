@@ -134,3 +134,12 @@ export const fetchStandoutHoldersData = async (
   const response = await AXIOS.get<HoldersApiResponse>(url);
   return response.data?.data ?? {};
 };
+
+export const fetchTraitsDataData = async (
+  chainId?: string
+): Promise<any> => {
+  const url = buildApiUrl(API_CONFIG.ENDPOINTS.STANDOUT_HOLDERS, chainId, {
+  });
+  const response = await AXIOS.get<any>(url);
+  return response.data?.data ?? {};
+};

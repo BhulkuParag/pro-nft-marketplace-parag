@@ -1,5 +1,5 @@
 import { Box, Stack, Typography } from '@mui/material';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import Switch from '../../../@ui-component/Comman/Switch';
 import { setIsCardOrTable } from '../../features/home/homeSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,7 +11,7 @@ const SubHeader = () => {
 
   const handleSwitchOnChange = useCallback(() => {
     dispatch(setIsCardOrTable());
-  }, []);
+  }, [dispatch]);
 
   return (
     <Box
@@ -56,4 +56,4 @@ const SubHeader = () => {
   );
 };
 
-export default React.memo(SubHeader);
+export default SubHeader;

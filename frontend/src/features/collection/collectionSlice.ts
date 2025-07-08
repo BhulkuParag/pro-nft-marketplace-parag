@@ -47,6 +47,7 @@ interface CollectionState {
   aiValuationLoad: AiValuationLoad;
   itemSearchValue: string;
   itemSearchData: any[];
+  traitsData: { [key: string]: any };
   selectedActivityFilter: string[];
   activityFilters: ActivityFilterT[];
   // type:
@@ -67,6 +68,7 @@ const initialState: CollectionState = {
   includeMetadata: true,
   type: 'mint',
   standoutType: 'sale',
+  traitsData: {},
   contract: '',
   collection: '',
   itemFilterOpen: false,
@@ -406,6 +408,18 @@ const collectionSlice = createSlice({
         [state.activeTab]: { holders: {} },
       };
     },
+    fetchTraitsDataRequest: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    fetchTraitsDataSuccess: (state, action: PayloadAction<any>) => {
+      state.loading = false;
+      state.traitsData = action.payload;
+    },
+    fetchTraitsDataFailure: (state, action: PayloadAction<string>) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
     setActiveTab: (state, action: PayloadAction<string>) => {
       state.activeTab = action.payload;
     },
@@ -472,6 +486,9 @@ export const {
   fetchStandoutHoldersDataRequest,
   fetchStandoutHoldersDataSuccess,
   fetchStandoutHoldersDataFailure,
+  fetchTraitsDataRequest,
+  fetchTraitsDataSuccess,
+  fetchTraitsDataFailure,
   setActiveTab,
   setTabData,
   setCollection,
@@ -481,7 +498,7 @@ export const {
   setItemSearchValue,
   setItemSearchData,
   setSelectedActivityFilter,
-  setItemFilterOpen
+  setItemFilterOpen,
 } = collectionSlice.actions;
 
 export default collectionSlice.reducer;
