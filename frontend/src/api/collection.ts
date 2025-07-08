@@ -74,7 +74,7 @@ export const fetchItemDetailData = async (
 
 export const fetchActivityData = async (
   includeMetadata: boolean,
-  type: string,
+  type: string[],
   sortBy: string,
   chainId?: string
 ): Promise<ActivityType[]> => {

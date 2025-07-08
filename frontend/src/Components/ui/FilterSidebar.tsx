@@ -8,11 +8,15 @@ import {
   FormControlLabel,
   List,
   ListItem,
-  ListItemIcon,
+  // ListItemIcon,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../app/store';
+import {
+  fetchActivityDataRequest,
+  setSelectedActivityFilter,
+} from '../../features/collection/collectionSlice';
 
 const FilterSidebar = () => {
   const dispatch = useDispatch();
@@ -20,10 +24,22 @@ const FilterSidebar = () => {
     (state: RootState) => state.collection
   );
 
+  const handleChange = (value: string) => {
+    let newFilters: string[];
+    if (selectedActivityFilter.includes(value)) {
+      newFilters = selectedActivityFilter.filter((v) => v !== value);
+    } else {
+      newFilters = [...selectedActivityFilter, value];
+    }
+    dispatch(setSelectedActivityFilter(newFilters));
+    dispatch(fetchActivityDataRequest());
+  };
+
   return (
     <Box
       component={'div'}
       sx={{
+        minWidth: 'fit-content',
         width: '20%',
         height: '100%',
         backgroundColor: 'transparent !important',
@@ -37,6 +53,7 @@ const FilterSidebar = () => {
           height: '100%',
           p: 2,
           pl: 0.5,
+          pt: 2.5,
         }}
       >
         <Typography
@@ -72,6 +89,7 @@ const FilterSidebar = () => {
               backgroundColor: 'transparent !important',
             },
             '& .MuiAccordionDetails-root': {
+              paddingLeft: '8px',
               backgroundColor: 'transparent !important',
             },
           }}
@@ -93,6 +111,8 @@ const FilterSidebar = () => {
                   <FormControlLabel
                     control={
                       <Checkbox
+                        checked={selectedActivityFilter.includes(item.value)}
+                        onChange={() => handleChange(item.value)}
                         sx={{
                           color: 'text.primary',
                           '&.Mui-checked': {

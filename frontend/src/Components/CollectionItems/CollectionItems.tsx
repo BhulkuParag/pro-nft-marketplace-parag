@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Box } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,10 +11,11 @@ import Loading from '../../../@ui-component/Comman/Loading';
 import { useInView } from 'react-intersection-observer';
 import ItemCard from './ItemCard';
 import ItemFilterBar from './ItemFilterBar';
+import FilterSidebar from './FilterSidebar';
 
 const CollectionItems = () => {
   const param = useParams();
-  const { loading, tabData, limit, grid, itemSearchValue, itemSearchData } =
+  const { loading, tabData, limit, grid, itemSearchValue, itemSearchData, itemFilterOpen } =
     useSelector((state: RootState) => state.collection);
   const dispatch = useDispatch();
   const { ref, inView } = useInView({
@@ -44,25 +45,51 @@ const CollectionItems = () => {
   return (
     <Box sx={{ background: 'background.default', minHeight: '100vh' }}>
       <ItemFilterBar />
-      {loading && <Loading />}
       <Box
         sx={{
-          display: 'grid',
-          //justifyContent: 'space-between',
-          gridTemplateColumns: {
-            xs: 'repeat(2, minmax(0, 1fr))',
-            sm: 'repeat(4, minmax(0, 1fr))',
-            md: 'repeat(6, minmax(0, 1fr))',
-            lg: `repeat(${grid}, minmax(0, 1fr))`,
-          },
-          gap: 1.5,
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'start',
+          justifyContent: 'space-between',
         }}
       >
-        {itemsToShow?.map((item: any) => (
-          <ItemCard item={item} key={item?.token?.id} />
-        ))}
+        {itemFilterOpen && <FilterSidebar />}
+        {loading ? (
+          <Box
+            sx={{
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Loading />
+          </Box>
+        ) : (
+          <div className='w-full'>
+            <Box
+              sx={{
+                display: 'grid',
+                //justifyContent: 'space-between',
+                gridTemplateColumns: {
+                  xs: 'repeat(2, minmax(0, 1fr))',
+                  sm: 'repeat(4, minmax(0, 1fr))',
+                  md: 'repeat(6, minmax(0, 1fr))',
+                  lg: `repeat(${grid}, minmax(0, 1fr))`,
+                },
+                gap: 1.5,
+              }}
+            >
+              {itemsToShow?.map((item: any) => (
+                <ItemCard item={item} key={item?.token?.id} />
+              ))}
+            </Box>
+            <Box ref={ref} sx={{ height: 1 }}></Box>
+          </div>
+        )}
       </Box>
-      <Box ref={ref} sx={{ height: 1 }}></Box>
     </Box>
   );
 };

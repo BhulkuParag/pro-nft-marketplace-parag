@@ -95,13 +95,13 @@ function* handleFetchActivityData() {
     const chainId: string = yield select(
       (state: RootState) => state.home.chainId
     );
-    const { type, sortBy, includeMetadata } = yield select(
+    const { selectedActivityFilter, sortBy, includeMetadata } = yield select(
       (state: RootState) => state.collection
     );
     const data: SagaReturnType<typeof fetchActivityData> = yield call(
       fetchActivityData,
       includeMetadata,
-      type,
+      Object.values(selectedActivityFilter),
       sortBy,
       chainId
     );
@@ -151,9 +151,13 @@ function* handleAiValuationLoadData() {
   }
 }
 
-function* handleStandoutSaleData(action: PayloadAction<{ contract: string; type: string }>) {
+function* handleStandoutSaleData(
+  action: PayloadAction<{ contract: string; type: string }>
+) {
   try {
-    const chainId: string = yield select((state: RootState) => state.home.chainId);
+    const chainId: string = yield select(
+      (state: RootState) => state.home.chainId
+    );
     const data: SagaReturnType<typeof fetchStandoutData> = yield call(
       fetchStandoutData,
       action.payload.contract,
@@ -162,13 +166,19 @@ function* handleStandoutSaleData(action: PayloadAction<{ contract: string; type:
     );
     yield put(fetchStandoutSaleDataSuccess(data));
   } catch (error: any) {
-    yield put(fetchStandoutSaleDataFailure(error.message ?? 'Something went wrong'));
+    yield put(
+      fetchStandoutSaleDataFailure(error.message ?? 'Something went wrong')
+    );
   }
 }
 
-function* handleStandoutListingData(action: PayloadAction<{ contract: string; type: string }>) {
+function* handleStandoutListingData(
+  action: PayloadAction<{ contract: string; type: string }>
+) {
   try {
-    const chainId: string = yield select((state: RootState) => state.home.chainId);
+    const chainId: string = yield select(
+      (state: RootState) => state.home.chainId
+    );
     const data: SagaReturnType<typeof fetchStandoutData> = yield call(
       fetchStandoutData,
       action.payload.contract,
@@ -177,13 +187,19 @@ function* handleStandoutListingData(action: PayloadAction<{ contract: string; ty
     );
     yield put(fetchStandoutListingDataSuccess(data));
   } catch (error: any) {
-    yield put(fetchStandoutListingDataFailure(error.message ?? 'Something went wrong'));
+    yield put(
+      fetchStandoutListingDataFailure(error.message ?? 'Something went wrong')
+    );
   }
 }
 
-function* handleStandoutTransferData(action: PayloadAction<{ contract: string; type: string }>) {
+function* handleStandoutTransferData(
+  action: PayloadAction<{ contract: string; type: string }>
+) {
   try {
-    const chainId: string = yield select((state: RootState) => state.home.chainId);
+    const chainId: string = yield select(
+      (state: RootState) => state.home.chainId
+    );
     const data: SagaReturnType<typeof fetchStandoutData> = yield call(
       fetchStandoutData,
       action.payload.contract,
@@ -192,13 +208,19 @@ function* handleStandoutTransferData(action: PayloadAction<{ contract: string; t
     );
     yield put(fetchStandoutTransferDataSuccess(data));
   } catch (error: any) {
-    yield put(fetchStandoutTransferDataFailure(error.message ?? 'Something went wrong'));
+    yield put(
+      fetchStandoutTransferDataFailure(error.message ?? 'Something went wrong')
+    );
   }
 }
 
-function* handleStandoutHoldersData(action: PayloadAction<{ contract: string; type: string }>) {
+function* handleStandoutHoldersData(
+  action: PayloadAction<{ contract: string; type: string }>
+) {
   try {
-    const chainId: string = yield select((state: RootState) => state.home.chainId);
+    const chainId: string = yield select(
+      (state: RootState) => state.home.chainId
+    );
     const data: SagaReturnType<typeof fetchStandoutHoldersData> = yield call(
       fetchStandoutHoldersData,
       action.payload.contract,
@@ -208,7 +230,9 @@ function* handleStandoutHoldersData(action: PayloadAction<{ contract: string; ty
     );
     yield put(fetchStandoutHoldersDataSuccess(data));
   } catch (error: any) {
-    yield put(fetchStandoutHoldersDataFailure(error.message ?? 'Something went wrong'));
+    yield put(
+      fetchStandoutHoldersDataFailure(error.message ?? 'Something went wrong')
+    );
   }
 }
 
@@ -232,7 +256,16 @@ export function* collectionSaga() {
     handleAiValuationLoadData
   );
   yield takeLatest(fetchStandoutSaleDataRequest.type, handleStandoutSaleData);
-  yield takeLatest(fetchStandoutListingDataRequest.type, handleStandoutListingData);
-  yield takeLatest(fetchStandoutTransferDataRequest.type, handleStandoutTransferData);
-  yield takeLatest(fetchStandoutHoldersDataRequest.type, handleStandoutHoldersData);
+  yield takeLatest(
+    fetchStandoutListingDataRequest.type,
+    handleStandoutListingData
+  );
+  yield takeLatest(
+    fetchStandoutTransferDataRequest.type,
+    handleStandoutTransferData
+  );
+  yield takeLatest(
+    fetchStandoutHoldersDataRequest.type,
+    handleStandoutHoldersData
+  );
 }

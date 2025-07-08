@@ -10,7 +10,10 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import AGGridTable from '../../../@ui-component/Comman/AGGridTable';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchActivityDataRequest } from '../../features/collection/collectionSlice';
+import {
+  fetchActivityDataRequest,
+  setSelectedActivityFilter,
+} from '../../features/collection/collectionSlice';
 import type { RootState } from '../../app/store';
 import Loading from '../../../@ui-component/Comman/Loading';
 import SearchBar from '../ui/SearchBar';
@@ -30,10 +33,14 @@ const CollectionActivity = () => {
   const [filterOpen, setFilterOpen] = useState(false);
   const theme = useTheme();
   const dispatch = useDispatch();
-  const { activeTab, columnDefsMap, tabData, loading } = useSelector(
-    (state: RootState) => state.collection
-  );
-  const [filters, setFilters] = React.useState(FILTERS);
+  const {
+    activeTab,
+    columnDefsMap,
+    tabData,
+    loading,
+    activityFilters,
+    selectedActivityFilter,
+  } = useSelector((state: RootState) => state.collection);
 
   const columnDefs = useMemo(
     () => columnDefsMap[activeTab],
@@ -42,11 +49,21 @@ const CollectionActivity = () => {
 
   const rowData = useMemo(() => tabData[activeTab] ?? [], [tabData, activeTab]);
 
-  const handleDelete = (idx: number) => {
-    setFilters((prev) => prev.filter((_, i) => i !== idx));
+  const filters = activityFilters.filter((f) =>
+    selectedActivityFilter.includes(f.value)
+  );
+
+  const handleDelete = (value: string) => {
+    if (value === 'sale') return;
+    const newFilters = selectedActivityFilter.filter((v) => v !== value);
+    dispatch(setSelectedActivityFilter(newFilters));
+    dispatch(fetchActivityDataRequest());
   };
 
-  const handleClear = () => setFilters([]);
+  const handleClear = () => {
+    dispatch(setSelectedActivityFilter(['sale']));
+    dispatch(fetchActivityDataRequest());
+  };
 
   useEffect(() => {
     dispatch(fetchActivityDataRequest());
@@ -76,6 +93,7 @@ const CollectionActivity = () => {
         <Box
           sx={{
             display: 'flex',
+            flexWrap: 'wrap-reverse',
             alignItems: 'center',
             gap: 1.5,
           }}
@@ -104,9 +122,9 @@ const CollectionActivity = () => {
               // borderRadius: 2,
               // px: 1.5,
               // py: 0.5,
-              minWidth: 320,
+              // minWidth: 300,
               // bgcolor: 'background.default',
-              // flex: 1,
+              flex: 1,
               maxWidth: 400,
             }}
           >
@@ -179,7 +197,7 @@ const CollectionActivity = () => {
                   },
                 },
               }}
-              onDelete={() => handleDelete(idx)}
+              onDelete={() => handleDelete(f.value)}
               deleteIcon={
                 <CloseIcon sx={{ color: 'text.secondary', fontSize: 18 }} />
               }
@@ -215,18 +233,36 @@ const CollectionActivity = () => {
           )}
         </Box>
       </Box>
-      {loading ? (
-        <Loading />
-      ) : (
-        <div className="w-full h-full flex items-start justify-between">
-          {filterOpen && <FilterSidebar />}
+      <Box
+        sx={{
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'start',
+          justifyContent: 'space-between',
+        }}
+      >
+        {filterOpen && <FilterSidebar />}
+        {loading ? (
+          <Box
+            sx={{
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Loading />
+          </Box>
+        ) : (
           <AGGridTable
             columnDefs={columnDefs}
             rowData={rowData}
             // loading={loading}
           />
-        </div>
-      )}
+        )}
+      </Box>
     </Box>
   );
 };

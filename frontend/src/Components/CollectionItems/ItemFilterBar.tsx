@@ -3,10 +3,12 @@ import SearchContainer from './SearchContainer';
 import DropDown from '../../../@ui-component/Comman/DropDown';
 import BarFilterIcon from '../Icon/BarFilterIcon';
 import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../app/store';
+import { setItemFilterOpen } from '../../features/collection/collectionSlice';
 
 const ItemFilterBar = () => {
+  const dispatch = useDispatch();
   const tabData = useSelector((state: RootState) => state.collection.tabData);
   const itemsFilter = useMemo(() => {
     return [
@@ -37,6 +39,10 @@ const ItemFilterBar = () => {
     console.log(newValue);
   };
 
+  const handleOnClick = () => {
+    dispatch(setItemFilterOpen())
+  };
+
   return (
     <Box
       sx={{
@@ -65,6 +71,7 @@ const ItemFilterBar = () => {
             mb: 0.2,
           }}
           className="group"
+          onClick={handleOnClick}
         >
           {/* <FilterListIcon /> */}
           <BarFilterIcon

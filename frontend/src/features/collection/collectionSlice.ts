@@ -42,11 +42,12 @@ interface CollectionState {
   limit: number;
   grid: string;
   type: string;
+  itemFilterOpen: boolean;
   standoutType: string;
   aiValuationLoad: AiValuationLoad;
   itemSearchValue: string;
   itemSearchData: any[];
-  selectedActivityFilter: string;
+  selectedActivityFilter: string[];
   activityFilters: ActivityFilterT[];
   // type:
   //   | 'ask_cancel'
@@ -68,14 +69,17 @@ const initialState: CollectionState = {
   standoutType: 'sale',
   contract: '',
   collection: '',
+  itemFilterOpen: false,
   itemSearchValue: '',
   itemSearchData: [],
-  selectedActivityFilter: 'sale',
+  selectedActivityFilter: ['sale'],
   activityFilters: [
     { label: 'Sale', value: 'sale' },
     { label: 'List', value: 'list' },
     { label: 'Transfer', value: 'transfer' },
     { label: 'Mint', value: 'mint' },
+    { label: 'Bid', value: 'bid' },
+    { label: 'Ask', value: 'ask' },
   ],
   sortBy: 'floorAskPrice',
   grid: '8',
@@ -101,7 +105,8 @@ const initialState: CollectionState = {
         headerName: 'Collection Name',
         field: 'name',
         minWidth: 300,
-        flex: 2,
+        maxWidth: 300,
+        flex: 1,
         cellRenderer: CollectionCell,
         valueGetter: (params: ICellRendererParams<ActivityType>) =>
           params.data?.collection.collectionName ?? '-',
@@ -430,8 +435,11 @@ const collectionSlice = createSlice({
     setItemSearchData: (state, action: PayloadAction<any[]>) => {
       state.itemSearchData = action.payload;
     },
-    setSelectedActivityFilter: (state, action: PayloadAction<string>) => {
+    setSelectedActivityFilter: (state, action: PayloadAction<string[]>) => {
       state.selectedActivityFilter = action.payload;
+    },
+    setItemFilterOpen: (state) => {
+      state.itemFilterOpen = !state.itemFilterOpen;
     },
   },
 });
@@ -472,7 +480,8 @@ export const {
   setLimit,
   setItemSearchValue,
   setItemSearchData,
-  setSelectedActivityFilter
+  setSelectedActivityFilter,
+  setItemFilterOpen
 } = collectionSlice.actions;
 
 export default collectionSlice.reducer;
