@@ -48,7 +48,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
             className={`nft-thumbnail group-hover:scale-105`}
             loading="lazy"
             src={item?.token?.image}
-            alt={`NFT #${item?.id}`}
+            alt={`token image`}
             sx={{
               // borderBottomLeftRadius: '0px',
               // borderTopRightRadius: '12px',
@@ -109,16 +109,16 @@ const ItemCard = ({ item }: ItemCardProps) => {
               e.preventDefault();
               e.stopPropagation();
               setSelectedIds((ids) =>
-                ids.includes(item.id)
-                  ? ids.filter((id) => id !== item.id)
-                  : [...ids, item.id]
+                ids.includes(item?.id)
+                  ? ids.filter((id) => id !== item?.id)
+                  : [...ids, item?.id]
               );
             }}
             sx={{
               position: 'absolute',
               top: 12,
               right: 12,
-              background: selectedIds.includes(item.id)
+              background: selectedIds.includes(item?.id)
                 ? '#1976d2'
                 : 'rgba(30,32,38,0.8)',
               color: '#fff',
@@ -126,11 +126,11 @@ const ItemCard = ({ item }: ItemCardProps) => {
               height: 36,
               boxShadow: 1,
               '&:hover': {
-                background: selectedIds.includes(item.id) ? '#1976d2' : '#333',
+                background: selectedIds.includes(item?.id) ? '#1976d2' : '#333',
               },
             }}
           >
-            {selectedIds.includes(item.id) ? <CheckIcon /> : <AddIcon />}
+            {selectedIds.includes(item?.id) ? <CheckIcon /> : <AddIcon />}
           </IconButton>
         </Box>
 

@@ -3,19 +3,20 @@ import WhatshotIcon from '@mui/icons-material/Whatshot';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import SearchListCard from '../ui/SearchListCard';
 import { Box, Chip, Typography } from '@mui/material';
-import type { GlobalSearchT } from '../../types/home';
+import type { RootState } from '../../app/store';
+import { useSelector } from 'react-redux';
+import Loading from '../../../@ui-component/Comman/Loading';
 
-interface GlobalSearchContentProps {
-  data?: GlobalSearchT[];
-}
-
-const GlobalSearchContent = ({ data }: GlobalSearchContentProps) => {
+const GlobalSearchContent = () => {
   const mockSuggestions = [
     'Axie Infinity',
     'Azuki',
     'Cool Cats',
     'CryptoPunks',
   ];
+
+  const data = useSelector((state: RootState) => state.home.globalSearchData);
+
   return (
     <Box
       sx={{
@@ -72,7 +73,7 @@ const GlobalSearchContent = ({ data }: GlobalSearchContentProps) => {
         ))}
       </Box>
       <Box
-      component={'div'}
+        component={'div'}
         sx={{
           maxHeight: '40vh',
           overflowY: 'scroll',
@@ -107,9 +108,11 @@ const GlobalSearchContent = ({ data }: GlobalSearchContentProps) => {
           flexDirection={'column'}
           gap={0}
         >
-          {data?.map((item) => (
-            <SearchListCard key={item.id} data={item} />
-          ))}
+          {!data  ? (
+            <Loading />
+          ) : (
+            data?.map((item) => <SearchListCard key={item.id} data={item} />)
+          )}
         </Box>
       </Box>
     </Box>

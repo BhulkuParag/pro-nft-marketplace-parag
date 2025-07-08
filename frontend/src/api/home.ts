@@ -86,7 +86,7 @@ export const fetchGlobalSearchData = async (
   chainId?: string
 ): Promise<GlobalSearchT[]> => {
   const url = buildApiUrl(API_CONFIG.ENDPOINTS.COLLECTION_SEARCH, chainId, {
-    search: gloabalSearchValue,
+    prefix: gloabalSearchValue,
   });
   const response = await AXIOS.get<GlobalSearchApiResponse>(url);
   return response.data?.data?.collections ?? [];

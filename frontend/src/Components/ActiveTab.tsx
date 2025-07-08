@@ -1,8 +1,7 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import AGGridTable from '../../@ui-component/Comman/AGGridTable';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../app/store';
-import {} from '../features/home/homeSlice';
 import { Box } from '@mui/material';
 import Loading from '../../@ui-component/Comman/Loading';
 import ItemCard from './CollectionItems/ItemCard';
@@ -15,7 +14,7 @@ const ActiveTab = () => {
     () => columnDefsMap[activeTab],
     [columnDefsMap, activeTab]
   );
-  const rowData = useMemo(() => tabData[activeTab] ?? [], [tabData, activeTab]);
+  const rowData = useMemo(() => tabData[activeTab], [tabData, activeTab]);
 
   //   useEffect(() => {
   //     const socket = io('ws://localhost:8080'); // io
@@ -36,11 +35,15 @@ const ActiveTab = () => {
   if (loading) return <Loading />;
 
   return (
-    <Box>
+    <Box
+      sx={{
+        width: '100%',
+      }}
+    >
       {selectedToggleValue === '0' ? (
         <AGGridTable
-          columnDefs={columnDefs}
-          rowData={rowData}
+          columnDefs={columnDefs || []}
+          rowData={rowData ?? []}
           // loading={loading}
         />
       ) : (
@@ -55,11 +58,11 @@ const ActiveTab = () => {
               lg: `repeat(8, minmax(0, 1fr))`,
             },
             gap: 1.5,
-            pt: 2.5
+            pt: 2.5,
           }}
         >
           {rowData?.map((item: any) => (
-            <ItemCard item={item} key={item?.token?.id} />
+            <ItemCard item={item?.token?.id} key={item?.token?.id} />
           ))}
         </Box>
       )}
@@ -67,4 +70,4 @@ const ActiveTab = () => {
   );
 };
 
-export default React.memo(ActiveTab);
+export default ActiveTab;

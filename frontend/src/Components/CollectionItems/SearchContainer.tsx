@@ -1,11 +1,11 @@
-import CustomSearch from '../ui/CustomSearch';
+// import CustomSearch from '../ui/CustomSearch';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../app/store';
 import {
   setItemSearchData,
   setItemSearchValue,
 } from '../../features/collection/collectionSlice';
-import SearchContent from './SearchContent';
+// import SearchContent from './SearchContent';
 import { useCallback } from 'react';
 import SearchBar from '../ui/SearchBar';
 

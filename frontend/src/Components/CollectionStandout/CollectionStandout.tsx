@@ -1,9 +1,8 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Avatar from '@mui/material/Avatar';
 import './CollectionStandout.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import {
   fetchStandoutHoldersDataRequest,
   fetchStandoutListingDataRequest,
@@ -12,7 +11,7 @@ import {
 } from '../../features/collection/collectionSlice';
 import type { RootState } from '../../app/store';
 import { useParams } from 'react-router-dom';
-import { formatDistanceToNow } from 'date-fns';
+import StandoutCard from './StandoutCard';
 const ethIcon = 'https://marketplace.polycruz.io/eth.svg';
 
 const cardStyle = {
@@ -39,7 +38,7 @@ const headerStyle = {
   py: 1.5,
 };
 
-const itemStyle = {
+export const itemStyle = {
   width: '100%',
   display: 'flex',
   alignItems: 'center',
@@ -80,11 +79,11 @@ const CollectionStandout = () => {
     }
   }, [param]);
 
-  const standout = tabData?.standout ?? {};
-  const topHolders = standout?.holders?.topTraders ?? [];
-  const topSales = standout?.sale?.activities ?? [];
-  const listings = standout?.listing?.activities ?? [];
-  const transfers = standout?.transfer?.activities ?? [];
+  const standout = useMemo(() => tabData?.standout ?? {}, []);
+  const topHolders = useMemo(() => standout?.holders?.topTraders ?? [], []);
+  const topSales = useMemo(() => standout?.sale?.activities ?? [], []);
+  const listings = useMemo(() => standout?.listing?.activities ?? [], []);
+  const transfers = useMemo(() => standout?.transfer?.activities ?? [], []);
 
   return (
     <Box
@@ -160,53 +159,7 @@ const CollectionStandout = () => {
           </Typography>
         </Box>
         {topSales?.map((item: any) => (
-          <Box key={item?.token?.tokenId} sx={itemStyle} className="item">
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-              <Avatar
-                src={item?.fillSource?.icon}
-                alt={String(item?.token?.tokenId)}
-                sx={{ width: 36, height: 36, mr: 1 }}
-                variant="square"
-              />
-              <div className="flex flex-col">
-                <Typography
-                  variant="subtitle1"
-                  sx={{ color: 'text.primary', fontWeight: 500, fontSize: 16 }}
-                >
-                  {item?.collection?.collectionName ?? ''}
-                </Typography>
-                <Typography
-                  variant="subtitle2"
-                  sx={{ color: 'custom.grey01', fontWeight: 500, fontSize: 14 }}
-                >
-                  {'#' + (item?.token?.tokenId ?? '')}
-                </Typography>
-              </div>
-            </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-end',
-              }}
-            >
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <Typography
-                  sx={{ color: 'text.primary', fontWeight: 500, fontSize: 14 }}
-                >
-                  {item?.price?.amount?.decimal}
-                </Typography>
-                <img src={ethIcon} alt="ETH" width={9} height={9} />
-              </Box>
-              <Typography sx={{ color: '#bfc3d0', fontSize: 12 }}>
-                {item?.timestamp
-                  ? formatDistanceToNow(new Date(item.timestamp * 1000), {
-                      addSuffix: true,
-                    })
-                  : ''}
-              </Typography>
-            </Box>
-          </Box>
+          <StandoutCard item={item} key={item?.token?.tokenId} />
         ))}
       </Box>
       {/* Listing Card */}
@@ -220,53 +173,7 @@ const CollectionStandout = () => {
           </Typography>
         </Box>
         {listings?.map((item: any) => (
-          <Box key={item?.token?.tokenId} sx={itemStyle} className="item">
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-              <Avatar
-                src={item?.fillSource?.icon}
-                alt={String(item?.token?.tokenId)}
-                sx={{ width: 36, height: 36, mr: 1 }}
-                variant="square"
-              />
-              <div className="flex flex-col">
-                <Typography
-                  variant="subtitle1"
-                  sx={{ color: 'text.primary', fontWeight: 500, fontSize: 16 }}
-                >
-                  {item?.collection?.collectionName ?? ''}
-                </Typography>
-                <Typography
-                  variant="subtitle2"
-                  sx={{ color: 'custom.grey01', fontWeight: 500, fontSize: 14 }}
-                >
-                  {'#' + (item?.token?.tokenId ?? '')}
-                </Typography>
-              </div>
-            </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-end',
-              }}
-            >
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <Typography
-                  sx={{ color: 'text.primary', fontWeight: 500, fontSize: 14 }}
-                >
-                  {item?.price?.amount?.decimal}
-                </Typography>
-                <img src={ethIcon} alt="ETH" width={9} height={9} />
-              </Box>
-              <Typography sx={{ color: '#bfc3d0', fontSize: 12 }}>
-                {item?.timestamp
-                  ? formatDistanceToNow(new Date(item.timestamp * 1000), {
-                      addSuffix: true,
-                    })
-                  : ''}
-              </Typography>
-            </Box>
-          </Box>
+          <StandoutCard item={item} key={item?.token?.tokenId} />
         ))}
       </Box>
       {/* Transfer Card */}
@@ -280,53 +187,7 @@ const CollectionStandout = () => {
           </Typography>
         </Box>
         {transfers?.map((item: any) => (
-          <Box key={item?.token?.tokenId} sx={itemStyle} className="item">
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-              <Avatar
-                src={item?.fillSource?.icon}
-                alt={String(item?.token?.tokenId)}
-                sx={{ width: 36, height: 36, mr: 1 }}
-                variant="square"
-              />
-              <div className="flex flex-col">
-                <Typography
-                  variant="subtitle1"
-                  sx={{ color: 'text.primary', fontWeight: 500, fontSize: 16 }}
-                >
-                  {item?.collection?.collectionName ?? ''}
-                </Typography>
-                <Typography
-                  variant="subtitle2"
-                  sx={{ color: 'custom.grey01', fontWeight: 500, fontSize: 14 }}
-                >
-                  {'#' + (item?.token?.tokenId ?? '')}
-                </Typography>
-              </div>
-            </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-end',
-              }}
-            >
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <Typography
-                  sx={{ color: 'text.primary', fontWeight: 500, fontSize: 14 }}
-                >
-                  {item?.price?.amount?.decimal}
-                </Typography>
-                <img src={ethIcon} alt="ETH" width={9} height={9} />
-              </Box>
-              <Typography sx={{ color: '#bfc3d0', fontSize: 12 }}>
-                {item?.timestamp
-                  ? formatDistanceToNow(new Date(item.timestamp * 1000), {
-                      addSuffix: true,
-                    })
-                  : ''}
-              </Typography>
-            </Box>
-          </Box>
+          <StandoutCard item={item} key={item?.token?.tokenId} />
         ))}
       </Box>
     </Box>

@@ -1,32 +1,31 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 import {
   Box,
   Menu,
   MenuItem,
   Button,
-  Divider,
+  // Divider,
   InputBase,
   useMediaQuery,
   useTheme,
   Typography,
 } from '@mui/material';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+// import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import BarFilterIcon from '../../Components/Icon/BarFilterIcon';
-import ToggleButton from '../../../@ui-component/Comman/ToggleButton';
+// import ToggleButton from '../../../@ui-component/Comman/ToggleButton';
 import DateFilter from '../../../@ui-component/Comman/DateFilter';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../app/store';
 import liveData from '../../assets/images/gif/live.gif';
 import {
-  fetchTrendingDataRequest,
   setTime,
-  setVolume_sales,
+  // setVolume_sales,
 } from '../../features/home/homeSlice';
 import SearchBar from './SearchBar';
 
 const TableFilterBar = () => {
   const dispatch = useDispatch();
-  const { volume_sales, time, chainId, timeOptions } = useSelector(
+  const { time, timeOptions } = useSelector(
     (state: RootState) => state.home
   );
   const theme = useTheme();
@@ -35,16 +34,16 @@ const TableFilterBar = () => {
     null
   );
 
-  const handleOnChange = useCallback(
-    (_: React.SyntheticEvent, value: string) => {
-      if (volume_sales !== value) dispatch(setVolume_sales(value));
-    },
-    [dispatch, volume_sales]
-  );
+  // const handleOnChange = useCallback(
+  //   (_: React.SyntheticEvent, value: string) => {
+  //     if (volume_sales !== value) dispatch(setVolume_sales(value));
+  //   },
+  //   [dispatch, volume_sales]
+  // );
 
-  const handleOnChangeForMobile = (value: string) => {
-    dispatch(setVolume_sales(value));
-  };
+  // const handleOnChangeForMobile = (value: string) => {
+  //   dispatch(setVolume_sales(value));
+  // };
 
   const handleDateFilterChange = useCallback(
     (date: string) => {
@@ -52,10 +51,6 @@ const TableFilterBar = () => {
     },
     [dispatch, time]
   );
-
-  useEffect(() => {
-    dispatch(fetchTrendingDataRequest());
-  }, [time, volume_sales]);
 
   return (
     <Box

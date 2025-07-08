@@ -24,6 +24,11 @@ import type {
 } from '../../types/collection';
 import { formatDistanceToNow } from 'date-fns';
 
+interface ActivityFilterT {
+  label: string;
+  value: string;
+}
+
 interface CollectionState {
   activeTab: string;
   itemDetails: ItemDetails;
@@ -41,6 +46,8 @@ interface CollectionState {
   aiValuationLoad: AiValuationLoad;
   itemSearchValue: string;
   itemSearchData: any[];
+  selectedActivityFilter: string;
+  activityFilters: ActivityFilterT[];
   // type:
   //   | 'ask_cancel'
   //   | 'sale'
@@ -63,6 +70,13 @@ const initialState: CollectionState = {
   collection: '',
   itemSearchValue: '',
   itemSearchData: [],
+  selectedActivityFilter: 'sale',
+  activityFilters: [
+    { label: 'Sale', value: 'sale' },
+    { label: 'List', value: 'list' },
+    { label: 'Transfer', value: 'transfer' },
+    { label: 'Mint', value: 'mint' },
+  ],
   sortBy: 'floorAskPrice',
   grid: '8',
   limit: 50,
@@ -416,6 +430,9 @@ const collectionSlice = createSlice({
     setItemSearchData: (state, action: PayloadAction<any[]>) => {
       state.itemSearchData = action.payload;
     },
+    setSelectedActivityFilter: (state, action: PayloadAction<string>) => {
+      state.selectedActivityFilter = action.payload;
+    },
   },
 });
 
@@ -454,7 +471,8 @@ export const {
   setGrid,
   setLimit,
   setItemSearchValue,
-  setItemSearchData
+  setItemSearchData,
+  setSelectedActivityFilter
 } = collectionSlice.actions;
 
 export default collectionSlice.reducer;

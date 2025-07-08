@@ -10,8 +10,8 @@ import { useCallback } from 'react';
 
 const SearchContainer = () => {
   const dispatch = useDispatch();
-  const { globalSearchValue, globalSearchData } = useSelector(
-    (state: RootState) => state.home
+  const globalSearchValue = useSelector(
+    (state: RootState) => state.home.globalSearchValue
   );
 
   const handleSearchOnChange = useCallback(
@@ -20,16 +20,16 @@ const SearchContainer = () => {
       dispatch(setGlobalSearchValue(value));
       dispatch(fetchGlobalSearchDataRequest(value));
     },
-    [globalSearchValue]
+    [dispatch, globalSearchValue]
   );
 
   return (
     <CustomSearch
       search={globalSearchValue}
-      placeholder='Search by collection, NFT, and user'
+      placeholder="Search by collection, NFT, and user"
       handleSearchOnChange={handleSearchOnChange}
     >
-      <GlobalSearchContent data={globalSearchData} />
+      <GlobalSearchContent />
     </CustomSearch>
   );
 };

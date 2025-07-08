@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   Box,
   Typography,
@@ -16,6 +16,7 @@ import Loading from '../../../@ui-component/Comman/Loading';
 import SearchBar from '../ui/SearchBar';
 import liveData from '../../assets/images/gif/live.gif';
 import BarFilterIcon from '../Icon/BarFilterIcon';
+import FilterSidebar from '../ui/FilterSidebar';
 
 // Example filter state
 const FILTERS = [
@@ -25,7 +26,8 @@ const FILTERS = [
   { label: 'Event', value: 'mint' },
 ];
 
-const CollectionActivity: React.FC = () => {
+const CollectionActivity = () => {
+  const [filterOpen, setFilterOpen] = useState(false);
   const theme = useTheme();
   const dispatch = useDispatch();
   const { activeTab, columnDefsMap, tabData, loading } = useSelector(
@@ -68,6 +70,7 @@ const CollectionActivity: React.FC = () => {
           mb: 2,
           bgcolor: 'background.default',
           flexWrap: 'wrap',
+          position: 'relative',
         }}
       >
         <Box
@@ -85,8 +88,9 @@ const CollectionActivity: React.FC = () => {
               mb: 0.2,
             }}
             className="group"
+            disableTouchRipple
+            onClick={() => setFilterOpen((prev) => !prev)}
           >
-            {/* <FilterListIcon /> */}
             <BarFilterIcon
               className={`w-5 h-5 group-hover:fill-[#A49BFF] fill-[#777E90] }`}
             />
@@ -214,14 +218,17 @@ const CollectionActivity: React.FC = () => {
       {loading ? (
         <Loading />
       ) : (
-        <AGGridTable
-          columnDefs={columnDefs}
-          rowData={rowData}
-          // loading={loading}
-        />
+        <div className="w-full h-full flex items-start justify-between">
+          {filterOpen && <FilterSidebar />}
+          <AGGridTable
+            columnDefs={columnDefs}
+            rowData={rowData}
+            // loading={loading}
+          />
+        </div>
       )}
     </Box>
   );
 };
 
-export default React.memo(CollectionActivity);
+export default CollectionActivity;
