@@ -134,29 +134,15 @@ public class ReservoirController {
         return new ResponseEntity<>(transformer.transform(vendorService.fetchTokenDetails(chain,currency)), HttpStatus.OK);
     }
      
-//     @GetMapping("/stats")
-//     @Operation(summary = "chain stats v1")
-//     public ResponseEntity<TechResponse<ChainStatsResponse>> getChainStats(@RequestParam ReservoirChain chain
-//
-//     ) {
-//         return new ResponseEntity<>(transformer.transform(vendorService.getChainStats(chain)), HttpStatus.OK);
-//     }
 
     @GetMapping("/stats")
     @Operation(summary = "Fetch chain stats")
-    public ResponseEntity<TechResponse<StatesApiRawResponse>> getChainStats(
+    public ResponseEntity<TransformedStatsResponse> getChainStats(
             @RequestParam ReservoirChain chain) {
 
-        StatesApiResponse original = vendorService.getStatesStats(chain);
-        StatesApiRawResponse transformed = vendorService.transformStatsToListFormat(original);
+        TransformedStatsResponse original = vendorService.getStatesStats(chain);
 
-        TechResponse<StatesApiRawResponse> response = new TechResponse<>();
-        response.setData(transformed);
-        response.setStatusCode("success");
-        response.setMessage("Request successful");
-        response.setTimestamp(LocalDateTime.now());
-
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(original, HttpStatus.OK);
     }
      
      @GetMapping("/collection/v1")

@@ -7,6 +7,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import com.polycruz.pojo.*;
+import com.polycruz.utils.StatsTransformer;
+
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.retry.annotation.Backoff;
@@ -191,48 +193,14 @@ public class VendorService {
 		}
 	}
 
-//	public ChainStatsResponse getChainStats(ReservoirChain chain) {
-//		String url = chain.getBaseUrl() + apiProperties.getStatsUrl();
-//
-//		Map<String, Object> uriVariables = new HashMap<>();
-//
-//		return restTemplate.getForObject(url, ChainStatsResponse.class, uriVariables);
-//	}
-
-	public StatesApiResponse getStatesStats(ReservoirChain chain) {
+	public TransformedStatsResponse getStatesStats(ReservoirChain chain) {
 		String url = chain.getBaseUrl() + apiProperties.getStatsUrl();
-		return restTemplate.getForObject(url, StatesApiResponse.class);
+	
+		ReservoirRawStatsResponse response  = restTemplate.getForObject(url, ReservoirRawStatsResponse.class);
+		return StatsTransformer.transform(response);
+
 	}
 
-	public StatesApiRawResponse transformStatsToListFormat(StatesApiResponse input) {
-		Map<String, TimeFrame> originalStats = input.getData().getStats();
-		Map<String, List<StatesApiRawResponse.StatItem>> transformedStats = new HashMap<>();
-
-		for (Map.Entry<String, TimeFrame> entry : originalStats.entrySet()) {
-			List<StatesApiRawResponse.StatItem> items = new ArrayList<>();
-			Field[] fields = entry.getValue().getClass().getDeclaredFields();
-
-			for (Field field : fields) {
-				field.setAccessible(true);
-				try {
-					Object value = field.get(entry.getValue());
-					String name = field.getName();
-					String label = toLabel(name);
-					items.add(new StatesApiRawResponse.StatItem(label, name, value));
-				} catch (IllegalAccessException e) {
-					e.printStackTrace();
-				}
-			}
-
-			transformedStats.put(entry.getKey(), items);
-		}
-
-		StatesApiRawResponse raw = new StatesApiRawResponse();
-		StatesApiRawResponse.StatsWrapper wrapper = new StatesApiRawResponse.StatsWrapper();
-		wrapper.setStats(transformedStats);
-		raw.setData(wrapper);
-		return raw;
-	}
 
 	private String toLabel(String name) {
 		StringBuilder label = new StringBuilder();
@@ -244,12 +212,6 @@ public class VendorService {
 		return Character.toUpperCase(result.charAt(0)) + result.substring(1);
 	}
 
-//	public NftCollectionResponse getAiValuationOnLoad(ReservoirChain chain) {
-//		String url = chain.getBaseUrl() + apiProperties.getAiValuationonLoad();
-//		;
-//
-//		return restTemplate.getForObject(url, NftCollectionResponse.class);
-//	}
 	
 	public NftCollectionResponse getAiValuationOnLoad(ReservoirChain chain) {
 	    String url = chain.getBaseUrl() + apiProperties.getAiValuationonLoad();
