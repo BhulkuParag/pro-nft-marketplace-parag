@@ -33,7 +33,7 @@ const TitleContainer = styled(Box)(({ theme }) => ({
 const CollectionOverview = () => {
   const params = useParams();
   const dispatch = useDispatch();
-  const { tabData } = useSelector((state: RootState) => state.collection);
+  const tabData = useSelector((state: RootState) => state.collection.tabData);
 
   useEffect(() => {
     if (params.id) dispatch(fetchOverviewDetailDataRequest(params?.id));
@@ -46,6 +46,7 @@ const CollectionOverview = () => {
         value: tabData?.overview?.volume['_1day'],
         change: '+12.5%',
         isPositive: true,
+        wantIcon: true,
         icon: (
           <Tooltip title="Info" arrow placement="top">
             <IconButton
@@ -68,6 +69,7 @@ const CollectionOverview = () => {
         value: '0.45',
         change: '-2.3%',
         isPositive: false,
+        wantIcon: true,
         icon: (
           <Tooltip title="Info" arrow placement="top">
             <IconButton
@@ -90,6 +92,7 @@ const CollectionOverview = () => {
         value: tabData?.overview?.floorSale['_1day'],
         change: '-2.3%',
         isPositive: false,
+        wantIcon: true,
         icon: (
           <Tooltip title="Info" arrow placement="top">
             <IconButton
@@ -242,12 +245,14 @@ const CollectionOverview = () => {
                 </TitleContainer>
 
                 <StatValue>
-                  <img
-                    src="https://marketplace.polycruz.io/eth.svg"
-                    alt="ETH"
-                    width={16}
-                    height={16}
-                  />
+                  {stat.wantIcon && (
+                    <img
+                      src="https://marketplace.polycruz.io/eth.svg"
+                      alt="ETH"
+                      width={9}
+                      height={9}
+                    />
+                  )}
                   <Typography
                     variant="h6"
                     component="h6"

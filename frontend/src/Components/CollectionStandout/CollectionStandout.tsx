@@ -218,7 +218,7 @@ const itemStyle = {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  backgroundColor: 'rgb(28, 28, 28)',
+  backgroundColor: 'background.default',
   borderTop: '0.5px solid rgb(100, 116, 139)',
   px: 1.5,
   py: 1,
@@ -257,7 +257,7 @@ const CollectionStandout = () => {
         {topHolders.map((item, idx) => (
           <Box key={idx} sx={itemStyle} className="item">
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-              <Typography sx={{ color: '#fff', fontWeight: 500, fontSize: 14 }}>
+              <Typography sx={{ color: 'text.primary', fontWeight: 500, fontSize: 14 }}>
                 {' '}
                 {item.id}{' '}
               </Typography>
@@ -271,7 +271,7 @@ const CollectionStandout = () => {
             >
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                 <Typography
-                  sx={{ color: '#fff', fontWeight: 500, fontSize: 14 }}
+                  sx={{ color: 'text.primary', fontWeight: 500, fontSize: 14 }}
                 >
                   {item.price}
                 </Typography>
@@ -313,7 +313,7 @@ const CollectionStandout = () => {
                 sx={{ width: 36, height: 36, mr: 1 }}
                 variant="square"
               />
-              <Typography sx={{ color: '#fff', fontWeight: 500, fontSize: 14 }}>
+              <Typography sx={{ color: 'text.primary', fontWeight: 500, fontSize: 14 }}>
                 {' '}
                 {item.id}{' '}
               </Typography>
@@ -327,7 +327,7 @@ const CollectionStandout = () => {
             >
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                 <Typography
-                  sx={{ color: '#fff', fontWeight: 500, fontSize: 14 }}
+                  sx={{ color: 'text.primary', fontWeight: 500, fontSize: 14 }}
                 >
                   {item.price}
                 </Typography>
@@ -363,7 +363,7 @@ const CollectionStandout = () => {
                 sx={{ width: 36, height: 36, mr: 1 }}
                 variant="square"
               />
-              <Typography sx={{ color: '#fff', fontWeight: 500, fontSize: 14 }}>
+              <Typography sx={{ color: 'text.primary', fontWeight: 500, fontSize: 14 }}>
                 {' '}
                 {item.id}{' '}
               </Typography>
@@ -377,7 +377,7 @@ const CollectionStandout = () => {
             >
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                 <Typography
-                  sx={{ color: '#fff', fontWeight: 500, fontSize: 14 }}
+                  sx={{ color: 'text.primary', fontWeight: 500, fontSize: 14 }}
                 >
                   {item.price}
                 </Typography>
@@ -413,7 +413,7 @@ const CollectionStandout = () => {
                 sx={{ width: 36, height: 36, mr: 1 }}
                 variant="square"
               />
-              <Typography sx={{ color: '#fff', fontWeight: 500, fontSize: 14 }}>
+              <Typography sx={{ color: 'text.primary', fontWeight: 500, fontSize: 14 }}>
                 {' '}
                 {item.id}{' '}
               </Typography>
@@ -427,7 +427,7 @@ const CollectionStandout = () => {
             >
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                 <Typography
-                  sx={{ color: '#fff', fontWeight: 500, fontSize: 14 }}
+                  sx={{ color: 'text.primary', fontWeight: 500, fontSize: 14 }}
                 >
                   {item.price}
                 </Typography>

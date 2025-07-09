@@ -10,8 +10,8 @@ const SubHeader = () => {
   const isCheck = useSelector((state: RootState) => state.home.isCardOrTable);
 
   const handleSwitchOnChange = useCallback(() => {
-    dispatch(setIsCardOrTable(!isCheck));
-  }, [isCheck]);
+    dispatch(setIsCardOrTable());
+  }, []);
 
   return (
     <Box

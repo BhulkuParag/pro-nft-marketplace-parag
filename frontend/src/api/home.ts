@@ -1,3 +1,4 @@
+import type { GlobalSearchT } from '../types/home';
 import type { NftSalesT, RowData, TopMintData } from '../types/table';
 import AXIOS from './axios';
 
@@ -22,6 +23,12 @@ interface TopSalesApiResponse {
 interface MintRankingApiResponse {
   data?: {
     mints?: TopMintData[];
+  };
+}
+
+interface GlobalSearchApiResponse {
+  data?: {
+    collections?: GlobalSearchT[];
   };
 }
 
@@ -61,4 +68,14 @@ export const fetchMintRankingData = async (
     `/api/v1/reservoir/trending-mints?period=${period}&sortBy=${sortBy}`
   );
   return response.data?.data?.mints ?? [];
+};
+
+export const fetchGlobalSearchData = async (
+  chain: number,
+  gloabalSearchValue: string,
+): Promise<GlobalSearchT[]> => {
+  const response = await AXIOS.get<GlobalSearchApiResponse>(
+    `/api/v1/reservoir/collection/search?chainId=${chain}&prefix=${gloabalSearchValue}`
+  );
+  return response.data?.data?.collections ?? [];
 };
