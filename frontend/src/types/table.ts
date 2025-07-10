@@ -88,7 +88,8 @@ export interface NftSalesT {
 
 export interface TopSalesT {
   id: string;
-  token: {
+  timestamp?: string;
+  token?: {
     name: string;
     image: string;
     contract: string;

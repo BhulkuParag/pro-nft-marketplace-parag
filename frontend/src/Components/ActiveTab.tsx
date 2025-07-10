@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import AGGridTable from '../../@ui-component/Comman/AGGridTable';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../app/store';
@@ -6,14 +6,15 @@ import { Box } from '@mui/material';
 import Loading from '../../@ui-component/Comman/Loading';
 import ItemCard from './CollectionItems/ItemCard';
 
-const ActiveTab = () => {
-  const { activeTab, tabData, columnDefsMap, loading, selectedToggleValue } =
-    useSelector((state: RootState) => state.home);
+interface ActiveTabProps {
+  columnDefs: any;
+}
 
-  const columnDefs = useMemo(
-    () => columnDefsMap[activeTab],
-    [columnDefsMap, activeTab]
+const ActiveTab = ({ columnDefs }: ActiveTabProps) => {
+  const { activeTab, tabData, loading, selectedToggleValue } = useSelector(
+    (state: RootState) => state.home
   );
+
   const rowData = useMemo(() => tabData[activeTab], [tabData, activeTab]);
 
   //   useEffect(() => {
@@ -70,4 +71,4 @@ const ActiveTab = () => {
   );
 };
 
-export default ActiveTab;
+export default React.memo(ActiveTab);

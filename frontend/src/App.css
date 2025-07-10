@@ -38,6 +38,9 @@
   border-top-color: transparent !important;
   border-left-color: transparent !important;
   border-right-color: transparent !important;
+  color: #99a1af;
+  font-family: Inter, sans-serif;
+  font-weight: normal;
 }
 
 .ag-row {

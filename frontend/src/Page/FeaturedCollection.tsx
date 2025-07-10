@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, Paper, IconButton, useTheme } from '@mui/material';
+import { Box, Typography, IconButton, useTheme } from '@mui/material';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
@@ -11,16 +11,13 @@ interface CollectionCardProps {
   floorPrice: string;
   priceChange: string;
   priceChangePositive?: boolean;
+  onNext?: () => void;
+  onPrev?: () => void;
+  showPrev?: boolean;
+  showNext?: boolean;
 }
 
-const CollectionCard: React.FC<
-  CollectionCardProps & {
-    onNext?: () => void;
-    onPrev?: () => void;
-    showPrev?: boolean;
-    showNext?: boolean;
-  }
-> = ({
+const CollectionCard: React.FC<CollectionCardProps> = React.memo(({
   image,
   name,
   verified,
@@ -55,9 +52,20 @@ const CollectionCard: React.FC<
           width: '100%',
           height: '100%',
           minHeight: 180,
-          background: `url(${image}) center center/cover no-repeat`,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
-      />
+      >
+        <img
+          src={image}
+          alt={name}
+          width={320}
+          height={180}
+          loading="lazy"
+          style={{ objectFit: 'cover', width: '100%', height: 180, borderRadius: 8 }}
+        />
+      </Box>
       {/* Carousel arrows */}
       {showPrev && (
         <IconButton
@@ -130,6 +138,7 @@ const CollectionCard: React.FC<
               width={14}
               height={14}
               style={{ marginRight: 2, verticalAlign: 'middle' }}
+              loading="lazy"
             />
             {floorPrice}
           </Typography>
@@ -149,7 +158,8 @@ const CollectionCard: React.FC<
       </Box>
     </Box>
   );
-};
+});
+CollectionCard.displayName = 'CollectionCard';
 
 const featuredCollections = [
   {
@@ -193,7 +203,7 @@ const topMovers = [
   },
 ];
 
-const FeateursCollection: React.FC = () => {
+const FeaturedCollection: React.FC = () => {
   const [featuredIdx, setFeaturedIdx] = React.useState(0);
   const [moverIdx, setMoverIdx] = React.useState(0);
 
@@ -204,7 +214,6 @@ const FeateursCollection: React.FC = () => {
         gap: 3,
         width: '100%',
         flexWrap: { xs: 'wrap', md: 'nowrap' },
-        // mt: 2,
         p: 2,
         px: { xs: 2, lg: 3 },
       }}
@@ -261,4 +270,4 @@ const FeateursCollection: React.FC = () => {
   );
 };
 
-export default FeateursCollection;
+export default FeaturedCollection;

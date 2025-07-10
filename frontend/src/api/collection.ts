@@ -137,7 +137,7 @@ export const fetchStandoutHoldersData = async (
 
 export const fetchTraitsDataData = async (
   chainId?: string
-): Promise<any> => {
+): Promise<string[]> => {
   const url = buildApiUrl(API_CONFIG.ENDPOINTS.STANDOUT_HOLDERS, chainId, {
   });
   const response = await AXIOS.get<any>(url);

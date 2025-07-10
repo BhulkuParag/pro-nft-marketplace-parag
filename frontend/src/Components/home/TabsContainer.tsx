@@ -54,7 +54,7 @@ const TabContainer = () => {
         // icon: <IoMdHeartEmpty className="text-xl" />,
       },
       top_mint_ranking: {
-        label: 'Mint Ranking',
+        label: 'Top Mint Ranking',
         value: 'top_mint_ranking',
         content: <TopMInitRanking />,
         // icon: <BsCollection className="text-xl" />,
@@ -130,4 +130,4 @@ const TabContainer = () => {
   );
 };
 
-export default React.memo(TabContainer);
+export default TabContainer;

@@ -18,10 +18,10 @@ const SubHeader = () => {
       display={'flex'}
       justifyContent={'space-between'}
       flexWrap={'wrap'}
-      marginBlock={3}
+      marginBlock={1}
       alignItems={'center'}
       sx={{
-        padding: { xs: 2, md: 3 },
+        padding: { xs: 2, md: '14px 26px' },
         gap: { xs: 2, md: 4 },
       }}
     >
