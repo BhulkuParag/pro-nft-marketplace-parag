@@ -1,9 +1,12 @@
 package com.polycruz.service;
 
 import java.net.URI;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.polycruz.pojo.*;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +17,7 @@ import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.polycruz.config.ReservoirApiProperties;
+import com.polycruz.exception.PolycruzSystemException;
 import com.polycruz.pojo.ActivityResponse;
 import com.polycruz.pojo.ChainStatsResponse;
 import com.polycruz.pojo.CollectionsV7Response;
@@ -39,8 +43,8 @@ public class VendorService {
 
 	private final RestTemplate restTemplate;
 	private final ReservoirApiProperties apiProperties;
-	
-	
+
+
 	public TrendingApiResponse getTrendingCollections(String period, String sortBy) {
 		String url = apiProperties.getTrendingApi();
 		Map<String, String> params = new HashMap<>();
@@ -104,7 +108,7 @@ public class VendorService {
 
 		URI uri = UriComponentsBuilder.fromHttpUrl(baseUrl).queryParam("includeTokenMetadata", includeTokenMetadata)
 				.build().toUri();
-		
+
 		ResponseEntity<NftSalesResponse> response = restTemplate.exchange(uri, HttpMethod.GET, null,
 				new ParameterizedTypeReference<>() {
 				});
@@ -127,7 +131,7 @@ public class VendorService {
 		}
 
 		URI uri = builder.build().toUri();
-		
+
 		ResponseEntity<ActivityResponse> response = restTemplate.exchange(uri, HttpMethod.GET, null,
 				new ParameterizedTypeReference<>() {
 				});
@@ -143,7 +147,7 @@ public class VendorService {
         }
 
         URI uri = builder.build().toUri();
-        
+
         ResponseEntity<TokenDetail> response = restTemplate.exchange(
                 uri,
                 HttpMethod.GET,
@@ -152,15 +156,128 @@ public class VendorService {
         );
         return response.getBody();
     }
-	
+
 	public ChainStatsResponse getChainStats() {
         String url = apiProperties.getStatsUrl();
 
         Map<String, Object> uriVariables = new HashMap<>();
-     
+
 
         return restTemplate.getForObject(url, ChainStatsResponse.class, uriVariables);
     }
+
+//	public NftCollectionResponse getAiValuationOnLoad(ReservoirChain chain) {
+//		String url = chain.getBaseUrl() + apiProperties.getAiValuationonLoad();
+//		;
+//
+//		return restTemplate.getForObject(url, NftCollectionResponse.class);
+//	}
+
+	public NftCollectionResponse getAiValuationOnLoad(ReservoirChain chain) {
+	    String url = chain.getBaseUrl() + apiProperties.getAiValuationonLoad();
+
+	    try {
+	        return restTemplate.getForObject(url, NftCollectionResponse.class);
+	    } catch (HttpClientErrorException | HttpServerErrorException e) {
+	        String errorBody = e.getResponseBodyAsString();
+	        System.err.println("HTTP error while fetching AI valuation: " + e.getStatusCode() + " - " + errorBody);
+	        throw new PolycruzSystemException(
+	            String.format("HTTP error while fetching AI valuation: %s", errorBody)
+	        );
+	    } catch (ResourceAccessException e) {
+	        // Typically indicates connection timeout or unreachable host
+	        throw new PolycruzSystemException("Network error accessing AI valuation endpoint: " + e.getMessage());
+	    } catch (Exception e) {
+	        // Fallback for unexpected errors
+	        throw new PolycruzSystemException("Unexpected error occurred while fetching AI valuation: " + e.getMessage());
+	    }
+	}
+
+
+	public TopTradersResponse fetchTopTraders(ReservoirChain chain, String period) {
+		String url = chain.getBaseUrl() + apiProperties.getTopTrader();
+		Map<String, Object> uriVariables = new HashMap<>();
+		uriVariables.put("period", period);
+		return restTemplate.getForObject(url, TopTradersResponse.class, uriVariables);
+	}
+
+	public ActivityResponse fetchActivities(ReservoirChain chain, String collection, String sale) {
+		String url = chain.getBaseUrl() + apiProperties.getCollectionActivity(); // e.g.,
+																					// https://api.reservoir.tools/collections/activity/v6
+
+		URI uri = UriComponentsBuilder.fromHttpUrl(url).queryParam("collection", collection).queryParam("types", sale)
+				.build().encode().toUri();
+
+		System.out.println("Final URI: " + uri);
+
+		return restTemplate.getForObject(uri, ActivityResponse.class);
+	}
+
+	public CollectionSearchResponse fetchCollectionsSearch(ReservoirChain chain, String prefix) {
+		String url = chain.getBaseUrl() + apiProperties.getCollectionSearch(); // e.g.,
+																				// https://api.reservoir.tools/collections/activity/v6
+		chain.getChainId();
+
+		URI uri = UriComponentsBuilder.fromHttpUrl(url).queryParam("chains", chain.getChainId()).queryParam("prefix", prefix)
+				.build().encode().toUri();
+
+
+		System.out.println("uri " + uri);
+
+		return restTemplate.getForObject(uri, CollectionSearchResponse.class);
+	}
+
+	public List<String> fetchChain() {
+		return Arrays.stream(ReservoirChain.values()).map(Enum::name).collect(Collectors.toList());
+
+	}
+
+	public String callUnleashApi(String cleanPath, Map<String, String> queryParams) {
+		String url = BASE_URL + cleanPath;
+
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
+		if (queryParams != null) {
+			queryParams.forEach(builder::queryParam);
+		}
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("X-API-KEY", API_KEY);
+		headers.setContentType(MediaType.APPLICATION_JSON);
+
+		HttpEntity<?> entity = new HttpEntity<>(headers);
+
+		ResponseEntity<String> response = restTemplate.exchange(
+				builder.toUriString(),
+				HttpMethod.GET,
+				entity,
+				String.class
+		);
+
+		return response.getBody();
+	}
+
+	public NftPriceEstimateResponse getNftPriceEstimate(String blockchain, String address, String tokenId) {
+		String url = String.format(
+				"https://api.unleashnfts.com/api/v1/nft/%s/%s/%s/price-estimate",
+				blockchain, address, tokenId
+		);
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("x-api-key", "tuF8lxipeseroFej7cowemOsaplfripoCugaKesosPa");
+		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+
+		HttpEntity<Void> entity = new HttpEntity<>(headers);
+
+		ResponseEntity<NftPriceEstimateResponse> response = restTemplate.exchange(
+				url,
+				HttpMethod.GET,
+				entity,
+				NftPriceEstimateResponse.class
+		);
+
+		return response.getBody();
+	}
+
 
 
 }
