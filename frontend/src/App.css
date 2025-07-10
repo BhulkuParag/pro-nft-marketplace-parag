@@ -35,6 +35,9 @@
   border-top: none !important;
   border-left: none !important;
   border-right: none !important;
+  border-top-color: transparent !important;
+  border-left-color: transparent !important;
+  border-right-color: transparent !important;
 }
 
 .ag-row {

@@ -6,9 +6,21 @@ import {
   IconButton,
 } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
+import { useDispatch, useSelector } from 'react-redux';
+import type { RootState } from '../app/store';
+import { useEffect } from 'react';
+import { fetchAiValuationLoadDataRequest } from '../features/collection/collectionSlice';
 
 const AiValuation = () => {
   const theme = useTheme();
+  const dispatch = useDispatch();
+  const aiValuationLoad = useSelector(
+    (state: RootState) => state.collection.aiValuationLoad
+  );
+  const tabData = useSelector(
+    (state: RootState) => state.collection.tabData
+  );
+
   const card = [
     {
       token: {
@@ -27,13 +39,18 @@ const AiValuation = () => {
       ],
     },
   ];
+
+  useEffect(() => {
+    dispatch(fetchAiValuationLoadDataRequest());
+  }, []);
+
   return (
     <Box component="div" sx={{ p: 1 }}>
       <Typography variant="h6" sx={{ color: theme.palette.text.primary }}>
         AI Powered Valuation By Token ID
       </Typography>
       <Typography variant="body2" sx={{ color: theme.palette.text.primary }}>
-        Total Supply:1
+        Total Supply: {aiValuationLoad?.nft_count ?? 0}
       </Typography>
       <Box
         component="div"
@@ -84,8 +101,8 @@ const AiValuation = () => {
             </div>
           </Box>
         </Box>
-        {card.map((item, index) => (
-          <Box key={index} sx={{ width: '100%' }}>
+        {tabData.ai_valuation && card.map((item, index) => (
+          <Box key={item.token.token_id} sx={{ width: '100%' }}>
             <CardContent>
               <Box
                 component="div"

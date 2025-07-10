@@ -6,32 +6,30 @@ import {
   setGlobalSearchValue,
 } from '../../features/home/homeSlice';
 import GlobalSearchContent from './GlobalSearchContent';
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 
 const SearchContainer = () => {
   const dispatch = useDispatch();
-  const { globalSearchValue, globalSearchData } = useSelector(
-    (state: RootState) => state.home
+  const globalSearchValue = useSelector(
+    (state: RootState) => state.home.globalSearchValue
   );
 
   const handleSearchOnChange = useCallback(
     (value: string) => {
       console.log(value);
       dispatch(setGlobalSearchValue(value));
+      dispatch(fetchGlobalSearchDataRequest(value));
     },
-    [globalSearchValue]
+    [dispatch, globalSearchValue]
   );
-
-  useEffect(() => {
-    dispatch(fetchGlobalSearchDataRequest(globalSearchValue));
-  }, [globalSearchValue]);
 
   return (
     <CustomSearch
       search={globalSearchValue}
+      placeholder="Search by collection, NFT, and user"
       handleSearchOnChange={handleSearchOnChange}
     >
-      <GlobalSearchContent data={globalSearchData} />
+      <GlobalSearchContent />
     </CustomSearch>
   );
 };

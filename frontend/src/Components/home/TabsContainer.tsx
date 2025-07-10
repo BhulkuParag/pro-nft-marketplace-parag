@@ -89,7 +89,7 @@ const TabContainer = () => {
       if (!newValue) return;
       dispatch(setSelectedToggleValue(newValue));
     },
-    []
+    [dispatch]
   );
 
   const handleToggleOnChangeForMobile = useCallback((newValue: string) => {

@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { fetchNftSalesDataRequest } from '../../features/home/homeSlice';
 import { useDispatch } from 'react-redux';
 import ActiveTab from '../ActiveTab';
@@ -30,4 +30,4 @@ const NftSales = () => {
   );
 };
 
-export default React.memo(NftSales);
+export default NftSales;

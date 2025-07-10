@@ -23,12 +23,18 @@ import {
 import type { ICellRendererParams } from 'ag-grid-community';
 import type { GlobalSearchT } from '../../types/home';
 
+export const formatK = (num: number): string => {
+  if (num >= 1000) {
+    return (num / 1000)?.toFixed(2)?.replace(/\.00$/, '') + 'k';
+  }
+  return num.toString();
+};
+
 interface Options {
   label: string;
   value: string;
   icon?: React.ReactNode;
 }
-
 interface HomeState {
   activeTab: string;
   tabData: { [key: string]: any };
@@ -36,28 +42,33 @@ interface HomeState {
   volume_sales: string;
   loading: boolean;
   time: string;
+  chainId: string;
+  timeCompare: string;
   timeOptions: Options[];
+  timeOptionsCompare: Options[];
   vauleSales: Options[];
   includeTokenMetadata: boolean;
   isCardOrTable: boolean;
   selectedToggleValue: string;
-  chainId: number;
   globalSearchValue: string;
   globalSearchData: GlobalSearchT[];
+  compareList: any[];
   error: string | null;
 }
 
 const initialState: HomeState = {
   activeTab: 'trending',
   time: '24h',
-  chainId: 1, // Default to Ethereum mainnet
+  timeCompare: '24h',
+  chainId: 'ETHEREUM', // Default to Ethereum mainnet
   globalSearchValue: '',
   globalSearchData: [],
+  compareList: [],
   includeTokenMetadata: true,
   selectedToggleValue: '0',
   isCardOrTable: false,
   timeOptions: [
-    { label: 'All Time', value: '30d' },
+    { label: 'All Time', value: 'all_time' },
     { label: '5m', value: '5m' },
     { label: '10m', value: '10m' },
     { label: '30m', value: '30m' },
@@ -66,6 +77,12 @@ const initialState: HomeState = {
     { label: '24h', value: '24h' },
     { label: '7d', value: '7d' },
     { label: '30d', value: '30d' },
+  ],
+  timeOptionsCompare: [
+    { label: '24h', value: '24h' },
+    { label: '30d', value: '30d' },
+    { label: '90d', value: '90d' },
+    { label: 'All Time', value: 'all_time' },
   ],
   vauleSales: [
     { label: 'Volume', value: 'volume' },
@@ -166,6 +183,8 @@ const initialState: HomeState = {
         cellRenderer: SupplyRenderer,
         headerComponent: AddSortIcon,
         // minWidth: 120,
+        valueGetter: (params: ICellRendererParams<RowData>) =>
+          params.data?.tokenCount ? formatK(params.data?.tokenCount) : '',
       },
     ],
     nft_sales: [
@@ -179,7 +198,7 @@ const initialState: HomeState = {
           params.node?.rowIndex != null ? params.node.rowIndex + 1 : '',
       },
       {
-        field: 'name',
+        field: 'nft_name',
         headerName: 'Collection Name',
         cellRenderer: CollectionRenderer,
         headerComponent: AddSortIcon,
@@ -195,7 +214,11 @@ const initialState: HomeState = {
         cellRenderer: NormalRenderer,
         // minWidth: 110,
         valueGetter: (params: ICellRendererParams<NftSalesT>) =>
-          params.data?.token.contract ?? '',
+          params.data?.token.contract
+            ? params.data?.token.contract.slice(0, 4) +
+              '...' +
+              params.data?.token.contract.slice(-4)
+            : '',
       },
       {
         field: 'tokenId',
@@ -220,7 +243,9 @@ const initialState: HomeState = {
         cellRenderer: NormalRenderer,
         // minWidth: 110,
         valueGetter: (params: ICellRendererParams<NftSalesT>) =>
-          params.data?.price.amount.usd.toFixed(0) ?? '',
+          params.data?.price?.amount?.usd?.toFixed(2)
+            ? '$' + params.data?.price?.amount?.usd?.toFixed(2)
+            : '',
       },
       {
         field: 'washTradingScore',
@@ -317,7 +342,7 @@ const initialState: HomeState = {
       },
       {
         field: 'name',
-        headerName: 'Collection',
+        headerName: 'Collection Name',
         cellRenderer: CollectionRenderer,
         flex: 2,
         minWidth: 300,
@@ -435,7 +460,7 @@ const homeSlice = createSlice({
     fetchGlobalSearchDataRequest: (state, action: PayloadAction<string>) => {
       state.loading = true;
       state.error = null;
-      // state.globalSearchValue = action.payload;
+      state.globalSearchValue = action.payload;
     },
     fetchGlobalSearchDataSuccess: (
       state,
@@ -448,6 +473,7 @@ const homeSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+
     setActiveTab: (state, action: PayloadAction<string>) => {
       state.activeTab = action.payload;
     },
@@ -465,6 +491,9 @@ const homeSlice = createSlice({
     setTime: (state, action: PayloadAction<string>) => {
       state.time = action.payload;
     },
+    setTimeComapre: (state, action: PayloadAction<string>) => {
+      state.timeCompare = action.payload;
+    },
     setIsCardOrTable: (state) => {
       state.isCardOrTable = !state.isCardOrTable;
     },
@@ -474,8 +503,11 @@ const homeSlice = createSlice({
     setGlobalSearchValue: (state, action: PayloadAction<string>) => {
       state.globalSearchValue = action.payload;
     },
-    setChainId: (state, action: PayloadAction<number>) => {
+    setChainId: (state, action: PayloadAction<string>) => {
       state.chainId = action.payload;
+    },
+    setCompareList: (state, action: PayloadAction<any[]>) => {
+      state.compareList = action.payload.slice(0, 5);
     },
   },
 });
@@ -504,6 +536,8 @@ export const {
   setSelectedToggleValue,
   setGlobalSearchValue,
   setChainId,
+  setCompareList,
+  setTimeComapre,
 } = homeSlice.actions;
 
 export default homeSlice.reducer;

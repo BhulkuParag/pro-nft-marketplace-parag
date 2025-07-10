@@ -1,4 +1,5 @@
 import React, { type ComponentType } from 'react';
+import Compare from '../../Page/Compare';
 
 const Home = React.lazy(() => import('../../Page/Home'));
 const Screen = React.lazy(() => import('../../Page/Screen'));
@@ -18,6 +19,10 @@ export const routes: RouteConfig[] = [
   {
     path: '/Home',
     component: Home,
+  },
+  {
+    path: '/Compare',
+    component: Compare,
   },
   {
     path: '/trendingCollections/assets/:id',

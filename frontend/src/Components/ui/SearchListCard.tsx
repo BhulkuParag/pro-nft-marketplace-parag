@@ -1,7 +1,6 @@
 import { Card, Typography } from '@mui/material';
 import React from 'react';
 import type { GlobalSearchT } from '../../types/home';
-import EthIcon from '../../assets/icons/others/EthIcon';
 
 interface SearchListCardProps {
   data?: GlobalSearchT;
@@ -72,11 +71,6 @@ const SearchListCard = ({ data }: SearchListCardProps) => {
           alignItems={'center'}
           gap={1}
         >
-          {/* <Avalanche
-            backgroundClass="dark:fill-dark-black-light fill-light-black-light"
-            iconClass="fill-light-primary-light dark:fill-dark-primary-light"
-            className="w-7 h-7"
-            /> */}
           {data?.floorAskPrice?.toFixed(2) ?? '0.00'}
           <img
             src="https://marketplace.polycruz.io/eth.svg"
@@ -84,7 +78,6 @@ const SearchListCard = ({ data }: SearchListCardProps) => {
             width={9}
             height={9}
           />
-          {/* <EthIcon className="fill-[#777E90] w-4 h-4" /> */}
         </Typography>
       </div>
     </Card>

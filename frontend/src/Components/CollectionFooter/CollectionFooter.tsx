@@ -13,6 +13,7 @@ import Popover from '@mui/material/Popover';
 import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import type { SwitchProps } from '@mui/material/Switch';
+import { ConnectWalletButton } from '../ConnectWalletButton';
 
 // NumericStepper component
 interface NumericStepperProps {
@@ -311,7 +312,7 @@ const CollectionFooter = () => {
               </Typography>
             </Box>
           </Popover>
-          <Button
+          {/* <Button
             variant="contained"
             disableElevation
             sx={{
@@ -332,7 +333,8 @@ const CollectionFooter = () => {
             }}
           >
             Connect
-          </Button>
+          </Button> */}
+          <ConnectWalletButton />
         </Box>
         <Box
           sx={{
