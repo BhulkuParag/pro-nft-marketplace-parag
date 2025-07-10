@@ -19,6 +19,7 @@ import type { ICellRendererParams } from 'ag-grid-community';
 import type { RowData } from '../../types/table';
 import {
   AddSortIcon,
+  HoverHeaderRenderer,
   InfoIconSortIcon,
   NormalHeaderRenderer,
 } from '../../utils/Table/headerRenderer';
@@ -74,6 +75,7 @@ const Trending = () => {
         field: 'volumeChange',
         headerName: 'Volume (7 Day)',
         cellRenderer: VolumeRenderer,
+        headerComponent: NormalHeaderRenderer,
         // minWidth: 110,
         valueGetter: (params: ICellRendererParams<RowData>) =>
           params.data?.volumeChange['7day']?.toFixed(2) ?? '',
@@ -82,6 +84,7 @@ const Trending = () => {
         field: 'collectionVolume',
         headerName: 'Collection Volume (1 day)',
         cellRenderer: NormalRenderer,
+        headerComponent: HoverHeaderRenderer,
         minWidth: 150,
         valueGetter: (params: ICellRendererParams<RowData>) =>
           params.data?.collectionVolume['1day']?.toFixed(2) ?? '',
@@ -90,6 +93,7 @@ const Trending = () => {
         field: 'collectionVolume',
         headerName: 'Collection Volume (7 day)',
         cellRenderer: NormalRenderer,
+        headerComponent: HoverHeaderRenderer,
         minWidth: 150,
         valueGetter: (params: ICellRendererParams<RowData>) =>
           params.data?.collectionVolume['7day']?.toFixed(2) ?? '',

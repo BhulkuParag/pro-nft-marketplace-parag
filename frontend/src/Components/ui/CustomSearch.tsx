@@ -21,14 +21,16 @@ interface SearchContentProps {
   backgroundColor?: string;
   dropDownBgColor?: string;
   hasSplash?: boolean;
+  boxShadow?: boolean;
 }
 
 const CustomSearch: React.FC<SearchContentProps> = ({
   search = '',
   handleSearchOnChange,
   children,
-  placeholder = "Search by collection, NFT, and user",
+  placeholder = 'Search by collection, NFT, and user',
   hasSplash = false,
+  boxShadow = false,
   backgroundColor = 'custom.secondaryDark',
   dropDownBgColor = 'custom.secondaryDark',
 }) => {
@@ -182,10 +184,14 @@ const CustomSearch: React.FC<SearchContentProps> = ({
                 backgroundColor: dropDownBgColor,
                 color: 'white',
                 height: 'auto',
-                py: 2,
+                pt: 2,
                 border: '1px solid',
                 borderColor: 'divider',
                 zIndex: 1000,
+                boxShadow: boxShadow
+                  ? // ? 'rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px'
+                    'rgba(17, 17, 26, 0.1) 0px 0px 16px'
+                  : '',
               }}
             >
               {children}

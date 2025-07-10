@@ -40,7 +40,7 @@ const ItemFilterBar = () => {
   };
 
   const handleOnClick = () => {
-    dispatch(setItemFilterOpen())
+    dispatch(setItemFilterOpen());
   };
 
   return (
@@ -70,6 +70,8 @@ const ItemFilterBar = () => {
             color: 'text.secondary',
             mb: 0.2,
           }}
+          disableTouchRipple
+          disableRipple
           className="group"
           onClick={handleOnClick}
         >

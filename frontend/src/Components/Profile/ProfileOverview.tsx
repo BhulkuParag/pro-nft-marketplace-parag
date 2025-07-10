@@ -1,8 +1,11 @@
 import { Box, IconButton, Typography } from '@mui/material';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
 import DateFilter from '../../../@ui-component/Comman/DateFilter';
 import { DatePicker } from '@tremor/react';
+import axios from 'axios';
+import { useActiveAccount } from 'thirdweb/react';
+const BITCRUNCH_API_KEY = '';
 
 function ProfileCard() {
   const [range, setRange] = useState<string>('24h');
@@ -332,6 +335,27 @@ function ProfileCard() {
   const handleDateFilterChange = (value: string) => {
     setRange(value);
   };
+    const { address: userAddress } = useActiveAccount() || {};
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (userAddress) {
+          const response = await axios.get(
+            `http://localhost:8085/api/unleash/wallet/${userAddress}/metrics?blockchain=1&currency=eth&metrics=sales&metrics=traders&metrics=traders_buyers&metrics=traders_sellers&metrics=transactions&metrics=transactions_mint&metrics=transactions_burn&metrics=transactions_transfer&metrics=transactions_buy&metrics=transactions_sell&metrics=transfers&metrics=volume&metrics=washtrade_suspect_sales&metrics=washtrade_volume&metrics=buy_volume&metrics=sell_volume&metrics=portfolio_value&metrics=collection_count&metrics=realized_profit&metrics=unrealized_profit&metrics=estimated_portfolio_value&time_range=all&include_washtrade=true`,
+            { headers: { 'x-api-key': BITCRUNCH_API_KEY } }
+          );
+          // setData(response?.data?.metric_values);
+          console.log('API Response:', response?.data);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [userAddress]);
+
   return (
     <Box
       component="div"

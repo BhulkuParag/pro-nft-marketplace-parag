@@ -107,6 +107,8 @@ const CollectionActivity = () => {
             }}
             className="group"
             disableTouchRipple
+            disableFocusRipple
+            disableRipple
             onClick={() => setFilterOpen((prev) => !prev)}
           >
             <BarFilterIcon

@@ -23,7 +23,7 @@ const SearchBar: FC<SearchBarProps> = ({
   handleFocus,
   handleBlur,
   handleOnClick,
-  backgroundColor = 'custom.secondaryDark'
+  backgroundColor = 'custom.secondaryDark',
 }) => {
   const handleSearch = (e: any) => {
     setSearch(e.target.value);

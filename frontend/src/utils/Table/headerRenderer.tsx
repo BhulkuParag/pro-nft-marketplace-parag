@@ -73,8 +73,18 @@ export const NormalStartHeaderRenderer: React.FC<IHeaderParams> = (props) => {
 
 export const NormalHeaderRenderer: React.FC<IHeaderParams> = (props) => {
   return (
-    <Box className="flex items-center cursor-pointer justify-start pl-20 w-full h-full gap-2">
+    <Box className="flex items-center cursor-pointer justify-center w-full h-full gap-2">
       <span className="text-sm font-normal text-gray-400/80">{props.displayName}</span>
+    </Box>
+  );
+};
+
+export const HoverHeaderRenderer: React.FC<IHeaderParams> = (props) => {
+  return (
+    <Box className="flex items-center cursor-pointer justify-end w-fit h-full gap-2">
+      <Tooltip title={props.displayName} placement='top' arrow>
+      <span className="text-sm font-normal text-gray-400/80">{props.displayName}</span>
+      </Tooltip>
     </Box>
   );
 };

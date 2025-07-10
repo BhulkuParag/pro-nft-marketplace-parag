@@ -1,11 +1,10 @@
 import { Box, Typography } from '@mui/material';
-import React from 'react';
-import type { RootState } from '../../app/store';
 import { useSelector } from 'react-redux';
+import type { RootState } from '../../app/store';
 
-const SearchContent = () => {
-  const itemSearchData = useSelector(
-    (state: RootState) => state.collection.itemSearchData
+const TableSearchContent = () => {
+  const tableSearchData = useSelector(
+    (state: RootState) => state.home.tableSearchData
   );
 
   return (
@@ -14,31 +13,31 @@ const SearchContent = () => {
         width: '100%',
         display: 'flex',
         flexDirection: 'column',
-        gap: 2,
       }}
     >
       <Box
         sx={{
           width: '100%',
-          borderBottom: '1px solid',
+          borderBottom: tableSearchData.length > 0 ? '1px solid' : 'none',
           borderColor: 'divider',
-          pb: 1,
+          //   pb: 1,
           px: 1.5,
-          mt: -1,
         }}
       >
         <Typography
           variant="subtitle1"
           sx={{
+            mt: -1,
+            pb: 1,
             color: 'custom.grey01',
           }}
         >
-          Items
+          Collections
         </Typography>
       </Box>
       <Box
         sx={{
-          mt: -1,
+          //   mt: -1,
           width: '100%',
           maxHeight: '30vh',
           overflowY: 'auto',
@@ -46,26 +45,29 @@ const SearchContent = () => {
           scrollBehavior: 'smooth',
         }}
       >
-        {itemSearchData?.map((item) => (
+        {tableSearchData?.map((item) => (
           <Box
-            key={item.id}
+            component={'a'}
+            href={`/trendingCollections/item/${item?.id}`}
+            key={item?.id}
             sx={{
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
               gap: 2,
-              py: 1,
+              //   py: 1.3,
+              height: 50,
               px: 2,
               borderBottom: '1px solid',
               borderColor: 'divider',
-              // backgroundColor: 'background.default',
             }}
+            className="hover:bg-[#5f5f5f13]"
           >
             <div className="flex items-center gap-3">
               <img
                 loading="lazy"
-                src={item?.token?.image}
-                alt={item?.token?.name}
+                src={item?.image}
+                alt={item?.name}
                 width={30}
                 height={30}
                 className="rounded-full"
@@ -78,27 +80,9 @@ const SearchContent = () => {
                   color: 'custom.grey01',
                 }}
               >
-                {item?.token?.name}
-                <span>#{item?.token?.tokenId}</span>
+                {item?.name}
               </Typography>
             </div>
-            <Typography
-              variant="subtitle2"
-              fontWeight={300}
-              display={'flex'}
-              alignItems={'center'}
-              gap={1}
-            >
-              {item?.token?.collection?.floorAskPrice?.amount?.decimal?.toFixed(
-                2
-              ) ?? '0.00'}
-              <img
-                src="https://marketplace.polycruz.io/eth.svg"
-                alt="ETH"
-                width={9}
-                height={9}
-              />
-            </Typography>
           </Box>
         ))}
       </Box>
@@ -106,4 +90,4 @@ const SearchContent = () => {
   );
 };
 
-export default React.memo(SearchContent);
+export default TableSearchContent;

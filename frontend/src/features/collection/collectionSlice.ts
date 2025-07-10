@@ -8,9 +8,11 @@ import type {
 import {
   AddSortIcon,
   InfoIconSortIcon,
+  NormalHeaderRenderer,
 } from '../../utils/Table/headerRenderer';
 import {
   CollectionCell,
+  CollectionRenderer,
   NormalRenderer,
   PriceRenderer,
   StarRenderer,
@@ -95,23 +97,14 @@ const initialState: CollectionState = {
     standout: [],
     activity: [
       {
-        field: 'id',
-        headerName: '',
-        minWidth: 70,
-        maxWidth: 70,
-        cellRenderer: StarRenderer,
-        valueGetter: (params: ICellRendererParams<ActivityType>) =>
-          params.node?.rowIndex != null ? params.node.rowIndex + 1 : '',
-      },
-      {
-        headerName: 'Collection Name',
         field: 'name',
-        minWidth: 300,
-        maxWidth: 300,
-        flex: 1,
-        cellRenderer: CollectionCell,
+        headerName: 'Collection Name',
+        // flex: 1,
+        minWidth: 400,
+        cellRenderer: CollectionRenderer,
+        headerComponent: NormalHeaderRenderer,
         valueGetter: (params: ICellRendererParams<ActivityType>) =>
-          params.data?.collection.collectionName ?? '-',
+          params.data?.collection?.collectionName ?? '-',
       },
       {
         headerName: 'Type',
@@ -125,7 +118,7 @@ const initialState: CollectionState = {
       {
         headerName: 'Floor Price',
         field: 'price',
-        minWidth: 140,
+        minWidth: 150,
         cellRenderer: PriceRenderer,
         headerComponent: InfoIconSortIcon,
         valueGetter: (params: ICellRendererParams<ActivityType>) =>
@@ -304,7 +297,7 @@ const collectionSlice = createSlice({
       state.loading = false;
       state.tabData = {
         ...state.tabData,
-        [state.activeTab]: { sale: action.payload },
+        [state.activeTab]: { ...state.tabData[state.activeTab], sale: action.payload },
       };
     },
     fetchStandoutSaleDataFailure: (state, action: PayloadAction<string>) => {

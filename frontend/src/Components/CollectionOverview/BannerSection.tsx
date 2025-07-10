@@ -313,6 +313,9 @@ const BannerSection = () => {
                         onClick={() => setLiked((liked) => !liked)}
                         size="small"
                         style={{ padding: 0 }}
+                        disableTouchRipple
+                        disableFocusRipple
+                        disableRipple
                       >
                         {liked ? (
                           <FavoriteIcon
@@ -347,6 +350,9 @@ const BannerSection = () => {
                       onClick={handleCopy}
                       size="small"
                       style={{ padding: 0 }}
+                      disableTouchRipple
+                      disableFocusRipple
+                      disableRipple
                     >
                       {copied ? (
                         <CheckIcon
@@ -368,7 +374,13 @@ const BannerSection = () => {
                     </IconButton>
                   </Tooltip>
                   <Tooltip title="Refresh Metadata" arrow placement="top">
-                    <IconButton onClick={handleFullRefresh} size="small">
+                    <IconButton
+                      onClick={handleFullRefresh}
+                      size="small"
+                      disableTouchRipple
+                      disableFocusRipple
+                      disableRipple
+                    >
                       {refreshed ? (
                         <CheckIcon
                           sx={{
@@ -551,12 +563,22 @@ const BannerSection = () => {
                   }}
                 >
                   <Tooltip title="OpenSea" arrow placement="top">
-                    <IconButton size="small">
+                    <IconButton
+                      size="small"
+                      disableTouchRipple
+                      disableFocusRipple
+                      disableRipple
+                    >
                       <SailingIcon sx={{ color: theme.palette.text.primary }} />
                     </IconButton>
                   </Tooltip>
                   <Tooltip title="Stats" arrow placement="top">
-                    <IconButton size="small">
+                    <IconButton
+                      size="small"
+                      disableTouchRipple
+                      disableFocusRipple
+                      disableRipple
+                    >
                       <BarChartIcon
                         sx={{ color: theme.palette.text.primary }}
                       />
@@ -567,6 +589,9 @@ const BannerSection = () => {
                       size="small"
                       target="_blank"
                       href={tabData?.overview?.externalUrl}
+                      disableTouchRipple
+                      disableFocusRipple
+                      disableRipple
                     >
                       <LanguageIcon
                         sx={{ color: theme.palette.text.primary }}
@@ -578,6 +603,9 @@ const BannerSection = () => {
                       size="small"
                       target="_blank"
                       href={tabData?.overview?.discordUrl}
+                      disableTouchRipple
+                      disableFocusRipple
+                      disableRipple
                     >
                       <FaDiscord className="text-2xl" />
                     </IconButton>
@@ -591,7 +619,12 @@ const BannerSection = () => {
                     }}
                   />
                   <Tooltip title="Share" arrow placement="top">
-                    <IconButton size="small">
+                    <IconButton
+                      size="small"
+                      disableTouchRipple
+                      disableFocusRipple
+                      disableRipple
+                    >
                       <ShareIcon
                         sx={{ color: `${theme.palette.text.primary}` }}
                       />
@@ -694,6 +727,9 @@ const BannerSection = () => {
                         onClick={() => setLiked((liked) => !liked)}
                         size="small"
                         style={{ padding: 0 }}
+                        disableTouchRipple
+                        disableFocusRipple
+                        disableRipple
                       >
                         {liked ? (
                           <FavoriteIcon
@@ -728,6 +764,9 @@ const BannerSection = () => {
                       onClick={handleCopy}
                       size="small"
                       style={{ padding: 0 }}
+                      disableTouchRipple
+                      disableFocusRipple
+                      disableRipple
                     >
                       {copied ? (
                         <CheckIcon
@@ -749,7 +788,13 @@ const BannerSection = () => {
                     </IconButton>
                   </Tooltip>
                   <Tooltip title="Refresh Metadata" arrow placement="top">
-                    <IconButton onClick={handleFullRefresh} size="small">
+                    <IconButton
+                      onClick={handleFullRefresh}
+                      size="small"
+                      disableTouchRipple
+                      disableFocusRipple
+                      disableRipple
+                    >
                       {refreshed ? (
                         <CheckIcon
                           sx={{

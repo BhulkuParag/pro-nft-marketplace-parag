@@ -1,7 +1,4 @@
-import {
-  createSlice,
-  type PayloadAction,
-} from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type {
   NftSalesT,
   RowData,
@@ -58,7 +55,9 @@ interface HomeState {
   isCardOrTable: boolean;
   selectedToggleValue: string;
   globalSearchValue: string;
+  tableSearchValue: string;
   globalSearchData: GlobalSearchT[];
+  tableSearchData: any[];
   compareList: any[];
   error: string | null;
 }
@@ -69,7 +68,9 @@ const initialState: HomeState = {
   timeCompare: '24h',
   chainId: 'ETHEREUM', // Default to Ethereum mainnet
   globalSearchValue: '',
+  tableSearchValue: '',
   globalSearchData: [],
+  tableSearchData: [],
   compareList: [],
   includeTokenMetadata: true,
   selectedToggleValue: '0',
@@ -529,6 +530,12 @@ const homeSlice = createSlice({
     setGlobalSearchValue: (state, action: PayloadAction<string>) => {
       state.globalSearchValue = action.payload;
     },
+    setTableSearchValue: (state, action: PayloadAction<string>) => {
+      state.tableSearchValue = action.payload;
+    },
+    setTableSearchData: (state, action: PayloadAction<any[]>) => {
+      state.tableSearchData = action.payload;
+    },
     setChainId: (state, action: PayloadAction<string>) => {
       state.chainId = action.payload;
     },
@@ -564,6 +571,8 @@ export const {
   setChainId,
   setCompareList,
   setTimeComapre,
+  setTableSearchValue,
+  setTableSearchData
 } = homeSlice.actions;
 
 export default homeSlice.reducer;

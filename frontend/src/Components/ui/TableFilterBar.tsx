@@ -22,12 +22,11 @@ import {
   // setVolume_sales,
 } from '../../features/home/homeSlice';
 import SearchBar from './SearchBar';
+import TableSearch from '../home/TableSearch';
 
 const TableFilterBar = () => {
   const dispatch = useDispatch();
-  const { time, timeOptions } = useSelector(
-    (state: RootState) => state.home
-  );
+  const { time, timeOptions } = useSelector((state: RootState) => state.home);
   const theme = useTheme();
   const isMobileOrLaptop = useMediaQuery(theme.breakpoints.down('lg'));
   const [anchorElFilter, setAnchorElFilter] = useState<null | HTMLElement>(
@@ -251,10 +250,11 @@ const TableFilterBar = () => {
             display: { xs: 'none', xl: 'block' },
           }}
         >
-          <SearchBar
+          {/* <SearchBar
             placeholder="Search Collection"
             backgroundColor="background.default"
-          />
+          /> */}
+          <TableSearch />
         </Box>
 
         <div className="justify-center items-center gap-1 inline-flex">

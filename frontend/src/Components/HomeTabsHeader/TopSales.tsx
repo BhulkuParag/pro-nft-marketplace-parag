@@ -35,7 +35,7 @@ const TopSales = () => {
         field: 'token',
         headerName: 'Token',
         cellRenderer: NormalRenderer,
-        headerComponent: NormalHeaderRenderer,
+        headerComponent: NormalEndHeaderRenderer,
         valueGetter: (params: ICellRendererParams<TopSalesT>) =>
           params.data?.token?.name ?? '',
         // minWidth: 110,

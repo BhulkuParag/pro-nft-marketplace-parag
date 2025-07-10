@@ -1,4 +1,4 @@
-import { Avatar, Box, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import React from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import { itemStyle } from './CollectionStandout';
@@ -12,11 +12,12 @@ const StandoutCard = ({ item }: StandoutCardProps) => {
   return (
     <Box sx={itemStyle} className="item">
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-        <Avatar
+        <img
           src={item?.fillSource?.icon}
           alt={String(item?.token?.tokenId)}
-          sx={{ width: 36, height: 36, mr: 1 }}
-          variant="square"
+          width={36}
+          height={36}
+          className='rounded-full'
         />
         <div className="flex flex-col">
           <Typography

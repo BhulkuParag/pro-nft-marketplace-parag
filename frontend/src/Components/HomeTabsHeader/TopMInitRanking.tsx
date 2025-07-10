@@ -12,9 +12,9 @@ import {
 import type { ICellRendererParams } from 'ag-grid-community';
 import type { TopMintData } from '../../types/table';
 import {
+  AddCollectionSortIcon,
   AddSortIcon,
   NormalEndHeaderRenderer,
-  NormalHeaderRenderer,
 } from '../../utils/Table/headerRenderer';
 
 const TopMInitRanking = () => {
@@ -25,7 +25,7 @@ const TopMInitRanking = () => {
         field: 'name',
         headerName: 'Collection Name',
         cellRenderer: CollectionRenderer,
-        headerComponent: NormalHeaderRenderer,
+        headerComponent: AddCollectionSortIcon,
         // flex: 1,
         minWidth: 400,
         valueGetter: (params: ICellRendererParams<TopMintData>) =>

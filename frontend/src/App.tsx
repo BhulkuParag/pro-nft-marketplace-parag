@@ -5,7 +5,7 @@ import { routes } from './Components/constants/routes';
 import Header from './Components/header/Header';
 import Sidebar from './Components/header/Sidebar';
 import { Suspense } from 'react';
-import Loading from '../@ui-component/Comman/Loading';
+// import Loading from '../@ui-component/Comman/Loading';
 
 const App = () => {
   return (

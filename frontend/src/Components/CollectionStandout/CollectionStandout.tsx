@@ -12,6 +12,7 @@ import {
 import type { RootState } from '../../app/store';
 import { useParams } from 'react-router-dom';
 import StandoutCard from './StandoutCard';
+import { Tooltip } from '@mui/material';
 const ethIcon = 'https://marketplace.polycruz.io/eth.svg';
 
 const cardStyle = {
@@ -79,11 +80,10 @@ const CollectionStandout = () => {
     }
   }, [param]);
 
-  const standout = useMemo(() => tabData?.standout ?? {}, []);
-  const topHolders = useMemo(() => standout?.holders?.topTraders ?? [], []);
-  const topSales = useMemo(() => standout?.sale?.activities ?? [], []);
-  const listings = useMemo(() => standout?.listing?.activities ?? [], []);
-  const transfers = useMemo(() => standout?.transfer?.activities ?? [], []);
+  const topHolders = useMemo(() => tabData?.standout?.holders?.topTraders ?? [], [tabData]);
+  const topSales = useMemo(() => tabData?.standout?.sale?.activities ?? [], [tabData]);
+  const listings = useMemo(() => tabData?.standout?.listing?.activities ?? [], [tabData]);
+  const transfers = useMemo(() => tabData?.standout?.transfer?.activities ?? [], [tabData]);
 
   return (
     <Box
@@ -114,11 +114,15 @@ const CollectionStandout = () => {
         {topHolders?.map((item: any) => (
           <Box key={item?.address} sx={itemStyle} className="item">
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-              <Typography
-                sx={{ color: 'text.primary', fontWeight: 500, fontSize: 14 }}
-              >
-                {item?.address}
-              </Typography>
+              <Tooltip title={item?.address} placement="top" arrow>
+                <Typography
+                  sx={{ color: 'text.primary', fontWeight: 500, fontSize: 14 }}
+                >
+                  {item?.address?.slice(0, 5) +
+                    '....' +
+                    item?.address?.slice(-5)}
+                </Typography>
+              </Tooltip>
             </Box>
             <Box
               sx={{
