@@ -34,7 +34,7 @@ const CollectionCard: React.FC<CollectionCardProps> = React.memo(({
     <Box
       sx={{
         borderRadius: 3,
-        bgcolor: 'background.default',
+        bgcolor: 'secondary.main',
         overflow: 'hidden',
         position: 'relative',
         minHeight: 200,
