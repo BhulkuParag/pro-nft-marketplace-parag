@@ -59,6 +59,7 @@ const Trending = () => {
         field: 'volume',
         headerName: `Volume (${time.toUpperCase()})`,
         cellRenderer: NormalRenderer,
+        headerComponent: NormalHeaderRenderer,
         // minWidth: 110,
         valueGetter: (params: ICellRendererParams<RowData>) =>
           params.data?.volume?.toFixed(2) ?? '',
@@ -67,6 +68,7 @@ const Trending = () => {
         field: 'volumeChange',
         headerName: 'Volume (1 Day)',
         cellRenderer: VolumeRenderer,
+        headerComponent: NormalHeaderRenderer,
         // minWidth: 110,
         valueGetter: (params: ICellRendererParams<RowData>) =>
           params.data?.volumeChange['1day']?.toFixed(2) ?? '',
