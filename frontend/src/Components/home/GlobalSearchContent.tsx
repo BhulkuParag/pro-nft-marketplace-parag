@@ -5,7 +5,7 @@ import SearchListCard from '../ui/SearchListCard';
 import { Box, Chip, Typography } from '@mui/material';
 import type { RootState } from '../../app/store';
 import { useSelector } from 'react-redux';
-import Loading from '../../../@ui-component/Comman/Loading';
+import Loading from '../../@ui-component/Comman/Loading';
 
 const GlobalSearchContent = () => {
   const mockSuggestions = [

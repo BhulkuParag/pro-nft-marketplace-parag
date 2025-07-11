@@ -2,7 +2,7 @@ import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { FaEthereum } from 'react-icons/fa';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import { Box } from '@mui/material';
-import Card from '../../../@ui-component/Comman/Card';
+import Card from '../../@ui-component/Comman/Card';
 
 const cards = [
   {

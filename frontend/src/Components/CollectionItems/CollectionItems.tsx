@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Box } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,7 +7,7 @@ import {
   setLimit,
 } from '../../features/collection/collectionSlice';
 import type { RootState } from '../../app/store';
-import Loading from '../../../@ui-component/Comman/Loading';
+import Loading from '../../@ui-component/Comman/Loading';
 import { useInView } from 'react-intersection-observer';
 import ItemCard from './ItemCard';
 import ItemFilterBar from './ItemFilterBar';

@@ -7,8 +7,8 @@ import liveData from '../../assets/images/gif/live.gif';
 
 import EthIcon from '../../assets/icons/others/EthIcon';
 import { Box, Typography } from '@mui/material';
-import DropDown from '../../../@ui-component/Comman/DropDown';
-import ToggleButtonCom from '../../../@ui-component/Comman/ToggleButton';
+import DropDown from '../../@ui-component/Comman/DropDown';
+import ToggleButtonCom from '../../@ui-component/Comman/ToggleButton';
 // import axios from "axios";
 // import { toFixedValue } from "lib/numbers";
 

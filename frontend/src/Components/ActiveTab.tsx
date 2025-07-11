@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
-import AGGridTable from '../../@ui-component/Comman/AGGridTable';
+import AGGridTable from '../@ui-component/Comman/AGGridTable';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../app/store';
 import { Box } from '@mui/material';
-import Loading from '../../@ui-component/Comman/Loading';
+import Loading from '../@ui-component/Comman/Loading';
 import ItemCard from './CollectionItems/ItemCard';
 
 interface ActiveTabProps {

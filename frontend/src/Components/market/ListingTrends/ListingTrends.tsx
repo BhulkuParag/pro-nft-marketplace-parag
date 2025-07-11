@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { LineChart } from '@tremor/react';
 import Info from '../../../Components/info/Info';
 import { Box, Typography } from '@mui/material';
-import DropDown from '../../../../@ui-component/Comman/DropDown';
+import DropDown from '../../../@ui-component/Comman/DropDown';
 
 const LineChartData = [
   {

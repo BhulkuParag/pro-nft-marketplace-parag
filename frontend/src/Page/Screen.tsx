@@ -9,7 +9,7 @@ import {
   Tooltip,
 } from '@mui/material';
 import Chip from '@mui/material/Chip';
-import AGGridTable from '../../@ui-component/Comman/AGGridTable';
+import AGGridTable from '../@ui-component/Comman/AGGridTable';
 import type { ColDef } from 'ag-grid-community';
 import type { ItemDetailActivity } from '../types/table';
 import { AddSortIcon, InfoIconSortIcon } from '../utils/Table/headerRenderer';

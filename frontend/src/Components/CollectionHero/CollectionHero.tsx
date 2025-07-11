@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Box, Typography, Button, useTheme } from '@mui/material';
-import { Link } from 'react-router-dom';
 
 interface CollectionHeroProps {
   image: string;
