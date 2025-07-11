@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 // import { ProgressBar } from '@tremor/react';
 import { Box, IconButton, Typography } from '@mui/material';
 import LinearProgress, {
@@ -116,7 +116,7 @@ function HolderHistory() {
           width: '100%',
           display: 'flex',
           flexDirection: 'column',
-          p: '1.25rem',
+          p: { xs: '0px', lg: '1.25rem' },
           gap: '1.25rem',
         }}
       >
@@ -126,11 +126,11 @@ function HolderHistory() {
             width: '100%',
             display: 'flex',
             justifyContent: 'space-between',
-            gap: 6,
+            gap: { xs: '30px', md: '40px' },
             flexDirection: { xs: 'column', lg: 'row' },
             backgroundColor: 'background.default',
             borderRadius: '0.75rem',
-            p: { lg: '3rem', xs: '1.5rem' },
+            p: { lg: '3rem', xs: '0px' },
           }}
         >
           <Box

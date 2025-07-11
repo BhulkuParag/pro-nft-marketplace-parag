@@ -6,9 +6,10 @@ import {
   Paper,
   Button,
   IconButton,
+  Tooltip,
 } from '@mui/material';
 import Chip from '@mui/material/Chip';
-import AGGridTable from '../../@ui-component/Comman/AGGridTable';
+import AGGridTable from '../@ui-component/Comman/AGGridTable';
 import type { ColDef } from 'ag-grid-community';
 import type { ItemDetailActivity } from '../types/table';
 import { AddSortIcon, InfoIconSortIcon } from '../utils/Table/headerRenderer';
@@ -212,7 +213,7 @@ const Screen: React.FC = () => {
   }, [id]);
 
   return (
-    <div className='w-full h-auto'>
+    <div className="w-full h-auto">
       <Box
         sx={{
           width: '100%',
@@ -230,10 +231,10 @@ const Screen: React.FC = () => {
             //flex: { xs: 'unset', md: '0 0 480px' },
             display: 'flex',
             flexDirection: 'column',
-            alignItems: { xs: 'center', md: 'flex-start' },
-            bgcolor: 'background.paper',
+            alignItems: 'flex-start',
+            bgcolor: 'transparent',
             borderRadius: 4,
-            p: { xs: 1, md: 2 },
+            p: { xs: 0, md: 2 },
             paddingLeft: { xs: 0, md: 0 },
             paddingTop: { xs: 0, md: 0 },
             minHeight: { xs: 'auto', md: 600 },
@@ -248,6 +249,7 @@ const Screen: React.FC = () => {
             paddingLeft={2}
             sx={{
               color: 'text.primary',
+              mb: 0.5,
             }}
           >
             {ItemDetails.token?.collection?.name +
@@ -260,26 +262,36 @@ const Screen: React.FC = () => {
               display: 'flex',
               flexWrap: 'wrap',
               alignItems: 'center',
-              mb: 4.5,
+              mb: 2.5,
               pl: 2,
             }}
           >
             <Avatar
               src={ItemDetails.token?.collection.image}
               alt="Collection"
-              sx={{ width: 32, height: 32, mr: 1, borderRadius: 0 }}
+              sx={{ width: 36, height: 36, mr: 1, borderRadius: 0 }}
             />
-            <Chip
-              label={ItemDetails.token?.kind}
+            <Tooltip
+              title={'Token Kind'}
+              placement="top"
               sx={{
-                bgcolor: '#6C63B5',
-                color: '#fff',
-                fontWeight: 700,
-                fontSize: 18,
-                borderRadius: 2,
-                height: 32,
+                cursor: 'pointer',
               }}
-            />
+            >
+              <Chip
+                label={ItemDetails.token?.kind}
+                size="small"
+                sx={{
+                  bgcolor: '#6C63B5',
+                  color: '#fff',
+                  fontWeight: 600,
+                  fontSize: 16,
+                  height: 32,
+                  borderRadius: 3,
+                  cursor: 'pointer',
+                }}
+              />
+            </Tooltip>
           </Box>
 
           <Box
@@ -291,45 +303,38 @@ const Screen: React.FC = () => {
               width: '100%',
               borderRadius: 4,
               objectFit: 'cover',
-              boxShadow: 3,
             }}
           />
           {/* Action Buttons */}
           <Box
             sx={{
               display: 'flex',
-              flexDirection: { xs: 'column', md: 'row' },
+              flexDirection: 'column',
+              flexWrap: 'wrap',
               gap: 2,
               mt: 3,
               width: '100%',
             }}
           >
-            {/* Buy Now Button Group */}
-            <Box
-              component="div"
+            <Button
               sx={{
-                color: 'text.primary',
-                fontWeight: 700,
+                flex: 1,
+                justifyContent: 'space-between',
+                color: 'white',
+                fontWeight: 500,
+                // px: { xs: 2, lg: 5 },
+                p: 0,
                 borderRadius: 3,
-                border: '2px solid #A6A6B9',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 2,
-                backgroundColor: 'custom.ButtonPrimary',
-                '&:hover': { bgcolor: 'custom.ButtonPrimary' },
-                // justifyContent: 'space-between',
+                height: 56,
+                backgroundColor: '#4836FF',
+                textTransform: 'initial',
+                fontSize: 16,
               }}
+              // endIcon={<LocalGroceryStoreIcon />}
             >
-              <Button
-                sx={{
-                  color: 'text.primary',
-                  fontWeight: 700,
-                  paddingInline: 3,
-                  // fontSize: 20,
-                }}
-              >
-                <span> Buy Now</span>
-                <span style={{ paddingLeft: '2px' }}>
+              <div className="w-full flex items-center justify-center lg:justify-start gap-2 pl-5 rounded-tl-xl rounded-bl-xl h-full hover:bg-[#4130EA]">
+                <span>Buy Now</span>
+                <span>
                   <img
                     src="https://marketplace.polycruz.io/eth.svg"
                     alt="eth"
@@ -337,30 +342,36 @@ const Screen: React.FC = () => {
                     width={10}
                   />
                 </span>
-                <span style={{ paddingLeft: '15px' }}> 10.99</span>
-              </Button>
-
-              <IconButton>
+                <span>10.99</span>
+              </div>
+              <IconButton
+                sx={{
+                  width: 50,
+                  py: 2,
+                  color: 'white',
+                  borderLeft: 1,
+                  borderLeftColor: 'divider',
+                  borderRadius: 0,
+                  borderTopRightRadius: 12,
+                  borderBottomRightRadius: 12,
+                }}
+              >
                 <LocalGroceryStoreIcon />
               </IconButton>
-            </Box>
-
-            {/* Make Offer Button */}
+            </Button>
             <Button
               sx={{
-                color: '#fff',
-                fontWeight: 700,
-                fontSize: 20,
+                color: 'text.primary',
+                fontWeight: 500,
+                fontSize: 18,
                 px: 5,
                 borderRadius: 3,
                 height: 56,
                 bgcolor: 'transparent',
                 border: '2px solid #A6A6B9',
                 textTransform: 'none',
-
                 flex: 1,
-                minWidth: 0,
-                '&:hover': { bgcolor: '#232336' },
+                '&:hover': { bgcolor: 'custom.greyDark' },
               }}
             >
               Make Offer
@@ -370,7 +381,7 @@ const Screen: React.FC = () => {
         {/* Right: Info, Traits, Activity */}
         <Box
           sx={{
-            width: '66%',
+            width: { xs: '100%', lg: '66%' },
             // flex: 1,
             display: 'flex',
             flexWrap: 'wrap',

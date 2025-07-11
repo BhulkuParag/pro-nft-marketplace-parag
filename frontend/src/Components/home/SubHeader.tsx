@@ -1,6 +1,6 @@
 import { Box, Stack, Typography } from '@mui/material';
-import React from 'react';
-import Switch from '../../../@ui-component/Comman/Switch';
+import { useCallback } from 'react';
+import Switch from '../../@ui-component/Comman/Switch';
 import { setIsCardOrTable } from '../../features/home/homeSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../app/store';
@@ -8,15 +8,20 @@ import type { RootState } from '../../app/store';
 const SubHeader = () => {
   const dispatch = useDispatch();
   const isCheck = useSelector((state: RootState) => state.home.isCardOrTable);
+
+  const handleSwitchOnChange = useCallback(() => {
+    dispatch(setIsCardOrTable());
+  }, [dispatch]);
+
   return (
     <Box
       display={'flex'}
       justifyContent={'space-between'}
       flexWrap={'wrap'}
-      marginBlock={3}
+      marginBlock={1}
       alignItems={'center'}
       sx={{
-        padding: { xs: 2, md: 3 },
+        padding: { xs: 2, md: '14px 26px' },
         gap: { xs: 2, md: 4 },
       }}
     >
@@ -38,10 +43,7 @@ const SubHeader = () => {
         >
           Cards
         </Typography>
-        <Switch
-          checked={isCheck}
-          handleOnChange={() => dispatch(setIsCardOrTable(!isCheck))}
-        />
+        <Switch checked={isCheck} handleOnChange={handleSwitchOnChange} />
         <Typography
           sx={{
             color: 'custom.grey01',
@@ -54,4 +56,4 @@ const SubHeader = () => {
   );
 };
 
-export default React.memo(SubHeader);
+export default SubHeader;

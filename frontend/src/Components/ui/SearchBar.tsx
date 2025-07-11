@@ -1,6 +1,7 @@
 import type { FC, FocusEventHandler } from 'react';
 import Search from '../../assets/icons/search.svg';
 import { Box } from '@mui/material';
+import React from 'react';
 
 type SearchBarProps = {
   placeholder: string;
@@ -22,7 +23,7 @@ const SearchBar: FC<SearchBarProps> = ({
   handleFocus,
   handleBlur,
   handleOnClick,
-  backgroundColor = 'custom.secondaryDark'
+  backgroundColor = 'custom.secondaryDark',
 }) => {
   const handleSearch = (e: any) => {
     setSearch(e.target.value);
@@ -91,4 +92,4 @@ const SearchBar: FC<SearchBarProps> = ({
   );
 };
 
-export default SearchBar;
+export default React.memo(SearchBar);

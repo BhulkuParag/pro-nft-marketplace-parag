@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 import liveData from '../../assets/images/gif/live.gif';
 
 import EthIcon from '../../assets/icons/others/EthIcon';
-import { Box, Divider, Typography } from '@mui/material';
-import DropDown from '../../../@ui-component/Comman/DropDown';
-import ToggleButtonCom from '../../../@ui-component/Comman/ToggleButton';
+import { Box, Typography } from '@mui/material';
+import DropDown from '../../@ui-component/Comman/DropDown';
+import ToggleButtonCom from '../../@ui-component/Comman/ToggleButton';
 // import axios from "axios";
 // import { toFixedValue } from "lib/numbers";
 
@@ -52,7 +52,7 @@ const Footer: FC<FooterProps> = () => {
     <Box
       component={'footer'}
       sx={{
-        width: '100%',
+        width: 'calc(100% - 70px)',
         backgroundColor: 'background.default',
         color: 'inherit',
         position: 'fixed',
@@ -96,7 +96,7 @@ const Footer: FC<FooterProps> = () => {
                 <Typography
                   sx={{
                     fontSize: 12,
-                    color: 'custom.lightGrey',
+                    color: 'text.primary',
                   }}
                 >
                   LIVE DATA
@@ -132,6 +132,9 @@ const Footer: FC<FooterProps> = () => {
                   component={'ol'}
                   sx={{
                     color: 'custom.lightGrey',
+                    '& :hover': {
+                      color: 'text.secondary',
+                    }
                   }}
                   key={link.url}
                 >
@@ -140,7 +143,7 @@ const Footer: FC<FooterProps> = () => {
               ))}
             </Box>
           </ul>
-          <div className="w-fit items-center mr-18 gap-3 hidden lg:inline-flex">
+          <div className="w-fit items-center gap-3 hidden lg:inline-flex">
             <Box
               component={'div'}
               sx={{
@@ -167,7 +170,7 @@ const Footer: FC<FooterProps> = () => {
               ]}
               onChange={() => {}}
             />
-            <div className="border-r w-1 h-4 border-[#9DA1AF] hidden md:block mx-1"></div>
+            <div className="border-r w-1 h-6 border-[#9DA1AF] hidden md:block mx-1"></div>
             <ToggleButtonCom
               selectedValue="investor"
               options={[
@@ -180,6 +183,7 @@ const Footer: FC<FooterProps> = () => {
                   value: 'discover',
                 },
               ]}
+              variant='standard'
               handleOnChange={() => {}}
               handleOnChangeForMobile={() => {}}
             />

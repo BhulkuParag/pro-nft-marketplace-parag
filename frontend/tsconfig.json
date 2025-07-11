@@ -5,6 +5,11 @@
     { "path": "./tsconfig.node.json" }
   ],
   "compilerOptions": {
+    "types": ["node"],
+    "baseUrl": ".",
+    "paths": {
+      "@ui-component/*": ["@ui-component/*"]
+    },
     "typeRoots": ["./node_modules/@types", "./src/types"],
     "module": "esnext",
     "moduleResolution": "node"
