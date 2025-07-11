@@ -10,7 +10,7 @@ import {
   Typography,
 } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
-import { menuItems } from '../constants/menuItem';
+import { menuItems, type MenuItemsConfig } from '../constants/menuItem';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { useActiveWalletConnectionStatus } from 'thirdweb/react';
 
@@ -20,7 +20,7 @@ const collapsedWidth = '4.6rem';
 const Sidebar: React.FC = () => {
   const [open, setOpen] = React.useState(false);
   const location = useLocation();
-  const menuList = [...menuItems];
+  let menuList: MenuItemsConfig[] = [...menuItems];
   const connectionStatus = useActiveWalletConnectionStatus();
   const isWalletConnected = connectionStatus === 'connected';
   const newItem = {
@@ -28,7 +28,7 @@ const Sidebar: React.FC = () => {
     icon: AccountBoxIcon,
     path: '/Portfolio',
   };
-  const finalMenuItems = useMemo(() => {
+  const finalMenuItems = useMemo<MenuItemsConfig[]>(() => {
     if (isWalletConnected) menuList.push(newItem);
     return menuList;
   }, [isWalletConnected]);

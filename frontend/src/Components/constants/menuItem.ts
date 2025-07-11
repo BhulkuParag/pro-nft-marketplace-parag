@@ -1,7 +1,7 @@
 import { type ComponentType } from 'react';
 import Home from '@mui/icons-material/Home';
 import Star from '@mui/icons-material/Star';
-interface MenuItemsConfig {
+export interface MenuItemsConfig {
   lable: string;
   icon: ComponentType;
   path: string;
