@@ -208,15 +208,57 @@ public class ReservoirController {
     @GetMapping("/nft/price-estimate")
     @Operation(summary = "Fetch NFT price estimate from Unleash API")
     public ResponseEntity<TechResponse<NftPriceEstimateResponse>> getNftPriceEstimate(
-            @RequestParam String blockchain,
-            @RequestParam String address,
-            @RequestParam String tokenId) {
+            @RequestParam(defaultValue = "1") String blockchain,
+            @RequestParam (defaultValue = "10xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d")String address,
+            @RequestParam(defaultValue = "1") String tokenId) {
 
         NftPriceEstimateResponse estimate = vendorService.getNftPriceEstimate(blockchain, address, tokenId);
         return new ResponseEntity<>(transformer.transform(estimate), HttpStatus.OK);
     }
 
+    @GetMapping("unleash/market/metrics")
+    public MarketMetricResponse getMetrics(
+            @RequestParam(defaultValue = "eth") String currency,
+            @RequestParam(defaultValue = "1") String blockchain,
+            @RequestParam(defaultValue = "24h") String timeRange
+    ) {
+        return vendorService.getMarketMetrics(currency, blockchain, timeRange);
+    }
+    
+    @GetMapping("/metrics")
+    public MarketMetricResponse getMetrics(
+            @RequestParam(defaultValue = "eth") String currency,
+            @RequestParam(defaultValue = "1") String blockchain,
+            @RequestParam(defaultValue = "24h") String timeRange,
+            @RequestParam(defaultValue = "true") boolean includeWashtrade
+    ) {
+        return vendorService.getMarketMetrics(currency, blockchain, timeRange, includeWashtrade);
+    }
 
+    
+    @GetMapping("/metrics2")
+    public MarketMetricResponse getMetrics2(
+            @RequestParam(defaultValue = "eth") String currency,
+            @RequestParam(defaultValue = "1") String blockchain,
+            @RequestParam(defaultValue = "all") String timeRange,
+            @RequestParam(defaultValue = "true") boolean includeWashtrade
+    ) {
+        return vendorService.getMarketMetrics(currency, blockchain, timeRange, includeWashtrade);
+    }
+    
+    @GetMapping("/merged-metrics")
+    public MergedMetricResponse getMergedMetrics(
+    		 @RequestParam(defaultValue = "eth") String currency,
+             @RequestParam(defaultValue = "1") String blockchain,
+             @RequestParam(defaultValue = "24h") String timeRange,
+             @RequestParam(defaultValue = "all") String timeRange2,
+             @RequestParam(defaultValue = "true") boolean includeWashtrade
+    ) {
+    	MarketMetricResponse marketMetrics = vendorService.getMarketMetrics(currency, blockchain, timeRange);
+    	 MarketMetricResponse marketMetrics2 = vendorService.getMarketMetrics(currency, blockchain, timeRange, includeWashtrade);
+    	 MarketMetricResponse marketMetrics3 = vendorService.getMarketMetrics(currency, blockchain, timeRange2, includeWashtrade);
+        return vendorService.mergeMetrics(marketMetrics, marketMetrics2, marketMetrics3) ;
+    }
 }
 
 

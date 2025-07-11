@@ -1,16 +1,20 @@
 package com.polycruz.service;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.Field;
 import java.net.URI;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.polycruz.pojo.*;
-import com.polycruz.utils.StatsTransformer;
-
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
@@ -18,12 +22,31 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.polycruz.ReservoirChain;
 import com.polycruz.config.ReservoirApiProperties;
 import com.polycruz.exception.PolycruzSystemException;
-import org.springframework.web.client.RestTemplate;
+import com.polycruz.pojo.ActivityResponse;
+import com.polycruz.pojo.CollectionSearchResponse;
+import com.polycruz.pojo.CollectionsV7Response;
+import com.polycruz.pojo.MarketMetricResponse;
+import com.polycruz.pojo.MergedMetricResponse;
+import com.polycruz.pojo.MetricDetail;
+import com.polycruz.pojo.MetricValue;
+import com.polycruz.pojo.NftCollectionResponse;
+import com.polycruz.pojo.NftPriceEstimateResponse;
+import com.polycruz.pojo.NftSalesResponse;
+import com.polycruz.pojo.ReservoirRawStatsResponse;
+import com.polycruz.pojo.SalesApiResponse;
+import com.polycruz.pojo.TokenDetail;
+import com.polycruz.pojo.TokenResponse;
+import com.polycruz.pojo.TopTradersResponse;
+import com.polycruz.pojo.TransformedStatsResponse;
+import com.polycruz.pojo.TrendingApiResponse;
+import com.polycruz.pojo.TrendingMintsResponse;
+import com.polycruz.utils.StatsTransformer;
 
 import lombok.RequiredArgsConstructor;
 
@@ -297,27 +320,181 @@ public class VendorService {
 	}
 
 	public NftPriceEstimateResponse getNftPriceEstimate(String blockchain, String address, String tokenId) {
-		String url = String.format(
-				"https://api.unleashnfts.com/api/v1/nft/%s/%s/%s/price-estimate",
-				blockchain, address, tokenId
-		);
+	    String url = String.format(
+	        "https://api.unleashnfts.com/api/v1/nft/%s/%s/%s/price-estimate",
+	        blockchain, address, tokenId
+	    );
 
-		HttpHeaders headers = new HttpHeaders();
-		headers.set("x-api-key", "tuF8lxipeseroFej7cowemOsaplfripoCugaKesosPa");
-		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+	    HttpHeaders headers = new HttpHeaders();
+	    headers.set("x-api-key", "tuF8lxipeseroFej7cowemOsaplfripoCugaKesosPa");
+	    headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 
-		HttpEntity<Void> entity = new HttpEntity<>(headers);
+	    HttpEntity<Void> entity = new HttpEntity<>(headers);
 
-		ResponseEntity<NftPriceEstimateResponse> response = restTemplate.exchange(
-				url,
-				HttpMethod.GET,
-				entity,
-				NftPriceEstimateResponse.class
-		);
+	    try {
+	        ResponseEntity<NftPriceEstimateResponse> response = restTemplate.exchange(
+	            url,
+	            HttpMethod.GET,
+	            entity,
+	            NftPriceEstimateResponse.class
+	        );
 
-		return response.getBody();
+	        return response.getBody();
+	    } catch (HttpClientErrorException.NotFound ex) {
+	        // Log and return null or custom response
+	        System.out.println("NFT Price not found: " + ex.getResponseBodyAsString());
+	        return null;
+	    }
 	}
+	
+	public MarketMetricResponse getMarketMetrics(String currency, String blockchain, String timeRange) {
+        String metrics = String.join(",",
+                "holders_change", "marketcap_change", "sales_change", "traders_change",
+                "traders_buyers_change", "traders_sellers_change", "transactions_change",
+                "transfers_change", "volume_change", "washtrade_assets_change",
+                "whales_change", "washtrade_volume_change"
+        );
 
+        String url = String.format(
+            "https://analytic.polycruz.io/api/unleash/market/metrics?currency=%s&blockchain=%s&metrics=%s&time_range=%s",
+            currency, blockchain, metrics, timeRange
+        );
+
+        ResponseEntity<MarketMetricResponse> response = restTemplate.exchange(
+            url,
+            HttpMethod.GET,
+            null,
+            MarketMetricResponse.class
+        );
+
+        return response.getBody();
+    }
+	
+	public MarketMetricResponse getMarketMetrics(String currency, String blockchain, String timeRange, boolean includeWashtrade) {
+        String metrics = String.join(",",
+                "holders", "marketcap", "sales", "traders", "traders_buyers", "traders_sellers",
+                "transactions", "transfers", "volume", "whales", "washtrade_assets", "washtrade_volume"
+        );
+
+        String url = String.format(
+                "https://analytic.polycruz.io/api/unleash/market/metrics?currency=%s&blockchain=%s&metrics=%s&time_range=%s&include_washtrade=%s",
+                currency, blockchain, metrics, timeRange, includeWashtrade
+        );
+
+        ResponseEntity<MarketMetricResponse> response = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                null,
+                MarketMetricResponse.class
+        );
+
+        return response.getBody();
+    }
+
+	 public MarketMetricResponse getMarketMetrics2(String currency, String blockchain, String timeRange, boolean includeWashtrade) {
+	        String metrics = String.join(",",
+	                "holders", "marketcap", "sales", "traders", "traders_buyers", "traders_sellers",
+	                "transactions", "transfers", "volume", "whales", "washtrade_assets", "washtrade_volume"
+	        );
+
+	        String url = String.format(
+	                "https://analytic.polycruz.io/api/unleash/market/metrics?currency=%s&blockchain=%s&metrics=%s&time_range=%s&include_washtrade=%s",
+	                currency, blockchain, metrics, timeRange, includeWashtrade
+	        );
+
+	        ResponseEntity<MarketMetricResponse> response = restTemplate.exchange(
+	                url,
+	                HttpMethod.GET,
+	                null,
+	                MarketMetricResponse.class
+	        );
+
+	        return response.getBody();
+	    }
+
+	 
+//	 public MergedMetricResponse getMergedMetrics(String currency, String blockchain) {
+//	        String baseUrl = "https://analytic.polycruz.io/api/unleash/market/metrics";
+//
+//	        String coreMetrics = String.join(",", "holders", "marketcap", "sales", "traders",
+//	                "traders_buyers", "traders_sellers", "transactions", "transfers",
+//	                "volume", "whales", "washtrade_assets", "washtrade_volume");
+//
+//	        String changeMetrics = coreMetrics.replaceAll("([^,]+)", "$1_change");
+//
+//	        String urlChange24h = String.format("%s?currency=%s&blockchain=%s&metrics=%s&time_range=24h",
+//	                baseUrl, currency, blockchain, changeMetrics);
+//
+//	        String urlValue24h = String.format("%s?currency=%s&blockchain=%s&metrics=%s&time_range=24h&include_washtrade=true",
+//	                baseUrl, currency, blockchain, coreMetrics);
+//
+//	        String urlAllTime = String.format("%s?currency=%s&blockchain=%s&metrics=%s&time_range=all&include_washtrade=true",
+//	                baseUrl, currency, blockchain, coreMetrics);
+//
+//	        Map<String, MetricDetail> change24h = fetchMetricMap(urlChange24h);
+//	        Map<String, MetricDetail> value24h = fetchMetricMap(urlValue24h);
+//	        Map<String, MetricDetail> allTime = fetchMetricMap(urlAllTime);
+//
+//	        MergedMetricResponse response = new MergedMetricResponse();
+////	        response.setChange24h(change24h);
+////	        response.setValue24h(value24h);
+////	        response.setAllTime(allTime);
+//
+//	        return response;
+//	    }
+//
+//	 private Map<String, MetricDetail> fetchMetricMap(String url) {
+//		    ResponseEntity<MarketMetricResponse> res = restTemplate.exchange(
+//		        url, HttpMethod.GET, null, MarketMetricResponse.class
+//		    );
+//		    Map<String, MetricValue> apiMap = res.getBody().getMetric_values();
+//
+//		    Map<String, MetricDetail> result = new HashMap<>();
+//		    for (Map.Entry<String, MetricValue> entry : apiMap.entrySet()) {
+//		        MetricDetail detail = new MetricDetail();
+//		        // Example mapping logic
+//		        detail.setValue(entry.getValue().getValue());
+//		        result.put(entry.getKey(), detail);
+//		    }
+//		    return result;
+//		}
+//	 
+	 public MergedMetricResponse mergeMetrics(
+		        MarketMetricResponse responseChange,
+		        MarketMetricResponse responseAbsolute,
+		        MarketMetricResponse responseAllTime
+		) {
+		    MergedMetricResponse merged = new MergedMetricResponse();
+		    Map<String, MetricDetail> mergedMap = new HashMap<>();
+
+		    Map<String, MetricValue> changeMap = responseChange.getMetric_values();
+		    Map<String, MetricValue> currentMap = responseAbsolute.getMetric_values();
+		    Map<String, MetricValue> allTimeMap = responseAllTime.getMetric_values();
+
+		    for (String key : currentMap.keySet()) {
+		    	MetricDetail detail = new MetricDetail();
+
+		        // Set value/unit from currentMap (e.g., holders, volume, etc.)
+		    	MetricValue current = currentMap.get(key);
+		        if (current != null) {
+		            detail.setValue(current.getValue());
+		            detail.setUnit(current.getUnit());
+		        }
+
+		        // Set change/changeUnit from changeMap (e.g., holders_change, etc.)
+		        String changeKey = key + "_change";
+		        MetricValue change = changeMap.get(changeKey);
+		        if (change != null) {
+		            detail.setChange(change.getValue());
+		            detail.setChangeUnit(change.getUnit());
+		        }
+
+		        mergedMap.put(key, detail);
+		    }
+
+		    merged.setMetric_values(mergedMap);
+		    return merged;
+		}
 
 
 }
