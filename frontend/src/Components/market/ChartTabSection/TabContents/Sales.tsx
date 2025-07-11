@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Info from '../../../info/Info';
-import DateFilter from '../../../../../@ui-component/Comman/DateFilter';
-import OnOffSwitch from '../../../../../@ui-component/Comman/Switch';
+import DateFilter from '../../../../@ui-component/Comman/DateFilter';
+import OnOffSwitch from '../../../../@ui-component/Comman/Switch';
 import {
   ScatterChart,
   Scatter,

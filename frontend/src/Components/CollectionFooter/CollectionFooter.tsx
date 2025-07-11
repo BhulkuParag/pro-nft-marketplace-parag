@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Box, Typography, useTheme, IconButton } from '@mui/material';
 import Slider from '@mui/material/Slider';
 import ToggleButton from '@mui/material/ToggleButton';

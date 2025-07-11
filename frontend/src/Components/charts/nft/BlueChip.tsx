@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { AreaChart } from '@tremor/react';
 import Info from '../../../Components/info/Info';
-import DateFilter from '../../../../@ui-component/Comman/DateFilter';
+import DateFilter from '../../../@ui-component/Comman/DateFilter';
 // import GraphFilter from "components/latest/HomeTabs/GraphFilter";
 
 const chartData = [

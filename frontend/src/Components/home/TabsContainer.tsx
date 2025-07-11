@@ -12,14 +12,14 @@ import {
   setActiveTab,
   setSelectedToggleValue,
 } from '../../features/home/homeSlice';
-import CustomTab, { type TabItem } from '../../../@ui-component/Comman/Tab';
+import CustomTab, { type TabItem } from '../../@ui-component/Comman/Tab';
 import { CiGrid2H } from 'react-icons/ci';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import { BsCollection } from 'react-icons/bs';
 // import TrendingIcon from '../assets/icons/Trending.svg'
 // import { IoMdHeartEmpty } from 'react-icons/io';
 import { IoIosTrendingUp } from 'react-icons/io';
-import Loading from '../../../@ui-component/Comman/Loading';
+import Loading from '../../@ui-component/Comman/Loading';
 type TabKey = 'trending' | 'nft_sales' | 'top_sales' | 'top_mint_ranking';
 
 const TabContainer = () => {

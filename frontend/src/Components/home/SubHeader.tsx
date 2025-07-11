@@ -1,6 +1,6 @@
 import { Box, Stack, Typography } from '@mui/material';
 import { useCallback } from 'react';
-import Switch from '../../../@ui-component/Comman/Switch';
+import Switch from '../../@ui-component/Comman/Switch';
 import { setIsCardOrTable } from '../../features/home/homeSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../app/store';

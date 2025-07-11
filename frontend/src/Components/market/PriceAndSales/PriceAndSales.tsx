@@ -14,8 +14,8 @@ import {
 import EthIcon from '../../../Components/Icon/crypto-icon/EthIcon';
 import Info from '../../../Components/info/Info';
 import { Box, Typography } from '@mui/material';
-import DateFilter from '../../../../@ui-component/Comman/DateFilter';
-import OnOffSwitch from '../../../../@ui-component/Comman/Switch';
+import DateFilter from '../../../@ui-component/Comman/DateFilter';
+import OnOffSwitch from '../../../@ui-component/Comman/Switch';
 
 interface ChartData {
   name: string;

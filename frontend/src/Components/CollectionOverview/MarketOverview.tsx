@@ -10,7 +10,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import DropDown from '../../../@ui-component/Comman/DropDown';
+import DropDown from '../../@ui-component/Comman/DropDown';
 import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
 
 const MarketOverview = () => {

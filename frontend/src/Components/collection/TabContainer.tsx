@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useCallback, useMemo } from 'react';
-import CustomTab from '../../../@ui-component/Comman/Tab';
+import CustomTab from '../../@ui-component/Comman/Tab';
 import { Box } from '@mui/material';
 import {
   setActiveTab,
@@ -8,7 +8,7 @@ import {
 import { BsGrid, BsGrid3X3Gap } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../app/store';
-import Loading from '../../../@ui-component/Comman/Loading';
+import Loading from '../../@ui-component/Comman/Loading';
 const CollectionOverview = lazy(
   () => import('../CollectionOverview/CollectionOverview')
 );

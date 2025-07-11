@@ -4,8 +4,8 @@ import { BarChart } from '@tremor/react';
 import Info from '../../../Components/info/Info';
 import { PieChart, Pie, Sector, Cell } from 'recharts';
 import { Box, Typography } from '@mui/material';
-import ToggleButton from '../../../../@ui-component/Comman/ToggleButton';
-import DateFilter from '../../../../@ui-component/Comman/DateFilter';
+import ToggleButton from '../../../@ui-component/Comman/ToggleButton';
+import DateFilter from '../../../@ui-component/Comman/DateFilter';
 // import GraphFilter from "components/latest/HomeTabs/GraphFilter";
 
 interface BarChartData {

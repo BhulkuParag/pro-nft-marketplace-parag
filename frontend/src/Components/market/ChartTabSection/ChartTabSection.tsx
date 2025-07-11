@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Market from './TabContents/Market';
 import Sales from './TabContents/Sales';
-import CustomTab from '../../../../@ui-component/Comman/Tab';
+import CustomTab from '../../../@ui-component/Comman/Tab';
 import { Box } from '@mui/material';
 
 const homeTabsList = [

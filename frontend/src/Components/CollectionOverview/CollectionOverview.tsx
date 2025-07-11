@@ -1,11 +1,11 @@
-import { Box, Typography, Card, CardContent } from '@mui/material';
+import { Box, Typography, Card } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import CollectionHero from '../CollectionHero/CollectionHero';
-import MarketOverview from './MarketOverview';
-import HolderHistory from './HolderHistory';
+// import MarketOverview from './MarketOverview';
+// import HolderHistory from './HolderHistory';
 import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchOverviewDetailDataRequest } from '../../features/collection/collectionSlice';
