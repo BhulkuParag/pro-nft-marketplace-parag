@@ -275,6 +275,15 @@ public class ReservoirController {
     	 MarketMetricResponse marketMetrics3 = vendorService.getMarketMetrics(currency, blockchain, timeRange2, includeWashtrade);
         return vendorService.mergeMetrics(marketMetrics, marketMetrics2, marketMetrics3) ;
     }
+    
+    @GetMapping("/user/activity")
+    public ActivityResponse getUserActivity(
+    	    @RequestParam(defaultValue = "0x566Acd989D8D8DcCe24639811b0287F282E99717") String wallet,
+    	    @RequestParam(defaultValue = "eventTimestamp") String sortBy,
+    	    @RequestParam(defaultValue = "true") boolean includeMetadata
+    	) {
+    	    return vendorService.getUserActivity(wallet, sortBy, includeMetadata);
+    	}
 }
 
 
