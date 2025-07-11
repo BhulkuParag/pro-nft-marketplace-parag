@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8085';
+const BASE_URL =
+  import.meta.env.VITE_API_BASE_URL ?? 'http://65.1.94.196:8085/';
 
 const AXIOS = axios.create({
   baseURL: BASE_URL,
@@ -14,10 +15,10 @@ const AXIOS = axios.create({
 // Request Interceptor
 AXIOS.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
-    if (token && config.headers) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
+    // const token = localStorage.getItem('token');
+    // if (token && config.headers) {
+    //   config.headers.Authorization = `Bearer ${token}`;
+    // }
     return config;
   },
   (error) => console.log(error)

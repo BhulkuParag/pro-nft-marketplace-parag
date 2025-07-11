@@ -30,7 +30,9 @@ declare module '@mui/material/styles' {
     primaryContainer: string;
     lightContainer: string;
     red: string;
+    redDark: string;
     green: string;
+    greenDark: string;
     greyDark: string;
     secondaryDark: string;
     primaryDark: string;
@@ -47,6 +49,7 @@ declare module '@mui/material/styles' {
     wallet: string;
     thirdText: string;
     PrimaryButton: string;
+    SideBar: string;
   }
 
   interface Palette {
@@ -118,8 +121,10 @@ const lightTheme = createTheme({
       primaryContainer: '#21005D',
       lightContainer: '#E6E0E9',
       filterBthBg: '#E0DFF3',
-      red: '#E30051',
-      green: '#0A9068',
+      red: '#9f0712',
+      redDark: '#F6C7C8',
+      green: '#016630',
+      greenDark: '#AAECCB',
       whiteLightO1: '#141416',
       // primary: '#4836FF',
       // whiteLightO1: '#E7E0EC',
@@ -134,6 +139,7 @@ const lightTheme = createTheme({
       wallet: '#EDEBFF',
       thirdText: '#6b7280',
       PrimaryButton: '#6B5FE8',
+      SideBar: '#6b5fe8',
     },
     text: {
       primary: '#141416',
@@ -155,11 +161,14 @@ const lightTheme = createTheme({
     MuiTab: {
       styleOverrides: {
         root: {
+          disableTouchRipple: false,
           color: '#777E90',
           backgroundColor: '#FFFFFF',
           minHeight: '48px',
+          transition: 'none',
+          textTransform: 'initial',
           '&.Mui-selected': {
-            color: '#141416',
+            color: '#A49BFF',
             // backgroundColor: '#F2F2F2',
           },
           '&:hover': {
@@ -172,7 +181,11 @@ const lightTheme = createTheme({
     MuiTabs: {
       styleOverrides: {
         root: {
+          variant: 'scrollable',
+          allowScrollButtonsMobile: true,
           backgroundColor: '#FFFFFF',
+          transition: 'none',
+          textTransform: 'initial',
           minHeight: '48px',
           '& .MuiTabs-indicator': {
             backgroundColor: '#A49BFF',
@@ -215,18 +228,21 @@ const darkTheme = createTheme({
       primaryDark01: '#A49BFF',
       red: '#FE749B',
       green: '#10DAB6',
+      greenDark: '#032e15',
       whiteLightO1: '#E7E0EC',
       ButtonPrimary: '#4836FF',
       lightGrey: '#9DA1AF',
       purple01: '#50008E',
       coral: '#F2B8B5',
       oxblood: '#601410',
+      redDark: '#601410',
       yellow: '#FFC155',
       Boarder02: '#e6e8ec',
       ButtonHover: '#ffff',
       wallet: '#373549',
       thirdText: '#6b7280',
       PrimaryButton: '#6B5FE8',
+      SideBar: '#a49bff',
     },
 
     text: {
@@ -249,12 +265,15 @@ const darkTheme = createTheme({
     MuiTab: {
       styleOverrides: {
         root: {
+          disableTouchRipple: false,
+
           color: '#9DA1AF',
           backgroundColor: '#1C1C1C',
           minHeight: '48px',
+          textTransform: 'initial',
           // padding: '12px 24px',
           '&.Mui-selected': {
-            color: '#FFFFFF',
+            color: '#A49BFF',
             // backgroundColor: '#353945',
           },
           '&:hover': {
@@ -267,6 +286,8 @@ const darkTheme = createTheme({
     MuiTabs: {
       styleOverrides: {
         root: {
+          variant: 'scrollable',
+          allowScrollButtonsMobile: true,
           backgroundColor: '#1C1C1C',
           minHeight: '48px',
           '& .MuiTabs-indicator': {

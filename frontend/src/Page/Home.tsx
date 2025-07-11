@@ -1,10 +1,9 @@
 import { Box } from '@mui/material';
 import Footer from '../Components/header/Footer';
-import React from 'react';
-import TabsContainer from '../Components/TabsContainer';
-import HomeCard from '../../@ui-component/Comman/HomeCard';
-import FeateursCollection from './FeateursCollection';
+import TabsContainer from '../Components/home/TabsContainer';
+import HomeCard from '../Components/home/HomeCard';
 import SubHeader from '../Components/home/SubHeader';
+import FeaturedCollection from './FeaturedCollection';
 
 const Home = () => {
   return (
@@ -14,7 +13,7 @@ const Home = () => {
         position: 'relative',
       }}
     >
-      <FeateursCollection />
+      <FeaturedCollection />
       <HomeCard />
       <SubHeader />
       <TabsContainer />
@@ -23,4 +22,4 @@ const Home = () => {
   );
 };
 
-export default React.memo(Home);
+export default Home;

@@ -1,50 +1,48 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 import {
   Box,
   Menu,
   MenuItem,
   Button,
-  Divider,
+  // Divider,
   InputBase,
   useMediaQuery,
   useTheme,
   Typography,
 } from '@mui/material';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+// import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import BarFilterIcon from '../../Components/Icon/BarFilterIcon';
-import ToggleButton from '../../../@ui-component/Comman/ToggleButton';
+// import ToggleButton from '../../../@ui-component/Comman/ToggleButton';
 import DateFilter from '../../../@ui-component/Comman/DateFilter';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../app/store';
 import liveData from '../../assets/images/gif/live.gif';
 import {
-  fetchTrendingDataRequest,
   setTime,
-  setVolume_sales,
+  // setVolume_sales,
 } from '../../features/home/homeSlice';
 import SearchBar from './SearchBar';
+import TableSearch from '../home/TableSearch';
 
 const TableFilterBar = () => {
   const dispatch = useDispatch();
-  const { volume_sales, time, vauleSales, timeOptions } = useSelector(
-    (state: RootState) => state.home
-  );
+  const { time, timeOptions } = useSelector((state: RootState) => state.home);
   const theme = useTheme();
   const isMobileOrLaptop = useMediaQuery(theme.breakpoints.down('lg'));
   const [anchorElFilter, setAnchorElFilter] = useState<null | HTMLElement>(
     null
   );
 
-  const handleOnChange = useCallback(
-    (_: React.SyntheticEvent, value: string) => {
-      if (volume_sales !== value) dispatch(setVolume_sales(value));
-    },
-    [dispatch, volume_sales]
-  );
+  // const handleOnChange = useCallback(
+  //   (_: React.SyntheticEvent, value: string) => {
+  //     if (volume_sales !== value) dispatch(setVolume_sales(value));
+  //   },
+  //   [dispatch, volume_sales]
+  // );
 
-  const handleOnChangeForMobile = (value: string) => {
-    dispatch(setVolume_sales(value));
-  };
+  // const handleOnChangeForMobile = (value: string) => {
+  //   dispatch(setVolume_sales(value));
+  // };
 
   const handleDateFilterChange = useCallback(
     (date: string) => {
@@ -52,10 +50,6 @@ const TableFilterBar = () => {
     },
     [dispatch, time]
   );
-
-  useEffect(() => {
-    dispatch(fetchTrendingDataRequest());
-  }, [time, volume_sales]);
 
   return (
     <Box
@@ -69,13 +63,14 @@ const TableFilterBar = () => {
     >
       <Box display="flex" alignItems="center" gap={2}>
         <Button
+          className="group"
           variant="outlined"
           disableTouchRipple
           disableElevation
           onClick={(e) => setAnchorElFilter(e.currentTarget)}
           startIcon={
             <BarFilterIcon
-              className={`w-5 h-5 hover:text-[#A49BFF] fill-[#777E90] }`}
+              className={`w-5 h-5 group-hover:fill-[#A49BFF] fill-[#777E90] }`}
             />
           }
           // endIcon={
@@ -252,10 +247,14 @@ const TableFilterBar = () => {
           sx={{
             minWidth: 320,
             maxWidth: 400,
-            display: {xs: 'none', xl: 'block'},
+            display: { xs: 'none', xl: 'block' },
           }}
         >
-          <SearchBar placeholder="Search for items" backgroundColor='background.default' />
+          {/* <SearchBar
+            placeholder="Search Collection"
+            backgroundColor="background.default"
+          /> */}
+          <TableSearch />
         </Box>
 
         <div className="justify-center items-center gap-1 inline-flex">
@@ -302,6 +301,7 @@ const TableFilterBar = () => {
           timeOptions={timeOptions}
           selectedTime={time}
           handleChange={handleDateFilterChange}
+          wantBorder
         />
       </Box>
     </Box>

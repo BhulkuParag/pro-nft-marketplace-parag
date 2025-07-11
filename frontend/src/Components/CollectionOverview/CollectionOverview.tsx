@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchOverviewDetailDataRequest } from '../../features/collection/collectionSlice';
 import type { RootState } from '../../app/store';
 import { useParams } from 'react-router-dom';
+import '../../Components/CollectionOverview/CollectionBanner.css';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -32,7 +33,7 @@ const TitleContainer = styled(Box)(({ theme }) => ({
 const CollectionOverview = () => {
   const params = useParams();
   const dispatch = useDispatch();
-  const { tabData } = useSelector((state: RootState) => state.collection);
+  const tabData = useSelector((state: RootState) => state.collection.tabData);
 
   useEffect(() => {
     if (params.id) dispatch(fetchOverviewDetailDataRequest(params?.id));
@@ -45,10 +46,14 @@ const CollectionOverview = () => {
         value: tabData?.overview?.volume['_1day'],
         change: '+12.5%',
         isPositive: true,
+        wantIcon: true,
         icon: (
           <Tooltip title="Info" arrow placement="top">
             <IconButton
               sx={{
+                width: '1.25rem',
+                height: '1.25rem',
+                p: 0,
                 '& :hover': {
                   color: 'custom.primaryLight',
                 },
@@ -64,10 +69,14 @@ const CollectionOverview = () => {
         value: '0.45',
         change: '-2.3%',
         isPositive: false,
+        wantIcon: true,
         icon: (
           <Tooltip title="Info" arrow placement="top">
             <IconButton
               sx={{
+                width: '1.25rem',
+                height: '1.25rem',
+                p: 0,
                 '& :hover': {
                   color: 'custom.primaryLight',
                 },
@@ -83,10 +92,14 @@ const CollectionOverview = () => {
         value: tabData?.overview?.floorSale['_1day'],
         change: '-2.3%',
         isPositive: false,
+        wantIcon: true,
         icon: (
           <Tooltip title="Info" arrow placement="top">
             <IconButton
               sx={{
+                width: '1.25rem',
+                height: '1.25rem',
+                p: 0,
                 '& :hover': {
                   color: 'custom.primaryLight',
                 },
@@ -106,6 +119,9 @@ const CollectionOverview = () => {
           <Tooltip title="Info" arrow placement="top">
             <IconButton
               sx={{
+                width: '1.25rem',
+                height: '1.25rem',
+                p: 0,
                 '& :hover': {
                   color: 'custom.primaryLight',
                 },
@@ -125,6 +141,9 @@ const CollectionOverview = () => {
           <Tooltip title="Info" arrow placement="top">
             <IconButton
               sx={{
+                width: '1.25rem',
+                height: '1.25rem',
+                p: 0,
                 '& :hover': {
                   color: 'custom.primaryLight',
                 },
@@ -144,6 +163,9 @@ const CollectionOverview = () => {
           <Tooltip title="Info" arrow placement="top">
             <IconButton
               sx={{
+                width: '1.25rem',
+                height: '1.25rem',
+                p: 0,
                 '& :hover': {
                   color: 'custom.primaryLight',
                 },
@@ -161,6 +183,7 @@ const CollectionOverview = () => {
     <Box
       sx={{
         width: '100%',
+        height: 'fit-content',
         // minHeight: '100vh',
         backgroundColor: 'background.default',
         position: 'relative',
@@ -186,7 +209,7 @@ const CollectionOverview = () => {
           sx={{
             display: 'grid',
             gridTemplateColumns: {
-              xs: '1fr',
+              xs: 'repeat(2, 1fr)',
               sm: 'repeat(2, 1fr)',
               md: 'repeat(3, 1fr)',
             },
@@ -194,13 +217,27 @@ const CollectionOverview = () => {
           }}
         >
           {stats.map((stat) => (
-            <StyledCard key={stat.value} sx={{ width: '100%', height: '100%' }}>
-              <CardContent>
+            <StyledCard
+              key={stat.value}
+              sx={{
+                width: '100%',
+                height: '100%',
+              }}
+            >
+              <Box
+                component="div"
+                sx={{
+                  display: 'flex',
+                  padding: '1.25rem',
+                  flexDirection: 'column',
+                  gap: 1,
+                }}
+              >
                 <TitleContainer>
                   <Typography
-                    variant="subtitle2"
+                    variant="body1"
                     color="text.primary"
-                    sx={{ fontSize: '18px' }}
+                    sx={{ fontSize: '1rem', lineHeight: '1.25rem' }}
                   >
                     {stat.title}
                   </Typography>
@@ -208,12 +245,14 @@ const CollectionOverview = () => {
                 </TitleContainer>
 
                 <StatValue>
-                  <img
-                    src="https://marketplace.polycruz.io/eth.svg"
-                    alt="ETH"
-                    width={16}
-                    height={16}
-                  />
+                  {stat.wantIcon && (
+                    <img
+                      src="https://marketplace.polycruz.io/eth.svg"
+                      alt="ETH"
+                      width={9}
+                      height={9}
+                    />
+                  )}
                   <Typography
                     variant="h6"
                     component="h6"
@@ -222,16 +261,14 @@ const CollectionOverview = () => {
                     {stat.value}
                   </Typography>
                 </StatValue>
-              </CardContent>
+              </Box>
             </StyledCard>
           ))}
         </Box>
       </Box>
-      <Box component="div" sx={{ p: '0.5rem' }}>
-        <HolderHistory />
-        <Box component="div">
-          <MarketOverview />
-        </Box>
+      <Box component="div" sx={{ p: { xs: '0px', lg: '0.5rem' } }}>
+        {/* <HolderHistory /> */}
+        <Box component="div">{/* <MarketOverview /> */}</Box>
       </Box>
     </Box>
   );

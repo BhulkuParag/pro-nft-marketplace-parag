@@ -13,6 +13,7 @@ export interface RowData {
   volume?: number;
   ownerCount?: number;
   mintVolume: number;
+  tokenCount?: number;
   openseaVerificationStatus?: string;
   topBid?: {
     price: {
@@ -87,7 +88,8 @@ export interface NftSalesT {
 
 export interface TopSalesT {
   id: string;
-  token: {
+  timestamp?: string;
+  token?: {
     name: string;
     image: string;
     contract: string;

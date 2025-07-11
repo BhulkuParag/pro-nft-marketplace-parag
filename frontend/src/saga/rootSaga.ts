@@ -4,4 +4,5 @@ import { collectionSaga } from '../features/collection/collectionSaga';
 
 export default function* rootSaga() {
   yield all([homeSaga(), collectionSaga()]);
+  
 }

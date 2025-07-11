@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { Box, Typography, useTheme, IconButton } from '@mui/material';
 import Slider from '@mui/material/Slider';
 import ToggleButton from '@mui/material/ToggleButton';
@@ -13,6 +13,7 @@ import Popover from '@mui/material/Popover';
 import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import type { SwitchProps } from '@mui/material/Switch';
+import { ConnectWalletButton } from '../ConnectWalletButton';
 
 // NumericStepper component
 interface NumericStepperProps {
@@ -180,19 +181,23 @@ const CollectionFooter = () => {
     <Box
       component={'footer'}
       sx={{
-        width: '100%',
-        padding: '8px 16px',
+        width: 'calc(100% - 70px)',
+        px: '16px',
         borderTop: `1px solid`,
         borderColor: 'divider',
-        height: '66px',
+        // height: '66px',
+        height: '55px',
         position: 'fixed',
         bottom: 0,
         zIndex: 1000,
+        display: { xs: 'none', xl: 'block' },
         backgroundColor: `${theme.palette.background.default}`,
       }}
     >
       <Box
         sx={{
+          width: '100%',
+          height: '100%',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -307,7 +312,7 @@ const CollectionFooter = () => {
               </Typography>
             </Box>
           </Popover>
-          <Button
+          {/* <Button
             variant="contained"
             disableElevation
             sx={{
@@ -318,7 +323,7 @@ const CollectionFooter = () => {
               fontSize: '16px',
               boxShadow: 'none',
               px: 5,
-              height: 50,
+              // height: 50,
               textTransform: 'none',
               '&:hover': {
                 background: `${theme.palette.text.primary}`,
@@ -328,7 +333,8 @@ const CollectionFooter = () => {
             }}
           >
             Connect
-          </Button>
+          </Button> */}
+          <ConnectWalletButton />
         </Box>
         <Box
           sx={{
@@ -345,7 +351,8 @@ const CollectionFooter = () => {
               fontSize: '14px',
               borderRadius: '12px',
               px: 1,
-              py: 1.5,
+              // py: 1.5,
+              py: 1,
               boxShadow: 'none',
               textTransform: 'none',
               '&:hover': {

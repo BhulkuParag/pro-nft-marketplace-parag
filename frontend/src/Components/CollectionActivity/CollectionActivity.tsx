@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   Box,
   Typography,
@@ -10,12 +10,16 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import AGGridTable from '../../../@ui-component/Comman/AGGridTable';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchActivityDataRequest } from '../../features/collection/collectionSlice';
+import {
+  fetchActivityDataRequest,
+  setSelectedActivityFilter,
+} from '../../features/collection/collectionSlice';
 import type { RootState } from '../../app/store';
 import Loading from '../../../@ui-component/Comman/Loading';
 import SearchBar from '../ui/SearchBar';
 import liveData from '../../assets/images/gif/live.gif';
 import BarFilterIcon from '../Icon/BarFilterIcon';
+import FilterSidebar from '../ui/FilterSidebar';
 
 // Example filter state
 const FILTERS = [
@@ -25,13 +29,18 @@ const FILTERS = [
   { label: 'Event', value: 'mint' },
 ];
 
-const CollectionActivity: React.FC = () => {
+const CollectionActivity = () => {
+  const [filterOpen, setFilterOpen] = useState(false);
   const theme = useTheme();
   const dispatch = useDispatch();
-  const { activeTab, columnDefsMap, tabData, loading } = useSelector(
-    (state: RootState) => state.collection
-  );
-  const [filters, setFilters] = React.useState(FILTERS);
+  const {
+    activeTab,
+    columnDefsMap,
+    tabData,
+    loading,
+    activityFilters,
+    selectedActivityFilter,
+  } = useSelector((state: RootState) => state.collection);
 
   const columnDefs = useMemo(
     () => columnDefsMap[activeTab],
@@ -40,11 +49,21 @@ const CollectionActivity: React.FC = () => {
 
   const rowData = useMemo(() => tabData[activeTab] ?? [], [tabData, activeTab]);
 
-  const handleDelete = (idx: number) => {
-    setFilters((prev) => prev.filter((_, i) => i !== idx));
+  const filters = activityFilters.filter((f) =>
+    selectedActivityFilter.includes(f.value)
+  );
+
+  const handleDelete = (value: string) => {
+    if (value === 'sale') return;
+    const newFilters = selectedActivityFilter.filter((v) => v !== value);
+    dispatch(setSelectedActivityFilter(newFilters));
+    dispatch(fetchActivityDataRequest());
   };
 
-  const handleClear = () => setFilters([]);
+  const handleClear = () => {
+    dispatch(setSelectedActivityFilter(['sale']));
+    dispatch(fetchActivityDataRequest());
+  };
 
   useEffect(() => {
     dispatch(fetchActivityDataRequest());
@@ -68,11 +87,13 @@ const CollectionActivity: React.FC = () => {
           mb: 2,
           bgcolor: 'background.default',
           flexWrap: 'wrap',
+          position: 'relative',
         }}
       >
         <Box
           sx={{
             display: 'flex',
+            flexWrap: 'wrap-reverse',
             alignItems: 'center',
             gap: 1.5,
           }}
@@ -84,10 +105,14 @@ const CollectionActivity: React.FC = () => {
               color: 'text.secondary',
               mb: 0.2,
             }}
+            className="group"
+            disableTouchRipple
+            disableFocusRipple
+            disableRipple
+            onClick={() => setFilterOpen((prev) => !prev)}
           >
-            {/* <FilterListIcon /> */}
             <BarFilterIcon
-              className={`w-5 h-5 hover:text-[#A49BFF] fill-[#777E90] }`}
+              className={`w-5 h-5 group-hover:fill-[#A49BFF] fill-[#777E90] }`}
             />
           </IconButton>
 
@@ -99,9 +124,9 @@ const CollectionActivity: React.FC = () => {
               // borderRadius: 2,
               // px: 1.5,
               // py: 0.5,
-              minWidth: 320,
+              // minWidth: 300,
               // bgcolor: 'background.default',
-              // flex: 1,
+              flex: 1,
               maxWidth: 400,
             }}
           >
@@ -129,28 +154,52 @@ const CollectionActivity: React.FC = () => {
           sx={{
             display: 'flex',
             alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: 1,
           }}
         >
           <Typography
-            color="text.secondary"
+            color="text.primary"
             fontWeight={500}
             fontSize={16}
             sx={{ mr: 1 }}
           >
             Filter:
           </Typography>
-          {filters.map((f, idx) => (
+
+          {filters.map((f) => (
             <Chip
+              variant="outlined"
               key={f.label + f.value}
               label={
-                <span>
-                  <span style={{ opacity: 0.7, fontSize: 13 }}>
+                <Box component="span">
+                  <Box
+                    component="span"
+                    sx={{ opacity: 0.7, fontSize: 13, color: 'text.primary' }}
+                  >
                     {f.label}&nbsp;
-                  </span>
-                  <span style={{ fontWeight: 600 }}>{f.value}</span>
-                </span>
+                  </Box>
+                  <Box
+                    component="span"
+                    sx={{ fontWeight: 600, color: 'text.primary' }}
+                  >
+                    {f.value}
+                  </Box>
+                </Box>
               }
-              onDelete={() => handleDelete(idx)}
+              slotProps={{
+                root: {
+                  sx: {
+                    height: '26px',
+                    paddingBlock: 0.8,
+                    backgroundColor: '#353945',
+                    ':hover': {
+                      backgroundColor: theme.palette.custom.greyDark,
+                    },
+                  },
+                },
+              }}
+              onDelete={() => handleDelete(f.value)}
               deleteIcon={
                 <CloseIcon sx={{ color: 'text.secondary', fontSize: 18 }} />
               }
@@ -167,6 +216,7 @@ const CollectionActivity: React.FC = () => {
               }}
             />
           ))}
+
           {filters.length > 0 && (
             <Link
               component="button"
@@ -185,17 +235,38 @@ const CollectionActivity: React.FC = () => {
           )}
         </Box>
       </Box>
-      {loading ? (
-        <Loading />
-      ) : (
-        <AGGridTable
-          columnDefs={columnDefs}
-          rowData={rowData}
-          // loading={loading}
-        />
-      )}
+      <Box
+        sx={{
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'start',
+          justifyContent: 'space-between',
+        }}
+      >
+        {filterOpen && <FilterSidebar />}
+        {loading ? (
+          <Box
+            sx={{
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Loading />
+          </Box>
+        ) : (
+          <AGGridTable
+            columnDefs={columnDefs}
+            rowData={rowData}
+            // loading={loading}
+          />
+        )}
+      </Box>
     </Box>
   );
 };
 
-export default React.memo(CollectionActivity);
+export default CollectionActivity;
