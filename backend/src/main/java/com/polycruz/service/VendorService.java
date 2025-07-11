@@ -412,53 +412,6 @@ public class VendorService {
 	        return response.getBody();
 	    }
 
-	 
-//	 public MergedMetricResponse getMergedMetrics(String currency, String blockchain) {
-//	        String baseUrl = "https://analytic.polycruz.io/api/unleash/market/metrics";
-//
-//	        String coreMetrics = String.join(",", "holders", "marketcap", "sales", "traders",
-//	                "traders_buyers", "traders_sellers", "transactions", "transfers",
-//	                "volume", "whales", "washtrade_assets", "washtrade_volume");
-//
-//	        String changeMetrics = coreMetrics.replaceAll("([^,]+)", "$1_change");
-//
-//	        String urlChange24h = String.format("%s?currency=%s&blockchain=%s&metrics=%s&time_range=24h",
-//	                baseUrl, currency, blockchain, changeMetrics);
-//
-//	        String urlValue24h = String.format("%s?currency=%s&blockchain=%s&metrics=%s&time_range=24h&include_washtrade=true",
-//	                baseUrl, currency, blockchain, coreMetrics);
-//
-//	        String urlAllTime = String.format("%s?currency=%s&blockchain=%s&metrics=%s&time_range=all&include_washtrade=true",
-//	                baseUrl, currency, blockchain, coreMetrics);
-//
-//	        Map<String, MetricDetail> change24h = fetchMetricMap(urlChange24h);
-//	        Map<String, MetricDetail> value24h = fetchMetricMap(urlValue24h);
-//	        Map<String, MetricDetail> allTime = fetchMetricMap(urlAllTime);
-//
-//	        MergedMetricResponse response = new MergedMetricResponse();
-////	        response.setChange24h(change24h);
-////	        response.setValue24h(value24h);
-////	        response.setAllTime(allTime);
-//
-//	        return response;
-//	    }
-//
-//	 private Map<String, MetricDetail> fetchMetricMap(String url) {
-//		    ResponseEntity<MarketMetricResponse> res = restTemplate.exchange(
-//		        url, HttpMethod.GET, null, MarketMetricResponse.class
-//		    );
-//		    Map<String, MetricValue> apiMap = res.getBody().getMetric_values();
-//
-//		    Map<String, MetricDetail> result = new HashMap<>();
-//		    for (Map.Entry<String, MetricValue> entry : apiMap.entrySet()) {
-//		        MetricDetail detail = new MetricDetail();
-//		        // Example mapping logic
-//		        detail.setValue(entry.getValue().getValue());
-//		        result.put(entry.getKey(), detail);
-//		    }
-//		    return result;
-//		}
-//	 
 	 public MergedMetricResponse mergeMetrics(
 		        MarketMetricResponse responseChange,
 		        MarketMetricResponse responseAbsolute,
@@ -497,4 +450,25 @@ public class VendorService {
 		}
 
 
+	 public ActivityResponse getUserActivity(String walletAddress, String sortBy, boolean includeMetadata) {
+		    String url = "https://api.reservoir.tools/users/activity/v6"
+		               + "?users=" + walletAddress
+		               + "&sortBy=" + sortBy
+		               + "&includeMetadata=" + includeMetadata;
+
+	        HttpHeaders headers = new HttpHeaders();
+	        headers.set("accept", "application/json");
+	        headers.set("x-api-key", "2fb57ee0-63ec-53bb-9311-5a0cc6b8bc49"); // optional, depends on Reservoir
+
+	        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+	        ResponseEntity<ActivityResponse> response = restTemplate.exchange(
+	                url,
+	                HttpMethod.GET,
+	                entity,
+	                ActivityResponse.class
+	        );
+
+	        return response.getBody();
+	    }
 }
