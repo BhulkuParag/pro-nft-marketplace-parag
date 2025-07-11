@@ -10,24 +10,49 @@ logging:
   type: json
   application:
     name: Polycruz
-  
+
 reservoir:
   apiKey: "2fb57ee0-63ec-53bb-9311-5a0cc6b8bc49"
-  trendingMintsUrl: "https://api.reservoir.tools/collections/trending-mints/v2"
-  collections-v7-url: "https://api.reservoir.tools/collections/v7"
-  tokens: "https://api.reservoir.tools/tokens/v7"
-  activityUrl: "https://api.reservoir.tools/tokens/0x5af0d9827e0c53e4799bb226655a1de152a425a5:9099/activity/v5"
-  askCancelUrl: "https://api.reservoir.tools/tokens/0x5af0d9827e0c53e4799bb226655a1de152a425a5:9099/activity/v5"
-  salesUrl: "https://api.reservoir.tools/sales/v6"
-  trendingApi: "https://api.reservoir.tools/collections/trending/v1?period={period}&sortBy={sortBy}"
-  trendingMints: "https://api.reservoir.tools/collections/trending-mints/v2?period={period}&limit={limit}&sortDirection={sortDirection}&offset={offset}"
-  topSales: "https://api.reservoir.tools/sales/v6?startTimestamp={startTimestamp}&sortBy={sortBy}&sortDirection={sortDirection}&limit={limit}&offset={offset}&includeTokenMetadata={includeTokenMetadata}"
-  tokenDetailUrl: "https://marketplace.polycruz.io/api/unleash/nft/1/0x5af0d9827e0c53e4799bb226655a1de152a425a5/9099"
-  statsUrl: "https://api-blast.reservoir.tools/chain/stats/v1"
+  trendingMintsUrl: "/collections/trending-mints/v2"
+  collectionsV7Url: "/collections/v7"
+  tokens: "/tokens/v7"
+  activityUrl: "/tokens/0x5af0d9827e0c53e4799bb226655a1de152a425a5:9099/activity/v5"
+  askCancelUrl: "/tokens/0x5af0d9827e0c53e4799bb226655a1de152a425a5:9099/activity/v5"
+  salesUrl: "/sales/v6"
+  trendingApi: "/collections/trending/v1?period={period}&sortBy={sortBy}"
+  trendingMints: "/collections/trending-mints/v2?period={period}&limit={limit}&sortDirection={sortDirection}&offset={offset}"
+  topSales: "/sales/v6?startTimestamp={startTimestamp}&sortBy={sortBy}&sortDirection={sortDirection}&limit={limit}&offset={offset}&includeTokenMetadata={includeTokenMetadata}"
+  tokenDetailUrl: "/api/unleash/nft/1/0x5af0d9827e0c53e4799bb226655a1de152a425a5/9099"
+  statsUrl: "/chain/stats/v1"
+  collectionActivity: "/collections/activity/v6"
+  collectionSearch: "/collections/search/v1"
+  topTrader: "/collections/0xbd3531da5cf5857e7cfaa92426877b022e612cf8/top-traders/v1"
+  aiValuationonLoad: "/api/unleash/collection/1/0xbd3531da5cf5857e7cfaa92426877b022e612cf8"
+
+  
+#reservoir:
+#  apiKey: "2fb57ee0-63ec-53bb-9311-5a0cc6b8bc49"
+#  trendingMintsUrl: "https://api.reservoir.tools/collections/trending-mints/v2"
+#  collections-v7-url: "https://api.reservoir.tools/collections/v7"
+#  tokens: "https://api.reservoir.tools/tokens/v7"
+#  activityUrl: "https://api.reservoir.tools/tokens/0x5af0d9827e0c53e4799bb226655a1de152a425a5:9099/activity/v5"
+#  askCancelUrl: "https://api.reservoir.tools/tokens/0x5af0d9827e0c53e4799bb226655a1de152a425a5:9099/activity/v5"
+#  salesUrl: "https://api.reservoir.tools/sales/v6"
+#  trendingApi: "https://api.reservoir.tools/collections/trending/v1?period={period}&sortBy={sortBy}"
+#  trendingMints: "https://api.reservoir.tools/collections/trending-mints/v2?period={period}&limit={limit}&sortDirection={sortDirection}&offset={offset}"
+#  topSales: "https://api.reservoir.tools/sales/v6?startTimestamp={startTimestamp}&sortBy={sortBy}&sortDirection={sortDirection}&limit={limit}&offset={offset}&includeTokenMetadata={includeTokenMetadata}"
+#  tokenDetailUrl: "https://marketplace.polycruz.io/api/unleash/nft/1/0x5af0d9827e0c53e4799bb226655a1de152a425a5/9099"
+#  statsUrl: "https://api-blast.reservoir.tools/chain/stats/v1"
+#  collectionActivity: "https://api.reservoir.tools/collections/activity/v6"
+#  collectionSearch: "https://api.reservoir.tools/collections/search/v1"
+#  topTrader: "https://api.reservoir.tools/collections/0xbd3531da5cf5857e7cfaa92426877b022e612cf8/top-traders/v1" 
+#  aiValuationonLoad : "https://analytic.polycruz.io/api/unleash/collection/1/0xbd3531da5cf5857e7cfaa92426877b022e612cf8"
 
 spring:
   jackson:
     default-property-inclusion: NON_NULL
+    deserialization:
+      adjust-dates-to-context-time-zone: false
 
 
 springdoc:
