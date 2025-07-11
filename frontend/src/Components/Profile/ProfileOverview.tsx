@@ -339,6 +339,7 @@ function ProfileCard() {
     >
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 2 }}>
         <DateFilter
+          wantBorder={true}
           timeOptions={filter}
           handleChange={handleDateFilterChange}
           selectedTime={range}

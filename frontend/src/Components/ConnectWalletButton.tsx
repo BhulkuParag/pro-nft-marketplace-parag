@@ -15,23 +15,21 @@ const client = createThirdwebClient({
 
 export const ConnectWalletButton = () => {
   return (
-    <ThirdwebProvider>
-      <ConnectButton
-        client={client}
-        connectModal={{
-          welcomeScreen: {
-            title: 'Welcome to Polycruz',
-            subtitle: 'Connect your wallet to start your journey.',
-            img: {
-              src: 'https://pbs.twimg.com/profile_images/1720442489851846656/3gL1RWXc_400x400.jpg',
-              width: 200,
-              height: 200,
-            },
+    <ConnectButton
+      client={client}
+      connectModal={{
+        welcomeScreen: {
+          title: 'Welcome to Polycruz',
+          subtitle: 'Connect your wallet to start your journey.',
+          img: {
+            src: 'https://pbs.twimg.com/profile_images/1720442489851846656/3gL1RWXc_400x400.jpg',
+            width: 200,
+            height: 200,
           },
-          showThirdwebBranding: false,
-        }}
-        chains={[mainnet, polygon, optimism, arbitrum, avalanche, sepolia]}
-      />
-    </ThirdwebProvider>
+        },
+        showThirdwebBranding: false,
+      }}
+      chains={[mainnet, polygon, optimism, arbitrum, avalanche, sepolia]}
+    />
   );
 };
