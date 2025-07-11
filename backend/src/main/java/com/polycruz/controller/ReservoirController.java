@@ -1,20 +1,29 @@
 package com.polycruz.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.polycruz.ReservoirChain;
 import com.polycruz.pojo.ActivityResponse;
-import com.polycruz.pojo.ChainStatsResponse;
 import com.polycruz.pojo.CollectionSearchResponse;
 import com.polycruz.pojo.CollectionsV7Response;
+import com.polycruz.pojo.MarketMetricResponse;
+import com.polycruz.pojo.MergedMetricResponse;
 import com.polycruz.pojo.NftCollectionResponse;
+import com.polycruz.pojo.NftPriceEstimateResponse;
 import com.polycruz.pojo.NftSalesResponse;
 import com.polycruz.pojo.SalesApiResponse;
 import com.polycruz.pojo.TokenDetail;
 import com.polycruz.pojo.TokenResponse;
 import com.polycruz.pojo.TopTradersResponse;
+import com.polycruz.pojo.TransformedStatsResponse;
 import com.polycruz.pojo.TrendingApiResponse;
 import com.polycruz.pojo.TrendingMintsResponse;
 import com.polycruz.service.VendorService;
@@ -25,9 +34,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.RequiredArgsConstructor;
-
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/reservoir")
@@ -144,13 +150,16 @@ public class ReservoirController {
         return new ResponseEntity<>(transformer.transform(vendorService.fetchTokenDetails(chain,currency)), HttpStatus.OK);
     }
      
-     @GetMapping("/stats")
-     @Operation(summary = "chain stats v1")
-     public ResponseEntity<TechResponse<ChainStatsResponse>> getChainStats(@RequestParam ReservoirChain chain
-            
-     ) {
-         return new ResponseEntity<>(transformer.transform(vendorService.getChainStats(chain)), HttpStatus.OK);
-     }
+
+    @GetMapping("/stats")
+    @Operation(summary = "Fetch chain stats")
+    public ResponseEntity<TransformedStatsResponse> getChainStats(
+            @RequestParam ReservoirChain chain) {
+
+        TransformedStatsResponse original = vendorService.getStatesStats(chain);
+
+        return new ResponseEntity<>(original, HttpStatus.OK);
+    }
      
      @GetMapping("/collection/v1")
      @Operation(summary = "AI Valuation a. on load")
@@ -212,6 +221,60 @@ public class ReservoirController {
         return new ResponseEntity<>(transformer.transform(result), HttpStatus.OK);
     }
 
+    @GetMapping("/nft/price-estimate")
+    @Operation(summary = "Fetch NFT price estimate from Unleash API")
+    public ResponseEntity<TechResponse<NftPriceEstimateResponse>> getNftPriceEstimate(
+            @RequestParam(defaultValue = "1") String blockchain,
+            @RequestParam (defaultValue = "10xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d")String address,
+            @RequestParam(defaultValue = "1") String tokenId) {
+
+        NftPriceEstimateResponse estimate = vendorService.getNftPriceEstimate(blockchain, address, tokenId);
+        return new ResponseEntity<>(transformer.transform(estimate), HttpStatus.OK);
+    }
+
+    @GetMapping("unleash/market/metrics")
+    public MarketMetricResponse getMetrics(
+            @RequestParam(defaultValue = "eth") String currency,
+            @RequestParam(defaultValue = "1") String blockchain,
+            @RequestParam(defaultValue = "24h") String timeRange
+    ) {
+        return vendorService.getMarketMetrics(currency, blockchain, timeRange);
+    }
+    
+    @GetMapping("/metrics")
+    public MarketMetricResponse getMetrics(
+            @RequestParam(defaultValue = "eth") String currency,
+            @RequestParam(defaultValue = "1") String blockchain,
+            @RequestParam(defaultValue = "24h") String timeRange,
+            @RequestParam(defaultValue = "true") boolean includeWashtrade
+    ) {
+        return vendorService.getMarketMetrics(currency, blockchain, timeRange, includeWashtrade);
+    }
+
+    
+    @GetMapping("/metrics2")
+    public MarketMetricResponse getMetrics2(
+            @RequestParam(defaultValue = "eth") String currency,
+            @RequestParam(defaultValue = "1") String blockchain,
+            @RequestParam(defaultValue = "all") String timeRange,
+            @RequestParam(defaultValue = "true") boolean includeWashtrade
+    ) {
+        return vendorService.getMarketMetrics(currency, blockchain, timeRange, includeWashtrade);
+    }
+    
+    @GetMapping("/merged-metrics")
+    public MergedMetricResponse getMergedMetrics(
+    		 @RequestParam(defaultValue = "eth") String currency,
+             @RequestParam(defaultValue = "1") String blockchain,
+             @RequestParam(defaultValue = "24h") String timeRange,
+             @RequestParam(defaultValue = "all") String timeRange2,
+             @RequestParam(defaultValue = "true") boolean includeWashtrade
+    ) {
+    	MarketMetricResponse marketMetrics = vendorService.getMarketMetrics(currency, blockchain, timeRange);
+    	 MarketMetricResponse marketMetrics2 = vendorService.getMarketMetrics(currency, blockchain, timeRange, includeWashtrade);
+    	 MarketMetricResponse marketMetrics3 = vendorService.getMarketMetrics(currency, blockchain, timeRange2, includeWashtrade);
+        return vendorService.mergeMetrics(marketMetrics, marketMetrics2, marketMetrics3) ;
+    }
 }
 
 

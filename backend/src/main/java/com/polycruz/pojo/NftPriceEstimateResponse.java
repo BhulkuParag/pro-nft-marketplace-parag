@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class NftPriceEstimateResponse {
-    private MetadataEstimate metadataEstimate;
+    private MetadataEstimate metadata;
     private MetricValues metric_values;
 }
