@@ -29,6 +29,7 @@ import com.polycruz.ReservoirChain;
 import com.polycruz.config.ReservoirApiProperties;
 import com.polycruz.exception.PolycruzSystemException;
 import com.polycruz.pojo.ActivityResponse;
+import com.polycruz.pojo.AttributeExploreResponse;
 import com.polycruz.pojo.CollectionSearchResponse;
 import com.polycruz.pojo.CollectionsV7Response;
 import com.polycruz.pojo.MarketMetricResponse;
@@ -156,29 +157,6 @@ public class VendorService {
 				});
 		return response.getBody();
 	}
-
-//	public TokenDetail fetchTokenDetails(ReservoirChain chain,String currency) {
-//        String baseUrl = chain.getBaseUrl() + apiProperties.getTokenDetailUrl();
-//        System.out.println("base url - " +baseUrl);
-//        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(baseUrl);
-//        if (currency != null && !currency.isBlank()) {
-//            builder.queryParam("currency", currency);
-//        }
-//
-//        URI uri = builder.build().toUri();
-//        System.out.println("uri - " +uri);
-//        ResponseEntity<TokenDetail> response = restTemplate.exchange(
-//                uri,
-//                HttpMethod.GET,
-//                null,
-//                new ParameterizedTypeReference<>() {}
-//        );
-//        if(response.getStatusCode().in != 200) {
-//        	
-//        }
-//        System.out.println(response.getStatusCode());
-//        return response.getBody();
-//    }
 
 	public TokenDetail fetchTokenDetails(ReservoirChain chain, String currency) {
 		String baseUrl = chain.getBaseUrl() + apiProperties.getTokenDetailUrl();
@@ -470,5 +448,10 @@ public class VendorService {
 	        );
 
 	        return response.getBody();
+	    }
+	 
+	 public AttributeExploreResponse getAttributesByTokenId(int tokenId) {
+	        String url =  apiProperties.getAttributes()+ "?tokenId=" + tokenId;
+	        return restTemplate.getForObject(url, AttributeExploreResponse.class);
 	    }
 }

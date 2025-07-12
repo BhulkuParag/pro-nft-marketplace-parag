@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.polycruz.ReservoirChain;
 import com.polycruz.pojo.ActivityResponse;
+import com.polycruz.pojo.AttributeExploreResponse;
 import com.polycruz.pojo.CollectionSearchResponse;
 import com.polycruz.pojo.CollectionsV7Response;
 import com.polycruz.pojo.MarketMetricResponse;
@@ -233,37 +234,37 @@ public class ReservoirController {
     }
 
     @GetMapping("unleash/market/metrics")
-    public MarketMetricResponse getMetrics(
+    public ResponseEntity<TechResponse<MarketMetricResponse>> getMetrics(
             @RequestParam(defaultValue = "eth") String currency,
             @RequestParam(defaultValue = "1") String blockchain,
             @RequestParam(defaultValue = "24h") String timeRange
     ) {
-        return vendorService.getMarketMetrics(currency, blockchain, timeRange);
+        return new ResponseEntity<>(transformer.transform(vendorService.getMarketMetrics(currency, blockchain, timeRange)), HttpStatus.OK);
     }
     
     @GetMapping("/metrics")
-    public MarketMetricResponse getMetrics(
+    public ResponseEntity<TechResponse<MarketMetricResponse>> getMetrics(
             @RequestParam(defaultValue = "eth") String currency,
             @RequestParam(defaultValue = "1") String blockchain,
             @RequestParam(defaultValue = "24h") String timeRange,
             @RequestParam(defaultValue = "true") boolean includeWashtrade
     ) {
-        return vendorService.getMarketMetrics(currency, blockchain, timeRange, includeWashtrade);
+        return new ResponseEntity<>(transformer.transform(vendorService.getMarketMetrics(currency, blockchain, timeRange, includeWashtrade)), HttpStatus.OK);
     }
 
     
     @GetMapping("/metrics2")
-    public MarketMetricResponse getMetrics2(
+    public ResponseEntity<TechResponse<MarketMetricResponse>> getMetrics2(
             @RequestParam(defaultValue = "eth") String currency,
             @RequestParam(defaultValue = "1") String blockchain,
             @RequestParam(defaultValue = "all") String timeRange,
             @RequestParam(defaultValue = "true") boolean includeWashtrade
     ) {
-        return vendorService.getMarketMetrics(currency, blockchain, timeRange, includeWashtrade);
+        return new ResponseEntity<>(transformer.transform(vendorService.getMarketMetrics(currency, blockchain, timeRange, includeWashtrade)), HttpStatus.OK);
     }
     
     @GetMapping("/merged-metrics")
-    public MergedMetricResponse getMergedMetrics(
+    public ResponseEntity<TechResponse<MergedMetricResponse>> getMergedMetrics(
     		 @RequestParam(defaultValue = "eth") String currency,
              @RequestParam(defaultValue = "1") String blockchain,
              @RequestParam(defaultValue = "24h") String timeRange,
@@ -273,17 +274,22 @@ public class ReservoirController {
     	MarketMetricResponse marketMetrics = vendorService.getMarketMetrics(currency, blockchain, timeRange);
     	 MarketMetricResponse marketMetrics2 = vendorService.getMarketMetrics(currency, blockchain, timeRange, includeWashtrade);
     	 MarketMetricResponse marketMetrics3 = vendorService.getMarketMetrics(currency, blockchain, timeRange2, includeWashtrade);
-        return vendorService.mergeMetrics(marketMetrics, marketMetrics2, marketMetrics3) ;
+        return new ResponseEntity<>(transformer.transform(vendorService.mergeMetrics(marketMetrics, marketMetrics2, marketMetrics3)), HttpStatus.OK);
     }
     
     @GetMapping("/user/activity")
-    public ActivityResponse getUserActivity(
+    public ResponseEntity<TechResponse<ActivityResponse>> getUserActivity(
     	    @RequestParam(defaultValue = "0x566Acd989D8D8DcCe24639811b0287F282E99717") String wallet,
     	    @RequestParam(defaultValue = "eventTimestamp") String sortBy,
     	    @RequestParam(defaultValue = "true") boolean includeMetadata
     	) {
-    	    return vendorService.getUserActivity(wallet, sortBy, includeMetadata);
+    	    return new ResponseEntity<>(transformer.transform(vendorService.getUserActivity(wallet, sortBy, includeMetadata)), HttpStatus.OK);
     	}
+    
+    @GetMapping("/attributes")
+    public ResponseEntity<TechResponse<AttributeExploreResponse>> getAttributes( @RequestParam(defaultValue = "936") Integer tokenId) {
+        return new ResponseEntity<>(transformer.transform(vendorService.getAttributesByTokenId(tokenId)), HttpStatus.OK);
+    }
 }
 
 
