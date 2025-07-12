@@ -1,4 +1,5 @@
-import type { GlobalSearchT } from '../types/home';
+import { Axios } from 'axios';
+import type { GlobalSearchT, HomeCardData } from '../types/home';
 import type { NftSalesT, RowData, TopMintData } from '../types/table';
 import { API_CONFIG, buildApiUrl } from './api_config';
 import AXIOS from './axios';
@@ -32,6 +33,23 @@ interface GlobalSearchApiResponse {
     collections?: GlobalSearchT[];
   };
 }
+
+interface HomeCard {
+  data?: {
+    stats?: HomeCardData;
+  };
+}
+
+export const fetchHomeCard = async (
+  period: string,
+  chainId?: string
+): Promise<HomeCardData> => {
+  const url = buildApiUrl(API_CONFIG.ENDPOINTS.HomeCard, chainId, {
+    period,
+  });
+  const response = await AXIOS.get<HomeCard>(url);
+  return response.data?.data?.stats ?? {};
+};
 
 export const fetchTrendingData = async (
   period: string,

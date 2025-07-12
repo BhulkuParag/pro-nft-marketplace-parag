@@ -1,4 +1,9 @@
-import type { AiValuationLoad, HoldersT, StandoutT } from '../types/collection';
+import type {
+  AiValuationEstimateT,
+  AiValuationLoad,
+  HoldersT,
+  StandoutT,
+} from '../types/collection';
 import type {
   ActivityType,
   ItemDetails,
@@ -42,6 +47,10 @@ interface StandoutApiResponse {
 
 interface HoldersApiResponse {
   data?: HoldersT;
+}
+
+interface AiValuationEstimateApiResponse {
+  data?: AiValuationEstimateT;
 }
 
 export const fetchItemsData = async (
@@ -101,9 +110,8 @@ export const fetchOverviewDetailData = async (
 export const fetchAiValuationLoadData = async (
   chainId?: string
 ): Promise<AiValuationLoad> => {
-  const response = await AXIOS.get<AiValuationLoadApiResponse>(
-    `/api/v1/reservoir/collection/v1?chain=${chainId}`
-  );
+  const url = buildApiUrl(API_CONFIG.ENDPOINTS.AI_VALUATION_ONLOAD, chainId);
+  const response = await AXIOS.get<AiValuationLoadApiResponse>(url);
   return response.data?.data ?? {};
 };
 
@@ -129,7 +137,7 @@ export const fetchStandoutHoldersData = async (
   const url = buildApiUrl(API_CONFIG.ENDPOINTS.STANDOUT_HOLDERS, chainId, {
     collection,
     type,
-    period
+    period,
   });
   const response = await AXIOS.get<HoldersApiResponse>(url);
   return response.data?.data ?? {};
@@ -138,8 +146,20 @@ export const fetchStandoutHoldersData = async (
 export const fetchTraitsDataData = async (
   chainId?: string
 ): Promise<string[]> => {
-  const url = buildApiUrl(API_CONFIG.ENDPOINTS.STANDOUT_HOLDERS, chainId, {
-  });
+  const url = buildApiUrl(API_CONFIG.ENDPOINTS.STANDOUT_HOLDERS, chainId, {});
   const response = await AXIOS.get<any>(url);
+  return response.data?.data ?? {};
+};
+
+export const fetchAiValuationEstimateData = async (
+  contract: string,
+  tokenId: string,
+  chainId?: string
+): Promise<AiValuationEstimateT> => {
+  const url = buildApiUrl(API_CONFIG.ENDPOINTS.AI_VALUATION_ESTIMATE, chainId, {
+    address: contract,
+    tokenId,
+  });
+  const response = await AXIOS.get<AiValuationEstimateApiResponse>(url);
   return response.data?.data ?? {};
 };

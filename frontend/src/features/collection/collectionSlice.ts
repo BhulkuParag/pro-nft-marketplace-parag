@@ -20,6 +20,7 @@ import {
 } from '../../utils/Table/cellRenderer';
 import type { ICellRendererParams } from 'ag-grid-community';
 import type {
+  AiValuationEstimateT,
   AiValuationLoad,
   HoldersT,
   StandoutT,
@@ -52,6 +53,7 @@ interface CollectionState {
   traitsData: { [key: string]: any };
   selectedActivityFilter: string[];
   activityFilters: ActivityFilterT[];
+  ai_valuation_tokenId: string,
   // type:
   //   | 'ask_cancel'
   //   | 'sale'
@@ -75,6 +77,7 @@ const initialState: CollectionState = {
   collection: '',
   itemFilterOpen: false,
   itemSearchValue: '',
+  ai_valuation_tokenId: '',
   itemSearchData: [],
   selectedActivityFilter: ['sale'],
   activityFilters: [
@@ -284,6 +287,26 @@ const collectionSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    fetchAiValuationEstimateDataRequest: (state, action: PayloadAction<string>) => {
+      state.loading = true;
+      state.error = null;
+      state.contract =  action.payload;
+    },
+    fetchAiValuationEstimateDataSuccess: (
+      state,
+      action: PayloadAction<AiValuationEstimateT>
+    ) => {
+      console.log('action.payload', action.payload);
+      state.loading = false;
+      state.tabData = {
+        ...state.tabData,
+        [state.activeTab]: action.payload,
+      };
+    },
+    fetchAiValuationEstimateDataFailure: (state, action: PayloadAction<string>) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
     fetchStandoutSaleDataRequest: (
       state,
       action: PayloadAction<{ contract: string; type: string }>
@@ -448,6 +471,9 @@ const collectionSlice = createSlice({
     setItemFilterOpen: (state) => {
       state.itemFilterOpen = !state.itemFilterOpen;
     },
+    setAi_valuation_tokenId: (state, action: PayloadAction<string>) => {
+      state.ai_valuation_tokenId = action.payload;
+    }
   },
 });
 
@@ -467,6 +493,9 @@ export const {
   fetchAiValuationLoadDataRequest,
   fetchAiValuationLoadDataSuccess,
   fetchAiValuationLoadDataFailure,
+  fetchAiValuationEstimateDataRequest,
+  fetchAiValuationEstimateDataSuccess,
+  fetchAiValuationEstimateDataFailure,
   fetchStandoutSaleDataRequest,
   fetchStandoutSaleDataSuccess,
   fetchStandoutSaleDataFailure,
@@ -492,6 +521,7 @@ export const {
   setItemSearchData,
   setSelectedActivityFilter,
   setItemFilterOpen,
+  setAi_valuation_tokenId
 } = collectionSlice.actions;
 
 export default collectionSlice.reducer;

@@ -1,0 +1,30 @@
+"use client";
+import "./chunk-C6WWHQR7.js";
+import {
+  createSvgIcon
+} from "./chunk-MGFGV3CQ.js";
+import "./chunk-WW4F6EVE.js";
+import "./chunk-FS3TS7ZM.js";
+import "./chunk-YN4LU4GR.js";
+import "./chunk-QS5CE3CL.js";
+import "./chunk-7BG3UTHV.js";
+import "./chunk-S652P6HC.js";
+import "./chunk-ERYK7KJM.js";
+import {
+  require_jsx_runtime
+} from "./chunk-4VHZN6OL.js";
+import "./chunk-HQ6ZTAWL.js";
+import "./chunk-NQM6PSUW.js";
+import {
+  __toESM
+} from "./chunk-OS7ZSSJM.js";
+
+// node_modules/@mui/icons-material/esm/Info.js
+var import_jsx_runtime = __toESM(require_jsx_runtime());
+var Info_default = createSvgIcon((0, import_jsx_runtime.jsx)("path", {
+  d: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m1 15h-2v-6h2zm0-8h-2V7h2z"
+}), "Info");
+export {
+  Info_default as default
+};
+//# sourceMappingURL=@mui_icons-material_Info.js.map
