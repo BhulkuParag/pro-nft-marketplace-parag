@@ -147,7 +147,7 @@ public class ReservoirController {
      @GetMapping("/stats")
      @Operation(summary = "chain stats v1")
      public ResponseEntity<TechResponse<ChainStatsResponse>> getChainStats(@RequestParam ReservoirChain chain
-            
+
      ) {
          return new ResponseEntity<>(transformer.transform(vendorService.getChainStats(chain)), HttpStatus.OK);
      }
@@ -211,6 +211,19 @@ public class ReservoirController {
         String result = vendorService.callUnleashApi(cleanPath, queryParams);
         return new ResponseEntity<>(transformer.transform(result), HttpStatus.OK);
     }
+
+    @GetMapping("/nft/price-estimate")
+    @Operation(summary = "Fetch NFT price estimate from Unleash API")
+    public ResponseEntity<TechResponse<NftPriceEstimateResponse>> getNftPriceEstimate(
+            @RequestParam String blockchain,
+            @RequestParam String address,
+            @RequestParam String tokenId) {
+
+        NftPriceEstimateResponse estimate = vendorService.getNftPriceEstimate(blockchain, address, tokenId);
+        return new ResponseEntity<>(transformer.transform(estimate), HttpStatus.OK);
+
+    }
+
 
 }
 

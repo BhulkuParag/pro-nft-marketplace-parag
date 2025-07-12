@@ -303,4 +303,27 @@ public class VendorService {
 	}
 
 
+	public NftPriceEstimateResponse getNftPriceEstimate(String blockchain, String address, String tokenId) {
+		String url = String.format(
+				"https://api.unleashnfts.com/api/v1/nft/%s/%s/%s/price-estimate",
+				blockchain, address, tokenId
+		);
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("x-api-key", "tuF8lxipeseroFej7cowemOsaplfripoCugaKesosPa");
+		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+
+		HttpEntity<Void> entity = new HttpEntity<>(headers);
+
+		ResponseEntity<NftPriceEstimateResponse> response = restTemplate.exchange(
+				url,
+				HttpMethod.GET,
+				entity,
+				NftPriceEstimateResponse.class
+		);
+
+		return response.getBody();
+	}
+
+
 }
