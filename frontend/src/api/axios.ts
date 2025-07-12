@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const BASE_URL =
-  import.meta.env.VITE_API_BASE_URL ?? 'http://65.1.94.196:8085/';
+  import.meta.env.VITE_API_BASE_URL ?? 'http://65.1.94.196:8085';
 
 const AXIOS = axios.create({
   baseURL: BASE_URL,
