@@ -228,6 +228,7 @@ public class ReservoirController {
 
         NftPriceEstimateResponse estimate = vendorService.getNftPriceEstimate(blockchain, address, tokenId);
         return new ResponseEntity<>(transformer.transform(estimate), HttpStatus.OK);
+
     }
 
 
