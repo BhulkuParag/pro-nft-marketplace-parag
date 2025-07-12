@@ -556,3 +556,48 @@ export interface HoldersT {
     }
   ];
 }
+
+export interface AiValuationEstimateT {
+  metadata?: {
+    address: string;
+    token_id: string;
+    name: string;
+    collection_name: string;
+    chain_id: string;
+    minted_date: string;
+    token_image_url: string;
+    thumbnail_url: string;
+    thumbnail_palette: string[];
+    verified: true;
+  };
+  metric_values?: {
+    price_estimate: {
+      value: string;
+      unit: string;
+    };
+    price_estimate_upper_bound?: {
+      value: string;
+      unit: string;
+    };
+    price_estimate_lower_bound?: {
+      value: string;
+      unit: string;
+    };
+    prediction_percentile?: {
+      value: string;
+      unit: string;
+    };
+    collection_drivers?: {
+      value: string;
+      unit: string;
+    };
+    nft_sales_drivers?: {
+      value: string;
+      unit: string;
+    };
+    nft_rarity_drivers?: {
+      value: string;
+      unit: string;
+    };
+  };
+}

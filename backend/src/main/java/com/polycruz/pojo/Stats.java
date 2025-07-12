@@ -1,11 +1,14 @@
 package com.polycruz.pojo;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 
 @Data
 public class Stats {
-	private List<StatItem> day1;
-	private List<StatItem> day7;
+    @JsonProperty("1day")
+    private TimeFrame oneDay;
+
+    @JsonProperty("7day")
+    private TimeFrame sevenDay;
 }
