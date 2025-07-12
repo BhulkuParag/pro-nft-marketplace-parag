@@ -2,12 +2,10 @@ package com.polycruz.service;
 
 import java.lang.reflect.Array;
 import java.net.URI;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
+import com.polycruz.pojo.*;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.retry.annotation.Backoff;
@@ -22,18 +20,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.polycruz.ReservoirChain;
 import com.polycruz.config.ReservoirApiProperties;
 import com.polycruz.exception.PolycruzSystemException;
-import com.polycruz.pojo.ActivityResponse;
-import com.polycruz.pojo.ChainStatsResponse;
-import com.polycruz.pojo.CollectionSearchResponse;
-import com.polycruz.pojo.CollectionsV7Response;
-import com.polycruz.pojo.NftCollectionResponse;
-import com.polycruz.pojo.NftSalesResponse;
-import com.polycruz.pojo.SalesApiResponse;
-import com.polycruz.pojo.TokenDetail;
-import com.polycruz.pojo.TokenResponse;
-import com.polycruz.pojo.TopTradersResponse;
-import com.polycruz.pojo.TrendingApiResponse;
-import com.polycruz.pojo.TrendingMintsResponse;
 import org.springframework.web.client.RestTemplate;
 
 import lombok.RequiredArgsConstructor;
