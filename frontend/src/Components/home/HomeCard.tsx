@@ -2,76 +2,119 @@ import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { FaEthereum } from 'react-icons/fa';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import { Box } from '@mui/material';
-import Card from '../../@ui-component/Comman/Card';
-
-const cards = [
-  {
-    id: 1,
-    title: 'NFT Mint',
-    helpIcon: <HelpOutlineIcon />,
-    coinIcon: <FaEthereum />,
-    price: '$138,151,460',
-    Subprice: '$138,151,460',
-    PNL: '-4.16% (24h)',
-    GrowthIcon: <TrendingUpIcon />,
-  },
-
-  {
-    id: 2,
-    title: 'NFT Voulme',
-    helpIcon: <HelpOutlineIcon />,
-    coinIcon: <FaEthereum />,
-    price: '$252,960,998',
-    Subprice: '$2,135,597.2',
-    PNL: '-33.22% (24h)',
-    GrowthIcon: <TrendingUpIcon />,
-  },
-
-  {
-    id: 3,
-    title: 'NFT Sale',
-    helpIcon: <HelpOutlineIcon />,
-    coinIcon: <FaEthereum />,
-    price: '$4,350,950',
-    Subprice: '6030',
-    PNL: '23.31% (24h)',
-    GrowthIcon: <TrendingUpIcon />,
-  },
-  {
-    id: 4,
-    title: 'Sale Volume',
-    helpIcon: <HelpOutlineIcon />,
-    coinIcon: <FaEthereum />,
-    price: '$340,430,241  ',
-    Subprice: '40,445',
-    PNL: '126.85% (24h)',
-    GrowthIcon: <TrendingUpIcon />,
-  },
-  {
-    id: 5,
-    title: 'Total Assets',
-    helpIcon: <HelpOutlineIcon />,
-    coinIcon: <FaEthereum />,
-    price: '$128,294,750',
-    Subprice: '25,013',
-    PNL: '74.97% (24h)',
-    GrowthIcon: <TrendingUpIcon />,
-  },
-  {
-    id: 6,
-    title: 'Total Volume',
-    helpIcon: <HelpOutlineIcon />,
-    coinIcon: <FaEthereum />,
-    price: '$58,822,919',
-    Subprice: '6587',
-    PNL: '-24.16% (24h)',
-    GrowthIcon: <TrendingUpIcon />,
-  },
-];
+import Card from '../../../@ui-component/Comman/Card';
+import { useCallback, useEffect, useMemo } from 'react';
+import DateFilter from '../../../@ui-component/Comman/DateFilter';
+import { useDispatch, useSelector } from 'react-redux';
+import type { RootState } from '../../app/store';
+import { setCardTimeCompare, fetchHomeCardRequest } from '../../features/home/homeSlice';
 
 function HomeCard() {
+  // const [range, setRange] = useState<string>('1day');
+  // const filter = [
+  //   { label: '24h', value: '1day' },
+  //   { label: '7d', value: '7d' },
+  // ];
+  const dispatch = useDispatch();
+  const { cardData, cardTimeOptions } = useSelector(
+    (state: RootState) => state.home
+  );
+  const cardTimeCompare: '1day' | '7day' = useSelector(
+    (state: RootState) => state.home.cardTimeCompare
+  );
+  console.log('cardData', cardData);
+
+  useEffect(() => {
+    dispatch(fetchHomeCardRequest());
+  }, [dispatch]);
+
+  const handleDateFilterChange = useCallback((value: string) => {
+    console.log('value', value);
+    dispatch(setCardTimeCompare(value as '1day' | '7day'));
+    console.log(value);
+  }, []);
+
+  const cards = useMemo(
+    () => [
+      {
+        id: 1,
+        title: 'NFT Mint',
+        helpIcon: <HelpOutlineIcon />,
+        coinIcon: <FaEthereum />,
+        price: cardData[cardTimeCompare]?.mintCount,
+
+        // Subprice: '$138,151,460',
+        // PNL: '-4.16% (24h)',
+        // GrowthIcon: <TrendingUpIcon />,
+      },
+
+      {
+        id: 2,
+        title: 'NFT Voulme',
+        helpIcon: <HelpOutlineIcon />,
+        coinIcon: <FaEthereum />,
+        price: cardData[cardTimeCompare]?.mintVolume,
+        // Subprice: '$2,135,597.2',
+        // PNL: '-33.22% (24h)',
+        // GrowthIcon: <TrendingUpIcon />,
+      },
+
+      {
+        id: 3,
+        title: 'NFT Sale',
+        helpIcon: <HelpOutlineIcon />,
+        coinIcon: <FaEthereum />,
+        price: cardData[cardTimeCompare]?.saleCount,
+        // Subprice: '6030',
+        // PNL: '23.31% (24h)',
+        // GrowthIcon: <TrendingUpIcon />,
+      },
+      {
+        id: 4,
+        title: 'Sale Volume',
+        helpIcon: <HelpOutlineIcon />,
+        coinIcon: <FaEthereum />,
+        price: cardData[cardTimeCompare]?.saleVolume,
+        // Subprice: '40,445',
+        // PNL: '126.85% (24h)',
+        // GrowthIcon: <TrendingUpIcon />,
+      },
+      {
+        id: 5,
+        title: 'Total Assets',
+        helpIcon: <HelpOutlineIcon />,
+        coinIcon: <FaEthereum />,
+        price: cardData[cardTimeCompare]?.totalCount,
+        // Subprice: '25,013',
+        // PNL: '74.97% (24h)',
+        // GrowthIcon: <TrendingUpIcon />,
+      },
+      {
+        id: 6,
+        title: 'Total Volume',
+        helpIcon: <HelpOutlineIcon />,
+        coinIcon: <FaEthereum />,
+        price: cardData[cardTimeCompare]?.totalVolume,
+        // Subprice: '6587',
+        // PNL: '-24.16% (24h)',
+        // GrowthIcon: <TrendingUpIcon />,
+      },
+    ],
+    [cardTimeCompare, dispatch, cardData]
+  );
+
   return (
     <Box component="div" sx={{ paddingInline: { xs: 2, lg: 2, xl: 3 } }}>
+      <Box
+        sx={{ display: 'flex', justifyContent: 'flex-end', paddingBlock: 1 }}
+      >
+        <DateFilter
+          wantBorder={true}
+          timeOptions={cardTimeOptions}
+          handleChange={handleDateFilterChange}
+          selectedTime={cardTimeCompare}
+        />
+      </Box>
       <Box
         component="div"
         sx={{
@@ -112,9 +155,9 @@ function HomeCard() {
               helpIcon={card.helpIcon}
               coinIcon={card.coinIcon}
               price={card.price}
-              Subprice={card.Subprice}
-              PNL={card.PNL}
-              GrowthIcon={card.GrowthIcon}
+              // Subprice={card.Subprice}
+              // PNL={card.PNL}
+              // GrowthIcon={card.GrowthIcon}
             />
           </Box>
         ))}

@@ -15,25 +15,30 @@ export const API_CONFIG = {
     AI_VALUATION_ONLOAD: '/api/v1/reservoir/collection/v1',
     
     // Home APIs
+    HomeCard: '/api/v1/reservoir/stats',
     TRENDING: '/api/v1/reservoir/trending-api',
     NFT_SALES: '/api/v1/reservoir/nft-sales',
     TOP_SALES: '/api/v1/reservoir/top-sales',
     TRENDING_MINTS: '/api/v1/reservoir/trending-mints',
     COLLECTION_SEARCH: '/api/v1/reservoir/collection/search',
   },
-  
+
   // Default chain configuration
   DEFAULT_CHAIN: 'ETHEREUM', // Ethereum mainnet
 };
 
 // Helper function to build URLs with chain parameter
-export const buildApiUrl = (endpoint: string, chainId?: string, params?: Record<string, any>): string => {
+export const buildApiUrl = (
+  endpoint: string,
+  chainId?: string,
+  params?: Record<string, any>
+): string => {
   const chain = chainId ?? API_CONFIG.DEFAULT_CHAIN;
   const urlParams = new URLSearchParams();
-  
+
   // Add chain parameter
   urlParams.append('chain', chain.toString());
-  
+
   // Add other parameters
   if (params) {
     Object.entries(params).forEach(([key, value]) => {
@@ -42,6 +47,6 @@ export const buildApiUrl = (endpoint: string, chainId?: string, params?: Record<
       }
     });
   }
-  
+
   return `${endpoint}?${urlParams.toString()}`;
 };
