@@ -3,8 +3,7 @@ package com.polycruz.pojo;
 import lombok.Data;
 
 @Data
-public  class MetricValue {
-    private double value;
+public class PriceData {
+    private String value;
     private String unit;
-    
 }

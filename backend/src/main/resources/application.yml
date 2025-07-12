@@ -28,8 +28,6 @@ reservoir:
   collectionSearch: "/collections/search/v1"
   topTrader: "/collections/0xbd3531da5cf5857e7cfaa92426877b022e612cf8/top-traders/v1"
   aiValuationonLoad: "/api/unleash/collection/1/0xbd3531da5cf5857e7cfaa92426877b022e612cf8"
-  tokenActivityUrl: "https://api.reservoir.tools/tokens/{contract}:{tokenId}/activity/v5"
-  attributes: "https://api.reservoir.tools/collections/0xbd3531da5cf5857e7cfaa92426877b022e612cf8/attributes/explore/v6"
 
   
 #reservoir:
