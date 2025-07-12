@@ -19,9 +19,9 @@ public class HttpConnectorConfig {
         org.apache.catalina.connector.Connector connector =
                 new org.apache.catalina.connector.Connector(org.apache.coyote.http11.Http11NioProtocol.class.getName());
         connector.setScheme("http");
-        connector.setPort(8085); // HTTP
+        connector.setPort(8081); // HTTP
         connector.setSecure(false);
-        connector.setRedirectPort(8081); // Redirect to HTTPS
+        connector.setRedirectPort(8085); // Redirect to HTTPS
         return connector;
     }
 }
