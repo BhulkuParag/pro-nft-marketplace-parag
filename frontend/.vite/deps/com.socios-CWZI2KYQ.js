@@ -1,0 +1,35 @@
+import "./chunk-OS7ZSSJM.js";
+
+// node_modules/thirdweb/dist/esm/wallets/__generated__/wallet/com.socios.app/index.js
+var wallet = {
+  app: {
+    android: "https://play.google.com/store/apps/details?id=com.socios&hl=en",
+    browser: "https://app.socios.com",
+    chrome: null,
+    edge: null,
+    firefox: null,
+    ios: "https://apps.apple.com/app/id1464868277",
+    linux: null,
+    mac: null,
+    opera: null,
+    safari: null,
+    windows: null
+  },
+  desktop: {
+    native: null,
+    universal: "https://app.socios.com"
+  },
+  homepage: "https://app.socios.com",
+  id: "com.socios.app",
+  image_id: "eb55679f-9462-45e2-e0ec-dfb851f9e700",
+  mobile: {
+    native: "socios-mob://",
+    universal: null
+  },
+  name: "Socios.com - Wallet & Tokens",
+  rdns: null
+};
+export {
+  wallet
+};
+//# sourceMappingURL=com.socios-CWZI2KYQ.js.map
