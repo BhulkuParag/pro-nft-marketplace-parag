@@ -109,7 +109,6 @@ function HomeCard() {
         sx={{ display: 'flex', justifyContent: 'flex-end', paddingBlock: 1 }}
       >
         <DateFilter
-          wantBorder={true}
           timeOptions={cardTimeOptions}
           handleChange={handleDateFilterChange}
           selectedTime={cardTimeCompare}
