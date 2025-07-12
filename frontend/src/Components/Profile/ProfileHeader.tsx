@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import SailingIcon from '@mui/icons-material/Sailing';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LanguageIcon from '@mui/icons-material/Language';

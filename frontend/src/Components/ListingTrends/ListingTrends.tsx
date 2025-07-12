@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { LineChart } from '@tremor/react';
 import Info from '../info/Info';
-import DropDown from '../../../@ui-component/Comman/DropDown';
+import DropDown from '../../@ui-component/Comman/DropDown';
 
 const LineChartData = [
   {

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   Box,
   Typography,
@@ -8,14 +8,14 @@ import {
   Link,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import AGGridTable from '../../../@ui-component/Comman/AGGridTable';
+import AGGridTable from '../../@ui-component/Comman/AGGridTable';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchActivityDataRequest,
   setSelectedActivityFilter,
 } from '../../features/collection/collectionSlice';
 import type { RootState } from '../../app/store';
-import Loading from '../../../@ui-component/Comman/Loading';
+import Loading from '../../@ui-component/Comman/Loading';
 import SearchBar from '../ui/SearchBar';
 import liveData from '../../assets/images/gif/live.gif';
 import BarFilterIcon from '../Icon/BarFilterIcon';

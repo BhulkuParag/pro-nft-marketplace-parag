@@ -6,6 +6,9 @@ import {
   type SagaReturnType,
 } from 'redux-saga/effects';
 import {
+  fetchHomeCardRequest,
+  fetchHomeCardSuccess,
+  fetchHomeCardFailure,
   fetchTrendingDataRequest,
   fetchTrendingDataSuccess,
   fetchTrendingDataFailure,
@@ -26,8 +29,25 @@ import {
   fetchTrendingData,
   fetchMintRankingData,
   fetchGlobalSearchData,
+  fetchHomeCard,
 } from '../../api/home';
 import type { RootState } from '../../app/store';
+
+function* handleFetchHomeCard() {
+  try {
+    const card: string = yield select(
+      (state: RootState) => state.home.cardData
+    );
+    const data: SagaReturnType<typeof fetchHomeCard> = yield call(
+      fetchHomeCard,
+      card
+    );
+    console.log(data);
+    yield put(fetchHomeCardSuccess(data));
+  } catch (error: any) {
+    yield put(fetchTopMintDataFailure(error.message ?? 'Something went wrong'));
+  }
+}
 
 function* handleFetchTrendingData() {
   try {
@@ -133,6 +153,7 @@ function* handleGlobalSearchData() {
 }
 
 export function* homeSaga() {
+  yield takeLatest(fetchHomeCardRequest.type, handleFetchHomeCard);
   yield takeLatest(fetchTrendingDataRequest.type, handleFetchTrendingData);
   yield takeLatest(fetchNftSalesDataRequest.type, handleFetchNftSalesData);
   yield takeLatest(fetchTopSalesDataRequest.type, handleFetchTopSalesData);

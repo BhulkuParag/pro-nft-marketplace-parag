@@ -6,26 +6,7 @@ import type {
   TopMintData,
 } from '../../types/table';
 
-import {
-  CollectionRenderer,
-  NormalRenderer,
-  PriceRenderer,
-  StarRenderer,
-  SupplyRenderer,
-  VolumeRenderer,
-  HoverRenderer,
-  ChipRenderer,
-} from '../../utils/Table/cellRenderer';
-import {
-  AddCollectionSortIcon,
-  AddSortIcon,
-  InfoIconSortIcon,
-  NormalEndHeaderRenderer,
-  NormalHeaderRenderer,
-} from '../../utils/Table/headerRenderer';
-import type { ICellRendererParams } from 'ag-grid-community';
-import type { GlobalSearchT } from '../../types/home';
-import { formatDistanceToNow } from 'date-fns';
+import type { GlobalSearchT, HomeCardData } from '../../types/home';
 
 export const formatK = (num: number): string => {
   if (num >= 1000) {
@@ -39,6 +20,7 @@ interface Options {
   value: string;
   icon?: React.ReactNode;
 }
+
 interface HomeState {
   activeTab: string;
   tabData: { [key: string]: any };
@@ -47,6 +29,9 @@ interface HomeState {
   loading: boolean;
   time: string;
   chainId: string;
+  cardTimeCompare: '1day' | '7day';
+  cardTimeOptions: Options[];
+  cardData: HomeCardData;
   timeCompare: string;
   timeOptions: Options[];
   timeOptionsCompare: Options[];
@@ -75,6 +60,12 @@ const initialState: HomeState = {
   includeTokenMetadata: true,
   selectedToggleValue: '0',
   isCardOrTable: false,
+  cardTimeCompare: '1day',
+  cardTimeOptions: [
+    { label: '24h', value: '1day' },
+    { label: '7d', value: '7day' },
+  ],
+  cardData: {},
   timeOptions: [
     { label: 'All Time', value: 'all_time' },
     { label: '5m', value: '5m' },
@@ -437,6 +428,18 @@ const homeSlice = createSlice({
   name: 'home',
   initialState,
   reducers: {
+    fetchHomeCardRequest: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    fetchHomeCardSuccess: (state, action: PayloadAction<HomeCardData>) => {
+      state.loading = false;
+      state.cardData = action.payload;
+    },
+    fetchHomeCardFailure: (state, action: PayloadAction<string>) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
     fetchTrendingDataRequest: (state) => {
       state.loading = true;
       state.error = null;
@@ -542,10 +545,16 @@ const homeSlice = createSlice({
     setCompareList: (state, action: PayloadAction<any[]>) => {
       state.compareList = action.payload.slice(0, 5);
     },
+    setCardTimeCompare: (state, action: PayloadAction<'1day' | '7day'>) => {
+      state.cardTimeCompare = action.payload;
+    },
   },
 });
 
 export const {
+  fetchHomeCardRequest,
+  fetchHomeCardSuccess,
+  fetchHomeCardFailure,
   fetchTrendingDataRequest,
   fetchTrendingDataSuccess,
   fetchTrendingDataFailure,
@@ -572,7 +581,8 @@ export const {
   setCompareList,
   setTimeComapre,
   setTableSearchValue,
-  setTableSearchData
+  setTableSearchData,
+  setCardTimeCompare,
 } = homeSlice.actions;
 
 export default homeSlice.reducer;

@@ -1,6 +1,6 @@
 import { Box, IconButton, Typography } from '@mui/material';
 import SearchContainer from './SearchContainer';
-import DropDown from '../../../@ui-component/Comman/DropDown';
+import DropDown from '../../@ui-component/Comman/DropDown';
 import BarFilterIcon from '../Icon/BarFilterIcon';
 import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

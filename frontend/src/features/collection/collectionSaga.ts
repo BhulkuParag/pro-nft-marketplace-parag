@@ -36,6 +36,9 @@ import {
   fetchTraitsDataSuccess,
   fetchTraitsDataFailure,
   fetchTraitsDataRequest,
+  fetchAiValuationEstimateDataSuccess,
+  fetchAiValuationEstimateDataFailure,
+  fetchAiValuationEstimateDataRequest,
 } from './collectionSlice';
 import {
   fetchItemDetailData,
@@ -46,6 +49,7 @@ import {
   fetchStandoutData,
   fetchStandoutHoldersData,
   fetchTraitsDataData,
+  fetchAiValuationEstimateData,
 } from '../../api/collection';
 import type { RootState } from '../../app/store';
 import type { PayloadAction } from '@reduxjs/toolkit';
@@ -255,6 +259,34 @@ function* handleTraitsDataData() {
   }
 }
 
+function* handleAiValuationEstimateData() {
+  try {
+    const chainId: string = yield select(
+      (state: RootState) => state.home.chainId
+    );
+    const contract: string = yield select(
+      (state: RootState) => state.collection.contract
+    );
+    const ai_valuation_tokenId: string = yield select(
+      (state: RootState) => state.collection.ai_valuation_tokenId
+    );
+    const data: SagaReturnType<typeof fetchAiValuationEstimateData> =
+      yield call(
+        fetchAiValuationEstimateData,
+        contract,
+        ai_valuation_tokenId,
+        chainId
+      );
+    yield put(fetchAiValuationEstimateDataSuccess(data));
+  } catch (error: any) {
+    yield put(
+      fetchAiValuationEstimateDataFailure(
+        error.message ?? 'Something went wrong'
+      )
+    );
+  }
+}
+
 export function* collectionSaga() {
   yield takeLatest(fetchItemsDataRequest.type, handleFetchItemsData);
   yield takeLatest(
@@ -288,4 +320,8 @@ export function* collectionSaga() {
     handleStandoutHoldersData
   );
   yield takeLatest(fetchTraitsDataRequest.type, handleTraitsDataData);
+  yield takeLatest(
+    fetchAiValuationEstimateDataRequest.type,
+    handleAiValuationEstimateData
+  );
 }

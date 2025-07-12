@@ -1,4 +1,4 @@
-import DateFilter from '../../@ui-component/Comman/DateFilter';
+import DateFilter from '../@ui-component/Comman/DateFilter';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../app/store';
 import { setCompareList, setTimeComapre } from '../features/home/homeSlice';
