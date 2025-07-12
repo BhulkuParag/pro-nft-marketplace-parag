@@ -454,4 +454,15 @@ public class VendorService {
 	        String url =  apiProperties.getAttributes()+ "?tokenId=" + tokenId;
 	        return restTemplate.getForObject(url, AttributeExploreResponse.class);
 	    }
+	 
+	 public ActivityResponse getTokenActivity(String contract, String tokenId,String sortBy, boolean includeMetadata) {
+	        String baseUrl = apiProperties.getTokenActivityUrl().replace("{contract}", contract).replace("{tokenId}", tokenId);
+
+	        String url = UriComponentsBuilder.fromHttpUrl(baseUrl)
+	                .queryParam("sortBy", sortBy)
+	                .queryParam("includeMetadata", includeMetadata)
+	                .toUriString();
+	        System.out.println("url "+url);
+	        return restTemplate.getForObject(url, ActivityResponse.class);
+	    }
 }

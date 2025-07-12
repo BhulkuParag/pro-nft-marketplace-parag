@@ -290,6 +290,16 @@ public class ReservoirController {
     public ResponseEntity<TechResponse<AttributeExploreResponse>> getAttributes( @RequestParam(defaultValue = "936") Integer tokenId) {
         return new ResponseEntity<>(transformer.transform(vendorService.getAttributesByTokenId(tokenId)), HttpStatus.OK);
     }
+    
+    @GetMapping("/token/activity/v5")
+    public ResponseEntity<TechResponse<ActivityResponse>> getTokenActivity(
+    		 @RequestParam(defaultValue ="eventTimestamp") String sortBy,
+             @RequestParam(defaultValue = "0xbd3531da5cf5857e7cfaa92426877b022e612cf8") String contract,
+             @RequestParam(defaultValue = "true") boolean includeTokenMetadata,
+            @RequestParam(defaultValue = "936") String tokenId
+    ) {
+        return new ResponseEntity<>(transformer.transform(vendorService.getTokenActivity(contract, tokenId, sortBy, includeTokenMetadata)), HttpStatus.OK);
+    }
 }
 
 
