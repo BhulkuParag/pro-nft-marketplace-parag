@@ -334,6 +334,7 @@ public class VendorService {
 		return response.getBody();
 	}
 
+
 	public NftPriceEstimateResponse getNftPriceEstimate(String blockchain, String address, String tokenId) {
 		String url = String.format(
 				"https://api.unleashnfts.com/api/v1/nft/%s/%s/%s/price-estimate",
