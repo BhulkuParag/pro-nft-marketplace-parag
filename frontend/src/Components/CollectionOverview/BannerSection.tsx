@@ -13,7 +13,6 @@ import React, {
   useCallback,
   useEffect,
   useMemo,
-  useRef,
   useState,
 } from 'react';
 import { FaDiscord } from 'react-icons/fa';
@@ -28,17 +27,13 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import LanguageIcon from '@mui/icons-material/Language';
 import ShareIcon from '@mui/icons-material/Share';
 import type { RootState } from '../../app/store';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import '../../Components/CollectionOverview/CollectionBanner.css';
-import { fetchOverviewDetailDataRequest } from '../../features/collection/collectionSlice';
-import { useParams } from 'react-router-dom';
 // import EthIcon from '../../assets/icons/others/EthIcon';
 
 const BannerSection = () => {
   const theme = useTheme();
-  const param = useParams();
-  const dispatch = useDispatch();
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   const [liked, setLiked] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -59,7 +54,6 @@ const BannerSection = () => {
   const handleFullRefresh = () => {
     window.location.reload();
     setRefreshed(true);
-    // dispatch(fetchOverviewDetailDataRequest(param?.id as string));
   };
 
   const bannerDetails = useMemo(() => {
@@ -663,6 +657,7 @@ const BannerSection = () => {
             <img
               src={tabData?.overview?.image}
               alt={tabData?.overview?.name}
+              loading='lazy'
               className="w-24 h-24 rounded-full absolute -top-[50px] left-[20px]"
             />
             <Box

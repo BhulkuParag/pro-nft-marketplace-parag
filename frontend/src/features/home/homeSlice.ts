@@ -489,7 +489,7 @@ const homeSlice = createSlice({
       state.error = action.payload;
     },
     fetchGlobalSearchDataRequest: (state, action: PayloadAction<string>) => {
-      state.loading = true;
+      // state.loading = true;
       state.error = null;
       state.globalSearchValue = action.payload;
     },
@@ -497,11 +497,11 @@ const homeSlice = createSlice({
       state,
       action: PayloadAction<GlobalSearchT[]>
     ) => {
-      state.loading = false;
+      // state.loading = false;
       state.globalSearchData = action.payload;
     },
     fetchGlobalSearchDataFailure: (state, action: PayloadAction<string>) => {
-      state.loading = false;
+      // state.loading = false;
       state.error = action.payload;
     },
     setActiveTab: (state, action: PayloadAction<string>) => {

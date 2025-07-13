@@ -47,7 +47,7 @@ const TableSearchContent = () => {
       >
         {tableSearchData?.map((item) => (
           <Box
-            component={'a'}
+            component={'link'}
             href={`/trendingCollections/item/${item?.id}`}
             key={item?.id}
             sx={{

@@ -15,15 +15,18 @@ const TableSearch = () => {
   );
   const tabData = useSelector((state: RootState) => state.home.tabData);
 
+  const handleFilter = useCallback((value: string) => {
+    const data = tabData?.trending?.filter(
+      (i: any) =>
+        value !== '' && i?.name?.toLowerCase().includes(value.toLowerCase())
+    );
+    dispatch(setTableSearchData(data));
+  }, []);
+
   const handleSearchOnChange = useCallback(
     (value: string) => {
-      console.log(value);
       dispatch(setTableSearchValue(value));
-      const data = tabData?.trending?.filter(
-        (i: any) =>
-          value !== '' && i?.name?.toLowerCase().includes(value.toLowerCase())
-      );
-      dispatch(setTableSearchData(data));
+      setTimeout(() => handleFilter(value), 200);
     },
     [dispatch, tableSearchValue]
   );

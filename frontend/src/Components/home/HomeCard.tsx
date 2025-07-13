@@ -1,6 +1,6 @@
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { FaEthereum } from 'react-icons/fa';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+//import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import { Box } from '@mui/material';
 import Card from '../../../@ui-component/Comman/Card';
 import { useCallback, useEffect, useMemo } from 'react';
@@ -19,8 +19,11 @@ function HomeCard() {
   //   { label: '7d', value: '7d' },
   // ];
   const dispatch = useDispatch();
-  const { cardData, cardTimeOptions } = useSelector(
-    (state: RootState) => state.home
+  const cardData = useSelector(
+    (state: RootState) => state.home.cardData
+  );
+  const cardTimeOptions = useSelector(
+    (state: RootState) => state.home.cardTimeOptions
   );
   const cardTimeCompare: '1day' | '7day' = useSelector(
     (state: RootState) => state.home.cardTimeCompare
@@ -35,7 +38,7 @@ function HomeCard() {
     console.log('value', value);
     dispatch(setCardTimeCompare(value as '1day' | '7day'));
     console.log(value);
-  }, []);
+  }, [dispatch]);
 
   const cards = useMemo(
     () => [

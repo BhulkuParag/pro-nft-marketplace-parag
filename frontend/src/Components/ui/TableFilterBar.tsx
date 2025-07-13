@@ -24,8 +24,17 @@ import TableSearch from '../home/TableSearch';
 
 const TableFilterBar = () => {
   const dispatch = useDispatch();
-  const { time, timeOptions, volume_sales, vauleSales } = useSelector(
-    (state: RootState) => state.home
+  const time = useSelector(
+    (state: RootState) => state.home.time
+  );
+  const timeOptions = useSelector(
+    (state: RootState) => state.home.timeOptions
+  );
+  const volume_sales = useSelector(
+    (state: RootState) => state.home.volume_sales
+  );
+  const vauleSales = useSelector(
+    (state: RootState) => state.home.vauleSales
   );
   const theme = useTheme();
   const isMobileOrLaptop = useMediaQuery(theme.breakpoints.down('lg'));

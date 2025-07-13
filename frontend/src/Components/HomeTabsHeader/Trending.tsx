@@ -122,7 +122,7 @@ const Trending = () => {
           params.data?.tokenCount ? formatK(params.data?.tokenCount) : '',
       },
     ];
-  }, [time, volume_sales]);
+  }, [time]);
 
   useEffect(() => {
     dispatch(fetchTrendingDataRequest());
