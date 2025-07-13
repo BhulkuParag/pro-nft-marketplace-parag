@@ -39,7 +39,7 @@ const CollectionItems = () => {
 
   useEffect(() => {
     if (param.id)
-      dispatch(fetchItemsDataRequest({ contract: param.id, limit }));
+      dispatch(fetchItemsDataRequest({ collection: param.id, limit }));
   }, [param, limit]);
 
   useEffect(() => {

@@ -22,11 +22,11 @@ const TopSales = () => {
   const column = useMemo(() => {
     return [
       {
-        field: 'name',
+        field: 'topsalename',
         headerName: 'Collection Name',
         cellRenderer: CollectionRenderer,
         headerComponent: NormalHeaderRenderer,
-        flex: 1,
+        // flex: 1,
         minWidth: 300,
         valueGetter: (params: ICellRendererParams<TopSalesT>) =>
           params.data?.token?.name ?? '',
@@ -60,7 +60,7 @@ const TopSales = () => {
         headerComponent: NormalEndHeaderRenderer,
         // minWidth: 110,
         valueGetter: (params: ICellRendererParams<TopSalesT>) =>
-          params.data?.token?.tokenId ?? '',
+          params.data?.token?.tokenId ? '#' + params.data?.token?.tokenId : '-',
       },
       {
         field: 'price',

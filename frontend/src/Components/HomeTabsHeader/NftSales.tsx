@@ -3,10 +3,19 @@ import { useEffect, useMemo } from 'react';
 import { fetchNftSalesDataRequest } from '../../features/home/homeSlice';
 import { useDispatch } from 'react-redux';
 import ActiveTab from '../ActiveTab';
-import { AddCollectionSortIcon, AddSortIcon } from '../../utils/Table/headerRenderer';
-import { CollectionRenderer, HoverRenderer, NormalRenderer, PriceRenderer } from '../../utils/Table/cellRenderer';
+import {
+  AddCollectionSortIcon,
+  AddSortIcon,
+} from '../../utils/Table/headerRenderer';
+import {
+  CollectionRenderer,
+  HoverRenderer,
+  NormalRenderer,
+  PriceRenderer,
+} from '../../utils/Table/cellRenderer';
 import type { ICellRendererParams } from 'ag-grid-community';
 import type { NftSalesT } from '../../types/table';
+import { formatDistanceToNow } from 'date-fns';
 
 const NftSales = () => {
   const dispatch = useDispatch();
@@ -17,7 +26,7 @@ const NftSales = () => {
         headerName: 'Collection Name',
         cellRenderer: CollectionRenderer,
         headerComponent: AddCollectionSortIcon,
-        flex: 1,
+        // flex: 1,
         minWidth: 300,
         valueGetter: (params: ICellRendererParams<NftSalesT>) =>
           params.data?.token?.name ?? '',
@@ -42,14 +51,16 @@ const NftSales = () => {
         cellRenderer: NormalRenderer,
         // minWidth: 110,
         valueGetter: (params: ICellRendererParams<NftSalesT>) =>
-          params.data?.token.tokenId ?? '',
+          params.data?.token.tokenId ?? '-',
       },
       {
-        field: 'Floor Price',
+        field: 'price',
         headerName: 'Floor Price',
         headerComponent: AddSortIcon,
         cellRenderer: PriceRenderer,
         // minWidth: 110,
+        valueGetter: (params: ICellRendererParams<NftSalesT>) =>
+          params.data?.price.amount.decimal.toFixed(2) ?? '0.00',
       },
       {
         field: 'usd',
@@ -60,7 +71,7 @@ const NftSales = () => {
         valueGetter: (params: ICellRendererParams<NftSalesT>) =>
           params.data?.price?.amount?.usd?.toFixed(2)
             ? '$' + params.data?.price?.amount?.usd?.toFixed(2)
-            : '',
+            : '-',
       },
       {
         field: 'washTradingScore',
@@ -77,6 +88,15 @@ const NftSales = () => {
         headerComponent: AddSortIcon,
         cellRenderer: NormalRenderer,
         // minWidth: 110,
+        valueGetter: (params: ICellRendererParams<NftSalesT>) =>
+          params.data?.timestamp
+            ? formatDistanceToNow(
+                new Date(Number(params.data?.timestamp) * 1000),
+                {
+                  addSuffix: true,
+                }
+              )
+            : '-',
       },
     ];
   }, []);

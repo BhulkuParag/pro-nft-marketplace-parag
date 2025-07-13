@@ -18,7 +18,7 @@ const SubHeader = () => {
       display={'flex'}
       justifyContent={'space-between'}
       flexWrap={'wrap'}
-      marginBlock={1}
+      marginBottom={1}
       alignItems={'center'}
       sx={{
         padding: { xs: 2, md: '14px 26px' },
@@ -35,7 +35,7 @@ const SubHeader = () => {
       >
         Polycruz Leading NFT Marketplace
       </Typography>
-      <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
+      {/* <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
         <Typography
           sx={{
             color: 'custom.grey01',
@@ -51,7 +51,7 @@ const SubHeader = () => {
         >
           Tables
         </Typography>
-      </Stack>
+      </Stack> */}
     </Box>
   );
 };

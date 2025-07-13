@@ -52,7 +52,7 @@ const Footer: FC<FooterProps> = () => {
     <Box
       component={'footer'}
       sx={{
-        width: 'calc(100% - 70px)',
+        width: { xs: '100%', lg: 'calc(100% - 70px)' },
         backgroundColor: 'background.default',
         color: 'inherit',
         position: 'fixed',
@@ -134,7 +134,7 @@ const Footer: FC<FooterProps> = () => {
                     color: 'custom.lightGrey',
                     '& :hover': {
                       color: 'text.secondary',
-                    }
+                    },
                   }}
                   key={link.url}
                 >
@@ -183,7 +183,7 @@ const Footer: FC<FooterProps> = () => {
                   value: 'discover',
                 },
               ]}
-              variant='standard'
+              variant="standard"
               handleOnChange={() => {}}
               handleOnChangeForMobile={() => {}}
             />

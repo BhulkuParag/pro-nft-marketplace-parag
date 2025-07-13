@@ -17,148 +17,162 @@ interface CollectionCardProps {
   showNext?: boolean;
 }
 
-const CollectionCard: React.FC<CollectionCardProps> = React.memo(({
-  image,
-  name,
-  verified,
-  floorPrice,
-  priceChange,
-  priceChangePositive,
-  onNext,
-  onPrev,
-  showPrev,
-  showNext,
-}) => {
-  const theme = useTheme();
-  return (
-    <Box
-      sx={{
-        borderRadius: 3,
-        bgcolor: 'secondary.main',
-        overflow: 'hidden',
-        position: 'relative',
-        minHeight: 200,
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'flex-end',
-        boxShadow: 'none',
-        border: `1px solid ${theme.palette.custom.borderblack01}`,
-        p: 0,
-      }}
-    >
-      {/* Carousel image */}
+const CollectionCard: React.FC<CollectionCardProps> = React.memo(
+  ({
+    image,
+    name,
+    verified,
+    floorPrice,
+    priceChange,
+    priceChangePositive,
+    onNext,
+    onPrev,
+    showPrev,
+    showNext,
+  }) => {
+    const theme = useTheme();
+    return (
       <Box
         sx={{
-          width: '100%',
-          height: '100%',
-          minHeight: 180,
+          borderRadius: 3,
+          bgcolor: 'secondary.main',
+          position: 'relative',
+          minHeight: 200,
           display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+          flexDirection: 'column',
+          justifyContent: 'flex-end',
+          // boxShadow: 'none',
+          boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',
+          border: `1px solid`,
+          borderColor: 'divider',
+          p: 0,
         }}
       >
-        <img
-          src={image}
-          alt={name}
-          width={320}
-          height={180}
-          loading="lazy"
-          style={{ objectFit: 'cover', width: '100%', height: 180, borderRadius: 8 }}
-        />
-      </Box>
-      {/* Carousel arrows */}
-      {showPrev && (
-        <IconButton
+        {/* Carousel image */}
+        <Box
           sx={{
-            position: 'absolute',
-            top: '50%',
-            left: 8,
-            transform: 'translateY(-50%)',
-            bgcolor: 'rgba(20,20,22,0.5)',
-            color: 'white',
-            '&:hover': { bgcolor: 'rgba(20,20,22,0.7)' },
-            zIndex: 2,
+            width: '100%',
+            height: '100%',
+            minHeight: 200,
+            borderRadius: 3,
+            borderBottomLeftRadius: 0,
+            borderBottomRightRadius: 0,
+            overflow: 'hidden',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
-          size="small"
-          onClick={onPrev}
         >
-          <ChevronLeftIcon />
-        </IconButton>
-      )}
-      {showNext && (
-        <IconButton
-          sx={{
-            position: 'absolute',
-            top: '50%',
-            right: -12,
-            transform: 'translateY(-50%)',
-            bgcolor: 'rgba(20,20,22,0.5)',
-            color: 'white',
-            '&:hover': { bgcolor: 'rgba(20,20,22,0.7)' },
-            zIndex: 2,
-          }}
-          size="small"
-          onClick={onNext}
-        >
-          <ChevronRightIcon />
-        </IconButton>
-      )}
-      {/* Info */}
-      <Box sx={{ p: 2, pt: 1 }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <Typography fontWeight={600} fontSize={16} color="text.primary">
-            {name}
-          </Typography>
-          {verified && (
-            <CheckCircleIcon
-              sx={{
-                color: theme.palette.custom.primaryLight,
-                fontSize: 18,
-                ml: 0.5,
-              }}
-            />
-          )}
-        </Box>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mt: 0.5 }}>
-          <Typography
-            fontSize={14}
-            sx={{ fontWeight: 500, color: 'custom.thirdText' }}
-          >
-            Floor Price
-          </Typography>
-          <Typography
-            fontSize={14}
-            fontWeight={600}
-            color="text.primary"
-            sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
-          >
-            <img
-              src="https://marketplace.polycruz.io/eth.svg"
-              alt="eth"
-              width={14}
-              height={14}
-              style={{ marginRight: 2, verticalAlign: 'middle' }}
-              loading="lazy"
-            />
-            {floorPrice}
-          </Typography>
-          <Typography
-            fontSize={14}
-            fontWeight={600}
-            sx={{
-              color: priceChangePositive
-                ? theme.palette.custom.green
-                : theme.palette.custom.red,
-              ml: 1,
+          <img
+            src={image}
+            alt={name}
+            width={320}
+            height={200}
+            loading="lazy"
+            style={{
+              objectFit: 'cover',
+              width: '100%',
+              height: 200,
+              // borderRadius: 8,
             }}
+          />
+        </Box>
+        {/* Carousel arrows */}
+        {showPrev && (
+          <IconButton
+            sx={{
+              position: 'absolute',
+              top: '50%',
+              left: -12,
+              transform: 'translateY(-50%)',
+              bgcolor: 'rgba(225,225,225,0.4)',
+              backdropFilter: 'blur(4px)',
+              color: 'white',
+              '&:hover': { bgcolor: 'rgba(225,225,225,0.5)' },
+              zIndex: 1,
+            }}
+            size="small"
+            onClick={onPrev}
           >
-            {priceChange}
-          </Typography>
+            <ChevronLeftIcon />
+          </IconButton>
+        )}
+        {showNext && (
+          <IconButton
+            sx={{
+              position: 'absolute',
+              top: '50%',
+              right: -12,
+              transform: 'translateY(-50%)',
+              bgcolor: 'rgba(225,225,225,0.4)',
+              backdropFilter: 'blur(4px)',
+              color: 'white',
+              '&:hover': { bgcolor: 'rgba(225,225,225,0.5)' },
+              zIndex: 1,
+            }}
+            size="small"
+            onClick={onNext}
+          >
+            <ChevronRightIcon />
+          </IconButton>
+        )}
+        {/* Info */}
+        <Box sx={{ p: 2, pt: 1 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <Typography fontWeight={600} fontSize={16} color="text.primary">
+              {name}
+            </Typography>
+            {verified && (
+              <CheckCircleIcon
+                sx={{
+                  color: theme.palette.custom.primaryLight,
+                  fontSize: 18,
+                  ml: 0.5,
+                }}
+              />
+            )}
+          </Box>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mt: 0.5 }}>
+            <Typography
+              fontSize={14}
+              sx={{ fontWeight: 500, color: 'custom.thirdText' }}
+            >
+              Floor Price
+            </Typography>
+            <Typography
+              fontSize={14}
+              fontWeight={600}
+              color="text.primary"
+              sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
+            >
+              <img
+                src="https://marketplace.polycruz.io/eth.svg"
+                alt="eth"
+                width={14}
+                height={14}
+                style={{ marginRight: 2, verticalAlign: 'middle' }}
+                loading="lazy"
+              />
+              {floorPrice}
+            </Typography>
+            <Typography
+              fontSize={14}
+              fontWeight={600}
+              sx={{
+                color: priceChangePositive
+                  ? theme.palette.custom.green
+                  : theme.palette.custom.red,
+                ml: 1,
+              }}
+            >
+              {priceChange}
+            </Typography>
+          </Box>
         </Box>
       </Box>
-    </Box>
-  );
-});
+    );
+  }
+);
 CollectionCard.displayName = 'CollectionCard';
 
 const featuredCollections = [
@@ -215,6 +229,7 @@ const FeaturedCollection: React.FC = () => {
         width: '100%',
         flexWrap: { xs: 'wrap', md: 'nowrap' },
         p: 2,
+        pb: 1.5,
         px: { xs: 2, lg: 3 },
       }}
     >

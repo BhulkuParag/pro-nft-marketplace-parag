@@ -73,6 +73,10 @@ const CustomTab = ({
       //         width: '100%',
       //       }
       // }
+      sx={{
+        width: '100%',
+        overflowX: 'auto'
+      }}
       >
         <Tabs
           value={selectedTab}

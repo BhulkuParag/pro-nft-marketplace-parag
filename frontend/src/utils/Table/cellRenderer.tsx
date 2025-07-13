@@ -76,13 +76,7 @@ export const PriceRenderer = (params: ICellRendererParams<RowData>) => {
   return (
     <div className="w-auto flex h-full pt-[3px] items-center cursor-pointer justify-end gap-1">
       <Tooltip
-        title={
-          usdValue !== undefined
-            ? `$ ${usdValue.toLocaleString(undefined, {
-                maximumFractionDigits: 2,
-              })}`
-            : ''
-        }
+        title={usdValue !== undefined ? `$ ${usdValue}` : '0.00'}
         placement="top"
         arrow={true}
       >
@@ -258,7 +252,7 @@ export const CollectionRenderer = React.memo(
     );
 
     return (
-      <div className="w-full flex h-full pt-[3px] items-center cursor-pointer">
+      <div className="w-full flex h-full pt-[3px] -ml-1 items-center cursor-pointer">
         <Tooltip
           title={
             isCompared
@@ -277,27 +271,31 @@ export const CollectionRenderer = React.memo(
             <StarBorderRoundedIcon className="text-gray-500" />
           )}
         </Tooltip>
-        <span className="ml-2 mr-8">
+        <span className="ml-2 mr-6">
           {params.node?.rowIndex != null ? params.node.rowIndex + 1 : ''}
         </span>
         <div className="w-full flex h-full items-center gap-3">
           <img
-            src={
-              params.colDef?.field === 'nft_name'
-                ? params.data?.token?.image
-                : params.data?.image
-            }
+            src={params.data?.token?.image || params.data?.image}
             alt={params.data?.name}
             className="w-7 h-7 rounded-full"
           />
-          <Tooltip title={params.value === '-' ? '' : params.value} placement="top-start" arrow={true}>
+          <Tooltip
+            title={params.value === '-' ? '' : params.value}
+            placement="top-start"
+            arrow={true}
+          >
             <Link
-              to={`/trendingCollections/item/${params.data?.id}`}
-              className="w-full flex items-center gap-3"
+              to={`/trendingCollections/item/${
+                params.colDef?.field === 'topsalename'
+                  ? params?.data?.token?.contract
+                  : params.data?.id
+              }`}
+              className="w-full flex items-center gap-3 pt-0.5"
             >
               {params.value
-                ? params.value?.length > 27
-                  ? params.value?.substring(0, 27)?.trim() + '...'
+                ? params.value?.length > 22
+                  ? params.value?.substring(0, 22)?.trim() + '...'
                   : params.value
                 : '-'}
               {params.data?.openseaVerificationStatus === 'verified' && (
