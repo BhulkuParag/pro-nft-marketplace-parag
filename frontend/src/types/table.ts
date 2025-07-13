@@ -95,7 +95,7 @@ export interface TopSalesT {
     image: string;
     contract: string;
     tokenId: string;
-    collectiton: {
+    collection: {
       id: string;
       name: string;
     };

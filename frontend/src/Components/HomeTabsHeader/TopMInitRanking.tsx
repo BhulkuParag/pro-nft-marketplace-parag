@@ -99,11 +99,11 @@ const TopMInitRanking = () => {
       {
         field: 'mintVolume',
         headerName: 'Mint Volume',
-        cellRenderer: NormalRenderer,
+        cellRenderer: PriceRenderer,
         headerComponent: NormalEndHeaderRenderer,
         // minWidth: 120,
         valueGetter: (params: ICellRendererParams<TopMintData>) =>
-          params.data?.mintVolume ?? '-',
+          params.data?.mintVolume.toFixed(2) ?? '-',
       },
       {
         field: 'oneHourCount',

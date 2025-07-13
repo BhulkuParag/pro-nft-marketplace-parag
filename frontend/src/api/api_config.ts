@@ -1,7 +1,7 @@
 // API Configuration
 export const API_CONFIG = {
   BASE_URL: import.meta.env.VITE_API_BASE_URL ?? 'http://65.1.94.196:8085',
-  
+
   // API Endpoints
   ENDPOINTS: {
     // Collection APIs
@@ -13,7 +13,7 @@ export const API_CONFIG = {
     COLLECTIONS_V7: '/api/v1/reservoir/collections/v7',
     AI_VALUATION_ESTIMATE: '/api/v1/reservoir/nft/price-estimate',
     AI_VALUATION_ONLOAD: '/api/v1/reservoir/collection/v1',
-    
+
     // Home APIs
     HomeCard: '/api/v1/reservoir/stats',
     TRENDING: '/api/v1/reservoir/trending-api',

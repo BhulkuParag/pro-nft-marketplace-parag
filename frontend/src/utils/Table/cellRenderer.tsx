@@ -76,11 +76,7 @@ export const PriceRenderer = (params: ICellRendererParams<RowData>) => {
   return (
     <div className="w-auto flex h-full pt-[3px] items-center cursor-pointer justify-end gap-1">
       <Tooltip
-        title={
-          usdValue !== undefined
-            ? `$ ${usdValue}`
-            : '0.00'
-        }
+        title={usdValue !== undefined ? `$ ${usdValue}` : '0.00'}
         placement="top"
         arrow={true}
       >
@@ -280,17 +276,21 @@ export const CollectionRenderer = React.memo(
         </span>
         <div className="w-full flex h-full items-center gap-3">
           <img
-            src={
-              params.colDef?.field === 'nft_name'
-                ? params.data?.token?.image
-                : params.data?.image
-            }
+            src={params.data?.token?.image || params.data?.image}
             alt={params.data?.name}
             className="w-7 h-7 rounded-full"
           />
-          <Tooltip title={params.value === '-' ? '' : params.value} placement="top-start" arrow={true}>
+          <Tooltip
+            title={params.value === '-' ? '' : params.value}
+            placement="top-start"
+            arrow={true}
+          >
             <Link
-              to={`/trendingCollections/item/${params.data?.id}`}
+              to={`/trendingCollections/item/${
+                params.colDef?.field === 'topsalename'
+                  ? params?.data?.token?.contract
+                  : params.data?.id
+              }`}
               className="w-full flex items-center gap-3 pt-0.5"
             >
               {params.value
