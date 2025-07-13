@@ -40,9 +40,9 @@ const DateFilter = ({
           sx={{
             border: wantBorder ? '1px solid' : '',
             borderColor: wantBorder ? 'divider' : '',
-            p: '4px 8px',
+            p: '4px',
             borderRadius: 2,
-            gap: 0.5,
+            gap: 1,
           }}
         >
           {timeOptions.map((time) => (

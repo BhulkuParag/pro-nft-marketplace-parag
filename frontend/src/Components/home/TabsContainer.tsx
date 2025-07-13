@@ -34,28 +34,28 @@ const TabContainer = () => {
 
   const tabs = useMemo<Record<TabKey, TabItem>>(() => {
     return {
-      collection: {
-        label: 'Collection',
-        value: 'collection',
-        content: (
-          <Box
-            sx={{
-              width: '100%',
-              padding: { xs: '0px', xl: '20px' },
-            }}
-          >
-            <Typography
-              variant="h4"
-              fontWeight={600}
-              color="custom.whiteLightO1"
-              fontSize={26}
-            >
-              Collections
-            </Typography>
-          </Box>
-        ),
-        icon: <BsCollection className="text-xl" />,
-      },
+      // collection: {
+      //   label: 'Collection',
+      //   value: 'collection',
+      //   content: (
+      //     <Box
+      //       sx={{
+      //         width: '100%',
+      //         padding: { xs: '0px', xl: '20px' },
+      //       }}
+      //     >
+      //       <Typography
+      //         variant="h4"
+      //         fontWeight={600}
+      //         color="custom.whiteLightO1"
+      //         fontSize={26}
+      //       >
+      //         Collections
+      //       </Typography>
+      //     </Box>
+      //   ),
+      //   icon: <BsCollection className="text-xl" />,
+      // },
       trending: {
         label: 'Trending',
         value: 'trending',

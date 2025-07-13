@@ -205,10 +205,10 @@ const collectionSlice = createSlice({
   reducers: {
     fetchItemsDataRequest: (
       state,
-      action: PayloadAction<{ contract: string; limit: number }>
+      action: PayloadAction<{ collection: string; limit: number }>
     ) => {
       state.loading = true;
-      state.contract = action.payload.contract;
+      state.collection = action.payload.collection;
       state.error = null;
       state.limit = action.payload.limit;
     },

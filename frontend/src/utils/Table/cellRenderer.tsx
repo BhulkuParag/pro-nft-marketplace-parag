@@ -78,10 +78,8 @@ export const PriceRenderer = (params: ICellRendererParams<RowData>) => {
       <Tooltip
         title={
           usdValue !== undefined
-            ? `$ ${usdValue.toLocaleString(undefined, {
-                maximumFractionDigits: 2,
-              })}`
-            : ''
+            ? `$ ${usdValue}`
+            : '0.00'
         }
         placement="top"
         arrow={true}
@@ -258,7 +256,7 @@ export const CollectionRenderer = React.memo(
     );
 
     return (
-      <div className="w-full flex h-full pt-[3px] items-center cursor-pointer">
+      <div className="w-full flex h-full pt-[3px] -ml-1 items-center cursor-pointer">
         <Tooltip
           title={
             isCompared
@@ -277,7 +275,7 @@ export const CollectionRenderer = React.memo(
             <StarBorderRoundedIcon className="text-gray-500" />
           )}
         </Tooltip>
-        <span className="ml-2 mr-8">
+        <span className="ml-2 mr-6">
           {params.node?.rowIndex != null ? params.node.rowIndex + 1 : ''}
         </span>
         <div className="w-full flex h-full items-center gap-3">
@@ -293,11 +291,11 @@ export const CollectionRenderer = React.memo(
           <Tooltip title={params.value === '-' ? '' : params.value} placement="top-start" arrow={true}>
             <Link
               to={`/trendingCollections/item/${params.data?.id}`}
-              className="w-full flex items-center gap-3"
+              className="w-full flex items-center gap-3 pt-0.5"
             >
               {params.value
-                ? params.value?.length > 27
-                  ? params.value?.substring(0, 27)?.trim() + '...'
+                ? params.value?.length > 22
+                  ? params.value?.substring(0, 22)?.trim() + '...'
                   : params.value
                 : '-'}
               {params.data?.openseaVerificationStatus === 'verified' && (

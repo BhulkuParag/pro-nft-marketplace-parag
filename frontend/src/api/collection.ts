@@ -56,11 +56,11 @@ interface AiValuationEstimateApiResponse {
 export const fetchItemsData = async (
   limit: number,
   sortBy: string,
-  contract: string,
+  collection: string,
   chainId?: string
 ): Promise<RowData[]> => {
   const url = buildApiUrl(API_CONFIG.ENDPOINTS.TOKENS, chainId, {
-    contract,
+    collection,
     sortBy: 'floorAskPrice',
     limit,
   });

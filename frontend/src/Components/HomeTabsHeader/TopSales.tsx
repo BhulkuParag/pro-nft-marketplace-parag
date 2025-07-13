@@ -26,7 +26,7 @@ const TopSales = () => {
         headerName: 'Collection Name',
         cellRenderer: CollectionRenderer,
         headerComponent: NormalHeaderRenderer,
-        flex: 1,
+        // flex: 1,
         minWidth: 300,
         valueGetter: (params: ICellRendererParams<TopSalesT>) =>
           params.data?.token?.name ?? '',

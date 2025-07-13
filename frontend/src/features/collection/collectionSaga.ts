@@ -56,7 +56,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 
 function* handleFetchItemsData() {
   try {
-    const { contract, limit, sortBy } = yield select(
+    const { collection, limit, sortBy } = yield select(
       (state: RootState) => state.collection
     );
     const chainId: string = yield select(
@@ -66,7 +66,7 @@ function* handleFetchItemsData() {
       fetchItemsData,
       limit,
       sortBy,
-      contract,
+      collection,
       chainId
     );
     yield put(fetchItemsDataSuccess(data));
