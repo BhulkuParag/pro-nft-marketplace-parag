@@ -19,14 +19,17 @@ import type { ICellRendererParams } from 'ag-grid-community';
 import type { RowData } from '../../types/table';
 import {
   AddSortIcon,
-  HoverHeaderRenderer,
   InfoIconSortIcon,
+  NormalEndHeaderRenderer,
   NormalHeaderRenderer,
 } from '../../utils/Table/headerRenderer';
 
 const Trending = () => {
   const dispatch = useDispatch();
   const time = useSelector((state: RootState) => state.home.time);
+  const volume_sales = useSelector(
+    (state: RootState) => state.home.volume_sales
+  );
   const columns = useMemo(() => {
     return [
       {
@@ -35,7 +38,7 @@ const Trending = () => {
         cellRenderer: CollectionRenderer,
         headerComponent: NormalHeaderRenderer,
         // flex: 1,
-        minWidth: 400,
+        minWidth: 350,
       },
       {
         field: 'floorAsk',
@@ -51,7 +54,7 @@ const Trending = () => {
         headerName: `Top Bid (${time.toUpperCase()})`,
         cellRenderer: ChipRenderer,
         headerComponent: InfoIconSortIcon,
-        minWidth: 140,
+        minWidth: 160,
         valueGetter: (params: ICellRendererParams<RowData>) =>
           params.data?.topBid?.price?.amount?.decimal.toFixed(2) ?? '-',
       },
@@ -59,7 +62,7 @@ const Trending = () => {
         field: 'volume',
         headerName: `Volume (${time.toUpperCase()})`,
         cellRenderer: NormalRenderer,
-        headerComponent: NormalHeaderRenderer,
+        headerComponent: NormalEndHeaderRenderer,
         // minWidth: 110,
         valueGetter: (params: ICellRendererParams<RowData>) =>
           params.data?.volume?.toFixed(2) ?? '',
@@ -68,7 +71,7 @@ const Trending = () => {
         field: 'volumeChange',
         headerName: 'Volume (1 Day)',
         cellRenderer: VolumeRenderer,
-        headerComponent: NormalHeaderRenderer,
+        headerComponent: NormalEndHeaderRenderer,
         // minWidth: 110,
         valueGetter: (params: ICellRendererParams<RowData>) =>
           params.data?.volumeChange['1day']?.toFixed(2) ?? '',
@@ -77,7 +80,7 @@ const Trending = () => {
         field: 'volumeChange',
         headerName: 'Volume (7 Day)',
         cellRenderer: VolumeRenderer,
-        headerComponent: NormalHeaderRenderer,
+        headerComponent: NormalEndHeaderRenderer,
         // minWidth: 110,
         valueGetter: (params: ICellRendererParams<RowData>) =>
           params.data?.volumeChange['7day']?.toFixed(2) ?? '',
@@ -86,8 +89,8 @@ const Trending = () => {
         field: 'collectionVolume',
         headerName: 'Collection Volume (1 day)',
         cellRenderer: NormalRenderer,
-        headerComponent: HoverHeaderRenderer,
-        minWidth: 150,
+        headerComponent: NormalEndHeaderRenderer,
+        minWidth: 170,
         valueGetter: (params: ICellRendererParams<RowData>) =>
           params.data?.collectionVolume['1day']?.toFixed(2) ?? '',
       },
@@ -95,8 +98,8 @@ const Trending = () => {
         field: 'collectionVolume',
         headerName: 'Collection Volume (7 day)',
         cellRenderer: NormalRenderer,
-        headerComponent: HoverHeaderRenderer,
-        minWidth: 150,
+        headerComponent: NormalEndHeaderRenderer,
+        minWidth: 170,
         valueGetter: (params: ICellRendererParams<RowData>) =>
           params.data?.collectionVolume['7day']?.toFixed(2) ?? '',
       },
@@ -105,7 +108,7 @@ const Trending = () => {
         headerName: 'Owners',
         cellRenderer: NormalRenderer,
         headerComponent: AddSortIcon,
-        // minWidth: 110,
+        minWidth: 110,
         valueGetter: (params: ICellRendererParams<RowData>) =>
           params.data?.ownerCount?.toFixed(0) ?? '',
       },
@@ -114,16 +117,16 @@ const Trending = () => {
         headerName: 'Supply',
         cellRenderer: SupplyRenderer,
         headerComponent: AddSortIcon,
-        // minWidth: 120,
+        minWidth: 120,
         valueGetter: (params: ICellRendererParams<RowData>) =>
           params.data?.tokenCount ? formatK(params.data?.tokenCount) : '',
       },
     ];
-  }, [time]);
+  }, [time, volume_sales]);
 
   useEffect(() => {
     dispatch(fetchTrendingDataRequest());
-  }, [time]);
+  }, [time, volume_sales]);
 
   return (
     <Box
@@ -141,7 +144,7 @@ const Trending = () => {
         Top Trending Collections
       </Typography>
       <TableFilterBar />
-      <ActiveTab columnDefs={columns} />
+      <ActiveTab columnDefs={columns} variant='normal' />
     </Box>
   );
 };

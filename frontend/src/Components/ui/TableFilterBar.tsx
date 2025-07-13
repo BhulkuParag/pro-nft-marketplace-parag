@@ -9,36 +9,36 @@ import {
   useMediaQuery,
   useTheme,
   Typography,
+  Divider,
 } from '@mui/material';
 // import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import BarFilterIcon from '../../Components/Icon/BarFilterIcon';
-// import ToggleButton from '../../@ui-component/Comman/ToggleButton';
 import DateFilter from '../../@ui-component/Comman/DateFilter';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../app/store';
 import liveData from '../../assets/images/gif/live.gif';
-import {
-  setTime,
-  // setVolume_sales,
-} from '../../features/home/homeSlice';
-import SearchBar from './SearchBar';
+import { setTime, setVolume_sales } from '../../features/home/homeSlice';
+// import SearchBar from './SearchBar';
 import TableSearch from '../home/TableSearch';
+// import ToggleButton from '../../@ui-component/Comman/ToggleButton';
 
 const TableFilterBar = () => {
   const dispatch = useDispatch();
-  const { time, timeOptions } = useSelector((state: RootState) => state.home);
+  const { time, timeOptions, volume_sales, vauleSales } = useSelector(
+    (state: RootState) => state.home
+  );
   const theme = useTheme();
   const isMobileOrLaptop = useMediaQuery(theme.breakpoints.down('lg'));
   const [anchorElFilter, setAnchorElFilter] = useState<null | HTMLElement>(
     null
   );
 
-  // const handleOnChange = useCallback(
-  //   (_: React.SyntheticEvent, value: string) => {
-  //     if (volume_sales !== value) dispatch(setVolume_sales(value));
-  //   },
-  //   [dispatch, volume_sales]
-  // );
+  const handleOnChange = useCallback(
+    (value: string) => {
+      if (volume_sales !== value) dispatch(setVolume_sales(value));
+    },
+    [dispatch, volume_sales]
+  );
 
   // const handleOnChangeForMobile = (value: string) => {
   //   dispatch(setVolume_sales(value));
@@ -276,26 +276,34 @@ const TableFilterBar = () => {
         component={'div'}
         display={'flex'}
         alignItems={'center'}
-        gap={isMobileOrLaptop ? '14px' : '36px'}
+        gap={isMobileOrLaptop ? '14px' : '26px'}
       >
         {/* <ToggleButton
+          variant="standard"
           options={vauleSales}
           handleOnChange={handleOnChange}
           selectedValue={volume_sales}
           handleOnChangeForMobile={handleOnChangeForMobile}
+        /> */}
+
+        <DateFilter
+          wantBorder
+          timeOptions={vauleSales}
+          handleChange={handleOnChange}
+          selectedTime={volume_sales}
         />
 
         <Divider
           flexItem
           orientation="vertical"
           sx={{
-            height: '36px',
-            mt: 0.9,
-            mr: -1.5,
+            // height: '36px',
+            // mt: 0.9,
+            // mr: -1.5,
             borderColor: 'divider',
             display: isMobileOrLaptop ? 'none' : 'block',
           }}
-        /> */}
+        />
 
         <DateFilter
           timeOptions={timeOptions}

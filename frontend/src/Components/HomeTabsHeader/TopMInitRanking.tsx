@@ -27,7 +27,7 @@ const TopMInitRanking = () => {
         cellRenderer: CollectionRenderer,
         headerComponent: AddCollectionSortIcon,
         // flex: 1,
-        minWidth: 400,
+        minWidth: 300,
         valueGetter: (params: ICellRendererParams<TopMintData>) =>
           params.data?.name ?? '',
       },
@@ -99,11 +99,11 @@ const TopMInitRanking = () => {
       {
         field: 'mintVolume',
         headerName: 'Mint Volume',
-        cellRenderer: NormalRenderer,
+        cellRenderer: PriceRenderer,
         headerComponent: NormalEndHeaderRenderer,
         // minWidth: 120,
         valueGetter: (params: ICellRendererParams<TopMintData>) =>
-          params.data?.mintVolume ?? '-',
+          params.data?.mintVolume.toFixed(2) ?? '-',
       },
       {
         field: 'oneHourCount',
@@ -135,7 +135,7 @@ const TopMInitRanking = () => {
       >
         Top Mint Ranking
       </Typography>
-      <ActiveTab columnDefs={columns} />
+      <ActiveTab columnDefs={columns} variant='normal'/>
     </Box>
   );
 };

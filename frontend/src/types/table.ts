@@ -84,6 +84,7 @@ export interface NftSalesT {
     allTime: number;
   };
   washTradingScore: number;
+  timestamp?: number;
 }
 
 export interface TopSalesT {
@@ -94,7 +95,7 @@ export interface TopSalesT {
     image: string;
     contract: string;
     tokenId: string;
-    collectiton: {
+    collection: {
       id: string;
       name: string;
     };

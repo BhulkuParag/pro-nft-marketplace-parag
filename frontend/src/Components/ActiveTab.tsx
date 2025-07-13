@@ -8,9 +8,10 @@ import ItemCard from './CollectionItems/ItemCard';
 
 interface ActiveTabProps {
   columnDefs: any;
+  variant?: 'normal' | 'custom'
 }
 
-const ActiveTab = ({ columnDefs }: ActiveTabProps) => {
+const ActiveTab = ({ columnDefs, variant }: ActiveTabProps) => {
   const { activeTab, tabData, loading, selectedToggleValue } = useSelector(
     (state: RootState) => state.home
   );
@@ -63,7 +64,7 @@ const ActiveTab = ({ columnDefs }: ActiveTabProps) => {
           }}
         >
           {rowData?.map((item: any) => (
-            <ItemCard item={item?.token?.id} key={item?.token?.id} />
+            <ItemCard item={item} variant={variant} key={item?.token?.id} />
           ))}
         </Box>
       )}

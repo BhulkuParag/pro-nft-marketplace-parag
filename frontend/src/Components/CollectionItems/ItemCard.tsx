@@ -7,27 +7,31 @@ import { MdOutlineShoppingCart } from 'react-icons/md';
 
 interface ItemCardProps {
   item: any;
+  variant?: 'normal' | 'custom';
 }
 
-const ItemCard = ({ item }: ItemCardProps) => {
+const ItemCard = ({ item, variant = 'custom' }: ItemCardProps) => {
   const [selectedIds, setSelectedIds] = React.useState<number[]>([]);
 
   return (
     <Link
       className="rounded-xl group"
-      to={`/trendingCollections/assets/${item?.token?.collection?.id}:${item?.token?.tokenId}`}
+      to={`/trendingCollections/assets/${
+        item?.token?.collection?.id || item?.id
+      }:${item?.token?.tokenId}`}
     >
       <Box
         sx={{
           borderRadius: '12px',
           overflow: 'hidden',
-          background: '#232323',
+          // background: '#232323',
+          background: 'transparent',
           position: 'relative',
           cursor: 'pointer',
           transition: 'opacity 0.6s ease-out, transform 0.6s ease-out',
           '&:hover': {
             transform: 'scale(1.01) translatez(-4px)',
-            boxShadow: 6,
+            boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',
             // p: 0,
           },
           '&:hover .price-section': { display: 'none' },
@@ -39,7 +43,8 @@ const ItemCard = ({ item }: ItemCardProps) => {
             position: 'relative',
             width: '100%',
             aspectRatio: '1/1',
-            background: '#222',
+            // background: '#222',
+            background: 'transparent',
             overflow: 'hidden',
           }}
         >
@@ -47,7 +52,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
             component="img"
             className={`nft-thumbnail group-hover:scale-105`}
             loading="lazy"
-            src={item?.token?.image}
+            src={item?.token?.image || item?.image}
             alt={`token image`}
             sx={{
               // borderBottomLeftRadius: '0px',
@@ -72,37 +77,39 @@ const ItemCard = ({ item }: ItemCardProps) => {
               left: '0.5rem',
               color: '#fff',
               backgroundColor: '#0006',
-              backdropFilter: 'blur(2px)',
+              backdropFilter: 'blur(4px)',
               borderRadius: '16px',
             }}
           >
-            <Chip
-              // label={item.token.name}
-              label={
-                <Box
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.2rem',
-                  }}
-                >
+            {item?.token?.rarityRank && (
+              <Chip
+                // label={item.token.name}
+                label={
                   <Box
-                    component="img"
-                    src="https://analytic.polycruz.io/icons/rarity.svg"
-                  />
-                  <Typography
-                    variant="body1"
-                    color="custom.primary"
                     sx={{
-                      fontSize: '0.7rem',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.2rem',
                     }}
                   >
-                    {item?.token?.rarityRank}
-                  </Typography>
-                </Box>
-              }
-              // variant="outlined"
-            />
+                    <Box
+                      component="img"
+                      src="https://analytic.polycruz.io/icons/rarity.svg"
+                    />
+                    <Typography
+                      variant="body1"
+                      color="#fff"
+                      sx={{
+                        fontSize: '0.7rem',
+                      }}
+                    >
+                      {item?.token?.rarityRank}
+                    </Typography>
+                  </Box>
+                }
+                // variant="outlined"
+              />
+            )}
           </Box>
           <IconButton
             onClick={(e) => {
@@ -118,13 +125,12 @@ const ItemCard = ({ item }: ItemCardProps) => {
               position: 'absolute',
               top: 12,
               right: 12,
-              background: selectedIds.includes(item?.id)
-                ? '#1976d2'
-                : 'rgba(30,32,38,0.8)',
+              background: selectedIds.includes(item?.id) ? '#1976d2' : '#0006',
               color: '#fff',
               width: 36,
               height: 36,
               boxShadow: 1,
+              backdropFilter: 'blur(4px)',
               '&:hover': {
                 background: selectedIds.includes(item?.id) ? '#1976d2' : '#333',
               },
@@ -134,168 +140,234 @@ const ItemCard = ({ item }: ItemCardProps) => {
           </IconButton>
         </Box>
 
-        <Box
-          sx={{
-            backgroundColor: 'secondary.main',
-            border: '1px solid',
-            borderColor: 'divider',
-            color: '#fff',
-            borderBottomLeftRadius: '12px',
-            borderBottomRightRadius: '12px',
-            // p: 1,
-            // pt: 1.5,
-            // pb: '11px',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-            width: '100%',
-            gap: 1,
-            '&:hover': {
-              p: 0, // remove padding on hover
-            },
-            // padding: 1,
-          }}
-        >
-          <Typography
-            variant="body1"
-            sx={{
-              color: '#fff',
-              fontWeight: 600,
-              fontSize: 12,
-              ml: 0.5,
-              px: '0.5rem',
-              pt: '0.7rem',
-            }}
-          >
-            {item?.token?.name}
-            {/*  #{item?.token?.tokenId} */}
-          </Typography>
-
+        {variant === 'normal' ? (
           <Box
-            className="price-section"
             sx={{
+              backgroundColor: 'secondary.main',
+              border: '1px solid',
+              borderColor: 'divider',
+              color: 'text.primary',
+              borderBottomLeftRadius: '12px',
+              borderBottomRightRadius: '12px',
+              // p: 1,
+              // pt: 1.5,
+              // pb: '11px',
               display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
               width: '100%',
-              // transition: 'all 0.3s ease-in-out',
-              opacity: 1,
-              px: '1rem',
-              pb: '1rem',
+              gap: 1,
+              '&:hover': {
+                p: 0, // remove padding on hover
+              },
+              // padding: 1,
             }}
           >
-            <Box
-              component="div"
+            <Typography
+              variant="body1"
               sx={{
-                display: 'flex',
-                alignItems: 'center',
-                flexDirection: 'column',
+                color: 'text.primary',
+                fontWeight: 600,
+                fontSize: 13,
+                ml: 0.5,
+                px: '0.5rem',
+                py: '0.7rem',
               }}
             >
-              <Typography
-                variant="body1"
-                sx={{ color: '#fff', fontWeight: 700, fontSize: 10 }}
-              >
-                Price
-              </Typography>
-              <Box
-                component="div"
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  // flexDirection: 'column',
-                }}
-              >
-                <img
-                  src="https://marketplace.polycruz.io/eth.svg"
-                  alt="ETH"
-                  width={16}
-                  height={16}
-                />
-                <Typography
-                  variant="body1"
-                  sx={{
-                    color: 'text.primary',
-                    fontWeight: 700,
-                    fontSize: 10,
-                  }}
-                >
-                  {item?.token?.collection?.floorAskPrice?.amount?.decimal?.toFixed(
-                    2
-                  ) || item?.token?.collection?.price?.amount?.decimal?.toFixed(
-                    2
-                  )}
-                </Typography>
-              </Box>
-            </Box>
-            <Box
-              component="div"
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                flexDirection: 'column',
-              }}
-            >
-              <Typography
-                variant="body1"
-                sx={{
-                  color: 'text.primary',
-                  fontWeight: 700,
-                  fontSize: 10,
-                }}
-              >
-                Last Sale
-              </Typography>
-              <Box
-                component="div"
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '5px',
-                  // flexDirection: 'column',
-                }}
-              >
-                <img
-                  src="https://marketplace.polycruz.io/eth.svg"
-                  alt="ETH"
-                  width={16}
-                  height={16}
-                />
-                <Typography
-                  variant="body1"
-                  sx={{
-                    color: 'text.primary',
-                    fontWeight: 700,
-                    fontSize: 10,
-                    lineHeight: 1.5,
-                  }}
-                >
-                  {item?.token?.collection?.floorAskPrice?.amount?.decimal?.toFixed(
-                    2
-                  )}
-                </Typography>
-              </Box>
-            </Box>
-          </Box>
-
-          <Box
-            className="buy-now-section"
-            sx={{
-              display: 'none',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              gap: 2,
-              p: '0.7rem',
-              width: '100%',
-              backgroundColor: 'custom.PrimaryButton',
-            }}
-          >
-            <Typography component="p" sx={{ color: '#fff' }}>
-              Buy Now
+              {item?.token?.name || item?.name?.length > 22
+                ? item?.name?.substring(0, 18).trim() + '...'
+                : item?.name}
             </Typography>
-            <MdOutlineShoppingCart color="#fff" />
+
+            {/* <Box
+              className="buy-now-section"
+              sx={{
+                display: 'none',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                gap: 2,
+                p: '0.7rem',
+                width: '100%',
+                backgroundColor: 'custom.PrimaryButton',
+              }}
+            >
+              <Typography component="p" sx={{ color: '#fff' }}>
+                Buy Now
+              </Typography>
+              <MdOutlineShoppingCart color="#fff" />
+            </Box> */}
           </Box>
-        </Box>
+        ) : (
+          <Box
+            sx={{
+              backgroundColor: 'secondary.main',
+              border: '1px solid',
+              borderColor: 'divider',
+              color: 'text.primary',
+              borderBottomLeftRadius: '12px',
+              borderBottomRightRadius: '12px',
+              // p: 1,
+              // pt: 1.5,
+              // pb: '11px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              width: '100%',
+              gap: 1,
+              '&:hover': {
+                p: 0, // remove padding on hover
+              },
+              // padding: 1,
+            }}
+          >
+            <Typography
+              variant="body1"
+              sx={{
+                color: 'text.primary',
+                fontWeight: 600,
+                fontSize: 12,
+                ml: 0.5,
+                px: '0.5rem',
+                pt: '0.7rem',
+              }}
+            >
+              {item?.token?.name > 22
+                ? item?.token?.name?.substring(0, 22).trim()
+                : item?.token?.name ?? item?.name}
+              #{item?.token?.tokenId}
+            </Typography>
+
+            <Box
+              className="price-section"
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                width: '100%',
+                // transition: 'all 0.3s ease-in-out',
+                opacity: 1,
+                px: '0.9rem',
+                pb: '1rem',
+              }}
+            >
+              <Box
+                component="div"
+                sx={{
+                  display: 'flex',
+                  // alignItems: 'center',
+                  flexDirection: 'column',
+                }}
+              >
+                <Typography
+                  variant="body1"
+                  sx={{ color: 'text.primary', fontWeight: 700, fontSize: 12 }}
+                >
+                  Price
+                </Typography>
+                <Box
+                  component="div"
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    // flexDirection: 'column',
+                  }}
+                >
+                  <img
+                    src="https://marketplace.polycruz.io/eth.svg"
+                    alt="ETH"
+                    width={10}
+                    height={10}
+                  />
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      color: 'text.primary',
+                      fontWeight: 700,
+                      fontSize: 12,
+                      pl: 1,
+                    }}
+                  >
+                    {item?.token?.collection?.floorAskPrice?.amount?.decimal?.toFixed(
+                      2
+                    ) ||
+                      item?.token?.collection?.price?.amount?.decimal?.toFixed(
+                        2
+                      ) ||
+                      item?.price?.amount?.decimal?.toFixed(2)}
+                  </Typography>
+                </Box>
+              </Box>
+              {item?.token?.collection?.floorAskPrice?.amount?.decimal && (
+                <Box
+                  component="div"
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                  }}
+                >
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      color: 'text.primary',
+                      fontWeight: 700,
+                      fontSize: 10,
+                    }}
+                  >
+                    Last Sale
+                  </Typography>
+                  <Box
+                    component="div"
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '5px',
+                      // flexDirection: 'column',
+                    }}
+                  >
+                    <img
+                      src="https://marketplace.polycruz.io/eth.svg"
+                      alt="ETH"
+                      width={10}
+                      height={10}
+                    />
+                    <Typography
+                      variant="body1"
+                      sx={{
+                        color: 'text.primary',
+                        fontWeight: 700,
+                        fontSize: 12,
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      {item?.token?.collection?.floorAskPrice?.amount?.decimal?.toFixed(
+                        2
+                      )}
+                    </Typography>
+                  </Box>
+                </Box>
+              )}
+            </Box>
+
+            <Box
+              className="buy-now-section"
+              sx={{
+                display: 'none',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                gap: 2,
+                p: '0.9rem',
+                width: '100%',
+                backgroundColor: 'custom.PrimaryButton',
+              }}
+            >
+              <Typography component="p" sx={{ color: '#fff' }}>
+                Buy Now
+              </Typography>
+              <MdOutlineShoppingCart color="#fff" />
+            </Box>
+          </Box>
+        )}
       </Box>
     </Link>
   );

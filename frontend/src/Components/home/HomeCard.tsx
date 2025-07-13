@@ -7,7 +7,10 @@ import { useCallback, useEffect, useMemo } from 'react';
 import DateFilter from '../../@ui-component/Comman/DateFilter';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../app/store';
-import { setCardTimeCompare, fetchHomeCardRequest } from '../../features/home/homeSlice';
+import {
+  setCardTimeCompare,
+  fetchHomeCardRequest,
+} from '../../features/home/homeSlice';
 
 function HomeCard() {
   // const [range, setRange] = useState<string>('1day');
@@ -105,9 +108,7 @@ function HomeCard() {
 
   return (
     <Box component="div" sx={{ paddingInline: { xs: 2, lg: 2, xl: 3 } }}>
-      <Box
-        sx={{ display: 'flex', justifyContent: 'flex-end', paddingBlock: 1 }}
-      >
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
         <DateFilter
           timeOptions={cardTimeOptions}
           handleChange={handleDateFilterChange}
@@ -122,7 +123,7 @@ function HomeCard() {
           overflowX: {
             xs: 'auto',
             sm: 'auto',
-            md: 'unset',
+            md: 'auto',
           },
           scrollSnapType: {
             xs: 'x mandatory',
@@ -132,6 +133,7 @@ function HomeCard() {
           // justifyContent: 'space-between',
           WebkitOverflowScrolling: 'touch',
           gap: '1rem',
+          py: 1
         }}
       >
         {cards.map((card) => (
