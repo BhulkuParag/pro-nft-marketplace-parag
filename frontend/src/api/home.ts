@@ -64,6 +64,17 @@ export const fetchTrendingData = async (
   return response.data?.data?.collections ?? [];
 };
 
+export const fetchCollectionData = async (
+  sortBy: string,
+  chainId?: string
+): Promise<RowData[]> => {
+  const url = buildApiUrl(API_CONFIG.ENDPOINTS.TRENDING, chainId, {
+    sortBy,
+  });
+  const response = await AXIOS.get<TrendingApiResponse>(url);
+  return response.data?.data?.collections ?? [];
+};
+
 export const fetchNftSalesData = async (
   includeTokenMetadata: boolean,
   chainId?: string

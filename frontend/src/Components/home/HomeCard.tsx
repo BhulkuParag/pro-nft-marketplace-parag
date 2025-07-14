@@ -48,7 +48,6 @@ function HomeCard() {
         helpIcon: <HelpOutlineIcon />,
         coinIcon: <FaEthereum />,
         price: cardData[cardTimeCompare]?.mintCount,
-
         // Subprice: '$138,151,460',
         // PNL: '-4.16% (24h)',
         // GrowthIcon: <TrendingUpIcon />,

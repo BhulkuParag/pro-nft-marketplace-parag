@@ -194,6 +194,33 @@ const featuredCollections = [
     priceChange: '+2.5%',
     priceChangePositive: true,
   },
+  {
+    image:
+      'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80',
+    name: 'Crypto Owls',
+    verified: true,
+    floorPrice: '12.34',
+    priceChange: '+2.5%',
+    priceChangePositive: true,
+  },
+  {
+    image:
+      'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80',
+    name: 'Crypto Owls',
+    verified: true,
+    floorPrice: '12.34',
+    priceChange: '+2.5%',
+    priceChangePositive: true,
+  },
+  {
+    image:
+      'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80',
+    name: 'Crypto Owls',
+    verified: true,
+    floorPrice: '12.34',
+    priceChange: '+2.5%',
+    priceChangePositive: true,
+  },
 ];
 
 const topMovers = [
@@ -205,6 +232,33 @@ const topMovers = [
     floorPrice: '$124.21',
     priceChange: '+230.2%',
     priceChangePositive: true,
+  },
+  {
+    image:
+      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
+    name: 'Pixel Foxes',
+    verified: true,
+    floorPrice: '$99.99',
+    priceChange: '-10.0%',
+    priceChangePositive: false,
+  },
+  {
+    image:
+      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
+    name: 'Pixel Foxes',
+    verified: true,
+    floorPrice: '$99.99',
+    priceChange: '-10.0%',
+    priceChangePositive: false,
+  },
+  {
+    image:
+      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
+    name: 'Pixel Foxes',
+    verified: true,
+    floorPrice: '$99.99',
+    priceChange: '-10.0%',
+    priceChangePositive: false,
   },
   {
     image:
@@ -235,17 +289,24 @@ const FeaturedCollection: React.FC = () => {
     >
       {/* Featured Collections */}
       <Box sx={{ flex: 1, minWidth: 320 }}>
-        <Typography fontWeight={700} fontSize={24} color="text.primary">
-          Featured Collections
-        </Typography>
         <Typography
+          fontWeight={700}
+          fontSize={24}
+          color="text.primary"
+          sx={{
+            mb: 2,
+          }}
+        >
+          Top Trending
+        </Typography>
+        {/* <Typography
           fontWeight={400}
           fontSize={15}
           mb={2}
           sx={{ color: 'custom.thirdText' }}
         >
           This week's curated collections
-        </Typography>
+        </Typography> */}
         <CollectionCard
           {...featuredCollections[featuredIdx]}
           showPrev={featuredIdx > 0}
@@ -260,17 +321,24 @@ const FeaturedCollection: React.FC = () => {
       </Box>
       {/* Top Movers Today */}
       <Box sx={{ flex: 1, minWidth: 320 }}>
-        <Typography fontWeight={700} fontSize={24} color="text.primary">
-          Top Movers Today
-        </Typography>
         <Typography
+          fontWeight={700}
+          fontSize={24}
+          color="text.primary"
+          sx={{
+            mb: 2,
+          }}
+        >
+          Top Sales
+        </Typography>
+        {/* <Typography
           fontWeight={400}
           fontSize={15}
           mb={2}
           sx={{ color: 'custom.thirdText' }}
         >
           Largest floor price change in the past day
-        </Typography>
+        </Typography> */}
         <CollectionCard
           {...topMovers[moverIdx]}
           showPrev={moverIdx > 0}

@@ -12,4 +12,7 @@ export default defineConfig({
       '@ui-component': resolve(__dirname, '@ui-component'),
     },
   },
+   optimizeDeps: {
+    exclude: ['optimizeDeps.exclude'] 
+  }
 });

@@ -24,6 +24,7 @@ interface Options {
 interface HomeState {
   activeTab: string;
   tabData: { [key: string]: any };
+  // featureCardData: any[];
   columnDefsMap: Record<string, any[]>;
   volume_sales: string;
   loading: boolean;
@@ -48,13 +49,14 @@ interface HomeState {
 }
 
 const initialState: HomeState = {
-  activeTab: 'trending',
+  activeTab: 'collection',
   time: '24h',
   timeCompare: '24h',
   chainId: 'ETHEREUM', // Default to Ethereum mainnet
   globalSearchValue: '',
   tableSearchValue: '',
   globalSearchData: [],
+  // featureCardData: [],
   tableSearchData: [],
   compareList: [],
   includeTokenMetadata: true,
@@ -447,8 +449,21 @@ const homeSlice = createSlice({
     fetchTrendingDataSuccess: (state, action: PayloadAction<RowData[]>) => {
       state.loading = false;
       state.tabData = { ...state.tabData, [state.activeTab]: action.payload };
+      // state.featureCardData = action.payload.slice(0, 5);
     },
     fetchTrendingDataFailure: (state, action: PayloadAction<string>) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    fetchCollectionDataRequest: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    fetchCollectionDataSuccess: (state, action: PayloadAction<RowData[]>) => {
+      state.loading = false;
+      state.tabData = { ...state.tabData, [state.activeTab]: action.payload };
+    },
+    fetchCollectionDataFailure: (state, action: PayloadAction<string>) => {
       state.loading = false;
       state.error = action.payload;
     },
@@ -558,6 +573,9 @@ export const {
   fetchTrendingDataRequest,
   fetchTrendingDataSuccess,
   fetchTrendingDataFailure,
+  fetchCollectionDataRequest,
+  fetchCollectionDataSuccess,
+  fetchCollectionDataFailure,
   fetchNftSalesDataRequest,
   fetchNftSalesDataSuccess,
   fetchNftSalesDataFailure,

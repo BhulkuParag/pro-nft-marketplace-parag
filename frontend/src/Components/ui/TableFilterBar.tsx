@@ -33,21 +33,21 @@ const TableFilterBar = () => {
   const volume_sales = useSelector(
     (state: RootState) => state.home.volume_sales
   );
-  const vauleSales = useSelector(
-    (state: RootState) => state.home.vauleSales
-  );
+  // const vauleSales = useSelector(
+  //   (state: RootState) => state.home.vauleSales
+  // );
   const theme = useTheme();
   const isMobileOrLaptop = useMediaQuery(theme.breakpoints.down('lg'));
   const [anchorElFilter, setAnchorElFilter] = useState<null | HTMLElement>(
     null
   );
 
-  const handleOnChange = useCallback(
-    (value: string) => {
-      if (volume_sales !== value) dispatch(setVolume_sales(value));
-    },
-    [dispatch, volume_sales]
-  );
+  // const handleOnChange = useCallback(
+  //   (value: string) => {
+  //     if (volume_sales !== value) dispatch(setVolume_sales(value));
+  //   },
+  //   [dispatch, volume_sales]
+  // );
 
   // const handleOnChangeForMobile = (value: string) => {
   //   dispatch(setVolume_sales(value));
@@ -295,14 +295,14 @@ const TableFilterBar = () => {
           handleOnChangeForMobile={handleOnChangeForMobile}
         /> */}
 
-        <DateFilter
+        {/* <DateFilter
           wantBorder
           timeOptions={vauleSales}
           handleChange={handleOnChange}
           selectedTime={volume_sales}
-        />
+        /> */}
 
-        <Divider
+        {/* <Divider
           flexItem
           orientation="vertical"
           sx={{
@@ -312,7 +312,7 @@ const TableFilterBar = () => {
             borderColor: 'divider',
             display: isMobileOrLaptop ? 'none' : 'block',
           }}
-        />
+        /> */}
 
         <DateFilter
           timeOptions={timeOptions}

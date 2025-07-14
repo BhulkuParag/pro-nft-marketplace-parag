@@ -1,7 +1,8 @@
 import type { ColDef } from 'ag-grid-community';
 
 export interface AGGridTableProps {
-  columnDefs: ColDef<any>[];
+  // columnDefs: ColDef<any>[];
+  columnDefs: any[];
   rowData: any[];
   loading?: boolean;
 }
