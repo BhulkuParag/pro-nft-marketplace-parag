@@ -4,7 +4,7 @@ import type { RootState } from '../../app/store';
 import { Box } from '@mui/material';
 const Trending = lazy(() => import('./../HomeTabsHeader/Trending'));
 const NftSales = lazy(() => import('./../HomeTabsHeader/NftSales'));
-const TopSales = lazy(() => import('./../HomeTabsHeader/TopSales'));
+// const TopSales = lazy(() => import('./../HomeTabsHeader/TopSales'));
 const TopMInitRanking = lazy(
   () => import('./../HomeTabsHeader/TopMInitRanking')
 );
@@ -43,31 +43,31 @@ const TabContainer = () => {
         label: 'Top Collection',
         value: 'collection',
         content: <Collection />,
-        icon: <BsCollection className="text-xl" />,
+        icon: <BsCollection className="text-lg" />,
       },
       trending: {
         label: 'Top Trending',
         value: 'trending',
         content: <Trending />,
-        icon: <IoIosTrendingUp className="text-2xl" />,
+        icon: <IoIosTrendingUp className="text-[19px]" />,
       },
       nft_sales: {
         label: 'NFT Sales',
         value: 'nft_sales',
         content: <NftSales />,
-        // icon: <img src={TrendingIcon} alt='trending icon' width={25} height={25} className="text-xl" />,
+        // icon: <img src={TrendingIcon} alt='trending icon' width={25} height={25} className="text-md" />,
       },
       // top_sales: {
       //   label: 'Top Sales',
       //   value: 'top_sales',
       //   content: <TopSales />,
-      //   // icon: <IoMdHeartEmpty className="text-xl" />,
+      //   // icon: <IoMdHeartEmpty className="text-md" />,
       // },
       top_mint_ranking: {
         label: 'Top Mint Ranking',
         value: 'top_mint_ranking',
         content: <TopMInitRanking />,
-        // icon: <BsCollection className="text-xl" />,
+        // icon: <BsCollection className="text-md" />,
       },
     };
   }, []);
@@ -77,12 +77,12 @@ const TabContainer = () => {
       {
         label: '',
         value: '0',
-        icon: <TfiMenuAlt className="text-xl" />,
+        icon: <TfiMenuAlt className="text-md" />,
       },
       {
         label: '',
         value: '1',
-        icon: <CiGrid2H className="text-xl" />,
+        icon: <CiGrid2H className="text-md" />,
       },
     ];
   }, []);

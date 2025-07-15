@@ -5,12 +5,25 @@ import Loading from '../../@ui-component/Comman/Loading';
 import type { RootState } from '../../app/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { useInView } from 'react-intersection-observer';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   fetchItemsDataRequest,
   setLimit,
 } from '../../features/collection/collectionSlice';
+import ActiveTab from '../ActiveTab';
+import {
+  CollectionRenderer,
+  NormalRenderer,
+  PriceRenderer,
+} from '../../utils/Table/cellRenderer';
+import {
+  AddSortIcon,
+  NormalEndHeaderRenderer,
+  NormalHeaderRenderer,
+} from '../../utils/Table/headerRenderer';
+import type { ICellRendererParams } from 'ag-grid-community';
+import type { ItemT } from '../../types/table';
 
 const ItemContainer = () => {
   const dispatch = useDispatch();
@@ -25,6 +38,53 @@ const ItemContainer = () => {
   const { ref, inView } = useInView({
     threshold: 0,
   });
+  const columns = useMemo(() => {
+    return [
+      {
+        field: 'name',
+        headerName: 'Item Name',
+        cellRenderer: CollectionRenderer,
+        headerComponent: NormalHeaderRenderer,
+        // flex: 1,
+        minWidth: 300,
+        valueGetter: (params: ICellRendererParams<ItemT>) =>
+          params.data?.token?.name,
+      },
+      {
+        field: 'rarity',
+        headerName: `Rarity`,
+        cellRenderer: NormalRenderer,
+        headerComponent: NormalEndHeaderRenderer,
+        // minWidth: 110,
+        valueGetter: (params: ICellRendererParams<ItemT>) =>
+          params.data?.token?.rarity ?? '-',
+      },
+      {
+        field: 'itemfloorPrice',
+        headerName: 'Price',
+        cellRenderer: PriceRenderer,
+        headerComponent: AddSortIcon,
+        minWidth: 155,
+        valueGetter: (params: ICellRendererParams<ItemT>) =>
+          params.data?.token?.collection.floorAskPrice.amount.decimal.toFixed(
+            2
+          ) ?? '0.00',
+      },
+      {
+        field: 'owner',
+        headerName: 'Owner',
+        cellRenderer: NormalRenderer,
+        headerComponent: NormalEndHeaderRenderer,
+        // minWidth: 110,
+        valueGetter: (params: ICellRendererParams<ItemT>) =>
+          params.data?.token?.owner
+            ? params.data?.token?.owner.slice(0, 4) +
+              '...' +
+              params.data?.token?.owner.slice(-4)
+            : '-',
+      },
+    ];
+  }, []);
 
   useEffect(() => {
     if (param.id)
@@ -46,28 +106,11 @@ const ItemContainer = () => {
         display: 'flex',
         alignItems: 'start',
         justifyContent: 'space-between',
+        gap: 1
       }}
     >
       {itemFilterOpen && <FilterSidebar />}
       <div className="w-full">
-        <Box
-          sx={{
-            display: 'grid',
-            //justifyContent: 'space-between',
-            gridTemplateColumns: {
-              xs: 'repeat(2, minmax(0, 1fr))',
-              sm: 'repeat(4, minmax(0, 1fr))',
-              md: 'repeat(6, minmax(0, 1fr))',
-              lg: `repeat(${grid}, minmax(0, 1fr))`,
-            },
-            gap: 1.5,
-          }}
-        >
-          {tabData?.items?.map((item: any) => (
-            <ItemCard item={item} key={item?.token?.id} />
-          ))}
-        </Box>
-        <Box ref={ref} sx={{ height: 1 }}></Box>
         {loading && (
           <Box
             sx={{
@@ -81,6 +124,28 @@ const ItemContainer = () => {
             <Loading />
           </Box>
         )}
+        {grid === 'table' ? (
+          <ActiveTab columnDefs={columns} />
+        ) : (
+          <Box
+            sx={{
+              display: 'grid',
+              //justifyContent: 'space-between',
+              gridTemplateColumns: {
+                xs: 'repeat(2, minmax(0, 1fr))',
+                sm: 'repeat(4, minmax(0, 1fr))',
+                md: 'repeat(6, minmax(0, 1fr))',
+                lg: `repeat(${grid}, minmax(0, 1fr))`,
+              },
+              gap: 1.5,
+            }}
+          >
+            {tabData?.items?.map((item: any) => (
+              <ItemCard item={item} key={item?.token?.id} />
+            ))}
+          </Box>
+        )}
+        <Box ref={ref} sx={{ height: 1 }}></Box>
       </div>
     </Box>
   );

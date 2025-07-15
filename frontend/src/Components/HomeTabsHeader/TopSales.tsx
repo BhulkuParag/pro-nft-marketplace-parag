@@ -112,8 +112,8 @@ const TopSales = () => {
       <Typography
         variant="h4"
         fontWeight={600}
+        fontSize={18}
         color="custom.whiteLightO1"
-        fontSize={26}
       >
         Top Sales
       </Typography>

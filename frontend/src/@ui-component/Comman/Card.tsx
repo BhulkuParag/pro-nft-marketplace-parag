@@ -1,5 +1,4 @@
 import React from 'react';
-import { IconButton } from '@mui/material';
 import {
   Card,
   CardContent,
@@ -7,8 +6,10 @@ import {
   Typography,
   Box,
   useTheme,
+  IconButton
 } from '@mui/material';
 import type { ReactNode } from 'react';
+// import { FaEthereum } from 'react-icons/fa';
 
 export interface CardItem {
   id?: number;
@@ -19,6 +20,7 @@ export interface CardItem {
   Subprice?: string;
   PNL?: string;
   GrowthIcon?: ReactNode;
+  priceIcon?: ReactNode;
 }
 
 function CustomCard({
@@ -30,15 +32,15 @@ function CustomCard({
   Subprice,
   PNL,
   GrowthIcon,
+  priceIcon
 }: CardItem) {
   const theme = useTheme();
   return (
-    <Box component="div" >
+    <Box component="div">
       <Card
         elevation={0}
         // key={id}
         sx={{
-
           minWidth: { xs: 100, lg: 100 },
           border: `0.5px solid ${theme.palette.custom.borderblack01} `,
           borderRadius: '0.75rem',
@@ -62,7 +64,11 @@ function CustomCard({
               height: '100%',
               display: 'flex',
               flexDirection: 'column',
+              justifyContent: 'center',
               gap: '5px',
+              paddingInline: 2,
+              paddingBlock: 1,
+              paddingBottom: 0
               // backgroundColor: 'red',
             }}
           >
@@ -79,7 +85,7 @@ function CustomCard({
                 variant="body2"
                 sx={{
                   // 0 solid #e5e7eb
-                  fontSize: { xs: 16, md: 15 },
+                  fontSize: 14,
                   color: 'text.CardWhite',
                   fontWeight: 600,
                 }}
@@ -98,15 +104,23 @@ function CustomCard({
               <IconButton
                 sx={{
                   color: 'custom.thirdText',
-                  fontSize: '18px',
+                  fontSize: '15px',
                   padding: 0,
                 }}
               >
                 {coinIcon}
               </IconButton>
             </Box>
-            <Typography variant="body2" color="text.primary">
-              {price}
+            <Typography
+              //  color="text.primary"
+              color="#10dab6"
+              display={'flex'}
+              gap={0.5}
+              fontSize={13}
+              fontWeight={500}
+              alignItems={'center'}
+            >
+              {priceIcon} {price}
             </Typography>
             <Typography variant="body2" color="#10dab6">
               {Subprice}

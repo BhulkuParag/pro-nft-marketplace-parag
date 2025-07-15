@@ -94,10 +94,18 @@ const FilterSidebar = () => {
             },
           }}
         >
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <AccordionSummary
+            expandIcon={
+              <ExpandMoreIcon
+                sx={{
+                  color: 'custom.grey01',
+                }}
+              />
+            }
+          >
             <Typography
               sx={{
-                color: 'text.primary',
+                color: 'custom.grey01',
               }}
             >
               Sort by

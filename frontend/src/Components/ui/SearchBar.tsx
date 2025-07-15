@@ -32,7 +32,7 @@ const SearchBar: FC<SearchBarProps> = ({
   return (
     <Box
       sx={{
-        height: { xs: '36px', sm: '40px' },
+        height: { xs: '36px', sm: '35px' },
         padding: { xs: '6px', sm: '9px' },
         position: 'relative',
         display: 'flex',
@@ -51,14 +51,14 @@ const SearchBar: FC<SearchBarProps> = ({
       <div className="relative flex justify-between items-center">
         <img
           alt="search"
-          width="18"
-          height="18"
+          width="16"
+          height="16"
           className="mr-2 sm:mr-3"
           src={Search}
         />
       </div>
       <input
-        className="w-full flex-1 bg-transparent focus:outline-none text-sm text-grey border-0 focus:border-0 focus:bg-transparent focus:ring-0"
+        className="w-full flex-1 bg-transparent focus:outline-none text-[13px] text-grey border-0 focus:border-0 focus:bg-transparent focus:ring-0"
         type="text"
         placeholder={placeholder}
         value={search}

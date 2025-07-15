@@ -33,7 +33,7 @@ export const StarRenderer = (params: ICellRendererParams<RowData>) => {
   );
 
   return (
-    <div className="w-fit flex h-full items-center cursor-pointer">
+    <div className="w-auto flex h-[45px] items-center cursor-pointer">
       <Tooltip
         title={
           isCompared
@@ -57,7 +57,7 @@ export const StarRenderer = (params: ICellRendererParams<RowData>) => {
   );
 };
 
-export const PriceRenderer = (params: ICellRendererParams<RowData>) => {
+export const PriceRenderer = (params: ICellRendererParams<any>) => {
   let usdValue: number | undefined;
 
   const field = params.colDef?.field;
@@ -71,16 +71,25 @@ export const PriceRenderer = (params: ICellRendererParams<RowData>) => {
     usdValue = params.data?.mintVolume;
   } else if (field === 'price') {
     usdValue = params.data?.price?.amount?.usd;
+  } else if (field === 'itemfloorPrice') {
+    usdValue = params.data?.token?.collection.floorAskPrice.amount?.usd;
   }
 
   return (
-    <div className="w-auto flex h-full pt-[3px] items-center cursor-pointer justify-end gap-1">
+    <div className="w-auto flex h-[45px] items-center cursor-pointer justify-end gap-1">
       <Tooltip
         title={usdValue !== undefined ? `$ ${usdValue}` : '0.00'}
         placement="top"
         arrow={true}
       >
-        <span className="ml-1">{params.value ?? '-'}</span>
+        <Typography
+          className="ml-1"
+          sx={{
+            fontSize: 12,
+          }}
+        >
+          {params.value ?? '0.00'}
+        </Typography>
       </Tooltip>
       <EthIcon className="fill-[#777E90] w-4 h-4" />
     </div>
@@ -88,21 +97,41 @@ export const PriceRenderer = (params: ICellRendererParams<RowData>) => {
 };
 
 export const VolumeRenderer = (params: ICellRendererParams<RowData>) => (
-  <div className="w-auto flex h-full pt-[3px] items-center text-[#12CAB6] justify-end">
-    <Typography lineHeight={2.5}>{params.value}%</Typography>
+  <div className="w-auto flex h-[45px] items-center justify-end">
+    <Typography
+      sx={{
+        fontSize: 12,
+        color: '#12CAB6',
+        fontWeight: 520
+      }}
+    >
+      {params.value ?? '0.00'}%
+    </Typography>
   </div>
 );
 
 export const SupplyRenderer = (params: ICellRendererParams<RowData>) => (
-  <div className="w-auto flex h-full pt-[3px] items-center justify-end">
-    <span>{params.value ?? 0}</span>
+  <div className="w-auto flex h-[45px] items-center justify-end">
+    <Typography
+      sx={{
+        fontSize: 12,
+      }}
+    >
+      {params.value ?? '0.00'}
+    </Typography>
   </div>
 );
 
 export const NormalRenderer = (params: ICellRendererParams<RowData>) => {
   return (
-    <div className="w-auto flex h-full pt-[3px] items-center justify-end">
-      <span>{params.value ?? '-'}</span>
+    <div className="w-auto flex h-[45px] items-center justify-end">
+      <Typography
+        sx={{
+          fontSize: 12,
+        }}
+      >
+        {params.value ?? '-'}
+      </Typography>
     </div>
   );
 };
@@ -116,13 +145,20 @@ export const HoverRenderer = (params: ICellRendererParams<TopMintData>) => {
   }
 
   return (
-    <div className="w-full flex h-full pt-[3px] items-center justify-end cursor-pointer">
+    <div className="w-full flex h-[45px] items-center justify-end cursor-pointer">
       <Tooltip
         title={hover !== undefined ? `${hover.toString()}` : ''}
         placement="top"
         arrow={true}
       >
-        <span className="ml-1">{params.value}</span>
+        <Typography
+          className="ml-1"
+          sx={{
+            fontSize: 12,
+          }}
+        >
+          {params.value}
+        </Typography>
       </Tooltip>
     </div>
   );
@@ -148,7 +184,13 @@ export const TypeCell = (row: ICellRendererParams<ActivityType>) => (
         variant="rounded"
       />
     )}
-    <span>{row.value}</span>
+    <Typography
+      sx={{
+        fontSize: 12,
+      }}
+    >
+      {row.value}
+    </Typography>
   </Box>
 );
 
@@ -161,7 +203,12 @@ export const PriceCell = (row: ICellRendererParams<ActivityType>) => (
       height={16}
       style={{ marginRight: 4, verticalAlign: 'middle', backgroundColor: '' }}
     />
-    <Typography fontWeight={700} color="text.primary">
+    <Typography
+      sx={{
+        fontSize: 12,
+      }}
+      color="text.primary"
+    >
       {row.data?.price.amount.decimal}
     </Typography>
   </Box>
@@ -169,21 +216,20 @@ export const PriceCell = (row: ICellRendererParams<ActivityType>) => (
 
 export const AddressCell = (row: ICellRendererParams<ActivityType>) => (
   <Typography
-    fontFamily="monospace"
     fontWeight={500}
     color="text.primary"
-    sx={{ whiteSpace: 'nowrap' }}
+    sx={{ whiteSpace: 'nowrap', fontSize: 12 }}
   >
     {row.data?.toAddress ?? '-'}
   </Typography>
 );
 
 export const CollectionCell = (params: ICellRendererParams<ActivityType>) => (
-  <div className="w-auto flex h-full items-center gap-2 justify-start">
+  <div className="w-auto flex h-[45px] items-center gap-2 justify-start">
     <img
       src={params.data?.collection.collectionImage}
       alt={params.data?.collection.collectionName}
-      className="w-7 h-7 rounded-full"
+      className="w-7 h-7 rounded-full text-xs"
     />
     {params.value}
     <svg
@@ -197,7 +243,7 @@ export const CollectionCell = (params: ICellRendererParams<ActivityType>) => (
 );
 
 export const ChipRenderer = (params: ICellRendererParams<RowData>) => (
-  <div className="w-full flex h-full pt-[10px] items-center justify-end">
+  <div className="w-full flex h-[45px] pt-[10px] items-center justify-end">
     <Box
       component={'span'}
       sx={{
@@ -205,6 +251,7 @@ export const ChipRenderer = (params: ICellRendererParams<RowData>) => (
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        fontSize: 12,
         borderRadius: 5,
         paddingBlock: '6px',
         paddingInline: '10px',
@@ -252,7 +299,7 @@ export const CollectionRenderer = React.memo(
     );
 
     return (
-      <div className="w-full flex h-full pt-[3px] -ml-1 items-center cursor-pointer">
+      <div className="w-full flex h-[45px] -ml-0.5 items-center cursor-pointer">
         <Tooltip
           title={
             isCompared
@@ -266,19 +313,29 @@ export const CollectionRenderer = React.memo(
           onClick={handleOnClick}
         >
           {isCompared ? (
-            <StarRoundedIcon className="text-yellow-500" />
+            <StarRoundedIcon
+              className="text-yellow-500"
+              sx={{
+                fontSize: 22,
+              }}
+            />
           ) : (
-            <StarBorderRoundedIcon className="text-gray-500" />
+            <StarBorderRoundedIcon
+              className="text-gray-500"
+              sx={{
+                fontSize: 22,
+              }}
+            />
           )}
         </Tooltip>
-        <span className="ml-2 mr-6">
+        <span className="ml-1 pt-[2.5px] h-fit mr-5 text-xs">
           {params.node?.rowIndex != null ? params.node.rowIndex + 1 : ''}
         </span>
-        <div className="w-full flex h-full items-center gap-3">
+        <div className="w-full flex h-fit items-center gap-2.5">
           <img
             src={params.data?.token?.image || params.data?.image}
-            alt={params.data?.name}
-            className="w-7 h-7 rounded-full"
+            alt={params.data?.name || params.data?.token?.name}
+            className="w-6.5 h-6.5 rounded-full"
           />
           <Tooltip
             title={params.value === '-' ? '' : params.value}
@@ -291,16 +348,16 @@ export const CollectionRenderer = React.memo(
                   ? params?.data?.token?.contract
                   : params.data?.id
               }`}
-              className="w-full flex items-center gap-3 pt-0.5"
+              className="w-full flex items-center gap-3 pt-0.5 text-xs"
             >
               {params.value
-                ? params.value?.length > 22
-                  ? params.value?.substring(0, 22)?.trim() + '...'
+                ? params.value?.length > 15
+                  ? params.value?.substring(0, 15)?.trim() + '...'
                   : params.value
                 : '-'}
               {params.data?.openseaVerificationStatus === 'verified' && (
                 <svg
-                  className="max-w-4 max-h-4 shrink-0 text-[#A49BFF]"
+                  className="max-w-3.5 max-h-3.5 shrink-0 text-[#A49BFF]"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >

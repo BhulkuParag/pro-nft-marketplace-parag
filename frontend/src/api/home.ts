@@ -97,6 +97,17 @@ export const fetchTopSalesData = async (
   return response.data?.data?.sales ?? [];
 };
 
+export const fetchTopSalesCardData = async (
+  includeTokenMetadata: boolean,
+  chainId?: string
+): Promise<any[]> => {
+  const url = buildApiUrl(API_CONFIG.ENDPOINTS.NFT_SALES, chainId, {
+    includeTokenMetadata,
+  });
+  const response = await AXIOS.get<TopSalesApiResponse>(url);
+  return response.data?.data?.sales ?? [];
+};
+
 export const fetchMintRankingData = async (
   period: string,
   sortBy: string,

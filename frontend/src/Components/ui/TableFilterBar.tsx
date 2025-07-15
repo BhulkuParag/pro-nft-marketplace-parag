@@ -4,23 +4,18 @@ import {
   Menu,
   MenuItem,
   Button,
-  // Divider,
   InputBase,
   useMediaQuery,
   useTheme,
   Typography,
-  Divider,
 } from '@mui/material';
-// import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import BarFilterIcon from '../../Components/Icon/BarFilterIcon';
 import DateFilter from '../../@ui-component/Comman/DateFilter';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../app/store';
 import liveData from '../../assets/images/gif/live.gif';
-import { setTime, setVolume_sales } from '../../features/home/homeSlice';
-// import SearchBar from './SearchBar';
+import { setTime } from '../../features/home/homeSlice';
 import TableSearch from '../home/TableSearch';
-// import ToggleButton from '../../@ui-component/Comman/ToggleButton';
 
 const TableFilterBar = () => {
   const dispatch = useDispatch();
@@ -30,28 +25,11 @@ const TableFilterBar = () => {
   const timeOptions = useSelector(
     (state: RootState) => state.home.timeOptions
   );
-  const volume_sales = useSelector(
-    (state: RootState) => state.home.volume_sales
-  );
-  // const vauleSales = useSelector(
-  //   (state: RootState) => state.home.vauleSales
-  // );
   const theme = useTheme();
   const isMobileOrLaptop = useMediaQuery(theme.breakpoints.down('lg'));
   const [anchorElFilter, setAnchorElFilter] = useState<null | HTMLElement>(
     null
   );
-
-  // const handleOnChange = useCallback(
-  //   (value: string) => {
-  //     if (volume_sales !== value) dispatch(setVolume_sales(value));
-  //   },
-  //   [dispatch, volume_sales]
-  // );
-
-  // const handleOnChangeForMobile = (value: string) => {
-  //   dispatch(setVolume_sales(value));
-  // };
 
   const handleDateFilterChange = useCallback(
     (date: string) => {
@@ -70,7 +48,7 @@ const TableFilterBar = () => {
       flexWrap="wrap"
       sx={{ backgroundColor: 'background.default', marginTop: '16px' }}
     >
-      <Box display="flex" alignItems="center" gap={2}>
+      <Box display="flex" alignItems="center" gap={1.5}>
         <Button
           className="group"
           variant="outlined"
@@ -79,7 +57,7 @@ const TableFilterBar = () => {
           onClick={(e) => setAnchorElFilter(e.currentTarget)}
           startIcon={
             <BarFilterIcon
-              className={`w-5 h-5 group-hover:fill-[#A49BFF] fill-[#777E90] }`}
+              className={`w-4 h-4 group-hover:fill-[#A49BFF] fill-[#777E90] }`}
             />
           }
           // endIcon={
@@ -95,9 +73,9 @@ const TableFilterBar = () => {
             border: '1px solid',
             borderColor: 'divider',
             backgroundColor: 'background.default',
-            padding: '7px 10px',
+            padding: '6px 10px',
             borderRadius: 2,
-            fontFamily: 'Inter, sans-serif',
+            fontSize: 13,
             color: 'custom.lightGrey',
           }}
         >
@@ -181,7 +159,7 @@ const TableFilterBar = () => {
                 border: '1px solid',
                 borderColor: 'divider',
                 padding: '8px',
-                borderRadius: '10px',
+                borderRadius: 2,
                 marginTop: 0.5,
               }}
             >
@@ -191,9 +169,9 @@ const TableFilterBar = () => {
                   backgroundColor: 'background.default',
                   color: 'inherit',
                   px: 2,
-                  py: 0.8,
-                  borderRadius: '8px',
-                  fontSize: '14px',
+                  py: 0.5,
+                  borderRadius: 2,
+                  fontSize: '12px',
                   border: '1px solid',
                   borderColor: 'divider',
                   width: '60px',
@@ -212,9 +190,9 @@ const TableFilterBar = () => {
                   backgroundColor: 'background.default',
                   color: 'inherit',
                   px: 2,
-                  py: 0.8,
-                  borderRadius: '8px',
-                  fontSize: '14px',
+                  py: 0.5,
+                  borderRadius: 2,
+                  fontSize: '12px',
                   border: '1px solid',
                   borderColor: 'divider',
                   width: '63px',
@@ -238,7 +216,7 @@ const TableFilterBar = () => {
                   textTransform: 'none',
                   borderRadius: 2,
                   px: 2.5,
-                  py: 1.1,
+                  py: 0.6,
                   fontWeight: 500,
                   '&:hover': {
                     backgroundColor: '#a49bff',
@@ -256,13 +234,9 @@ const TableFilterBar = () => {
           sx={{
             minWidth: 320,
             maxWidth: 400,
-            display: { xs: 'none', xl: 'block' },
+            display: { xs: 'none', lg: 'block' },
           }}
         >
-          {/* <SearchBar
-            placeholder="Search Collection"
-            backgroundColor="background.default"
-          /> */}
           <TableSearch />
         </Box>
 
@@ -287,33 +261,6 @@ const TableFilterBar = () => {
         alignItems={'center'}
         gap={isMobileOrLaptop ? '14px' : '26px'}
       >
-        {/* <ToggleButton
-          variant="standard"
-          options={vauleSales}
-          handleOnChange={handleOnChange}
-          selectedValue={volume_sales}
-          handleOnChangeForMobile={handleOnChangeForMobile}
-        /> */}
-
-        {/* <DateFilter
-          wantBorder
-          timeOptions={vauleSales}
-          handleChange={handleOnChange}
-          selectedTime={volume_sales}
-        /> */}
-
-        {/* <Divider
-          flexItem
-          orientation="vertical"
-          sx={{
-            // height: '36px',
-            // mt: 0.9,
-            // mr: -1.5,
-            borderColor: 'divider',
-            display: isMobileOrLaptop ? 'none' : 'block',
-          }}
-        /> */}
-
         <DateFilter
           timeOptions={timeOptions}
           selectedTime={time}

@@ -21,14 +21,14 @@ const SubHeader = () => {
       marginBottom={1}
       alignItems={'center'}
       sx={{
-        padding: { xs: 2, md: '14px 26px' },
+        padding: { xs: 2, md: '14px 20px' },
         gap: { xs: 2, md: 4 },
       }}
     >
       <Typography
         component={'h1'}
         sx={{
-          fontSize: { xs: '22px', lg: '28px' },
+          fontSize: '22px',
           fontWeight: 500,
           color: 'text.primary',
         }}

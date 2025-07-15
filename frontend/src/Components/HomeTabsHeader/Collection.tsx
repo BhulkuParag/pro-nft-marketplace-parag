@@ -5,6 +5,7 @@ import {
   ChipRenderer,
   CollectionRenderer,
   NormalRenderer,
+  PriceRenderer,
   SupplyRenderer,
   VolumeRenderer,
 } from '../../utils/Table/cellRenderer';
@@ -32,25 +33,25 @@ const Collection = () => {
         cellRenderer: CollectionRenderer,
         headerComponent: NormalHeaderRenderer,
         // flex: 1,
-        minWidth: 350,
+        minWidth: 300,
       },
       {
         field: 'floorAsk',
         headerName: `Floor (24H)`,
-        cellRenderer: ChipRenderer,
+        cellRenderer: PriceRenderer,
         headerComponent: InfoIconSortIcon,
-        minWidth: 190,
+        minWidth: 140,
         valueGetter: (params: ICellRendererParams<RowData>) =>
-          params.data?.floorAsk?.price?.amount?.decimal.toFixed(2) ?? '',
+          params.data?.floorAsk?.price?.amount?.decimal.toFixed(2) ?? '0.00',
       },
       {
         field: 'topBid',
         headerName: `Top Bid (24H)`,
-        cellRenderer: ChipRenderer,
+        cellRenderer: PriceRenderer,
         headerComponent: InfoIconSortIcon,
-        minWidth: 160,
+        minWidth: 155,
         valueGetter: (params: ICellRendererParams<RowData>) =>
-          params.data?.topBid?.price?.amount?.decimal.toFixed(2) ?? '-',
+          params.data?.topBid?.price?.amount?.decimal.toFixed(2) ?? '0.00',
       },
       {
         field: 'volume',
@@ -63,7 +64,7 @@ const Collection = () => {
       },
       {
         field: 'volumeChange',
-        headerName: 'Volume (1D) %',
+        headerName: 'Volume (1D)%',
         cellRenderer: VolumeRenderer,
         headerComponent: NormalEndHeaderRenderer,
         // minWidth: 110,
@@ -72,7 +73,7 @@ const Collection = () => {
       },
       {
         field: 'volumeChange',
-        headerName: 'Volume (7D) %',
+        headerName: 'Volume (7D)%',
         cellRenderer: VolumeRenderer,
         headerComponent: NormalEndHeaderRenderer,
         // minWidth: 110,
@@ -84,7 +85,7 @@ const Collection = () => {
         headerName: 'Volume (1D)',
         cellRenderer: NormalRenderer,
         headerComponent: NormalEndHeaderRenderer,
-        minWidth: 170,
+        // minWidth: 170,
         valueGetter: (params: ICellRendererParams<RowData>) =>
           params.data?.collectionVolume['1day']?.toFixed(2) ?? '',
       },
@@ -93,7 +94,7 @@ const Collection = () => {
         headerName: 'Volume (7D)',
         cellRenderer: NormalRenderer,
         headerComponent: NormalEndHeaderRenderer,
-        minWidth: 170,
+        // minWidth: 170,
         valueGetter: (params: ICellRendererParams<RowData>) =>
           params.data?.collectionVolume['7day']?.toFixed(2) ?? '',
       },
@@ -102,7 +103,7 @@ const Collection = () => {
         headerName: 'Owners',
         cellRenderer: NormalRenderer,
         headerComponent: AddSortIcon,
-        minWidth: 110,
+        // minWidth: 110,
         valueGetter: (params: ICellRendererParams<RowData>) =>
           params.data?.ownerCount?.toFixed(0) ?? '',
       },
@@ -111,12 +112,13 @@ const Collection = () => {
         headerName: 'Supply',
         cellRenderer: SupplyRenderer,
         headerComponent: AddSortIcon,
-        minWidth: 120,
+        // minWidth: 120,
         valueGetter: (params: ICellRendererParams<RowData>) =>
           params.data?.tokenCount ? formatK(params.data?.tokenCount) : '',
       },
     ];
   }, []);
+
   useEffect(() => {
     dispatch(fetchCollectionDataRequest());
   }, []);
@@ -131,8 +133,8 @@ const Collection = () => {
       <Typography
         variant="h4"
         fontWeight={600}
+        fontSize={18}
         color="custom.whiteLightO1"
-        fontSize={26}
       >
         Top Collection
       </Typography>

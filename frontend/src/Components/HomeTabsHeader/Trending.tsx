@@ -9,9 +9,9 @@ import {
 } from '../../features/home/homeSlice';
 import type { RootState } from '../../app/store';
 import {
-  ChipRenderer,
   CollectionRenderer,
   NormalRenderer,
+  PriceRenderer,
   SupplyRenderer,
   VolumeRenderer,
 } from '../../utils/Table/cellRenderer';
@@ -38,23 +38,23 @@ const Trending = () => {
         cellRenderer: CollectionRenderer,
         headerComponent: NormalHeaderRenderer,
         // flex: 1,
-        minWidth: 350,
+        minWidth: 300,
       },
       {
         field: 'floorAsk',
-        headerName: `Floor Price (${time.toUpperCase()})`,
-        cellRenderer: ChipRenderer,
+        headerName: `Floor (${time.toUpperCase()})`,
+        cellRenderer: PriceRenderer,
         headerComponent: InfoIconSortIcon,
-        minWidth: 190,
+        minWidth: 140,
         valueGetter: (params: ICellRendererParams<RowData>) =>
           params.data?.floorAsk?.price?.amount?.decimal.toFixed(2) ?? '',
       },
       {
         field: 'topBid',
         headerName: `Top Bid (${time.toUpperCase()})`,
-        cellRenderer: ChipRenderer,
+        cellRenderer: PriceRenderer,
         headerComponent: InfoIconSortIcon,
-        minWidth: 160,
+        minWidth: 155,
         valueGetter: (params: ICellRendererParams<RowData>) =>
           params.data?.topBid?.price?.amount?.decimal.toFixed(2) ?? '-',
       },
@@ -69,7 +69,7 @@ const Trending = () => {
       },
       {
         field: 'volumeChange',
-        headerName: 'Volume (1 Day)',
+        headerName: 'Volume (1D)',
         cellRenderer: VolumeRenderer,
         headerComponent: NormalEndHeaderRenderer,
         // minWidth: 110,
@@ -78,7 +78,7 @@ const Trending = () => {
       },
       {
         field: 'volumeChange',
-        headerName: 'Volume (7 Day)',
+        headerName: 'Volume (7D)',
         cellRenderer: VolumeRenderer,
         headerComponent: NormalEndHeaderRenderer,
         // minWidth: 110,
@@ -87,19 +87,19 @@ const Trending = () => {
       },
       {
         field: 'collectionVolume',
-        headerName: 'Collection Volume (1 day)',
+        headerName: 'Volume (1D)',
         cellRenderer: NormalRenderer,
         headerComponent: NormalEndHeaderRenderer,
-        minWidth: 170,
+        // minWidth: 170,
         valueGetter: (params: ICellRendererParams<RowData>) =>
           params.data?.collectionVolume['1day']?.toFixed(2) ?? '',
       },
       {
         field: 'collectionVolume',
-        headerName: 'Collection Volume (7 day)',
+        headerName: 'Volume (7D)',
         cellRenderer: NormalRenderer,
         headerComponent: NormalEndHeaderRenderer,
-        minWidth: 170,
+        // minWidth: 170,
         valueGetter: (params: ICellRendererParams<RowData>) =>
           params.data?.collectionVolume['7day']?.toFixed(2) ?? '',
       },
@@ -108,7 +108,7 @@ const Trending = () => {
         headerName: 'Owners',
         cellRenderer: NormalRenderer,
         headerComponent: AddSortIcon,
-        minWidth: 110,
+        // minWidth: 110,
         valueGetter: (params: ICellRendererParams<RowData>) =>
           params.data?.ownerCount?.toFixed(0) ?? '',
       },
@@ -117,7 +117,7 @@ const Trending = () => {
         headerName: 'Supply',
         cellRenderer: SupplyRenderer,
         headerComponent: AddSortIcon,
-        minWidth: 120,
+        // minWidth: 120,
         valueGetter: (params: ICellRendererParams<RowData>) =>
           params.data?.tokenCount ? formatK(params.data?.tokenCount) : '',
       },
@@ -138,13 +138,13 @@ const Trending = () => {
       <Typography
         variant="h4"
         fontWeight={600}
+        fontSize={18}
         color="custom.whiteLightO1"
-        fontSize={26}
       >
         Top Trending Collections
       </Typography>
       <TableFilterBar />
-      <ActiveTab columnDefs={columns} variant='normal' />
+      <ActiveTab columnDefs={columns} variant="normal" />
     </Box>
   );
 };

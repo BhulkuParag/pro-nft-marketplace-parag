@@ -12,6 +12,7 @@ import { fetchOverviewDetailDataRequest } from '../../features/collection/collec
 import type { RootState } from '../../app/store';
 import { useParams } from 'react-router-dom';
 import '../../Components/CollectionOverview/CollectionBanner.css';
+// import FormatEth from '../../Components/'
 
 const StyledCard = styled(Card)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -246,6 +247,10 @@ const CollectionOverview = () => {
 
                 <StatValue>
                   {stat.wantIcon && (
+                    // <FormatEth
+                    //                 amount={+data?.value}
+                    //                 maximumFractionDigits={2}
+                    //               />
                     <img
                       src="https://marketplace.polycruz.io/eth.svg"
                       alt="ETH"
@@ -254,9 +259,7 @@ const CollectionOverview = () => {
                     />
                   )}
                   <Typography
-                    variant="h6"
-                    component="h6"
-                    sx={{ fontWeight: 'bold' }}
+                    sx={{ fontWeight: 500, fontSize: '0.85rem' }}
                   >
                     {stat.value}
                   </Typography>

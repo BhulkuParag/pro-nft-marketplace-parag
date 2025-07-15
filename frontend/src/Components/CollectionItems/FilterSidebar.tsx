@@ -1,4 +1,9 @@
-import { Box, Typography } from '@mui/material';
+import {
+  Box,
+  Typography,
+} from '@mui/material';
+import CustomAccordion from '../CustomAccordion';
+import ListingPrice from './Filters/ListingPrice';
 
 const FilterSidebar = () => {
   return (
@@ -6,16 +11,15 @@ const FilterSidebar = () => {
       component={'div'}
       sx={{
         minWidth: 'fit-content',
-        width: '20%',
+        width: '25%',
+        maxWidth: '25%',
         height: '100%',
-        backgroundColor: 'transparent !important',
       }}
     >
       <Box
         sx={{
           width: '100%',
           // bgcolor: 'background.default',
-          backgroundColor: 'transparent !important',
           height: '100%',
           p: 2,
           pl: 0.5,
@@ -28,6 +32,11 @@ const FilterSidebar = () => {
         >
           Filters
         </Typography>
+        <CustomAccordion title='Listing Price' children={<ListingPrice />}/>
+        <CustomAccordion title='Listing Marketplace' children={<></>}/>
+        <CustomAccordion title='Rarity Rank' children={<></>}/>
+        <CustomAccordion title='Traits Count' children={<></>}/>
+        <CustomAccordion title='Traits' children={<></>}/>
       </Box>
     </Box>
   );

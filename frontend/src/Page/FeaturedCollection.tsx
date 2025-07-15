@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Box, Typography, IconButton, useTheme } from '@mui/material';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../app/store';
 
 interface CollectionCardProps {
   image: string;
@@ -37,7 +38,7 @@ const CollectionCard: React.FC<CollectionCardProps> = React.memo(
           borderRadius: 3,
           bgcolor: 'secondary.main',
           position: 'relative',
-          minHeight: 200,
+          // minHeight: 200,
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'flex-end',
@@ -53,7 +54,7 @@ const CollectionCard: React.FC<CollectionCardProps> = React.memo(
           sx={{
             width: '100%',
             height: '100%',
-            minHeight: 200,
+            // minHeight: 180,
             borderRadius: 3,
             borderBottomLeftRadius: 0,
             borderBottomRightRadius: 0,
@@ -67,12 +68,12 @@ const CollectionCard: React.FC<CollectionCardProps> = React.memo(
             src={image}
             alt={name}
             width={320}
-            height={200}
             loading="lazy"
             style={{
               objectFit: 'cover',
               width: '100%',
-              height: 200,
+              height: 180,
+              minHeight: 180,
               // borderRadius: 8,
             }}
           />
@@ -90,6 +91,8 @@ const CollectionCard: React.FC<CollectionCardProps> = React.memo(
               color: 'white',
               '&:hover': { bgcolor: 'rgba(225,225,225,0.5)' },
               zIndex: 1,
+              width: 26,
+              height: 26,
             }}
             size="small"
             onClick={onPrev}
@@ -109,6 +112,8 @@ const CollectionCard: React.FC<CollectionCardProps> = React.memo(
               color: 'white',
               '&:hover': { bgcolor: 'rgba(225,225,225,0.5)' },
               zIndex: 1,
+              width: 26,
+              height: 26,
             }}
             size="small"
             onClick={onNext}
@@ -117,19 +122,19 @@ const CollectionCard: React.FC<CollectionCardProps> = React.memo(
           </IconButton>
         )}
         {/* Info */}
-        <Box sx={{ p: 2, pt: 1 }}>
+        <Box sx={{ p: 2, pt: 1, pb: 1, height: 62 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            <Typography fontWeight={600} fontSize={16} color="text.primary">
+            <Typography fontWeight={500} fontSize={14} color="text.primary">
               {name}
             </Typography>
             {verified && (
-              <CheckCircleIcon
-                sx={{
-                  color: theme.palette.custom.primaryLight,
-                  fontSize: 18,
-                  ml: 0.5,
-                }}
-              />
+              <svg
+                className="max-w-3.5 max-h-3.5 shrink-0 text-[#A49BFF]"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
+              </svg>
             )}
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mt: 0.5 }}>
@@ -140,32 +145,31 @@ const CollectionCard: React.FC<CollectionCardProps> = React.memo(
               Floor Price
             </Typography>
             <Typography
-              fontSize={14}
-              fontWeight={600}
+              fontSize={12}
               color="text.primary"
               sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
             >
               <img
                 src="https://marketplace.polycruz.io/eth.svg"
                 alt="eth"
-                width={14}
-                height={14}
+                width={8}
+                height={8}
                 style={{ marginRight: 2, verticalAlign: 'middle' }}
                 loading="lazy"
               />
               {floorPrice}
             </Typography>
             <Typography
-              fontSize={14}
-              fontWeight={600}
+              fontSize={12}
+              // fontWeight={600}
               sx={{
-                color: priceChangePositive
+                color: !priceChangePositive
                   ? theme.palette.custom.green
                   : theme.palette.custom.red,
-                ml: 1,
+                ml: 0.5,
               }}
             >
-              {priceChange}
+              {priceChange}%
             </Typography>
           </Box>
         </Box>
@@ -175,105 +179,165 @@ const CollectionCard: React.FC<CollectionCardProps> = React.memo(
 );
 CollectionCard.displayName = 'CollectionCard';
 
-const featuredCollections = [
-  {
-    image:
-      'https://img.freepik.com/premium-vector/digital-hand-touching-technology-polygonal-wireframe-art_201274-495.jpg?semt=ais_hybrid&w=740',
-    name: 'NightGlyders',
-    verified: true,
-    floorPrice: '46.99',
-    priceChange: '-6.16%',
-    priceChangePositive: false,
-  },
-  {
-    image:
-      'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80',
-    name: 'Crypto Owls',
-    verified: true,
-    floorPrice: '12.34',
-    priceChange: '+2.5%',
-    priceChangePositive: true,
-  },
-  {
-    image:
-      'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80',
-    name: 'Crypto Owls',
-    verified: true,
-    floorPrice: '12.34',
-    priceChange: '+2.5%',
-    priceChangePositive: true,
-  },
-  {
-    image:
-      'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80',
-    name: 'Crypto Owls',
-    verified: true,
-    floorPrice: '12.34',
-    priceChange: '+2.5%',
-    priceChangePositive: true,
-  },
-  {
-    image:
-      'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80',
-    name: 'Crypto Owls',
-    verified: true,
-    floorPrice: '12.34',
-    priceChange: '+2.5%',
-    priceChangePositive: true,
-  },
-];
-
-const topMovers = [
-  {
-    image:
-      'https://img.freepik.com/premium-vector/digital-hand-touching-technology-polygonal-wireframe-art_201274-495.jpg?semt=ais_hybrid&w=740',
-    name: "Zinu's Zombie Mob Secret Society",
-    verified: true,
-    floorPrice: '$124.21',
-    priceChange: '+230.2%',
-    priceChangePositive: true,
-  },
-  {
-    image:
-      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
-    name: 'Pixel Foxes',
-    verified: true,
-    floorPrice: '$99.99',
-    priceChange: '-10.0%',
-    priceChangePositive: false,
-  },
-  {
-    image:
-      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
-    name: 'Pixel Foxes',
-    verified: true,
-    floorPrice: '$99.99',
-    priceChange: '-10.0%',
-    priceChangePositive: false,
-  },
-  {
-    image:
-      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
-    name: 'Pixel Foxes',
-    verified: true,
-    floorPrice: '$99.99',
-    priceChange: '-10.0%',
-    priceChangePositive: false,
-  },
-  {
-    image:
-      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
-    name: 'Pixel Foxes',
-    verified: true,
-    floorPrice: '$99.99',
-    priceChange: '-10.0%',
-    priceChangePositive: false,
-  },
-];
-
 const FeaturedCollection: React.FC = () => {
   const [featuredIdx, setFeaturedIdx] = React.useState(0);
   const [moverIdx, setMoverIdx] = React.useState(0);
+  const featureCardData = useSelector(
+    (state: RootState) => state.home.featureCardData
+  );
+  const featureSalesCardData = useSelector(
+    (state: RootState) => state.home.featureSalesCardData
+  );
+
+  const topMovers = useMemo(() => {
+    return [
+      {
+        image:
+          featureSalesCardData[0]?.banner ||
+          featureSalesCardData[0]?.token?.image,
+        name: featureSalesCardData[0]?.token?.name,
+        verified:
+          featureSalesCardData[0]?.openseaVerificationStatus === 'verified',
+        floorPrice: featureSalesCardData[0]?.price?.amount?.decimal?.toFixed(2),
+        priceChange:
+          featureSalesCardData[0]?.token?.collection?.floorAskPercentChange?.toFixed(
+            2
+          ),
+        priceChangePositive:
+          featureSalesCardData[0]?.token?.collection?.floorAskPercentChange
+            ?.toString()
+            ?.includes('-'),
+      },
+      {
+        image:
+          featureSalesCardData[1]?.banner ||
+          featureSalesCardData[1]?.token?.image,
+        name: featureSalesCardData[1]?.token?.name,
+        verified:
+          featureSalesCardData[1]?.openseaVerificationStatus === 'verified',
+        floorPrice: featureSalesCardData[1]?.price?.amount?.decimal?.toFixed(2),
+        priceChange:
+          featureSalesCardData[1]?.token?.collection?.floorAskPercentChange?.toFixed(
+            2
+          ),
+        priceChangePositive:
+          featureSalesCardData[1]?.token?.collection?.floorAskPercentChange
+            ?.toString()
+            ?.includes('-'),
+      },
+      {
+        image:
+          featureSalesCardData[2]?.banner ||
+          featureSalesCardData[2]?.token?.image,
+        name: featureSalesCardData[2]?.token?.name,
+        verified:
+          featureSalesCardData[2]?.openseaVerificationStatus === 'verified',
+        floorPrice: featureSalesCardData[2]?.price?.amount?.decimal?.toFixed(2),
+        priceChange:
+          featureSalesCardData[2]?.token?.collection?.floorAskPercentChange?.toFixed(
+            2
+          ),
+        priceChangePositive:
+          featureSalesCardData[2]?.token?.collection?.floorAskPercentChange
+            ?.toString()
+            ?.includes('-'),
+      },
+      {
+        image:
+          featureSalesCardData[3]?.banner ||
+          featureSalesCardData[3]?.token?.image,
+        name: featureSalesCardData[3]?.token?.name,
+        verified:
+          featureSalesCardData[3]?.openseaVerificationStatus === 'verified',
+        floorPrice: featureSalesCardData[3]?.price?.amount?.decimal?.toFixed(2),
+        priceChange:
+          featureSalesCardData[3]?.token?.collection?.floorAskPercentChange?.toFixed(
+            2
+          ),
+        priceChangePositive:
+          featureSalesCardData[3]?.token?.collection?.floorAskPercentChange
+            ?.toString()
+            ?.includes('-'),
+      },
+      {
+        image:
+          featureSalesCardData[4]?.banner ||
+          featureSalesCardData[4]?.token?.image,
+        name: featureSalesCardData[4]?.token?.name,
+        verified:
+          featureSalesCardData[4]?.openseaVerificationStatus === 'verified',
+        floorPrice: featureSalesCardData[4]?.price?.amount?.decimal?.toFixed(2),
+        priceChange:
+          featureSalesCardData[4]?.token?.collection?.floorAskPercentChange?.toFixed(
+            2
+          ),
+        priceChangePositive:
+          featureSalesCardData[4]?.token?.collection?.floorAskPercentChange
+            ?.toString()
+            ?.includes('-'),
+      },
+    ];
+  }, [featureSalesCardData]);
+
+  const featuredCollections = useMemo(() => {
+    return [
+      {
+        image: featureCardData[0]?.banner || featureCardData[0]?.image,
+        name: featureCardData[0]?.name,
+        verified: featureCardData[0]?.openseaVerificationStatus === 'verified',
+        floorPrice:
+          featureCardData[0]?.floorAsk?.price?.amount?.decimal?.toFixed(2),
+        priceChange: featureCardData[0]?.floorAskPercentChange?.toFixed(2),
+        priceChangePositive: featureCardData[0]?.floorAskPercentChange
+          ?.toString()
+          ?.includes('-'),
+      },
+      {
+        image: featureCardData[1]?.banner || featureCardData[1]?.image,
+        name: featureCardData[1]?.name,
+        verified: featureCardData[1]?.openseaVerificationStatus === 'verified',
+        floorPrice:
+          featureCardData[1]?.floorAsk?.price?.amount?.decimal?.toFixed(2),
+        priceChange: featureCardData[1]?.floorAskPercentChange?.toFixed(2),
+        priceChangePositive: featureCardData[1]?.floorAskPercentChange
+          ?.toString()
+          ?.includes('-'),
+      },
+      {
+        image: featureCardData[2]?.banner || featureCardData[2]?.image,
+        name: featureCardData[2]?.name,
+        verified: featureCardData[2]?.openseaVerificationStatus === 'verified',
+        floorPrice:
+          featureCardData[2]?.floorAsk?.price?.amount?.decimal?.toFixed(2),
+        priceChange: featureCardData[2]?.floorAskPercentChange?.toFixed(2),
+        priceChangePositive: featureCardData[2]?.floorAskPercentChange
+          ?.toString()
+          ?.includes('-'),
+      },
+      {
+        image: featureCardData[3]?.banner || featureCardData[3]?.image,
+        name: featureCardData[3]?.name,
+        verified: featureCardData[3]?.openseaVerificationStatus === 'verified',
+        floorPrice:
+          featureCardData[3]?.floorAsk?.price?.amount?.decimal?.toFixed(2),
+        priceChange: featureCardData[3]?.floorAskPercentChange?.toFixed(2),
+        priceChangePositive: featureCardData[3]?.floorAskPercentChange
+          ?.toString()
+          ?.includes('-'),
+      },
+      {
+        image: featureCardData[4]?.banner || featureCardData[4]?.image,
+        name: featureCardData[4]?.name,
+        verified: featureCardData[4]?.openseaVerificationStatus === 'verified',
+        floorPrice:
+          featureCardData[4]?.floorAsk?.price?.amount?.decimal?.toFixed(2),
+        priceChange: featureCardData[4]?.floorAskPercentChange?.toFixed(2),
+        priceChangePositive: featureCardData[4]?.floorAskPercentChange
+          ?.toString()
+          ?.includes('-'),
+      },
+    ];
+  }, [featureCardData]);
 
   return (
     <Box
@@ -283,18 +347,19 @@ const FeaturedCollection: React.FC = () => {
         width: '100%',
         flexWrap: { xs: 'wrap', md: 'nowrap' },
         p: 2,
-        pb: 1.5,
-        px: { xs: 2, lg: 3 },
+        pb: 1,
+        pt: 0.9,
+        px: { xs: 2, lg: 2.5 },
       }}
     >
       {/* Featured Collections */}
       <Box sx={{ flex: 1, minWidth: 320 }}>
         <Typography
-          fontWeight={700}
-          fontSize={24}
+          fontWeight={600}
+          fontSize={18}
           color="text.primary"
           sx={{
-            mb: 2,
+            mb: 1,
           }}
         >
           Top Trending
@@ -322,14 +387,14 @@ const FeaturedCollection: React.FC = () => {
       {/* Top Movers Today */}
       <Box sx={{ flex: 1, minWidth: 320 }}>
         <Typography
-          fontWeight={700}
-          fontSize={24}
+          fontWeight={600}
+          fontSize={18}
           color="text.primary"
           sx={{
-            mb: 2,
+            mb: 1,
           }}
         >
-          Top Sales
+          NFT Sales
         </Typography>
         {/* <Typography
           fontWeight={400}
