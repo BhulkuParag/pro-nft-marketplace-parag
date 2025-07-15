@@ -22,6 +22,14 @@ import {
   fetchGlobalSearchDataSuccess,
   fetchGlobalSearchDataFailure,
   fetchGlobalSearchDataRequest,
+  fetchCollectionDataSuccess,
+  fetchCollectionDataFailure,
+  fetchCollectionDataRequest,
+  fetchTopSalesDataSuccess,
+  fetchTopSalesDataFailure,
+  fetchTopSalesCardDataSuccess,
+  fetchTopSalesCardDataFailure,
+  fetchTopSalesCardDataRequest,
 } from './homeSlice';
 import {
   fetchNftSalesData,
@@ -30,6 +38,8 @@ import {
   fetchMintRankingData,
   fetchGlobalSearchData,
   fetchHomeCard,
+  fetchCollectionData,
+  fetchTopSalesCardData,
 } from '../../api/home';
 import type { RootState } from '../../app/store';
 
@@ -51,19 +61,37 @@ function* handleFetchHomeCard() {
 
 function* handleFetchTrendingData() {
   try {
-    const { time, volume_sales, chainId } = yield select(
+    const { time, chainId } = yield select(
       (state: RootState) => state.home
     );
     const data: SagaReturnType<typeof fetchTrendingData> = yield call(
       fetchTrendingData,
       time,
-      volume_sales,
+      'sales',
       chainId
     );
     yield put(fetchTrendingDataSuccess(data));
   } catch (error: any) {
     yield put(
       fetchTrendingDataFailure(error.message ?? 'Something went wrong')
+    );
+  }
+}
+
+function* handleFetchCollectionData() {
+  try {
+    const { chainId } = yield select(
+      (state: RootState) => state.home
+    );
+    const data: SagaReturnType<typeof fetchCollectionData> = yield call(
+      fetchCollectionData,
+      'volume',
+      chainId
+    );
+    yield put(fetchCollectionDataSuccess(data));
+  } catch (error: any) {
+    yield put(
+      fetchCollectionDataFailure(error.message ?? 'Something went wrong')
     );
   }
 }
@@ -102,10 +130,32 @@ function* handleFetchTopSalesData() {
       includeTokenMetadata,
       chainId
     );
-    yield put(fetchNftSalesDataSuccess(data));
+    yield put(fetchTopSalesDataSuccess(data));
   } catch (error: any) {
     yield put(
-      fetchNftSalesDataFailure(error.message ?? 'Something went wrong')
+      fetchTopSalesDataFailure(error.message ?? 'Something went wrong')
+    );
+  }
+}
+
+
+function* handleFetchTopSalesCardData() {
+  try {
+    const includeTokenMetadata: boolean = yield select(
+      (state: RootState) => state.home.includeTokenMetadata
+    );
+    const chainId: string = yield select(
+      (state: RootState) => state.home.chainId
+    );
+    const data: SagaReturnType<typeof fetchTopSalesCardData> = yield call(
+      fetchTopSalesCardData,
+      includeTokenMetadata,
+      chainId
+    );
+    yield put(fetchTopSalesCardDataSuccess(data));
+  } catch (error: any) {
+    yield put(
+      fetchTopSalesCardDataFailure(error.message ?? 'Something went wrong')
     );
   }
 }
@@ -155,8 +205,10 @@ function* handleGlobalSearchData() {
 export function* homeSaga() {
   yield takeLatest(fetchHomeCardRequest.type, handleFetchHomeCard);
   yield takeLatest(fetchTrendingDataRequest.type, handleFetchTrendingData);
+  yield takeLatest(fetchCollectionDataRequest.type, handleFetchCollectionData);
   yield takeLatest(fetchNftSalesDataRequest.type, handleFetchNftSalesData);
   yield takeLatest(fetchTopSalesDataRequest.type, handleFetchTopSalesData);
   yield takeLatest(fetchTopMintDataRequest.type, handleMintRankingData);
   yield takeLatest(fetchGlobalSearchDataRequest.type, handleGlobalSearchData);
+  yield takeLatest(fetchTopSalesCardDataRequest.type, handleFetchTopSalesCardData);
 }

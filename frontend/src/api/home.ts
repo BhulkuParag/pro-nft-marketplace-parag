@@ -64,6 +64,17 @@ export const fetchTrendingData = async (
   return response.data?.data?.collections ?? [];
 };
 
+export const fetchCollectionData = async (
+  sortBy: string,
+  chainId?: string
+): Promise<RowData[]> => {
+  const url = buildApiUrl(API_CONFIG.ENDPOINTS.TRENDING, chainId, {
+    sortBy,
+  });
+  const response = await AXIOS.get<TrendingApiResponse>(url);
+  return response.data?.data?.collections ?? [];
+};
+
 export const fetchNftSalesData = async (
   includeTokenMetadata: boolean,
   chainId?: string
@@ -80,6 +91,17 @@ export const fetchTopSalesData = async (
   chainId?: string
 ): Promise<any[]> => {
   const url = buildApiUrl(API_CONFIG.ENDPOINTS.TOP_SALES, chainId, {
+    includeTokenMetadata,
+  });
+  const response = await AXIOS.get<TopSalesApiResponse>(url);
+  return response.data?.data?.sales ?? [];
+};
+
+export const fetchTopSalesCardData = async (
+  includeTokenMetadata: boolean,
+  chainId?: string
+): Promise<any[]> => {
+  const url = buildApiUrl(API_CONFIG.ENDPOINTS.NFT_SALES, chainId, {
     includeTokenMetadata,
   });
   const response = await AXIOS.get<TopSalesApiResponse>(url);

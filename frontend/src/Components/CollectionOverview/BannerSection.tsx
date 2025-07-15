@@ -9,13 +9,7 @@ import {
   useMediaQuery,
   Divider,
 } from '@mui/material';
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { FaDiscord } from 'react-icons/fa';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import KeyboardArrowDownSharpIcon from '@mui/icons-material/KeyboardArrowDownSharp';
@@ -28,17 +22,13 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import LanguageIcon from '@mui/icons-material/Language';
 import ShareIcon from '@mui/icons-material/Share';
 import type { RootState } from '../../app/store';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import '../../Components/CollectionOverview/CollectionBanner.css';
-import { fetchOverviewDetailDataRequest } from '../../features/collection/collectionSlice';
-import { useParams } from 'react-router-dom';
 // import EthIcon from '../../assets/icons/others/EthIcon';
 
 const BannerSection = () => {
   const theme = useTheme();
-  const param = useParams();
-  const dispatch = useDispatch();
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   const [liked, setLiked] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -59,7 +49,6 @@ const BannerSection = () => {
   const handleFullRefresh = () => {
     window.location.reload();
     setRefreshed(true);
-    // dispatch(fetchOverviewDetailDataRequest(param?.id as string));
   };
 
   const bannerDetails = useMemo(() => {
@@ -663,6 +652,7 @@ const BannerSection = () => {
             <img
               src={tabData?.overview?.image}
               alt={tabData?.overview?.name}
+              loading="lazy"
               className="w-24 h-24 rounded-full absolute -top-[50px] left-[20px]"
             />
             <Box
@@ -934,6 +924,7 @@ const BannerSection = () => {
                               display: 'flex',
                               alignItems: 'center',
                               gap: '10px',
+                              cursor: 'default',
                               // backgroundColor: theme.palette.custom.borderblack01,
                             }}
                           >
@@ -988,15 +979,15 @@ const BannerSection = () => {
                   </Typography>
                   <Typography
                     variant="subtitle2"
-                    sx={{ color: 'text.primary', fontWeight: 700, mx: 0.5 }}
+                    sx={{ color: 'text.primary',fontSize: 14, fontWeight: 500, mx: 0.5 }}
                   >
                     {bannerDetails[0].floorPrice}
                   </Typography>
                   <img
                     src="https://marketplace.polycruz.io/eth.svg"
                     alt="ETH"
-                    width={12}
-                    height={12}
+                    width={8}
+                    height={8}
                     className="mr-[12px]"
                   />
                   <Typography
@@ -1007,15 +998,15 @@ const BannerSection = () => {
                   </Typography>
                   <Typography
                     variant="subtitle2"
-                    sx={{ color: 'text.primary', fontWeight: 700, mx: 0.5 }}
+                    sx={{ color: 'text.primary',fontSize: 14, fontWeight: 500, mx: 0.5 }}
                   >
                     {bannerDetails[0].topBid}
                   </Typography>
                   <img
                     src="https://marketplace.polycruz.io/eth.svg"
                     alt="ETH"
-                    width={12}
-                    height={12}
+                    width={8}
+                    height={8}
                     className="mr-[12px]"
                   />
                   <IconButton
@@ -1023,13 +1014,13 @@ const BannerSection = () => {
                     sx={{
                       backgroundColor: theme.palette.custom.borderblack01,
                       borderRadius: 2,
-                      padding: '5px 14px',
+                      padding: '3px 6px',
                       ml: 1,
                     }}
                     onClick={handleDropdownOpen}
                   >
                     <KeyboardArrowDownSharpIcon
-                      sx={{ color: theme.palette.custom.lightGrey }}
+                      sx={{ color: theme.palette.custom.lightGrey, fontSize: '1.25rem' }}
                     />
                   </IconButton>
                   <Popover

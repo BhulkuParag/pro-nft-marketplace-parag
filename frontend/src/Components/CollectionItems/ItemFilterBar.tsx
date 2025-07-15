@@ -59,7 +59,7 @@ const ItemFilterBar = () => {
         sx={{
           display: 'flex',
           alignItems: 'center',
-          gap: 1.5,
+          gap: 1,
         }}
       >
         <IconButton
@@ -68,7 +68,7 @@ const ItemFilterBar = () => {
             borderColor: 'divider',
             borderRadius: 2,
             color: 'text.secondary',
-            mb: 0.2,
+            mb: 0.1,
           }}
           disableTouchRipple
           disableRipple
@@ -77,7 +77,7 @@ const ItemFilterBar = () => {
         >
           {/* <FilterListIcon /> */}
           <BarFilterIcon
-            className={`w-5 h-5 group-hover:fill-[#A49BFF] fill-[#777E90] }`}
+            className={`w-4 h-4 group-hover:fill-[#A49BFF] fill-[#777E90] }`}
           />
         </IconButton>
 

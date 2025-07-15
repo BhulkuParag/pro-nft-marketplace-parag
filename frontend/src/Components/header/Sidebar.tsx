@@ -15,6 +15,7 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { useActiveWalletConnectionStatus } from 'thirdweb/react';
 
 const drawerWidth = 200;
+// const collapsedWidth = '3.5rem';
 const collapsedWidth = '4.6rem';
 
 const Sidebar: React.FC = () => {

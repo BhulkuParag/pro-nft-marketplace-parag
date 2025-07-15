@@ -72,7 +72,7 @@ const CollectionHero: React.FC<CollectionHeroProps> = ({
         />
       </Box>
       <Box sx={{ flex: 1 }}>
-        <Typography variant="h4" sx={{ fontWeight: 700, color: '#fff' }}>
+        <Typography variant="h4" sx={{ fontWeight: 600, color: '#fff' }}>
           {title}
         </Typography>
         <Typography

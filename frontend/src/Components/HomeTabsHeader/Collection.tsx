@@ -1,35 +1,30 @@
-import { useEffect, useMemo } from 'react';
 import { Box, Typography } from '@mui/material';
-import TableFilterBar from '../ui/TableFilterBar';
-import ActiveTab from '../ActiveTab';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useMemo } from 'react';
+import { useDispatch } from 'react-redux';
 import {
-  fetchTrendingDataRequest,
-  formatK,
-} from '../../features/home/homeSlice';
-import type { RootState } from '../../app/store';
-import {
+  ChipRenderer,
   CollectionRenderer,
   NormalRenderer,
   PriceRenderer,
   SupplyRenderer,
   VolumeRenderer,
 } from '../../utils/Table/cellRenderer';
-import type { ICellRendererParams } from 'ag-grid-community';
-import type { RowData } from '../../types/table';
 import {
   AddSortIcon,
   InfoIconSortIcon,
   NormalEndHeaderRenderer,
   NormalHeaderRenderer,
 } from '../../utils/Table/headerRenderer';
+import type { ICellRendererParams } from 'ag-grid-community';
+import type { RowData } from '../../types/table';
+import {
+  fetchCollectionDataRequest,
+  formatK,
+} from '../../features/home/homeSlice';
+import ActiveTab from '../ActiveTab';
 
-const Trending = () => {
+const Collection = () => {
   const dispatch = useDispatch();
-  const time = useSelector((state: RootState) => state.home.time);
-  const volume_sales = useSelector(
-    (state: RootState) => state.home.volume_sales
-  );
   const columns = useMemo(() => {
     return [
       {
@@ -42,25 +37,25 @@ const Trending = () => {
       },
       {
         field: 'floorAsk',
-        headerName: `Floor (${time.toUpperCase()})`,
+        headerName: `Floor (24H)`,
         cellRenderer: PriceRenderer,
         headerComponent: InfoIconSortIcon,
         minWidth: 140,
         valueGetter: (params: ICellRendererParams<RowData>) =>
-          params.data?.floorAsk?.price?.amount?.decimal.toFixed(2) ?? '',
+          params.data?.floorAsk?.price?.amount?.decimal.toFixed(2) ?? '0.00',
       },
       {
         field: 'topBid',
-        headerName: `Top Bid (${time.toUpperCase()})`,
+        headerName: `Top Bid (24H)`,
         cellRenderer: PriceRenderer,
         headerComponent: InfoIconSortIcon,
         minWidth: 155,
         valueGetter: (params: ICellRendererParams<RowData>) =>
-          params.data?.topBid?.price?.amount?.decimal.toFixed(2) ?? '-',
+          params.data?.topBid?.price?.amount?.decimal.toFixed(2) ?? '0.00',
       },
       {
         field: 'volume',
-        headerName: `Volume (${time.toUpperCase()})`,
+        headerName: `Volume (24H)`,
         cellRenderer: NormalRenderer,
         headerComponent: NormalEndHeaderRenderer,
         // minWidth: 110,
@@ -69,7 +64,7 @@ const Trending = () => {
       },
       {
         field: 'volumeChange',
-        headerName: 'Volume (1D)',
+        headerName: 'Volume (1D)%',
         cellRenderer: VolumeRenderer,
         headerComponent: NormalEndHeaderRenderer,
         // minWidth: 110,
@@ -78,7 +73,7 @@ const Trending = () => {
       },
       {
         field: 'volumeChange',
-        headerName: 'Volume (7D)',
+        headerName: 'Volume (7D)%',
         cellRenderer: VolumeRenderer,
         headerComponent: NormalEndHeaderRenderer,
         // minWidth: 110,
@@ -122,11 +117,11 @@ const Trending = () => {
           params.data?.tokenCount ? formatK(params.data?.tokenCount) : '',
       },
     ];
-  }, [time]);
+  }, []);
 
   useEffect(() => {
-    dispatch(fetchTrendingDataRequest());
-  }, [time, volume_sales]);
+    dispatch(fetchCollectionDataRequest());
+  }, []);
 
   return (
     <Box
@@ -141,12 +136,11 @@ const Trending = () => {
         fontSize={18}
         color="custom.whiteLightO1"
       >
-        Top Trending Collections
+        Top Collection
       </Typography>
-      <TableFilterBar />
-      <ActiveTab columnDefs={columns} variant="normal" />
+      <ActiveTab columnDefs={columns} variant='normal' />
     </Box>
   );
 };
 
-export default Trending;
+export default Collection;

@@ -9,6 +9,7 @@ import { BsGrid, BsGrid3X3Gap } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../app/store';
 import Loading from '../../@ui-component/Comman/Loading';
+import { TfiMenuAlt } from 'react-icons/tfi';
 const CollectionOverview = lazy(
   () => import('../CollectionOverview/CollectionOverview')
 );
@@ -45,8 +46,9 @@ const TabContainer = () => {
 
   const toggleOptions = useMemo(() => {
     return [
-      { label: '', value: '8', icon: <BsGrid3X3Gap className="text-lg" /> },
-      { label: '', value: '6', icon: <BsGrid className="text-lg" /> },
+      { label: '', value: 'table', icon: <TfiMenuAlt className="text-md" />, },
+      { label: '', value: '8', icon: <BsGrid3X3Gap className="text-md" /> },
+      { label: '', value: '6', icon: <BsGrid className="text-md" /> },
     ];
   }, []);
 
@@ -121,7 +123,7 @@ const TabContainer = () => {
       <Box
         sx={{
           width: '100%',
-          padding: '32px 20px',
+          padding: '20px',
         }}
       >
         <Suspense fallback={<Loading />}>

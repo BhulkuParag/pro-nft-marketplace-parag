@@ -266,10 +266,9 @@ const darkTheme = createTheme({
       styleOverrides: {
         root: {
           disableTouchRipple: false,
-
           color: '#9DA1AF',
           backgroundColor: '#1C1C1C',
-          minHeight: '48px',
+          minHeight: '40px',
           textTransform: 'initial',
           // padding: '12px 24px',
           '&.Mui-selected': {
@@ -289,7 +288,7 @@ const darkTheme = createTheme({
           variant: 'scrollable',
           allowScrollButtonsMobile: true,
           backgroundColor: '#1C1C1C',
-          minHeight: '48px',
+          minHeight: '40px',
           '& .MuiTabs-indicator': {
             backgroundColor: '#A49BFF',
           },

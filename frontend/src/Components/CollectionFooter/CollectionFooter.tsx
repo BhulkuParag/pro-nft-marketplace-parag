@@ -190,7 +190,7 @@ const CollectionFooter = () => {
         position: 'fixed',
         bottom: 0,
         zIndex: 1000,
-        display: { xs: 'none', xl: 'block' },
+        display: { xs: 'none', lg: 'block' },
         backgroundColor: `${theme.palette.background.default}`,
       }}
     >

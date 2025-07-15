@@ -42,7 +42,7 @@ const DateFilter = ({
             borderColor: wantBorder ? 'divider' : '',
             p: '4px',
             borderRadius: 2,
-            gap: 1,
+            gap: 0.5,
           }}
         >
           {timeOptions.map((time) => (
@@ -55,15 +55,15 @@ const DateFilter = ({
               onClick={() => handleChange(time.value)}
               sx={{
                 minWidth: '35.52px',
-                height: '36px',
-                padding: '6px 8px',
+                // height: '36px',
+                padding: '4px 8px',
                 color:
                   selectedTime === time.value
                     ? 'text.secondary'
                     : 'custom.lightGrey',
                 textTransform: 'none',
-                fontSize: 16,
-                fontWeight: 400,
+                fontSize: 13,
+                fontWeight: 500,
                 borderRadius: 1.5,
                 transition: 'none',
                 backgroundColor:

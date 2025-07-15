@@ -8,12 +8,15 @@ import ItemCard from './CollectionItems/ItemCard';
 
 interface ActiveTabProps {
   columnDefs: any;
-  variant?: 'normal' | 'custom'
+  variant?: 'normal' | 'custom';
 }
 
 const ActiveTab = ({ columnDefs, variant }: ActiveTabProps) => {
-  const { activeTab, tabData, loading, selectedToggleValue } = useSelector(
-    (state: RootState) => state.home
+  const activeTab = useSelector((state: RootState) => state.home.activeTab);
+  const tabData = useSelector((state: RootState) => state.home.tabData);
+  const loading = useSelector((state: RootState) => state.home.loading);
+  const selectedToggleValue = useSelector(
+    (state: RootState) => state.home.selectedToggleValue
   );
 
   const rowData = useMemo(() => tabData[activeTab], [tabData, activeTab]);

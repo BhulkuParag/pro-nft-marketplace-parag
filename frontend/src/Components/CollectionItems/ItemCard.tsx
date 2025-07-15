@@ -123,12 +123,12 @@ const ItemCard = ({ item, variant = 'custom' }: ItemCardProps) => {
             }}
             sx={{
               position: 'absolute',
-              top: 12,
-              right: 12,
+              top: 8,
+              right: 8,
               background: selectedIds.includes(item?.id) ? '#1976d2' : '#0006',
               color: '#fff',
-              width: 36,
-              height: 36,
+              width: 30,
+              height: 30,
               boxShadow: 1,
               backdropFilter: 'blur(4px)',
               '&:hover': {
@@ -226,15 +226,15 @@ const ItemCard = ({ item, variant = 'custom' }: ItemCardProps) => {
                 color: 'text.primary',
                 fontWeight: 600,
                 fontSize: 12,
-                ml: 0.5,
+                // ml: 0.5,
                 px: '0.5rem',
-                pt: '0.7rem',
+                pt: '0.5rem',
               }}
             >
               {item?.token?.name > 22
                 ? item?.token?.name?.substring(0, 22).trim()
                 : item?.token?.name ?? item?.name}
-              #{item?.token?.tokenId}
+              {/* #{item?.token?.tokenId} */}
             </Typography>
 
             <Box
@@ -246,8 +246,8 @@ const ItemCard = ({ item, variant = 'custom' }: ItemCardProps) => {
                 width: '100%',
                 // transition: 'all 0.3s ease-in-out',
                 opacity: 1,
-                px: '0.9rem',
-                pb: '1rem',
+                px: '0.5rem',
+                pb: '0.5rem',
               }}
             >
               <Box
@@ -275,14 +275,14 @@ const ItemCard = ({ item, variant = 'custom' }: ItemCardProps) => {
                   <img
                     src="https://marketplace.polycruz.io/eth.svg"
                     alt="ETH"
-                    width={10}
-                    height={10}
+                    width={8}
+                    height={8}
                   />
                   <Typography
                     variant="body1"
                     sx={{
-                      color: 'text.primary',
-                      fontWeight: 700,
+                      color: 'custom.grey01',
+                      fontWeight: 500,
                       fontSize: 12,
                       pl: 1,
                     }}
@@ -328,14 +328,14 @@ const ItemCard = ({ item, variant = 'custom' }: ItemCardProps) => {
                     <img
                       src="https://marketplace.polycruz.io/eth.svg"
                       alt="ETH"
-                      width={10}
-                      height={10}
+                      width={8}
+                      height={8}
                     />
                     <Typography
                       variant="body1"
                       sx={{
-                        color: 'text.primary',
-                        fontWeight: 700,
+                        color: 'custom.grey01',
+                        fontWeight: 500,
                         fontSize: 12,
                         lineHeight: 1.5,
                       }}
@@ -356,7 +356,7 @@ const ItemCard = ({ item, variant = 'custom' }: ItemCardProps) => {
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 gap: 2,
-                p: '0.9rem',
+                p: '0.6rem',
                 width: '100%',
                 backgroundColor: 'custom.PrimaryButton',
               }}

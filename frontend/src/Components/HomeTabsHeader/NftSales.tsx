@@ -16,6 +16,7 @@ import {
 import type { ICellRendererParams } from 'ag-grid-community';
 import type { NftSalesT } from '../../types/table';
 import { formatDistanceToNow } from 'date-fns';
+import { customSubString } from '../../utils/Table/comman';
 
 const NftSales = () => {
   const dispatch = useDispatch();
@@ -51,7 +52,10 @@ const NftSales = () => {
         cellRenderer: NormalRenderer,
         // minWidth: 110,
         valueGetter: (params: ICellRendererParams<NftSalesT>) =>
-          params.data?.token.tokenId ?? '-',
+          // params.data?.token?.tokenId
+          // ? customSubString(params.data?.token?.tokenId)
+          // : '-',
+          customSubString(params.data?.token?.tokenId as string),
       },
       {
         field: 'price',
@@ -114,8 +118,8 @@ const NftSales = () => {
       <Typography
         variant="h4"
         fontWeight={600}
+        fontSize={18}
         color="custom.whiteLightO1"
-        fontSize={26}
       >
         Current NFT Sales
       </Typography>

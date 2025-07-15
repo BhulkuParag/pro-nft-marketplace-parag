@@ -1,9 +1,10 @@
+import { lazy } from 'react';
 import { Box } from '@mui/material';
 import Footer from '../Components/header/Footer';
-import TabsContainer from '../Components/home/TabsContainer';
-import HomeCard from '../Components/home/HomeCard';
-import SubHeader from '../Components/home/SubHeader';
-import FeaturedCollection from './FeaturedCollection';
+const HomeCard = lazy(()=> import('../Components/home/HomeCard'))
+const SubHeader = lazy(()=> import('../Components/home/SubHeader'))
+const TabsContainer = lazy(()=> import('../Components/home/TabsContainer'))
+const FeaturedCollection = lazy(()=> import('./FeaturedCollection'))
 
 const Home = () => {
   return (

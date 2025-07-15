@@ -14,22 +14,21 @@ const SearchContent = () => {
         width: '100%',
         display: 'flex',
         flexDirection: 'column',
-        gap: 2,
       }}
     >
       <Box
         sx={{
           width: '100%',
-          borderBottom: '1px solid',
+          borderBottom: itemSearchData.length > 0 ? '1px solid' : 'none',
           borderColor: 'divider',
-          pb: 1,
           px: 1.5,
-          mt: -1,
         }}
       >
         <Typography
           variant="subtitle1"
           sx={{
+            mt: -1,
+            pb: 1,
             color: 'custom.grey01',
           }}
         >
@@ -38,7 +37,6 @@ const SearchContent = () => {
       </Box>
       <Box
         sx={{
-          mt: -1,
           width: '100%',
           maxHeight: '30vh',
           overflowY: 'auto',
@@ -48,13 +46,13 @@ const SearchContent = () => {
       >
         {itemSearchData?.map((item) => (
           <Box
-            key={item.id}
+            key={item?.id}
             sx={{
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
               gap: 2,
-              py: 1,
+              height: 55,
               px: 2,
               borderBottom: '1px solid',
               borderColor: 'divider',

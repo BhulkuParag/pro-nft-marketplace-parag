@@ -1,7 +1,8 @@
 import type { ColDef } from 'ag-grid-community';
 
 export interface AGGridTableProps {
-  columnDefs: ColDef<any>[];
+  // columnDefs: ColDef<any>[];
+  columnDefs: any[];
   rowData: any[];
   loading?: boolean;
 }
@@ -39,12 +40,12 @@ export interface RowData {
   volumeChange: {
     '1day': number;
     '7day': number;
-    '30day': number;
+    '3numberday': number;
   };
   collectionVolume: {
     '1day': number;
     '7day': number;
-    '30day': number;
+    '3numberday': number;
     allTime: number;
   };
   floorAsk: {
@@ -75,12 +76,12 @@ export interface NftSalesT {
   volumeChange: {
     '1day': number;
     '7day': number;
-    '30day': number;
+    '3numberday': number;
   };
   collectionVolume: {
     '1day': number;
     '7day': number;
-    '30day': number;
+    '3numberday': number;
     allTime: number;
   };
   washTradingScore: number;
@@ -160,19 +161,19 @@ export interface ActivityType {
       contract: string;
       name: string;
       symbol: string;
-      decimals: 0;
+      decimals: number;
     };
     amount: {
       raw: string;
-      decimal: 0;
-      usd: 0;
-      native: 0;
+      decimal: number;
+      usd: number;
+      native: number;
     };
     netAmount: {
       raw: string;
-      decimal: 0;
-      usd: 0;
-      native: 0;
+      decimal: number;
+      usd: number;
+      native: number;
     };
   };
   fillSource: {
@@ -182,8 +183,8 @@ export interface ActivityType {
     icon: string;
     url: string;
   };
-  amount: 0;
-  timestamp: 0;
+  amount: number;
+  timestamp: number;
   createdAt: string;
   contract: string;
   token: {
@@ -193,31 +194,31 @@ export interface ActivityType {
       name: string;
       description: string;
     };
-    rarityScore: 0;
-    rarityRank: 0;
+    rarityScore: number;
+    rarityRank: number;
     collection: {
-      volume: 0;
-      volumePercentChange: 0;
-      count: 0;
-      countPercentChange: 0;
+      volume: number;
+      volumePercentChange: number;
+      count: number;
+      countPercentChange: number;
       sampleImages: [string];
       openseaVerificationStatus: string;
       magicedenVerificationStatus: string;
-      onSaleCount: 0;
+      onSaleCount: number;
       volumeChange: {
-        '1day': 0;
-        '7day': 0;
-        '30day': 0;
+        '1day': number;
+        '7day': number;
+        '3numberday': number;
       };
       collectionVolume: {
-        '1day': 0;
-        '7day': 0;
-        '30day': 0;
-        allTime: 0;
+        '1day': number;
+        '7day': number;
+        '3numberday': number;
+        allTime: number;
       };
-      floorAskPercentChange: 0;
-      tokenCount: 0;
-      ownerCount: 0;
+      floorAskPercentChange: number;
+      tokenCount: number;
+      ownerCount: number;
       banner: string;
       description: string;
       floorAsk: {
@@ -228,26 +229,26 @@ export interface ActivityType {
             contract: string;
             name: string;
             symbol: string;
-            decimals: 0;
+            decimals: number;
           };
           amount: {
             raw: string;
-            decimal: 0;
-            usd: 0;
-            native: 0;
+            decimal: number;
+            usd: number;
+            native: number;
           };
           netAmount: {
             raw: string;
-            decimal: 0;
-            usd: 0;
-            native: 0;
+            decimal: number;
+            usd: number;
+            native: number;
           };
         };
         maker: string;
-        validFrom: 0;
-        validUntil: 0;
+        validFrom: number;
+        validUntil: number;
         token: {
-          chainId: 0;
+          chainId: number;
           contract: string;
           tokenId: string;
           name: string;
@@ -266,8 +267,8 @@ export interface ActivityType {
           lastFlagChange: string;
           supply: string;
           remainingSupply: string;
-          rarity: 0;
-          rarityRank: 0;
+          rarity: number;
+          rarityRank: number;
           collection: {
             id: string;
             name: string;
@@ -275,27 +276,27 @@ export interface ActivityType {
             slug: string;
             symbol: string;
             creator: string;
-            tokenCount: 0;
+            tokenCount: number;
             metadataDisabled: true;
             floorAskPrice: {
               currency: {
                 contract: string;
                 name: string;
                 symbol: string;
-                decimals: 0;
+                decimals: number;
               };
               amount: {
                 raw: string;
-                decimal: 0;
-                usd: 0;
-                native: 0;
+                decimal: number;
+                usd: number;
+                native: number;
               };
             };
           };
           owner: string;
           mintedAt: string;
           createdAt: string;
-          decimals: 0;
+          decimals: number;
           mintStages: [{}];
           spam: true;
           nsfw: true;
@@ -317,24 +318,24 @@ export interface ActivityType {
             contract: string;
             name: string;
             symbol: string;
-            decimals: 0;
+            decimals: number;
           };
           amount: {
             raw: string;
-            decimal: 0;
-            usd: 0;
-            native: 0;
+            decimal: number;
+            usd: number;
+            native: number;
           };
           netAmount: {
             raw: string;
-            decimal: 0;
-            usd: 0;
-            native: 0;
+            decimal: number;
+            usd: number;
+            native: number;
           };
         };
         maker: string;
-        validUntil: 0;
-        validFrom: 0;
+        validUntil: number;
+        validFrom: number;
       };
       spam: true;
       nsfw: true;
@@ -349,28 +350,28 @@ export interface ActivityType {
     tokenImage: string;
   };
   collection: {
-    volume: 0;
-    volumePercentChange: 0;
-    count: 0;
-    countPercentChange: 0;
+    volume: number;
+    volumePercentChange: number;
+    count: number;
+    countPercentChange: number;
     sampleImages: [string];
     openseaVerificationStatus: string;
     magicedenVerificationStatus: string;
-    onSaleCount: 0;
+    onSaleCount: number;
     volumeChange: {
-      '1day': 0;
-      '7day': 0;
-      '30day': 0;
+      '1day': number;
+      '7day': number;
+      '3numberday': number;
     };
     collectionVolume: {
-      '1day': 0;
-      '7day': 0;
-      '30day': 0;
-      allTime: 0;
+      '1day': number;
+      '7day': number;
+      '3numberday': number;
+      allTime: number;
     };
-    floorAskPercentChange: 0;
-    tokenCount: 0;
-    ownerCount: 0;
+    floorAskPercentChange: number;
+    tokenCount: number;
+    ownerCount: number;
     banner: string;
     description: string;
     floorAsk: {
@@ -381,26 +382,26 @@ export interface ActivityType {
           contract: string;
           name: string;
           symbol: string;
-          decimals: 0;
+          decimals: number;
         };
         amount: {
           raw: string;
-          decimal: 0;
-          usd: 0;
-          native: 0;
+          decimal: number;
+          usd: number;
+          native: number;
         };
         netAmount: {
           raw: string;
-          decimal: 0;
-          usd: 0;
-          native: 0;
+          decimal: number;
+          usd: number;
+          native: number;
         };
       };
       maker: string;
-      validFrom: 0;
-      validUntil: 0;
+      validFrom: number;
+      validUntil: number;
       token: {
-        chainId: 0;
+        chainId: number;
         contract: string;
         tokenId: string;
         name: string;
@@ -419,8 +420,8 @@ export interface ActivityType {
         lastFlagChange: string;
         supply: string;
         remainingSupply: string;
-        rarity: 0;
-        rarityRank: 0;
+        rarity: number;
+        rarityRank: number;
         collection: {
           id: string;
           name: string;
@@ -428,27 +429,27 @@ export interface ActivityType {
           slug: string;
           symbol: string;
           creator: string;
-          tokenCount: 0;
+          tokenCount: number;
           metadataDisabled: true;
           floorAskPrice: {
             currency: {
               contract: string;
               name: string;
               symbol: string;
-              decimals: 0;
+              decimals: number;
             };
             amount: {
               raw: string;
-              decimal: 0;
-              usd: 0;
-              native: 0;
+              decimal: number;
+              usd: number;
+              native: number;
             };
           };
         };
         owner: string;
         mintedAt: string;
         createdAt: string;
-        decimals: 0;
+        decimals: number;
         mintStages: [{}];
         spam: true;
         nsfw: true;
@@ -470,24 +471,24 @@ export interface ActivityType {
           contract: string;
           name: string;
           symbol: string;
-          decimals: 0;
+          decimals: number;
         };
         amount: {
           raw: string;
-          decimal: 0;
-          usd: 0;
-          native: 0;
+          decimal: number;
+          usd: number;
+          native: number;
         };
         netAmount: {
           raw: string;
-          decimal: 0;
-          usd: 0;
-          native: 0;
+          decimal: number;
+          usd: number;
+          native: number;
         };
       };
       maker: string;
-      validUntil: 0;
-      validFrom: 0;
+      validUntil: number;
+      validFrom: number;
     };
     spam: true;
     nsfw: true;
@@ -509,28 +510,28 @@ export interface ActivityType {
       kind: string;
       data: {
         collection: {
-          volume: 0;
-          volumePercentChange: 0;
-          count: 0;
-          countPercentChange: 0;
+          volume: number;
+          volumePercentChange: number;
+          count: number;
+          countPercentChange: number;
           sampleImages: [string];
           openseaVerificationStatus: string;
           magicedenVerificationStatus: string;
-          onSaleCount: 0;
+          onSaleCount: number;
           volumeChange: {
-            '1day': 0;
-            '7day': 0;
-            '30day': 0;
+            '1day': number;
+            '7day': number;
+            '3numberday': number;
           };
           collectionVolume: {
-            '1day': 0;
-            '7day': 0;
-            '30day': 0;
-            allTime: 0;
+            '1day': number;
+            '7day': number;
+            '3numberday': number;
+            allTime: number;
           };
-          floorAskPercentChange: 0;
-          tokenCount: 0;
-          ownerCount: 0;
+          floorAskPercentChange: number;
+          tokenCount: number;
+          ownerCount: number;
           banner: string;
           description: string;
           floorAsk: {
@@ -541,26 +542,26 @@ export interface ActivityType {
                 contract: string;
                 name: string;
                 symbol: string;
-                decimals: 0;
+                decimals: number;
               };
               amount: {
                 raw: string;
-                decimal: 0;
-                usd: 0;
-                native: 0;
+                decimal: number;
+                usd: number;
+                native: number;
               };
               netAmount: {
                 raw: string;
-                decimal: 0;
-                usd: 0;
-                native: 0;
+                decimal: number;
+                usd: number;
+                native: number;
               };
             };
             maker: string;
-            validFrom: 0;
-            validUntil: 0;
+            validFrom: number;
+            validUntil: number;
             token: {
-              chainId: 0;
+              chainId: number;
               contract: string;
               tokenId: string;
               name: string;
@@ -579,8 +580,8 @@ export interface ActivityType {
               lastFlagChange: string;
               supply: string;
               remainingSupply: string;
-              rarity: 0;
-              rarityRank: 0;
+              rarity: number;
+              rarityRank: number;
               collection: {
                 id: string;
                 name: string;
@@ -588,27 +589,27 @@ export interface ActivityType {
                 slug: string;
                 symbol: string;
                 creator: string;
-                tokenCount: 0;
+                tokenCount: number;
                 metadataDisabled: true;
                 floorAskPrice: {
                   currency: {
                     contract: string;
                     name: string;
                     symbol: string;
-                    decimals: 0;
+                    decimals: number;
                   };
                   amount: {
                     raw: string;
-                    decimal: 0;
-                    usd: 0;
-                    native: 0;
+                    decimal: number;
+                    usd: number;
+                    native: number;
                   };
                 };
               };
               owner: string;
               mintedAt: string;
               createdAt: string;
-              decimals: 0;
+              decimals: number;
               mintStages: [{}];
               spam: true;
               nsfw: true;
@@ -630,24 +631,24 @@ export interface ActivityType {
                 contract: string;
                 name: string;
                 symbol: string;
-                decimals: 0;
+                decimals: number;
               };
               amount: {
                 raw: string;
-                decimal: 0;
-                usd: 0;
-                native: 0;
+                decimal: number;
+                usd: number;
+                native: number;
               };
               netAmount: {
                 raw: string;
-                decimal: 0;
-                usd: 0;
-                native: 0;
+                decimal: number;
+                usd: number;
+                native: number;
               };
             };
             maker: string;
-            validUntil: 0;
-            validFrom: 0;
+            validUntil: number;
+            validFrom: number;
           };
           spam: true;
           nsfw: true;
@@ -664,183 +665,183 @@ export interface ActivityType {
     };
   };
   txHash: string;
-  logIndex: 0;
-  batchIndex: 0;
+  logIndex: number;
+  batchIndex: number;
   comment: string;
 }
 export interface TopMintData {
-  id: 'string';
-  image: 'string';
-  banner: 'string';
-  name: 'string';
-  description: 'string';
+  id: string;
+  image: string;
+  banner: string;
+  name: string;
+  description: string;
   isSpam: true;
   isMinting: true;
-  onSaleCount: 0;
+  onSaleCount: number;
   volumeChange: {
-    '1day': 0;
-    '7day': 0;
-    '30day': 0;
+    '1day': number;
+    '7day': number;
+    '3numberday': number;
   };
   collectionVolume: {
-    '1day': 0;
-    '7day': 0;
-    '30day': 0;
-    allTime: 0;
+    '1day': number;
+    '7day': number;
+    '3numberday': number;
+    allTime: number;
   };
-  contractKind: 'string';
-  tokenCount: 'string';
-  ownerCount: 0;
-  sampleImages: ['string'];
-  mintType: 'string';
+  contractKind: string;
+  tokenCount: string;
+  ownerCount: number;
+  sampleImages: [string];
+  mintType: string;
   mintPrice: {
     currency: {
-      contract: 'string';
-      name: 'string';
-      symbol: 'string';
-      decimals: 0;
+      contract: string;
+      name: string;
+      symbol: string;
+      decimals: number;
     };
     amount: {
-      raw: 'string';
-      decimal: 0;
-      usd: 0;
-      native: 0;
+      raw: string;
+      decimal: number;
+      usd: number;
+      native: number;
     };
   };
-  maxSupply: 0;
-  mintStandard: 'string';
-  createdAt: '2025-06-28T07:56:28.678Z';
-  startDate: '2025-06-28T07:56:28.678Z';
-  endDate: '2025-06-28T07:56:28.678Z';
-  mintCount: 0;
-  sixHourCount: 0;
-  oneHourCount: 0;
-  mintVolume: 0;
-  openseaVerificationStatus: 'string';
+  maxSupply: number;
+  mintStandard: string;
+  createdAt: '2number25-number6-28Tnumber7:56:28.678Z';
+  startDate: '2number25-number6-28Tnumber7:56:28.678Z';
+  endDate: '2number25-number6-28Tnumber7:56:28.678Z';
+  mintCount: number;
+  sixHourCount: number;
+  oneHourCount: number;
+  mintVolume: number;
+  openseaVerificationStatus: string;
   magicedenVerificationStatus: {};
-  mintedTimestamp: 0;
-  lastMintTimestamp: 0;
+  mintedTimestamp: number;
+  lastMintTimestamp: number;
   mintStages: [
     {
-      stage: 'string';
-      kind: 'string';
-      standard: 'string';
-      tokenId: 'string';
+      stage: string;
+      kind: string;
+      standard: string;
+      tokenId: string;
       price: {
         currency: {
-          contract: 'string';
-          name: 'string';
-          symbol: 'string';
-          decimals: 0;
+          contract: string;
+          name: string;
+          symbol: string;
+          decimals: number;
         };
         amount: {
-          raw: 'string';
-          decimal: 0;
-          usd: 0;
-          native: 0;
+          raw: string;
+          decimal: number;
+          usd: number;
+          native: number;
         };
       };
       pricePerQuantity: {};
-      startTime: 0;
-      endTime: 0;
-      maxMints: 0;
-      maxMintsPerWallet: 0;
+      startTime: number;
+      endTime: number;
+      maxMints: number;
+      maxMintsPerWallet: number;
     }
   ];
   floorAsk: {
-    id: 'string';
-    sourceDomain: 'string';
+    id: string;
+    sourceDomain: string;
     price: {
       currency: {
-        contract: 'string';
-        name: 'string';
-        symbol: 'string';
-        decimals: 0;
+        contract: string;
+        name: string;
+        symbol: string;
+        decimals: number;
       };
       amount: {
-        raw: 'string';
-        decimal: 0;
-        usd: 0;
-        native: 0;
+        raw: string;
+        decimal: number;
+        usd: number;
+        native: number;
       };
       netAmount: {
-        raw: 'string';
-        decimal: 0;
-        usd: 0;
-        native: 0;
+        raw: string;
+        decimal: number;
+        usd: number;
+        native: number;
       };
     };
-    maker: 'string';
-    validFrom: 0;
-    validUntil: 0;
+    maker: string;
+    validFrom: number;
+    validUntil: number;
     token: {
-      chainId: 0;
-      contract: 'string';
-      tokenId: 'string';
-      name: 'string';
-      description: 'string';
-      image: 'string';
-      imageSmall: 'string';
-      imageLarge: 'string';
+      chainId: number;
+      contract: string;
+      tokenId: string;
+      name: string;
+      description: string;
+      image: string;
+      imageSmall: string;
+      imageLarge: string;
       metadata: {
-        imageOriginal: 'string';
-        imageMimeType: 'string';
-        tokenURI: 'string';
+        imageOriginal: string;
+        imageMimeType: string;
+        tokenURI: string;
       };
-      kind: 'string';
+      kind: string;
       metadataDisabled: true;
-      lastFlagUpdate: 'string';
-      lastFlagChange: 'string';
-      supply: 'string';
-      remainingSupply: 'string';
-      rarity: 0;
-      rarityRank: 0;
+      lastFlagUpdate: string;
+      lastFlagChange: string;
+      supply: string;
+      remainingSupply: string;
+      rarity: number;
+      rarityRank: number;
       collection: {
-        id: 'string';
-        name: 'string';
-        image: 'string';
-        slug: 'string';
-        symbol: 'string';
-        creator: 'string';
-        tokenCount: 0;
+        id: string;
+        name: string;
+        image: string;
+        slug: string;
+        symbol: string;
+        creator: string;
+        tokenCount: number;
         metadataDisabled: true;
         floorAskPrice: {
           currency: {
-            contract: 'string';
-            name: 'string';
-            symbol: 'string';
-            decimals: 0;
+            contract: string;
+            name: string;
+            symbol: string;
+            decimals: number;
           };
           amount: {
-            raw: 'string';
-            decimal: 0;
-            usd: 0;
-            native: 0;
+            raw: string;
+            decimal: number;
+            usd: number;
+            native: number;
           };
         };
       };
-      owner: 'string';
-      mintedAt: 'string';
-      createdAt: 'string';
-      decimals: 0;
+      owner: string;
+      mintedAt: string;
+      createdAt: string;
+      decimals: number;
       mintStages: [{}];
       nsfw: true;
       spam: true;
       flagged: true;
     };
     source: {
-      id: 'string';
-      domain: 'string';
-      name: 'string';
-      icon: 'string';
-      url: 'string';
+      id: string;
+      domain: string;
+      name: string;
+      icon: string;
+      url: string;
     };
   };
-  creator: 'string';
+  creator: string;
 }
 
 export interface OverviewDetailType {
-  chainId: 0;
+  chainId: number;
   id: string;
   slug: string;
   createdAt: string;
@@ -868,24 +869,24 @@ export interface OverviewDetailType {
     recipient: string;
     breakdown: [
       {
-        bps: 0;
+        bps: number;
         recipient: string;
         required: true;
       }
     ];
-    bps: 0;
+    bps: number;
   };
   allRoyalties: {
     onchain: [
       {
-        bps: 0;
+        bps: number;
         recipient: string;
         required: true;
       }
     ];
     opensea: [
       {
-        bps: 0;
+        bps: number;
         recipient: string;
         required: true;
       }
@@ -899,26 +900,26 @@ export interface OverviewDetailType {
         contract: string;
         name: string;
         symbol: string;
-        decimals: 0;
+        decimals: number;
       };
       amount: {
         raw: string;
-        decimal: 0;
-        usd: 0;
-        native: 0;
+        decimal: number;
+        usd: number;
+        native: number;
       };
       netAmount: {
         raw: string;
-        decimal: 0;
-        usd: 0;
-        native: 0;
+        decimal: number;
+        usd: number;
+        native: number;
       };
     };
     maker: string;
-    validFrom: 0;
-    validUntil: 0;
+    validFrom: number;
+    validUntil: number;
     token: {
-      chainId: 0;
+      chainId: number;
       contract: string;
       tokenId: string;
       name: string;
@@ -937,8 +938,8 @@ export interface OverviewDetailType {
       lastFlagChange: string;
       supply: string;
       remainingSupply: string;
-      rarity: 0;
-      rarityRank: 0;
+      rarity: number;
+      rarityRank: number;
       collection: {
         id: string;
         name: string;
@@ -946,27 +947,27 @@ export interface OverviewDetailType {
         slug: string;
         symbol: string;
         creator: string;
-        tokenCount: 0;
+        tokenCount: number;
         metadataDisabled: true;
         floorAskPrice: {
           currency: {
             contract: string;
             name: string;
             symbol: string;
-            decimals: 0;
+            decimals: number;
           };
           amount: {
             raw: string;
-            decimal: 0;
-            usd: 0;
-            native: 0;
+            decimal: number;
+            usd: number;
+            native: number;
           };
         };
       };
       owner: string;
       mintedAt: string;
       createdAt: string;
-      decimals: 0;
+      decimals: number;
       mintStages: [{}];
       nsfw: true;
       spam: true;
@@ -988,57 +989,57 @@ export interface OverviewDetailType {
         contract: string;
         name: string;
         symbol: string;
-        decimals: 0;
+        decimals: number;
       };
       amount: {
         raw: string;
-        decimal: 0;
-        usd: 0;
-        native: 0;
+        decimal: number;
+        usd: number;
+        native: number;
       };
       netAmount: {
         raw: string;
-        decimal: 0;
-        usd: 0;
-        native: 0;
+        decimal: number;
+        usd: number;
+        native: number;
       };
     };
     maker: string;
-    validUntil: 0;
-    validFrom: 0;
+    validUntil: number;
+    validFrom: number;
   };
   rank: {
-    get_1day: 0;
-    get_7day: 0;
-    get_30day: 0;
-    allTime: 0;
+    get_1day: number;
+    get_7day: number;
+    get_3numberday: number;
+    allTime: number;
   };
   volume: {
-    get_1day: 0;
-    get_7day: 0;
-    get_30day: 0;
-    allTime: 0;
+    get_1day: number;
+    get_7day: number;
+    get_3numberday: number;
+    allTime: number;
   };
   volumeChange: {
-    '1day': 0;
-    '7day': 0;
-    '30day': 0;
+    '1day': number;
+    '7day': number;
+    '3numberday': number;
   };
   floorSale: {
-    get_1day: 0;
-    get_7day: 0;
-    get_30day: 0;
+    get_1day: number;
+    get_7day: number;
+    get_3numberday: number;
   };
   floorSaleChange: {
-    get_1day: 0;
-    get_7day: 0;
-    get_30day: 0;
+    get_1day: number;
+    get_7day: number;
+    get_3numberday: number;
   };
   collectionBidSupported: true;
-  ownerCount: 0;
+  ownerCount: number;
   contractKind: string;
-  mintedTimestamp: 0;
-  lastMintTimestamp: 0;
+  mintedTimestamp: number;
+  lastMintTimestamp: number;
   mintStages: [{}];
   supply: string;
   remainingSupply: string;
@@ -1046,4 +1047,160 @@ export interface OverviewDetailType {
   sharedContract: true;
   nsfw: true;
   spam: true;
+}
+
+export interface ItemT {
+  token?: {
+    chainId: number;
+    contract: string;
+    tokenId: string;
+    name: string;
+    description: string;
+    image: string;
+    imageSmall: string;
+    imageLarge: string;
+    metadata: {
+      imageOriginal: string;
+      imageMimeType: string;
+      tokenURI: string;
+    };
+    kind: string;
+    metadataDisabled: true;
+    lastFlagUpdate: string;
+    lastFlagChange: string;
+    supply: string;
+    remainingSupply: string;
+    rarity: number;
+    rarityRank: number;
+    collection: {
+      id: string;
+      name: string;
+      image: string;
+      slug: string;
+      symbol: string;
+      creator: string;
+      tokenCount: number;
+      metadataDisabled: true;
+      floorAskPrice: {
+        currency: {
+          contract: string;
+          name: string;
+          symbol: string;
+          decimals: number;
+        };
+        amount: {
+          raw: string;
+          decimal: number;
+          usd: number;
+          native: number;
+        };
+      };
+    };
+    owner: string;
+    mintedAt: string;
+    createdAt: string;
+    decimals: number;
+    mintStages: [{}];
+    tokenName: string;
+    tokenImage: string;
+    rarityScore: number;
+    spam: true;
+    nsfw: true;
+    flagged: true;
+  };
+  market: {
+    floorAsk: {
+      id: string;
+      sourceDomain: string;
+      price: {
+        currency: {
+          contract: string;
+          name: string;
+          symbol: string;
+          decimals: number;
+        };
+        amount: {
+          raw: string;
+          decimal: number;
+          usd: number;
+          native: number;
+        };
+        netAmount: {
+          raw: string;
+          decimal: number;
+          usd: number;
+          native: number;
+        };
+      };
+      maker: string;
+      validFrom: number;
+      validUntil: number;
+      token: {
+        chainId: number;
+        contract: string;
+        tokenId: string;
+        name: string;
+        description: string;
+        image: string;
+        imageSmall: string;
+        imageLarge: string;
+        metadata: {
+          imageOriginal: string;
+          imageMimeType: string;
+          tokenURI: string;
+        };
+        kind: string;
+        metadataDisabled: true;
+        lastFlagUpdate: string;
+        lastFlagChange: string;
+        supply: string;
+        remainingSupply: string;
+        rarity: number;
+        rarityRank: number;
+        collection: {
+          id: string;
+          name: string;
+          image: string;
+          slug: string;
+          symbol: string;
+          creator: string;
+          tokenCount: number;
+          metadataDisabled: true;
+          floorAskPrice: {
+            currency: {
+              contract: string;
+              name: string;
+              symbol: string;
+              decimals: number;
+            };
+            amount: {
+              raw: string;
+              decimal: number;
+              usd: number;
+              native: number;
+            };
+          };
+        };
+        owner: string;
+        mintedAt: string;
+        createdAt: string;
+        decimals: number;
+        mintStages: [{}];
+        tokenName: string;
+        tokenImage: string;
+        rarityScore: number;
+        spam: true;
+        nsfw: true;
+        flagged: true;
+      };
+      source: { 
+        id: string;
+        domain: string;
+        name: string;
+        icon: string;
+        url: string;
+      };
+    };
+  };
+  updatedAt: string;
 }

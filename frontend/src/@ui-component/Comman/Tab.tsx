@@ -62,28 +62,28 @@ const CustomTab = ({
       }}
     >
       <Box
-      // sx={
-      //   borderBottom
-      //     ? {
-      //         width: '100%',
-      //         borderBottom: 1,
-      //         borderColor: 'divider',
-      //       }
-      //     : {
-      //         width: '100%',
-      //       }
-      // }
-      sx={{
-        width: '100%',
-        overflowX: 'auto'
-      }}
+        // sx={
+        //   borderBottom
+        //     ? {
+        //         width: '100%',
+        //         borderBottom: 1,
+        //         borderColor: 'divider',
+        //       }
+        //     : {
+        //         width: '100%',
+        //       }
+        // }
+        sx={{
+          width: '100%',
+          overflowX: 'auto',
+        }}
       >
         <Tabs
           value={selectedTab}
           onChange={handleChange}
           aria-label="secondary tabs example"
-          variant='scrollable'
-          >
+          variant="scrollable"
+        >
           {tabs?.map((tab) => (
             <Tab
               key={tab?.value}
@@ -91,6 +91,9 @@ const CustomTab = ({
               disableFocusRipple
               disableTouchRipple
               className="group"
+              sx={{
+                fontSize: 13,
+              }}
               label={
                 tab.icon ? (
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
