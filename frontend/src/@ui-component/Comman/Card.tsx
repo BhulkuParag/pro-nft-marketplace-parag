@@ -5,7 +5,6 @@ import {
   CardActionArea,
   Typography,
   Box,
-  useTheme,
   IconButton
 } from '@mui/material';
 import type { ReactNode } from 'react';
@@ -34,7 +33,6 @@ function CustomCard({
   GrowthIcon,
   priceIcon
 }: CardItem) {
-  const theme = useTheme();
   return (
     <Box component="div">
       <Card
@@ -42,7 +40,8 @@ function CustomCard({
         // key={id}
         sx={{
           minWidth: { xs: 100, lg: 100 },
-          border: `0.5px solid ${theme.palette.custom.borderblack01} `,
+          border: '0.5px solid', 
+          borderColor: 'custom.borderblack01',
           borderRadius: '0.75rem',
           flex: { xs: '0 0 auto', sm: '0 0 auto', lg: '1 ' },
           scrollSnapAlign: { xs: 'start', sm: 'start', md: 'none' },

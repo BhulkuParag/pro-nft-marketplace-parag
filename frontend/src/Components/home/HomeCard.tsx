@@ -163,7 +163,7 @@ function HomeCard() {
           pt: 0.5,
         }}
       >
-        {cards.map((card) => (
+        {cards.map((card: any) => (
           <Box
             component="div"
             key={card.id}
