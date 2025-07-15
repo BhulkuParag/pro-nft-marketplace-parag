@@ -42,92 +42,112 @@ function HomeCard() {
     [dispatch]
   );
 
-  const cards = useMemo(
-    () => [
-      {
-        id: 1,
-        title: 'NFT Mint',
-        helpIcon: <HelpOutlineIcon sx={{
-              fontSize: 18,
-            }}/>,
-        coinIcon: <FaEthereum className="!text-gray-500" />,
-        price: cardData[cardTimeCompare]?.mintCount,
-        // Subprice: '$138,151,460',
-        // PNL: '-4.16% (24h)',
-        // GrowthIcon: <TrendingUpIcon />,
-      },
+  // const cards = useMemo(
+  //   () => [
+  //     {
+  //       id: 1,
+  //       title: 'NFT Mint',
+  //       helpIcon: (
+  //         <HelpOutlineIcon
+  //           sx={{
+  //             fontSize: 18,
+  //           }}
+  //         />
+  //       ),
+  //       coinIcon: <FaEthereum className="!text-gray-500" />,
+  //       price: cardData[cardTimeCompare]?.mintCount,
+  //       // Subprice: '$138,151,460',
+  //       // PNL: '-4.16% (24h)',
+  //       // GrowthIcon: <TrendingUpIcon />,
+  //     },
 
-      {
-        id: 2,
-        title: 'NFT Voulme',
-        helpIcon: <HelpOutlineIcon sx={{
-              fontSize: 18,
-            }}/>,
-        coinIcon: <FaEthereum className="!text-gray-500" />,
-        price: cardData[cardTimeCompare]?.mintVolume,
-        priceIcon: <FaEthereum className="!text-gray-500" />,
-        // Subprice: '$2,135,597.2',
-        // PNL: '-33.22% (24h)',
-        // GrowthIcon: <TrendingUpIcon />,
-      },
+  //     {
+  //       id: 2,
+  //       title: 'NFT Voulme',
+  //       helpIcon: (
+  //         <HelpOutlineIcon
+  //           sx={{
+  //             fontSize: 18,
+  //           }}
+  //         />
+  //       ),
+  //       coinIcon: <FaEthereum className="!text-gray-500" />,
+  //       price: cardData[cardTimeCompare]?.mintVolume,
+  //       priceIcon: <FaEthereum className="!text-gray-500" />,
+  //       // Subprice: '$2,135,597.2',
+  //       // PNL: '-33.22% (24h)',
+  //       // GrowthIcon: <TrendingUpIcon />,
+  //     },
 
-      {
-        id: 3,
-        title: 'NFT Sale',
-        helpIcon: <HelpOutlineIcon sx={{
-              fontSize: 18,
-            }}/>,
-        coinIcon: <FaEthereum className="!text-gray-500" />,
-        price: cardData[cardTimeCompare]?.saleCount,
-        // Subprice: '6030',
-        // PNL: '23.31% (24h)',
-        // GrowthIcon: <TrendingUpIcon />,
-      },
-      {
-        id: 4,
-        title: 'Sale Volume',
-        helpIcon: <HelpOutlineIcon sx={{
-              fontSize: 18,
-            }}/>,
-        coinIcon: <FaEthereum className="!text-gray-500" />,
-        price: cardData[cardTimeCompare]?.saleVolume,
-        priceIcon: <FaEthereum className="!text-gray-500" />,
-        // Subprice: '40,445',
-        // PNL: '126.85% (24h)',
-        // GrowthIcon: <TrendingUpIcon />,
-      },
-      {
-        id: 5,
-        title: 'Total Assets',
-        helpIcon: <HelpOutlineIcon sx={{
-              fontSize: 18,
-            }}/>,
-        coinIcon: <FaEthereum className="!text-gray-500" />,
-        price: cardData[cardTimeCompare]?.totalCount,
-        // Subprice: '25,013',
-        // PNL: '74.97% (24h)',
-        // GrowthIcon: <TrendingUpIcon />,
-      },
-      {
-        id: 6,
-        title: 'Total Volume',
-        helpIcon: (
-          <HelpOutlineIcon
-            sx={{
-              fontSize: 18,
-            }}
-          />
-        ),
-        coinIcon: <FaEthereum className="!text-gray-500" />,
-        price: cardData[cardTimeCompare]?.totalVolume,
-        priceIcon: <FaEthereum className="!text-gray-500" />,
-        // Subprice: '6587',
-        // PNL: '-24.16% (24h)',
-        // GrowthIcon: <TrendingUpIcon />,
-      },
-    ],
-    [cardTimeCompare, dispatch, cardData]
-  );
+  //     {
+  //       id: 3,
+  //       title: 'NFT Sale',
+  //       helpIcon: (
+  //         <HelpOutlineIcon
+  //           sx={{
+  //             fontSize: 18,
+  //           }}
+  //         />
+  //       ),
+  //       coinIcon: <FaEthereum className="!text-gray-500" />,
+  //       price: cardData[cardTimeCompare]?.saleCount,
+  //       // Subprice: '6030',
+  //       // PNL: '23.31% (24h)',
+  //       // GrowthIcon: <TrendingUpIcon />,
+  //     },
+  //     {
+  //       id: 4,
+  //       title: 'Sale Volume',
+  //       helpIcon: (
+  //         <HelpOutlineIcon
+  //           sx={{
+  //             fontSize: 18,
+  //           }}
+  //         />
+  //       ),
+  //       coinIcon: <FaEthereum className="!text-gray-500" />,
+  //       price: cardData[cardTimeCompare]?.saleVolume,
+  //       priceIcon: <FaEthereum className="!text-gray-500" />,
+  //       // Subprice: '40,445',
+  //       // PNL: '126.85% (24h)',
+  //       // GrowthIcon: <TrendingUpIcon />,
+  //     },
+  //     {
+  //       id: 5,
+  //       title: 'Total Assets',
+  //       helpIcon: (
+  //         <HelpOutlineIcon
+  //           sx={{
+  //             fontSize: 18,
+  //           }}
+  //         />
+  //       ),
+  //       coinIcon: <FaEthereum className="!text-gray-500" />,
+  //       price: cardData[cardTimeCompare]?.totalCount,
+  //       // Subprice: '25,013',
+  //       // PNL: '74.97% (24h)',
+  //       // GrowthIcon: <TrendingUpIcon />,
+  //     },
+  //     {
+  //       id: 6,
+  //       title: 'Total Volume',
+  //       helpIcon: (
+  //         <HelpOutlineIcon
+  //           sx={{
+  //             fontSize: 18,
+  //           }}
+  //         />
+  //       ),
+  //       coinIcon: <FaEthereum className="!text-gray-500" />,
+  //       price: cardData[cardTimeCompare]?.totalVolume,
+  //       priceIcon: <FaEthereum className="!text-gray-500" />,
+  //       // Subprice: '6587',
+  //       // PNL: '-24.16% (24h)',
+  //       // GrowthIcon: <TrendingUpIcon />,
+  //     },
+  //   ],
+  //   [cardTimeCompare, dispatch, cardData]
+  // );
 
   useEffect(() => {
     dispatch(fetchTopSalesCardDataRequest());
@@ -163,33 +183,46 @@ function HomeCard() {
           pt: 0.5,
         }}
       >
-        {cards.map((card: any) => (
-          <Box
-            component="div"
-            key={card.id}
-            sx={{
-              width: { lg: '100%', xl: '100%' },
-              minWidth: { xs: 220, sm: 220 }, // <-- Wider minWidth for mobile
-              // maxWidth: { xs: 260, sm: 260 },
-              // flex: { xs: '0 0 auto', sm: '0 0 auto', md: '1 1 0%' },
-              scrollSnapAlign: { xs: 'start', sm: 'start', md: 'none' },
-              borderRadius: '0.75rem',
-              backgroundColor: 'palette.secondary',
-            }}
-          >
-            <Card
-              id={card.id}
-              title={card.title}
-              helpIcon={card.helpIcon}
-              coinIcon={card.coinIcon}
-              price={card.price}
-              priceIcon={card.priceIcon}
-              // Subprice={card.Subprice}
-              // PNL={card.PNL}
-              // GrowthIcon={card.GrowthIcon}
-            />
-          </Box>
-        ))}
+        {cardData[cardTimeCompare]
+          ?.map((m) => ({
+            ...m,
+            priceIcon: <FaEthereum className="!text-gray-500" />,
+            coinIcon: <FaEthereum className="!text-gray-500" />,
+            helpIcon: (
+              <HelpOutlineIcon
+                sx={{
+                  fontSize: 18,
+                }}
+              />
+            ),
+          }))
+          .map((card) => (
+            <Box
+              component="div"
+              key={card.name}
+              sx={{
+                width: { lg: '100%', xl: '100%' },
+                minWidth: { xs: 220, sm: 220 }, // <-- Wider minWidth for mobile
+                // maxWidth: { xs: 260, sm: 260 },
+                // flex: { xs: '0 0 auto', sm: '0 0 auto', md: '1 1 0%' },
+                scrollSnapAlign: { xs: 'start', sm: 'start', md: 'none' },
+                borderRadius: '0.75rem',
+                backgroundColor: 'palette.secondary',
+              }}
+            >
+              <Card
+                // id={card.name}
+                title={card.label}
+                helpIcon={card.helpIcon}
+                coinIcon={card.coinIcon}
+                price={card.value}
+                priceIcon={card.priceIcon}
+                // Subprice={card.Subprice}
+                // PNL={card.PNL}
+                // GrowthIcon={card.GrowthIcon}
+              />
+            </Box>
+          ))}
       </Box>
     </Box>
   );

@@ -48,7 +48,10 @@ export const fetchHomeCard = async (
     period,
   });
   const response = await AXIOS.get<HomeCard>(url);
-  return response.data?.data?.stats ?? {};
+  return response.data?.data?.stats ?? {
+    '1day': [],
+    '7day': [],
+  };
 };
 
 export const fetchTrendingData = async (

@@ -6,7 +6,7 @@ import type {
   TopMintData,
 } from '../../types/table';
 
-import type { GlobalSearchT, HomeCardData } from '../../types/home';
+import type { ChainListT, GlobalSearchT, HomeCardData } from '../../types/home';
 
 export const formatK = (num: number): string => {
   if (num >= 1000) {
@@ -69,7 +69,10 @@ const initialState: HomeState = {
     { label: '24h', value: '1day' },
     { label: '7d', value: '7day' },
   ],
-  cardData: {},
+  cardData: {
+    '1day': [],
+    '7day': [],
+  },
   timeOptions: [
     { label: 'All Time', value: 'all_time' },
     { label: '5m', value: '5m' },
@@ -108,9 +111,14 @@ const homeSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
-    fetchHomeCardSuccess: (state, action: PayloadAction<HomeCardData>) => {
+    fetchHomeCardSuccess: (state, action: PayloadAction<any>) => {
       state.loading = false;
-      state.cardData = action.payload;
+      console.log(
+        'fetchHomeCardSuccess:',
+        action.payload,
+      )
+      state.cardData['1day'] = action.payload['1day'];
+      state.cardData['7day'] = action.payload['7day'];
     },
     fetchHomeCardFailure: (state, action: PayloadAction<string>) => {
       state.loading = false;
