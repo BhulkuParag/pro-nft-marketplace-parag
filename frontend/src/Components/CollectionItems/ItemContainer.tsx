@@ -9,6 +9,7 @@ import { useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   fetchItemsDataRequest,
+  setGrid,
   setLimit,
 } from '../../features/collection/collectionSlice';
 import ActiveTab from '../ActiveTab';
@@ -86,6 +87,10 @@ const ItemContainer = () => {
     ];
   }, []);
 
+  if (itemFilterOpen) {
+    dispatch(setGrid('6'))
+  }
+
   useEffect(() => {
     if (param.id)
       dispatch(fetchItemsDataRequest({ collection: param.id, limit }));
@@ -106,7 +111,6 @@ const ItemContainer = () => {
         display: 'flex',
         alignItems: 'start',
         justifyContent: 'space-between',
-        gap: 1
       }}
     >
       {itemFilterOpen && <FilterSidebar />}

@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import {
   Box,
   Button,
@@ -7,10 +6,28 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-
 const actionBg = '#283b7b'; // the blue “Apply” bar
 
-const ListingPrice: FC = () => {
+const RarityRank = () => {
+  const btnList = [
+    {
+      label: 'Top 1%',
+      value: '1',
+    },
+    {
+      label: 'Top 5%',
+      value: '5',
+    },
+    {
+      label: 'Top 10%',
+      value: '10',
+    },
+    {
+      label: 'All',
+      value: 'all',
+    },
+  ];
+
   return (
     <Box width={270}>
       <Stack spacing={1.5}>
@@ -102,6 +119,27 @@ const ListingPrice: FC = () => {
             }}
           />
         </Stack>
+        <div className="flex justify-between items-center">
+          {btnList.map(({ label, value }) => (
+            <Button
+              key={value}
+              sx={{
+                py: 0.4,
+                // px: 1,
+                // flex: 1,
+                color: 'custom.grey01',
+                fontSize: 11,
+                fontWeight: 'normal',
+                textTransform: 'none',
+                // border: '1px solid',
+                // borderColor: 'background.lightPurple',
+                backgroundColor: 'secondary.main',
+              }}
+            >
+              {label}
+            </Button>
+          ))}
+        </div>
         <Button
           fullWidth
           disableElevation
@@ -128,4 +166,4 @@ const ListingPrice: FC = () => {
   );
 };
 
-export default ListingPrice;
+export default RarityRank;

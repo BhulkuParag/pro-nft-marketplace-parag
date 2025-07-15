@@ -68,7 +68,7 @@ const ItemFilterBar = () => {
             borderColor: 'divider',
             borderRadius: 2,
             color: 'text.secondary',
-            // mb: 0.2,
+            mb: 0.1,
           }}
           disableTouchRipple
           disableRipple
