@@ -1,4 +1,5 @@
 FROM maven:3.9.4-eclipse-temurin-21 AS build
+WORKDIR /pro-nft-marketplace-parag/backend
 COPY backend .
 RUN mvn clean package -DskipTests
 
